@@ -1,0 +1,13 @@
+{
+  "id": "bk-acc-01HXYZ9999",
+  "companyId": "cmp-01HXYZ1111",
+  "code": "6010",
+  "name": "Travel & Entertainment",
+  "externalId": "6010-TE",
+  "taxCodeExternalId": "VAT25",
+  "archived": false,
+  "metadata": {
+    "glCode": "6010",
+    "department": "Engineering"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "required": [
+    "applicationId",
+    "createdAt",
+    "id",
+    "metadata",
+    "resource",
+    "status",
+    "updatedAt"
+  ],
+  "type": "object",
+  "properties": {
+    "applicationId": {
+      "type": "string",
+      "description": "The unique identifier of the application this installation is for.",
+      "format": "uuid",
+      "readOnly": true,
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "The date and time when the installation was created.",
+      "format": "date-time",
+      "readOnly": true,
+      "example": "2021-01-01T00:00:00Z"
+    },
+    "errorCode": {
+      "type": "string",
+      "description": "Explains the error that inactivated the installation. This appear if the installation status is inactive.",
+      "readOnly": true,
+      "example": "NOT_ENTITLED"
+    },
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the installation.",
+      "format": "uuid",
+      "readOnly": true,
+      "example": "123e4567-e89b-12d3-a456-426614174000"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Additional information about the installation.",
+        "example": {
+          "key": "value"
+        }
+      },
+      "description": "Additional information about the installation.",
+      "example": {
+        "key": "value"
+      }
+    },
+    "resource": {
+      "type": "string",
+      "description": "The resource that the installation is for.",
+      "readOnly": true,
+      "example": "urn:pleo:company:123e4567-e89b-12d3-a456-426614174000"
+    },
+    "status": {
+      "type": "string",
+      "description": "This can be one of InstallationStatus values",
+      "example": "ACTIVATED"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "The date and time when the installation was last updated.",
+      "format": "date-time",
+      "readOnly": true,
+      "example": "2021-01-01T00:00:00Z"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InstallationResponse"
+}

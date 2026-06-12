@@ -1,0 +1,63 @@
+{
+  "required": [
+    "archived",
+    "code",
+    "companyId",
+    "createdAt",
+    "dimensions",
+    "id",
+    "name",
+    "updatedAt"
+  ],
+  "type": "object",
+  "properties": {
+    "archived": {
+      "type": "boolean",
+      "description": "This tag group is not used anymore",
+      "example": false
+    },
+    "code": {
+      "type": "string",
+      "description": "External identifier of the Tag group / Dimension used for mapping to accounting system",
+      "example": "5524f270-6c21-11ee-b962-0242ac120002"
+    },
+    "companyId": {
+      "type": "string",
+      "description": "Unique identifier of the company the Tag Group belongs to",
+      "format": "uuid",
+      "example": "c04c7e9e-6c15-11ee-b962-0242ac120003"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Creation date and time",
+      "format": "date-time",
+      "example": "2023-08-23T03:11:48.000Z"
+    },
+    "dimensions": {
+      "type": "array",
+      "description": "List of all the dimensions associated with this tag group",
+      "items": {
+        "$ref": "#/components/schemas/AggregatedTagGroupDimensionModel"
+      }
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of Tag Group (generated on creation)",
+      "format": "uuid",
+      "example": "c04c7e9e-6c15-11ee-b962-0242ac120002"
+    },
+    "name": {
+      "type": "string",
+      "description": "User readable name of Tag Group",
+      "example": "Projects"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Date and time of the last update",
+      "format": "date-time",
+      "example": "2023-08-23T03:11:48.000Z"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AggregatedTagGroupModel"
+}

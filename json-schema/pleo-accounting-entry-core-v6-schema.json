@@ -1,0 +1,211 @@
+{
+  "required": [
+    "companyId",
+    "createdAt",
+    "exportStatus",
+    "family",
+    "fees",
+    "id",
+    "performedAt",
+    "receiptIds",
+    "reviewStatus",
+    "status",
+    "transactionValue",
+    "updatedAt"
+  ],
+  "type": "object",
+  "properties": {
+    "accountCode": {
+      "type": "string",
+      "description": "The account code allocated to the specific accounting entry. For example, an expense incurred for meals and drinks account would have a specific account code."
+    },
+    "accountId": {
+      "type": "string",
+      "description": "Unique identification number of the account (Category) allocated to the transaction. If `I don't know` is selected, then in the API endpoint response, `\"00000000-0000-0000-0000-000000000000\"` is returned, implying no category is yet selected for the specific accounting entry. ",
+      "format": "uuid"
+    },
+    "bookkeepingDate": {
+      "type": "string",
+      "description": "The date when the transaction was settled, except for out of pocket expenses; for out of pocket expense, the bookkeeping date is when the purchase was done.",
+      "format": "date-time"
+    },
+    "companyId": {
+      "type": "string",
+      "description": "The unique identifier of the company that to which the accounting entry belongs.",
+      "format": "uuid"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "The date and time when the specific accounting entry is created.",
+      "format": "date-time"
+    },
+    "deletedAt": {
+      "type": "string",
+      "description": "If the accounting entry is deleted, this field specifies the date and time of deletion.",
+      "format": "date-time"
+    },
+    "employeeId": {
+      "type": "string",
+      "description": "The unique identifier of the employee who incurred the expense.",
+      "format": "uuid"
+    },
+    "exportStatus": {
+      "type": "string",
+      "description": "This can be one of `ExportStatus` values.\n\n`CREATED`: The accounting entry has been created.\n`EXPORTED`: The accounting entry has been exported.\n`EXPORTING`: The accounting entry is in the process of being exported.\n`QUEUED`: The accounting entry is in the queue to be exported.\n",
+      "example": "CREATED"
+    },
+    "externalAccountId": {
+      "type": "string",
+      "description": "The external id of the account specified for this accounting entry.",
+      "format": "uuid"
+    },
+    "family": {
+      "type": "string",
+      "description": "This can be one of `AccountingEntryFamily` values.\n\n`BALANCE_AMENDMENT`: Represents manual wallet balance adjustments, often through human intervention.\n`BILL_INVOICE`: Represents an invoice issued to the company. If payment of the invoice is made via Pleo, the payment is recorded separately, using the `BILL_INVOICE_PAYMENT` family.\n`CARD_PURCHASE`: Represents a purchase made using a physical or virtual Pleo card.\n`CASHBACK`: An amount of money that is returned to the company through Pleo cashback.\n`CREDIT_NOTE`: Represents a credit note issued to the company, stored only in the accounting entry metadata table.\n`MILEAGE`: Represents a Mileage expense incurred by an employee. The amount is owed to the employee.\n`OUT_OF_POCKET`: Represents an amount that is spent by an employee out of their own pocket. The amount is owed to the employee.\n`OVERDRAFT`: Represents either the monthly subscription fee for using Pleo Overdraft, or a the interest incurred on an existing overdraft.\n`PER_DIEM`: Represents a daily allowance given to an employee during travel - the amount is owed to the employee.\n`PLEO_INVOICE`: Represents the SaaS invoice from Pleo to the company.\n`REIMBURSEMENT`: Represents a reimbursement from the company to the employee or vice-versa.\n`WALLET`: Represents a top up or withdrawal on the Pleo wallet\n`BILL_INVOICE_PAYMENT`: Represents a payment of an invoice from the company wallet.\n",
+      "example": "BALANCE_AMENDMENT"
+    },
+    "fees": {
+      "type": "object",
+      "additionalProperties": {
+        "description": "A mapping of fee type to fee amount, for example foreign transaction fees.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Money"
+          }
+        ]
+      },
+      "description": "A mapping of fee type to fee amount, for example foreign transaction fees."
+    },
+    "foreignExtensionId": {
+      "type": "string",
+      "description": "This is an auto-generated ID that populates when the Accounting Entries API endpoints interact with other Pleo APIs."
+    },
+    "grossBillValue": {
+      "description": "**DEPRECATED** Please use the Tax Calculation API instead. Bill value **before** taxes. Currency is the same as `transactionWalletValue`",
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/Money"
+        }
+      ]
+    },
+    "id": {
+      "type": "string",
+      "description": "The unique identifier of the specific accounting entry.",
+      "format": "uuid"
+    },
+    "netBillValue": {
+      "description": "**DEPRECATED** Please use the Tax Calculation API instead. Bill value **after** taxes. Currency is the same as `transactionWalletValue`",
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/Money"
+        }
+      ]
+    },
+    "note": {
+      "type": "string",
+      "description": "An optional note that can be added to the accounting entry."
+    },
+    "performedAt": {
+      "type": "string",
+      "description": "The date and time when the transaction was performed.",
+      "format": "date-time"
+    },
+    "receiptIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "IDs of any receipts associated with the specific accounting entry.",
+      "items": {
+        "type": "string",
+        "description": "IDs of any receipts associated with the specific accounting entry.",
+        "format": "uuid"
+      }
+    },
+    "reconciliationId": {
+      "type": "string",
+      "description": "The id of the specific reconciliation that was used to export and book this accounting entry.",
+      "example": "4113617"
+    },
+    "reviewStatus": {
+      "type": "string",
+      "description": "This can be one of `ReviewStatus` values.\n\n`NOT_OK`: The accounting entry has been reviewed as `Not OK`.\n`NOT_REQUIRED`: The accounting entry does not require review.\n`NOT_SET`: The accounting entry has not been reviewed yet.\n`OK`: The accounting entry has been reviewed as `OK`.\n`WAITING_FOR_EXPENSE_OWNER`: The accounting entry is waiting for more details from the Expense Owner.\n`WAITING_FOR_REVIEWER`: The accounting entry is waiting for review by a reviewer.\n`WAITING_FOR_COMPANY_REVIEWER`: The accounting entry is waiting for review by a company reviewer.\n`WAITING_FOR_TEAM_REVIEWER`: The accounting entry is waiting for review by a team reviewer.\n`WAITING_FOR_TAG_REVIEWER`: The accounting entry is waiting for review by a tag reviewer.\n",
+      "example": "NOT_OK"
+    },
+    "settledAt": {
+      "type": "string",
+      "description": "The date and time when the transaction was settled. For example in the case of a card purchase, the date when the transaction was finalized.",
+      "format": "date-time"
+    },
+    "spendTransactionIds": {
+      "uniqueItems": true,
+      "type": "array",
+      "description": "A list of IDs of spend transactions associated with the specific accounting entry.",
+      "items": {
+        "type": "string",
+        "description": "A list of IDs of spend transactions associated with the specific accounting entry.",
+        "format": "uuid"
+      }
+    },
+    "status": {
+      "type": "string",
+      "description": "This can be one of `AccountingEntryStatus` values.\n\n`DRAFT`: The accounting entry is still in a work-in-progress stage; the details might change.\n`PENDING`: Payment is in progress. The transaction amount in the specific currency is final, yet the funds have not\n  yet been settled.> \u26a0\ufe0f **Note**: The customer can no longer cancel this expense.\n> amount/currency is fixed, funds have been reserved but not yet settled,\n> and expense can no longer be canceled by user\n`COMPLETED`: The transaction is complete, implying the funds have been settled for the final bill amount.\n`COMPLETED_EXTERNALLY`: Payment has completed *outside of Pleo*. Hence, it does not impact the Pleo wallet\n`CANCELLED`: Canceled by user, Pleo, or an external party\n`REJECTED`: Rejected by user, Pleo or an external party\n`ERROR`: An error prevented the accounting entry from being settled\n",
+      "example": "DRAFT"
+    },
+    "subFamily": {
+      "type": "string",
+      "description": "This can be one of `AccountingEntrySubFamily` values.\n\n`ATM`: A `CARD_PURCHASE` that was performed at an ATM.\n`IN_STORE`: A `CARD_PURCHASE` that was performed at a physical store.\n`ONLINE`: A `CARD_PURCHASE` that was performed online.\n`PLEO_INVOICE`: A `PLEO_INVOICE` that was paid.\n`PLEO_INVOICE_REFUND`: A `PLEO_INVOICE` that was refunded.\n`REIMBURSEMENT_TO_COMPANY`: A `REIMBURSEMENT` was made to the company.\n`REIMBURSEMENT_TO_EMPLOYEE`: A `REIMBURSEMENT` was made to the employee.\n`REIMBURSEMENT_TO_EMPLOYEE_REFUND`: A `REIMBURSEMENT` to the employee was refunded.\n`LOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` load.\n`UNLOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` unload - Money leaves the Pleo wallet.\n`WITHDRAWAL`: A `WALLET` withdrawal.\n`FEE`: A monthly fee paid for using overdraft.\n`INTEREST`: Interest paid for the amount over drafted.\n`BILL_INVOICE_PAYMENT_RETURNED`: A `BILL_INVOICE_PAYMENT` that was returned.\n`BILL_INVOICE_PAYMENT_RECEIVED`: A `BILL_INVOICE_PAYMENT` that was received.\n",
+      "example": "ATM"
+    },
+    "supplier": {
+      "$ref": "#/components/schemas/AccountingEntrySupplier"
+    },
+    "taxBillValue": {
+      "description": "**DEPRECATED** Please use the Tax Calculation API instead. Specifies the tax amount. Currency is the same as `transactionWalletValue`",
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/Money"
+        }
+      ]
+    },
+    "taxCodeId": {
+      "type": "string",
+      "description": "A unique identifier that references the specific `TaxCode` applied to the specific accounting entry.",
+      "format": "uuid"
+    },
+    "teamId": {
+      "type": "string",
+      "description": "A unique identifier of the team to which the accounting entry belongs. For example, an accounting entry is associated with the Design team of a company. So, the entry specifies the Design Team ID",
+      "format": "uuid"
+    },
+    "totalBillValue": {
+      "description": "The total amount that is either debited or credited from the Pleo wallet of the company.\n- Could be more than the `transactionWalletValue` as in a card purchase,  payment processing fees are included.\n- `BILL_INVOICE` includes scheduled payments. They are included in the `totalBillValue`, yet they do not impact the actual Pleo wallet balance.",
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/Money"
+        }
+      ]
+    },
+    "transactionValue": {
+      "description": " The transaction amount in the specific currency the payment was performed. For example, an expense is incurred in France. So the value returned is in Euro ( EUR ).",
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/Money"
+        }
+      ]
+    },
+    "transactionWalletValue": {
+      "description": "The transaction amount  in the functional currency of the company. For example, a company is based in the United Kingdom. An employee incurs an expense in France. The `transactionWalletValue` is the amount in Great Britain Pound ( GBP ) equivalent to the Euro ( EUR ) spent for the purchase. ",
+      "allOf": [
+        {
+          "$ref": "#/components/schemas/Money"
+        }
+      ]
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Specifies the date and time when details of the specific accounting entry is modified.",
+      "format": "date-time"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AccountingEntryCoreV6"
+}

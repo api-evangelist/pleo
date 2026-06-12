@@ -1,0 +1,56 @@
+{
+  "required": [
+    "archived",
+    "companyId",
+    "externalId",
+    "name"
+  ],
+  "type": "object",
+  "properties": {
+    "archived": {
+      "type": "boolean",
+      "description": "Boolean flag used to determine if the account is archived."
+    },
+    "code": {
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string",
+      "description": "Account code or number used in the accounting system's chart of accounts.",
+      "nullable": true
+    },
+    "companyId": {
+      "type": "string",
+      "description": "Pleo's internal identifier for the company the account is associated with.",
+      "format": "uuid"
+    },
+    "externalId": {
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string",
+      "description": "\n            Unique external identifier of account, assigned in the external ERP/accounting system. \n            Can be the same as code if no other identifier is available.\n        "
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Place for API users to store flexible data.",
+        "nullable": true
+      },
+      "description": "Place for API users to store flexible data.",
+      "nullable": true
+    },
+    "name": {
+      "maxLength": 255,
+      "minLength": 0,
+      "type": "string",
+      "description": "Name of the account."
+    },
+    "taxCodeExternalId": {
+      "type": "string",
+      "description": "\n            The identifier in **the target system** for the tax code the account is associated with.\n            - This is NOT the tax percentage (e.g. 20%)\n            - This is NOT the Pleo UUID of the tax code\n        ",
+      "nullable": true
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BookkeepingAccountCreateRequestV4"
+}

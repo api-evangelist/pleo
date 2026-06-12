@@ -1,0 +1,15 @@
+{
+  "id": "exp-01HXYZ0000",
+  "companyId": "cmp-01HXYZ1111",
+  "status": "COMPLETED",
+  "integrationKey": "xero",
+  "accountingMethod": "ACCRUAL",
+  "itemCount": 47,
+  "exportedAt": "2026-06-11T23:59:59Z",
+  "createdAt": "2026-06-11T22:00:00Z",
+  "updatedAt": "2026-06-11T23:59:59Z",
+  "createdBy": {
+    "employeeId": "emp-01HXYZ2222",
+    "name": "Jane Accountant"
+  }
+}

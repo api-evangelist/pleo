@@ -1,0 +1,35 @@
+{
+  "required": [
+    "receipts"
+  ],
+  "type": "object",
+  "properties": {
+    "receipts": {
+      "type": "array",
+      "description": "List of Base64 encoded ByteArray as string",
+      "example": [
+        "JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoK",
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+      ],
+      "items": {
+        "type": "string",
+        "example": "[\"JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoK\",\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"]"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of Tags in UUID format",
+      "example": [
+        "ef6f10a1-e608-418b-99f1-08150a9ae129",
+        "c111b173-d9da-4117-ab70-8f4b8acf496d"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid",
+        "example": "[\"ef6f10a1-e608-418b-99f1-08150a9ae129\",\"c111b173-d9da-4117-ab70-8f4b8acf496d\"]"
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AccountingEntryEnrichmentV2BodyRequest"
+}

@@ -1,0 +1,178 @@
+vocabulary:
+  name: Pleo API Vocabulary
+  description: >
+    Terms, concepts, and domain objects used across the Pleo REST APIs for
+    business spend management, expense tracking, bookkeeping, and accounting
+    integration.
+  url: https://developers.pleo.io
+  version: 1.0.0
+
+terms:
+
+  # Core Business Concepts
+  - term: AccountingEntry
+    description: >
+      A bookkeeping record representing a financial transaction in Pleo,
+      such as a card purchase, reimbursement, or invoice payment, enriched
+      with receipt and categorisation data.
+    type: object
+    source: Gjoll API
+
+  - term: BookkeepingAccount
+    description: >
+      A chart-of-accounts record mapping to a nominal ledger code in the
+      connected accounting system; used to categorise expenses during export.
+    type: object
+    source: Bookkeeping Core API
+
+  - term: ExportJob
+    description: >
+      A batch operation that packages accounting entries for delivery to an
+      ERP or accounting system. Jobs progress through statuses (pending,
+      processing, completed, failed).
+    type: object
+    source: Export API
+
+  - term: ExportItem
+    description: >
+      An individual accounting entry line included in an export job, carrying
+      the ledger coding, VAT, and receipt status for a single spend event.
+    type: object
+    source: Export API
+
+  - term: Vendor
+    description: >
+      A supplier or merchant entity maintained in Pleo's vendor registry,
+      used to auto-categorise card transactions and reimbursements.
+    type: object
+    source: Vendors API
+
+  - term: TagGroup
+    description: >
+      A named dimension (e.g. Project, Department, Location) under which
+      tags are organised for cost-centre tracking and reporting.
+    type: object
+    source: Tags API / Gjoll API
+
+  - term: Tag
+    description: >
+      A label belonging to a tag group, applied to accounting entries for
+      multi-dimensional cost allocation.
+    type: object
+    source: Tags API / Gjoll API
+
+  - term: TaxCode
+    description: >
+      A VAT or sales-tax code defining the applicable rate and treatment for
+      a spend category, used during bookkeeping export.
+    type: object
+    source: Tax Code API
+
+  - term: Employee
+    description: >
+      A Pleo user (cardholder or budget owner) within a company, with an
+      assigned role, spending limits, and card entitlements.
+    type: object
+    source: Oberon API
+
+  - term: Company
+    description: >
+      A legal entity registered in Pleo. A single Pleo organisation may
+      contain multiple companies across different countries.
+    type: object
+    source: Oberon API
+
+  - term: WebhookSubscription
+    description: >
+      A registered endpoint that receives real-time event notifications for
+      Pleo spend events (e.g. purchase authorised, expense reviewed).
+    type: object
+    source: Webhook Subscriptions API
+
+  - term: Installation
+    description: >
+      An instance of a partner integration installed by a Pleo company via
+      the App Marketplace, representing the OAuth grant and configuration.
+    type: object
+    source: App Marketplace API
+
+  - term: Receipt
+    description: >
+      An image or document attached to an accounting entry as proof of
+      purchase, uploaded by the cardholder or auto-captured.
+    type: object
+    source: Gjoll API
+
+  - term: ChartOfAccounts
+    description: >
+      The structured list of nominal ledger accounts imported from or synced
+      with the connected accounting system.
+    type: object
+    source: Chart of Accounts API
+
+  # Authentication & Access
+  - term: BearerToken
+    description: >
+      A JWT issued by Pleo's OAuth 2.0 server (with PKCE support) used as
+      the primary authentication credential for API calls.
+    type: string
+    source: All APIs
+
+  - term: ApiKey
+    description: >
+      A long-lived credential issued to integration partners for server-to-
+      server calls where OAuth user context is not required.
+    type: string
+    source: All APIs
+
+  - term: Scope
+    description: >
+      A permission boundary declared in the OAuth 2.0 token controlling
+      which resources and operations a client may access (e.g.
+      accounting:read, export:write).
+    type: string
+    source: App Marketplace API
+
+  # Pagination
+  - term: CursorPagination
+    description: >
+      A pagination strategy using an opaque cursor token to retrieve the
+      next page of results, ensuring stable iteration over large datasets.
+    type: object
+    source: All APIs
+
+  - term: PageOrder
+    description: >
+      Sort direction (ASC or DESC) applied to paginated list results.
+    type: string
+    source: Bookkeeping Core API
+
+  # Export Workflow
+  - term: ExportJobEvent
+    description: >
+      A lifecycle event recorded against an export job (e.g. created,
+      submitted, completed) used for audit and reconciliation.
+    type: object
+    source: Export API
+
+  # Accounting Classification
+  - term: AccountingEntryFamily
+    description: >
+      Top-level classification of a spend event (e.g. PURCHASE, REFUND,
+      REIMBURSEMENT, FX_FEE).
+    type: string
+    source: Gjoll API
+
+  - term: AccountingEntryStatus
+    description: >
+      Processing state of an accounting entry (e.g. READY, EXPORTED,
+      REVIEW_REQUIRED).
+    type: string
+    source: Gjoll API
+
+  - term: Dimension
+    description: >
+      An additional attribute axis within a tag group allowing tags to carry
+      structured metadata values (e.g. GL code, cost centre code).
+    type: object
+    source: Tags API

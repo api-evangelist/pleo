@@ -1,0 +1,268 @@
+openapi: 3.0.1
+info:
+  title: Triton API
+  description: Triton OpenAPI definitions
+  termsOfService: https://pleo.io/terms/
+  contact:
+    email: apiteam@pleo.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 8.6.1
+servers:
+- url: https://external.pleo.io
+  description: Production server
+- url: https://external.staging.pleo.io
+  description: Staging server
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: health
+- name: authenticated
+- name: storebox
+paths:
+  /v2/accounting-entries:enrich:
+    post:
+      tags:
+      - AccountingEntryEnrichmentV2
+      summary: Enrich Accounting Entry V2
+      description: Enriches an existing Pleo card accounting entry by attaching one
+        or more receipts and applying optional cost categorisation tags. Pleo identifies
+        the matching entry using the transaction details provided as query parameters.
+        Use this endpoint for all new implementations.
+      operationId: enrichAccountingEntryV2
+      parameters:
+      - name: email
+        in: query
+        description: Email address of the Pleo user who made the purchase. Used as
+          an optional matching parameter.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Email address of the Pleo user who made the purchase. Used
+            as an optional matching parameter.
+      - name: performed_at
+        in: query
+        description: ISO 8601 timestamp of when the purchase was authorised (i.e.
+          when the transaction happened). Either `performed_at` or `settled_at` must
+          be provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: ISO 8601 timestamp of when the purchase was authorised (i.e.
+            when the transaction happened). Either `performed_at` or `settled_at`
+            must be provided.
+      - name: settled_at
+        in: query
+        description: ISO 8601 timestamp of when the purchase was settled (i.e. when
+          the funds were transferred). Either `performed_at` or `settled_at` must
+          be provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: ISO 8601 timestamp of when the purchase was settled (i.e. when
+            the funds were transferred). Either `performed_at` or `settled_at` must
+            be provided.
+      - name: amount
+        in: query
+        description: Transaction amount in minor units (e.g. 1500 represents €15.00).
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          description: Transaction amount in minor units (e.g. 1500 represents €15.00).
+          format: int64
+      - name: currency
+        in: query
+        description: ISO 4217 currency code of the transaction (e.g. EUR, GBP, DKK).
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: ISO 4217 currency code of the transaction (e.g. EUR, GBP, DKK).
+      - name: card_last_four_digits
+        in: query
+        description: Last four digits of the Pleo card used for the transaction. Used
+          as a matching parameter to identify the correct accounting entry.
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Last four digits of the Pleo card used for the transaction.
+            Used as a matching parameter to identify the correct accounting entry.
+      - name: merchant_name
+        in: query
+        description: Name of the merchant as it appears on the transaction.
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Name of the merchant as it appears on the transaction.
+      requestBody:
+        description: Request body containing receipts and optional tags
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingEntryEnrichmentV2BodyRequest'
+        required: true
+      responses:
+        '200':
+          description: No matching accounting entry found. The receipt has been stored
+            in the Receipt Inbox for manual resolution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseAccountingEntryEnrichmentResponse'
+              example:
+                data:
+                  receiptStatus: ADDED_TO_RECEIPT_INBOX
+        '201':
+          description: Matching accounting entry found. The receipt has been attached
+            and tags applied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseAccountingEntryEnrichmentResponse'
+              example:
+                data:
+                  accountingEntryId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                  receiptStatus: UPLOADED
+        '202':
+          description: Request accepted. Pleo will retry matching the receipt to an
+            accounting entry asynchronously.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseAccountingEntryEnrichmentResponse'
+              example:
+                data:
+                  receiptStatus: ACCEPTED
+        '404':
+          description: Request could not be processed. The card, employee, or one
+            or more tag IDs were not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseAccountingEntryEnrichmentResponse'
+              examples:
+                CardNotFound:
+                  description: CardNotFound
+                  value:
+                    data:
+                      receiptStatus: UNRESOLVED
+                      message: Card not found
+                EmployeeNotFound:
+                  description: EmployeeNotFound
+                  value:
+                    data:
+                      receiptStatus: UNRESOLVED
+                      message: Employee not found
+                TagsNotFound:
+                  description: TagsNotFound
+                  value:
+                    data:
+                      receiptStatus: UNRESOLVED
+                      message: Tags not found
+components:
+  schemas:
+    AccountingEntryEnrichmentResponse:
+      type: object
+      properties:
+        accountingEntryId:
+          type: string
+          description: The unique identifier of the accounting entry that was matched
+            and enriched. Only present when receiptStatus is UPLOADED.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        receiptStatus:
+          type: string
+          description: This can be one of ReceiptStatus values
+          example: ADDED_TO_RECEIPT_INBOX
+        tags:
+          type: array
+          description: List of tag UUIDs that were applied to the accounting entry.
+          example:
+          - 00000000-0000-0000-0000-000000000000
+          items:
+            type: string
+            format: uuid
+      description: The result of an enrichment request.
+    AccountingEntryEnrichmentV2BodyRequest:
+      required:
+      - receipts
+      type: object
+      properties:
+        receipts:
+          type: array
+          description: List of Base64 encoded ByteArray as string
+          example:
+          - JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoK
+          - iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==
+          items:
+            type: string
+            example: '["JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoK","iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="]'
+        tags:
+          type: array
+          description: List of Tags in UUID format
+          example:
+          - ef6f10a1-e608-418b-99f1-08150a9ae129
+          - c111b173-d9da-4117-ab70-8f4b8acf496d
+          items:
+            type: string
+            format: uuid
+            example: '["ef6f10a1-e608-418b-99f1-08150a9ae129","c111b173-d9da-4117-ab70-8f4b8acf496d"]'
+    DataResponseAccountingEntryEnrichmentResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AccountingEntryEnrichmentResponse'
+    ReceiptStatus:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | ADDED_TO_RECEIPT_INBOX | Represents receipts added to Pleo''s Receipt Inbox
+        in the event of no matched Accounting Entry with the transaction details.
+        |
+
+        | UPLOADED | Represents receipts uploaded to an Accounting Entry which was
+        matched with the transaction details. |
+
+        | UNRESOLVED | Represents that the system was unable to process the provided
+        receipt. It was neither Uploaded nor Added to Receipt Inbox |
+
+        | ACCEPTED | Represents that the system accepted the provided request, and
+        will retry matching later. It will either be uploaded to Receipt Inbox or
+        be Uploaded to an Accounting Entry. |'
+      enum:
+      - ADDED_TO_RECEIPT_INBOX
+      - UPLOADED
+      - UNRESOLVED
+      - ACCEPTED
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Bearer token authentication. Include the token in the Authorization
+        header as: `Bearer <token>`'
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      description: Basic HTTP authentication using API key. Use your API key as the
+        username and leave the password empty. The credentials will be Base64 encoded
+        automatically.
+      scheme: basic

@@ -1,0 +1,20 @@
+{
+  "required": [
+    "data",
+    "pagination"
+  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ExternalCompanyResponseModel"
+      }
+    },
+    "pagination": {
+      "$ref": "#/components/schemas/CursorPageInfo"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CursorPaginatedResponseExternalCompanyResponseModel"
+}

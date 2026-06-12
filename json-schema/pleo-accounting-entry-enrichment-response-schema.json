@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "accountingEntryId": {
+      "type": "string",
+      "description": "The unique identifier of the accounting entry that was matched and enriched. Only present when receiptStatus is UPLOADED.",
+      "format": "uuid",
+      "example": "00000000-0000-0000-0000-000000000000"
+    },
+    "receiptStatus": {
+      "type": "string",
+      "description": "This can be one of ReceiptStatus values",
+      "example": "ADDED_TO_RECEIPT_INBOX"
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of tag UUIDs that were applied to the accounting entry.",
+      "example": [
+        "00000000-0000-0000-0000-000000000000"
+      ],
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    }
+  },
+  "description": "The result of an enrichment request.",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AccountingEntryEnrichmentResponse"
+}

@@ -1,0 +1,4290 @@
+openapi: 3.0.1
+info:
+  title: Gjoll API
+  description: Gjoll OpenAPI definitions
+  termsOfService: https://pleo.io/terms/
+  contact:
+    email: team-accounting-core@pleo.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 82.3.2
+servers:
+- url: https://external.pleo.io
+  description: Production server
+- url: https://external.staging.pleo.io
+  description: Staging server
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: reconciliation
+  description: Reconciliation API
+- name: accounts
+  description: Accounts API
+- name: categories
+  description: Categories API
+- name: tax-codes
+  description: Tax Codes API
+- name: accounting-entries
+  description: "The Accounting Entries API endpoints enable you to perform the following:\n\
+    \  - Apply filters and search for accounting entries and accounting receipts.\n\
+    \  - Retrieve list of accounting entries and accounting receipts.\n  - Retrieve\
+    \ details of a specific accounting entry."
+paths:
+  /v0/aggregations/tag-groups:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve the tag groups for a company or an organisation in aggregated
+        format
+      description: "\n            ⚠️ Attention: either the `company_id` or the `organization_id`\
+        \ query parameter MUST be provided. \n            If you supply both, the\
+        \ `company_id` will be used. If you supply neither, the request will fail.\
+        \ \n            If you supply the `company_id`, the response will contain\
+        \ only the tag groups for that company.\n            If you supply the `organization_id`,\
+        \ the response will contain the tag groups for all companies in the organization.\n\
+        \            If you supply the `company_id` and the `organization_id`, the\
+        \ response will contain only the tag groups for the company. \n          \
+        \  If you supply the `tag_group_ids` query parameter, the response will contain\
+        \ only the tag groups with the given ids, including archived ones.\n     \
+        \       "
+      operationId: getAggregatedTagGroups
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Enter the company ID whose tag groups you are searching for.
+            Required if organization_id is not provided. If you enter both company_id
+            and organization_id, the company_id is used to filter the tag groups.
+          format: uuid
+      - name: organization_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Enter the organization ID whose tag groups you are searching
+            for. Required if company_id is not provided. If you enter both company_id
+            and organization_id, the company_id is used to filter the tag groups.
+          format: uuid
+      - name: tag_group_ids
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          description: Enter the list of tag groups IDs that you are searching for.
+          items:
+            type: string
+            description: Enter the list of tag groups IDs that you are searching for.
+            format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseListAggregatedTagGroupModel'
+  /v0/aggregations/tags:
+    post:
+      tags:
+      - tags
+      summary: Retrieve tags in aggregated format
+      description: Retrieve tags for a company in aggregated format.
+      operationId: searchAggregatedTags
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Unique identifier of the company whose tags you are searching
+            for.
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/CompositeTagSearchRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseAggregatedTagModel'
+  /v0/tag-groups:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve tag groups for a company or an organisation
+      description: "\n            ⚠️ Attention: either the `company_id` or the `organization_id`\
+        \ query parameter MUST be provided.\n            If you supply both, the `company_id`\
+        \ will be used. If you supply neither, the request will fail.\n          \
+        \  If you supply the `company_id`, the response will contain only the tag\
+        \ groups for that company. \n            If you supply the `organization_id`,\
+        \ the response will contain the tag groups for all companies in the organization.\n\
+        \            If you supply the `company_id` and the `organization_id`, the\
+        \ response will contain only the tag groups for the company.\n            "
+      operationId: getTagGroups
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Enter the company ID whose tag groups you are searching for.
+            Required if organization_id is not provided. If you enter both company_id
+            and organization_id, the company_id is used to filter the tag groups.
+          format: uuid
+      - name: organization_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Enter the organization ID whose tag groups you are searching
+            for. Required if company_id is not provided. If you enter both company_id
+            and organization_id, the company_id is used to filter the tag groups.
+          format: uuid
+      - name: include_archived
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: include_tags_count
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseListTagGroupModel'
+    post:
+      tags:
+      - tag-groups
+      summary: Create a new tag group
+      description: Create a new tag group in Pleo.
+      operationId: createTagGroup
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Unique identifier of the company the tag group will be associated
+            with.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagGroupCreateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupModel'
+  /v0/tag-groups/{groupId}:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve a tag group by its id
+      description: Retrieve details of a tag group by its id.
+      operationId: getTagGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to retrieve.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupModel'
+    put:
+      tags:
+      - tag-groups
+      summary: Update a tag group
+      description: Modify details of a tag group by its id.
+      operationId: updateTagGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to update.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagGroupUpdateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupModel'
+    delete:
+      tags:
+      - tag-groups
+      summary: Delete a tag group
+      description: Delete a tag group by its id.
+      operationId: deleteTagGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to delete.
+          format: uuid
+      responses:
+        '204':
+          description: Tag group successfully removed.
+  /v0/tag-groups/{groupId}/dimensions:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve a list of tag group dimensions
+      description: "\n            Retrieve a list of tag group dimensions excluding\
+        \ the name and code dimensions which are always present in a tag group. \n\
+        \            The name and code dimensions are returned only when they do not\
+        \ follow the standard name and code naming convention.\n            "
+      operationId: getTagGroupDimensions
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to fetch dimensions for.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseListTagGroupDimensionModel'
+    post:
+      tags:
+      - tag-groups
+      summary: Create a new tag group dimension
+      operationId: createTagGroupDimension
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group this dimension will be associated
+            with.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagGroupDimensionCreateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupDimensionModel'
+  /v0/tag-groups/{groupId}/dimensions/{dimensionId}:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve a tag group dimension
+      operationId: getTagGroupDimension
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group dimension to be retrieved.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupDimensionModel'
+    put:
+      tags:
+      - tag-groups
+      summary: Update a tag group dimension
+      description: Update a tag group dimension by its id.
+      operationId: updateTagGroupDimension
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group dimension to be updated.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagGroupDimensionUpdateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupDimensionModel'
+    delete:
+      tags:
+      - tag-groups
+      summary: Delete a tag group dimension
+      operationId: deleteTagGroupDimension
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group dimension to be deleted.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8: {}
+  /v0/tag-groups/{groupId}/tags:
+    get:
+      tags:
+      - tags
+      summary: Retrieve tags for a tag group
+      description: Retrieve a list of tags associated with a tag group.
+      operationId: getTags
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group.
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      - name: include_archived
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          description: Boolean flag to determine whether archived tags should be included.
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseTagModel'
+    post:
+      tags:
+      - tags
+      summary: Create a new tag for a tag group
+      description: Create a new tag for a tag group in Pleo.
+      operationId: createTag
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagCreateModel'
+        required: true
+      responses:
+        '201':
+          description: Tag created successfully.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagModel'
+        '400':
+          description: Tag group already contains maximum number of active tags.
+        '409':
+          description: 'Conflict: tag with the same `code` already exists in Pleo.'
+  /v0/tag-groups/{groupId}/usage:
+    get:
+      tags:
+      - tag-groups
+      summary: Get usage for a tag group
+      description: Returns the number of expenses that are linked to each tag within
+        a tag group.
+      operationId: getTagGroupUsage
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to get usage for.
+          format: uuid
+      responses:
+        '200':
+          description: Tag group usage successfully retrieved.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupUsageModel'
+        '403':
+          description: 'Forbidden: User lacks the necessary permissions.'
+        '404':
+          description: 'Not found: Tag group with given id was not found or deleted.'
+  /v0/tags:
+    get:
+      tags:
+      - tags
+      summary: Search tags
+      operationId: searchTags
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: text_search
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: tag_group_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+      - name: include_archived
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseTagModel'
+      deprecated: true
+    delete:
+      tags:
+      - tags
+      summary: Bulk delete tags
+      description: Bulk delete tags for a company
+      operationId: bulkDeleteTags
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/BulkTagDeleteModel'
+        required: true
+      responses:
+        '204':
+          description: Tags deleted successfully
+  /v0/tags/archive:
+    post:
+      tags:
+      - tags
+      summary: Bulk archive or unarchive Tags
+      description: Bulk archive or unarchive Tags for a company
+      operationId: bulkArchiveTags
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/BulkTagArchiveModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseListTagModel'
+  /v0/tags/{tagId}:
+    get:
+      tags:
+      - tags
+      summary: Retrieve a tag by its id
+      description: Retrieve details of a tag by its id.
+      operationId: getTag
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag to retrieve.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagModel'
+    put:
+      tags:
+      - tags
+      summary: Update a tag
+      description: Modify details of a tag by its id.
+      operationId: updateTag
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag to update.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagUpdateModel'
+      responses:
+        '200':
+          description: Tag updated successfully.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagModel'
+        '404':
+          description: Tag not found.
+        '409':
+          description: 'Conflict: update to tag changes the code to use an existing
+            one.'
+    delete:
+      tags:
+      - tags
+      summary: Delete a tag
+      description: Delete a tag by its id.
+      operationId: deleteTag
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag to delete.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8: {}
+  /v0/tags/{tagId}/dimensions:
+    get:
+      tags:
+      - tags
+      summary: Retrieve dimension values
+      description: Retrieve a list of dimension values for a tag.
+      operationId: getTagDimensionValues
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseListTagDimensionValueModel'
+  /v0/tags/{tagId}/dimensions/{dimensionId}:
+    get:
+      tags:
+      - tags
+      summary: Retrieve a dimension value
+      operationId: getDimensionValue
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagDimensionValueModel'
+    put:
+      tags:
+      - tags
+      summary: Update a dimension value
+      description: Update a dimension value for a tag.
+      operationId: updateDimensionValue
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagDimensionValueUpdateModel'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagDimensionValueModel'
+    post:
+      tags:
+      - tags
+      summary: Create a new dimension value
+      description: Create a new dimension value for a tag.
+      operationId: createDimensionValue
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagDimensionValueCreateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagDimensionValueModel'
+    delete:
+      tags:
+      - tags
+      summary: Delete a dimension value
+      description: Delete a dimension value for a tag.
+      operationId: deleteDimensionValue
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagDimensionValueModel'
+  /v0/tags:search:
+    post:
+      tags:
+      - tags
+      summary: Search tags
+      operationId: searchTagsPost
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Unique identifier of the company whose tags you are searching
+            for.
+          format: uuid
+      - name: organization_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/CompositeTagSearchRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseTagModel'
+  /v0/tax-codes:
+    post:
+      tags:
+      - tax-codes
+      summary: Create a new tax code
+      operationId: createTaxCode
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TaxCodeCreateUpdateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTaxCodeModel'
+  /v0/tax-codes/{taxCodeId}:
+    get:
+      tags:
+      - tax-codes
+      summary: Returns a given tax code
+      operationId: getTaxCode
+      parameters:
+      - name: taxCodeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Tax code ID to fetch
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTaxCodeModel'
+    put:
+      tags:
+      - tax-codes
+      summary: Update an tax code
+      operationId: updateTaxCode
+      parameters:
+      - name: taxCodeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Tax code ID to update
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TaxCodeCreateUpdateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTaxCodeModel'
+    delete:
+      tags:
+      - tax-codes
+      summary: Delete an tax code
+      operationId: deleteTaxCode
+      parameters:
+      - name: taxCodeId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Tax code ID to delete
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8: {}
+  /v0/tax-codes:calculate-tax-amounts:
+    post:
+      tags:
+      - tax-codes
+      summary: Calculate gross, net, and tax amounts for a list of tax code ids and
+        amounts.
+      operationId: calculateTax
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/CalculateTaxesRequest'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseCalculateTaxesResponse'
+  /v0/tax-codes:search:
+    post:
+      tags:
+      - tax-codes
+      summary: Returns a list of tax codes
+      operationId: getTaxCodes
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Fetch a list of tax codes for a given company
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TaxCodeSearchRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseTaxCodeModel'
+  /v1/accounting-entries/core:search:
+    post:
+      tags:
+      - accounting-entries
+      - accounting-entries-external
+      summary: 'Fetch core accounting entries based on filters. '
+      operationId: externalSearchCoreAccountingEntriesV1
+      parameters:
+      - name: company_id
+        in: query
+        description: Only return accounting entries that have the specific company
+          ID. Required if partner_id or organization_id is not provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: organization_id
+        in: query
+        description: Only return accounting entries that belong to the companies associated.  to
+          the given Organization Id. Required if company_id or partner_id is not provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after])
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before])
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: The maximum amount of items to return. Never returns more than
+            100 items
+          format: int32
+          default: 20
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountingEntriesSortingKeys'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/AccountingEntryBaseSearchRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseAccountingEntryCoreV6'
+      deprecated: true
+  /v1/accounting-entries:search:
+    post:
+      tags:
+      - accounting-entries
+      - accounting-entries-external
+      summary: 'Fetch accounting entries based on filters. '
+      operationId: externalSearchAccountingEntriesV1
+      parameters:
+      - name: company_id
+        in: query
+        description: Only return accounting entries that have the specific company
+          ID. Required if partner_id or organization_id is not provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: organization_id
+        in: query
+        description: Only return accounting entries that belong to the companies associated.  to
+          the given Organization Id. Required if company_id or partner_id is not provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after])
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before])
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: The maximum amount of items to return. Never returns more than
+            100 items
+          format: int32
+          default: 20
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountingEntriesSortingKeys'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/AccountingEntryBaseSearchRequest'
+      responses:
+        '200':
+          description: A paginated list of accounting entries matching the search
+            criteria.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseAccountingEntryV1'
+        '403':
+          description: 'Forbidden: client lacks the necessary permissions.'
+        '503':
+          description: Service temporarily unavailable. The request can be retried.
+  /v1/accounting-entries/{accountingEntryId}:
+    get:
+      tags:
+      - accounting-entries
+      - accounting-entries-external
+      summary: 'Fetch a single accounting entry by id. '
+      operationId: externalGetAccountingEntryV1
+      parameters:
+      - name: accountingEntryId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: The specific accounting entry ID that you are looking for.
+          format: uuid
+      - name: include_deleted
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          description: Set this to true if you want to include deleted accounting
+            entries.
+      responses:
+        '200':
+          description: The accounting entry for the specified ID.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseAccountingEntryV1'
+        '403':
+          description: 'Forbidden: client lacks the necessary permissions.'
+        '404':
+          description: Accounting entry not found.
+        '503':
+          description: Service temporarily unavailable. The request can be retried.
+  /v1/accounting-entries/receipts:search:
+    post:
+      tags:
+      - accounting-entries
+      summary: Apply filters to search for specific accounting entry receipts.
+      operationId: searchReceiptsByPostV6
+      parameters:
+      - name: company_id
+        in: query
+        description: Return only receipts of the given Company Id. Required if `partner_id`
+          or `organization_id` is not provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: partner_id
+        in: query
+        description: Return only receipts of the specific companies associated with
+          the given Partner ID. Required if `company_id` or `organization_id` is not
+          provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: organization_id
+        in: query
+        description: Return only receipts of the specific companies associated with
+          the given Organization ID. Required if `company_id` or `partner_id` is not
+          provided.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after])
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before])
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: The maximum amount of items to return. Never returns more than
+            100 items
+          format: int32
+          default: 10
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReceiptsSortingKeys'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/ReceiptSearchRequest'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseReceiptModel'
+  /v1/accounting-entries/{accountingEntryId}/core:
+    get:
+      tags:
+      - accounting-entries
+      summary: Get details of an accounting entry.
+      operationId: getCoreAccountingEntryV6ById
+      parameters:
+      - name: accountingEntryId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: The specific accounting entry ID that you are looking for.
+          format: uuid
+      - name: include_deleted
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          description: Set this to true if you want to include deleted accounting
+            entries.
+      - name: include_hidden
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          description: Set this to true if you want to include hidden accounting entries.
+            ONLY USE THIS IF YOU KNOW WHAT YOU'RE DOING.
+          deprecated: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseAccountingEntryCoreV6'
+  /v1/accounting-entries/{accountingEntryId}/receipts:
+    get:
+      tags:
+      - accounting-entries
+      summary: Get all receipts of an accounting entry.
+      operationId: getAllReceiptsV6
+      parameters:
+      - name: accountingEntryId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      - name: source
+        in: query
+        description: Only return Receipts with the given source. Useful for fetching
+          a list of receipts uploaded via particular sources.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReceiptSource'
+      - name: file_type
+        in: query
+        description: Return all receipts with the presigned URL generated for the
+          given file type. Used for fetching receipts with a presigned URL other than
+          the default (ORIGINAL).
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/ReceiptFileType'
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after])
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before])
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: The maximum amount of items to return. Never returns more than
+            100 items
+          format: int32
+          default: 10
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReceiptsSortingKeys'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseReceiptModel'
+  /v1/accounting-entries/{accountingEntryId}/receipts/{receiptId}:
+    get:
+      tags:
+      - accounting-entries
+      summary: Returns a receipt with time-bound access to the receipt file.
+      operationId: getReceiptFileV6
+      parameters:
+      - name: accountingEntryId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: The specific accounting entry ID that you are looking for.
+          format: uuid
+      - name: receiptId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: The specific receipt ID that you are looking for.
+          format: uuid
+      - name: file_type
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/ReceiptFileType'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseReceiptModel'
+components:
+  schemas:
+    AccountingEntriesSortingKeys:
+      type: string
+      enum:
+      - settledAt
+      - performedAt
+      - id
+      - bookkeepingDate
+    AccountingEntryBaseSearchRequest:
+      required:
+      - includeDeleted
+      type: object
+      properties:
+        accountIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries that match with the given account
+            IDs.
+          items:
+            type: string
+            format: uuid
+        bookkeepingDateEnd:
+          type: string
+          description: Return accounting entries that have been recorded prior to
+            the specific bookkeeping date. This value cannot be used with other date
+            search criteria.
+          format: date-time
+        bookkeepingDateStart:
+          type: string
+          description: Return accounting entries that have been recorded after the
+            specific bookkeeping date. This value cannot be used with any other date
+            search criteria.
+          format: date-time
+        employeeIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries that match with the specific
+            Employee ID.
+          items:
+            type: string
+            format: uuid
+        exportStatus:
+          type: array
+          description: 'Only return accounting entries that match with the specific
+            export status. '
+          items:
+            $ref: '#/components/schemas/ExportStatus'
+        families:
+          type: array
+          description: Only return accounting entries that belong to the specific
+            accounting entry families
+          items:
+            $ref: '#/components/schemas/AccountingEntryFamily'
+        foreignExtensionIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries with the given `foreignExtensionId`.
+            This is an auto-generated ID that populates when the Accounting Entries
+            API endpoints interact with other Pleo APIs.'
+          items:
+            type: string
+        hasAccount:
+          type: boolean
+          description: Only return accounting entries with an Account ID assigned
+        hasBookkeepingDate:
+          type: boolean
+          description: Only return Accounting Entries that have bookkeeping date set
+        hasNote:
+          type: boolean
+          description: Return accounting entries that have a note
+        includeDeleted:
+          type: boolean
+          description: Include deleted accounting entries
+          default: false
+        performedAtEnd:
+          type: string
+          description: Only return accounting entries performed before this date.
+            Cannot be used with any other date filters
+          format: date-time
+        performedAtStart:
+          type: string
+          description: Only return accounting entries performed after this date. Cannot
+            be used with any other date filters
+          format: date-time
+        reviewStatus:
+          type: array
+          description: 'Only return accounting entries that match with the specific
+            review status. '
+          items:
+            $ref: '#/components/schemas/ReviewStatus'
+        settled:
+          type: boolean
+          description: Only return accounting entries that have a settled status.
+        settledAtEnd:
+          type: string
+          description: Only return accounting entries settled before this date. Cannot
+            be used with any other date filters
+          format: date-time
+        settledAtStart:
+          type: string
+          description: Only return accounting entries settled after this date. Cannot
+            be used with any other date filters
+          format: date-time
+        status:
+          type: array
+          description: Only return accounting entries that match with the specific
+            accounting entry status.
+          items:
+            $ref: '#/components/schemas/AccountingEntryStatus'
+        subFamilies:
+          type: array
+          description: Only return accounting entries that belong to the specific
+            sub family.
+          items:
+            $ref: '#/components/schemas/AccountingEntrySubFamily'
+        tagGroupIdsUnset:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries where the given Tag Group IDs
+            do not have a tag value set.
+          items:
+            type: string
+            format: uuid
+        tagRowIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries with the given Tag ID.
+          items:
+            type: string
+            format: uuid
+        taxCodeIds:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: Only return accounting entries that match with the specific
+            tax code IDs
+          items:
+            type: string
+            format: uuid
+        teamIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries with the given Team ID. The
+            Team ID is not the one allocated to an employee, It is allocated to a
+            team of a company. For example, an accounting entry contains the team
+            ID of Design team as the specific entry is associated with the Design
+            team
+          items:
+            type: string
+            format: uuid
+        transactionValueCurrencies:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries with the given transaction currency
+            codes (ISO 4217). Filters on the original transaction currency of the
+            expense.
+          items:
+            type: string
+    AccountingEntryCoreV6:
+      required:
+      - companyId
+      - createdAt
+      - exportStatus
+      - family
+      - fees
+      - id
+      - performedAt
+      - receiptIds
+      - reviewStatus
+      - status
+      - transactionValue
+      - updatedAt
+      type: object
+      properties:
+        accountCode:
+          type: string
+          description: The account code allocated to the specific accounting entry.
+            For example, an expense incurred for meals and drinks account would have
+            a specific account code.
+        accountId:
+          type: string
+          description: 'Unique identification number of the account (Category) allocated
+            to the transaction. If `I don''t know` is selected, then in the API endpoint
+            response, `"00000000-0000-0000-0000-000000000000"` is returned, implying
+            no category is yet selected for the specific accounting entry. '
+          format: uuid
+        bookkeepingDate:
+          type: string
+          description: The date when the transaction was settled, except for out of
+            pocket expenses; for out of pocket expense, the bookkeeping date is when
+            the purchase was done.
+          format: date-time
+        companyId:
+          type: string
+          description: The unique identifier of the company that to which the accounting
+            entry belongs.
+          format: uuid
+        createdAt:
+          type: string
+          description: The date and time when the specific accounting entry is created.
+          format: date-time
+        deletedAt:
+          type: string
+          description: If the accounting entry is deleted, this field specifies the
+            date and time of deletion.
+          format: date-time
+        employeeId:
+          type: string
+          description: The unique identifier of the employee who incurred the expense.
+          format: uuid
+        exportStatus:
+          type: string
+          description: 'This can be one of `ExportStatus` values.
+
+
+            `CREATED`: The accounting entry has been created.
+
+            `EXPORTED`: The accounting entry has been exported.
+
+            `EXPORTING`: The accounting entry is in the process of being exported.
+
+            `QUEUED`: The accounting entry is in the queue to be exported.
+
+            '
+          example: CREATED
+        externalAccountId:
+          type: string
+          description: The external id of the account specified for this accounting
+            entry.
+          format: uuid
+        family:
+          type: string
+          description: 'This can be one of `AccountingEntryFamily` values.
+
+
+            `BALANCE_AMENDMENT`: Represents manual wallet balance adjustments, often
+            through human intervention.
+
+            `BILL_INVOICE`: Represents an invoice issued to the company. If payment
+            of the invoice is made via Pleo, the payment is recorded separately, using
+            the `BILL_INVOICE_PAYMENT` family.
+
+            `CARD_PURCHASE`: Represents a purchase made using a physical or virtual
+            Pleo card.
+
+            `CASHBACK`: An amount of money that is returned to the company through
+            Pleo cashback.
+
+            `CREDIT_NOTE`: Represents a credit note issued to the company, stored
+            only in the accounting entry metadata table.
+
+            `MILEAGE`: Represents a Mileage expense incurred by an employee. The amount
+            is owed to the employee.
+
+            `OUT_OF_POCKET`: Represents an amount that is spent by an employee out
+            of their own pocket. The amount is owed to the employee.
+
+            `OVERDRAFT`: Represents either the monthly subscription fee for using
+            Pleo Overdraft, or a the interest incurred on an existing overdraft.
+
+            `PER_DIEM`: Represents a daily allowance given to an employee during travel
+            - the amount is owed to the employee.
+
+            `PLEO_INVOICE`: Represents the SaaS invoice from Pleo to the company.
+
+            `REIMBURSEMENT`: Represents a reimbursement from the company to the employee
+            or vice-versa.
+
+            `WALLET`: Represents a top up or withdrawal on the Pleo wallet
+
+            `BILL_INVOICE_PAYMENT`: Represents a payment of an invoice from the company
+            wallet.
+
+            '
+          example: BALANCE_AMENDMENT
+        fees:
+          type: object
+          additionalProperties:
+            description: A mapping of fee type to fee amount, for example foreign
+              transaction fees.
+            allOf:
+            - $ref: '#/components/schemas/Money'
+          description: A mapping of fee type to fee amount, for example foreign transaction
+            fees.
+        foreignExtensionId:
+          type: string
+          description: This is an auto-generated ID that populates when the Accounting
+            Entries API endpoints interact with other Pleo APIs.
+        grossBillValue:
+          description: '**DEPRECATED** Please use the Tax Calculation API instead.
+            Bill value **before** taxes. Currency is the same as `transactionWalletValue`'
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        id:
+          type: string
+          description: The unique identifier of the specific accounting entry.
+          format: uuid
+        netBillValue:
+          description: '**DEPRECATED** Please use the Tax Calculation API instead.
+            Bill value **after** taxes. Currency is the same as `transactionWalletValue`'
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        note:
+          type: string
+          description: An optional note that can be added to the accounting entry.
+        performedAt:
+          type: string
+          description: The date and time when the transaction was performed.
+          format: date-time
+        receiptIds:
+          uniqueItems: true
+          type: array
+          description: IDs of any receipts associated with the specific accounting
+            entry.
+          items:
+            type: string
+            description: IDs of any receipts associated with the specific accounting
+              entry.
+            format: uuid
+        reconciliationId:
+          type: string
+          description: The id of the specific reconciliation that was used to export
+            and book this accounting entry.
+          example: '4113617'
+        reviewStatus:
+          type: string
+          description: 'This can be one of `ReviewStatus` values.
+
+
+            `NOT_OK`: The accounting entry has been reviewed as `Not OK`.
+
+            `NOT_REQUIRED`: The accounting entry does not require review.
+
+            `NOT_SET`: The accounting entry has not been reviewed yet.
+
+            `OK`: The accounting entry has been reviewed as `OK`.
+
+            `WAITING_FOR_EXPENSE_OWNER`: The accounting entry is waiting for more
+            details from the Expense Owner.
+
+            `WAITING_FOR_REVIEWER`: The accounting entry is waiting for review by
+            a reviewer.
+
+            `WAITING_FOR_COMPANY_REVIEWER`: The accounting entry is waiting for review
+            by a company reviewer.
+
+            `WAITING_FOR_TEAM_REVIEWER`: The accounting entry is waiting for review
+            by a team reviewer.
+
+            `WAITING_FOR_TAG_REVIEWER`: The accounting entry is waiting for review
+            by a tag reviewer.
+
+            '
+          example: NOT_OK
+        settledAt:
+          type: string
+          description: The date and time when the transaction was settled. For example
+            in the case of a card purchase, the date when the transaction was finalized.
+          format: date-time
+        spendTransactionIds:
+          uniqueItems: true
+          type: array
+          description: A list of IDs of spend transactions associated with the specific
+            accounting entry.
+          items:
+            type: string
+            description: A list of IDs of spend transactions associated with the specific
+              accounting entry.
+            format: uuid
+        status:
+          type: string
+          description: "This can be one of `AccountingEntryStatus` values.\n\n`DRAFT`:\
+            \ The accounting entry is still in a work-in-progress stage; the details\
+            \ might change.\n`PENDING`: Payment is in progress. The transaction amount\
+            \ in the specific currency is final, yet the funds have not\n  yet been\
+            \ settled.> ⚠️ **Note**: The customer can no longer cancel this expense.\n\
+            > amount/currency is fixed, funds have been reserved but not yet settled,\n\
+            > and expense can no longer be canceled by user\n`COMPLETED`: The transaction\
+            \ is complete, implying the funds have been settled for the final bill\
+            \ amount.\n`COMPLETED_EXTERNALLY`: Payment has completed *outside of Pleo*.\
+            \ Hence, it does not impact the Pleo wallet\n`CANCELLED`: Canceled by\
+            \ user, Pleo, or an external party\n`REJECTED`: Rejected by user, Pleo\
+            \ or an external party\n`ERROR`: An error prevented the accounting entry\
+            \ from being settled\n"
+          example: DRAFT
+        subFamily:
+          type: string
+          description: 'This can be one of `AccountingEntrySubFamily` values.
+
+
+            `ATM`: A `CARD_PURCHASE` that was performed at an ATM.
+
+            `IN_STORE`: A `CARD_PURCHASE` that was performed at a physical store.
+
+            `ONLINE`: A `CARD_PURCHASE` that was performed online.
+
+            `PLEO_INVOICE`: A `PLEO_INVOICE` that was paid.
+
+            `PLEO_INVOICE_REFUND`: A `PLEO_INVOICE` that was refunded.
+
+            `REIMBURSEMENT_TO_COMPANY`: A `REIMBURSEMENT` was made to the company.
+
+            `REIMBURSEMENT_TO_EMPLOYEE`: A `REIMBURSEMENT` was made to the employee.
+
+            `REIMBURSEMENT_TO_EMPLOYEE_REFUND`: A `REIMBURSEMENT` to the employee
+            was refunded.
+
+            `LOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` load.
+
+            `UNLOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` unload - Money leaves
+            the Pleo wallet.
+
+            `WITHDRAWAL`: A `WALLET` withdrawal.
+
+            `FEE`: A monthly fee paid for using overdraft.
+
+            `INTEREST`: Interest paid for the amount over drafted.
+
+            `BILL_INVOICE_PAYMENT_RETURNED`: A `BILL_INVOICE_PAYMENT` that was returned.
+
+            `BILL_INVOICE_PAYMENT_RECEIVED`: A `BILL_INVOICE_PAYMENT` that was received.
+
+            '
+          example: ATM
+        supplier:
+          $ref: '#/components/schemas/AccountingEntrySupplier'
+        taxBillValue:
+          description: '**DEPRECATED** Please use the Tax Calculation API instead.
+            Specifies the tax amount. Currency is the same as `transactionWalletValue`'
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        taxCodeId:
+          type: string
+          description: A unique identifier that references the specific `TaxCode`
+            applied to the specific accounting entry.
+          format: uuid
+        teamId:
+          type: string
+          description: A unique identifier of the team to which the accounting entry
+            belongs. For example, an accounting entry is associated with the Design
+            team of a company. So, the entry specifies the Design Team ID
+          format: uuid
+        totalBillValue:
+          description: 'The total amount that is either debited or credited from the
+            Pleo wallet of the company.
+
+            - Could be more than the `transactionWalletValue` as in a card purchase,  payment
+            processing fees are included.
+
+            - `BILL_INVOICE` includes scheduled payments. They are included in the
+            `totalBillValue`, yet they do not impact the actual Pleo wallet balance.'
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        transactionValue:
+          description: ' The transaction amount in the specific currency the payment
+            was performed. For example, an expense is incurred in France. So the value
+            returned is in Euro ( EUR ).'
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        transactionWalletValue:
+          description: 'The transaction amount  in the functional currency of the
+            company. For example, a company is based in the United Kingdom. An employee
+            incurs an expense in France. The `transactionWalletValue` is the amount
+            in Great Britain Pound ( GBP ) equivalent to the Euro ( EUR ) spent for
+            the purchase. '
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        updatedAt:
+          type: string
+          description: Specifies the date and time when details of the specific accounting
+            entry is modified.
+          format: date-time
+    AccountingEntryFamily:
+      type: string
+      description: '`BALANCE_AMENDMENT`: Represents manual wallet balance adjustments,
+        often through human intervention.
+
+        `BILL_INVOICE`: Represents an invoice issued to the company. If payment of
+        the invoice is made via Pleo, the payment is recorded separately, using the
+        `BILL_INVOICE_PAYMENT` family.
+
+        `CARD_PURCHASE`: Represents a purchase made using a physical or virtual Pleo
+        card.
+
+        `CASHBACK`: An amount of money that is returned to the company through Pleo
+        cashback.
+
+        `CREDIT_NOTE`: Represents a credit note issued to the company, stored only
+        in the accounting entry metadata table.
+
+        `MILEAGE`: Represents a Mileage expense incurred by an employee. The amount
+        is owed to the employee.
+
+        `OUT_OF_POCKET`: Represents an amount that is spent by an employee out of
+        their own pocket. The amount is owed to the employee.
+
+        `OVERDRAFT`: Represents either the monthly subscription fee for using Pleo
+        Overdraft, or a the interest incurred on an existing overdraft.
+
+        `PER_DIEM`: Represents a daily allowance given to an employee during travel
+        - the amount is owed to the employee.
+
+        `PLEO_INVOICE`: Represents the SaaS invoice from Pleo to the company.
+
+        `REIMBURSEMENT`: Represents a reimbursement from the company to the employee
+        or vice-versa.
+
+        `WALLET`: Represents a top up or withdrawal on the Pleo wallet
+
+        `BILL_INVOICE_PAYMENT`: Represents a payment of an invoice from the company
+        wallet.
+
+        '
+      enum:
+      - BALANCE_AMENDMENT
+      - BILL_INVOICE
+      - CARD_PURCHASE
+      - CASHBACK
+      - CREDIT_NOTE
+      - MILEAGE
+      - OUT_OF_POCKET
+      - OVERDRAFT
+      - PER_DIEM
+      - PLEO_INVOICE
+      - REIMBURSEMENT
+      - WALLET
+      - BILL_INVOICE_PAYMENT
+    AccountingEntryStatus:
+      type: string
+      description: "`DRAFT`: The accounting entry is still in a work-in-progress stage;\
+        \ the details might change.\n`PENDING`: Payment is in progress. The transaction\
+        \ amount in the specific currency is final, yet the funds have not\n  yet\
+        \ been settled.> ⚠️ **Note**: The customer can no longer cancel this expense.\n\
+        > amount/currency is fixed, funds have been reserved but not yet settled,\n\
+        > and expense can no longer be canceled by user\n`COMPLETED`: The transaction\
+        \ is complete, implying the funds have been settled for the final bill amount.\n\
+        `COMPLETED_EXTERNALLY`: Payment has completed *outside of Pleo*. Hence, it\
+        \ does not impact the Pleo wallet\n`CANCELLED`: Canceled by user, Pleo, or\
+        \ an external party\n`REJECTED`: Rejected by user, Pleo or an external party\n\
+        `ERROR`: An error prevented the accounting entry from being settled\n"
+      enum:
+      - DRAFT
+      - PENDING
+      - COMPLETED
+      - COMPLETED_EXTERNALLY
+      - CANCELLED
+      - REJECTED
+      - ERROR
+    AccountingEntrySubFamily:
+      type: string
+      description: '`ATM`: A `CARD_PURCHASE` that was performed at an ATM.
+
+        `IN_STORE`: A `CARD_PURCHASE` that was performed at a physical store.
+
+        `ONLINE`: A `CARD_PURCHASE` that was performed online.
+
+        `PLEO_INVOICE`: A `PLEO_INVOICE` that was paid.
+
+        `PLEO_INVOICE_REFUND`: A `PLEO_INVOICE` that was refunded.
+
+        `REIMBURSEMENT_TO_COMPANY`: A `REIMBURSEMENT` was made to the company.
+
+        `REIMBURSEMENT_TO_EMPLOYEE`: A `REIMBURSEMENT` was made to the employee.
+
+        `REIMBURSEMENT_TO_EMPLOYEE_REFUND`: A `REIMBURSEMENT` to the employee was
+        refunded.
+
+        `LOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` load.
+
+        `UNLOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` unload - Money leaves
+        the Pleo wallet.
+
+        `WITHDRAWAL`: A `WALLET` withdrawal.
+
+        `FEE`: A monthly fee paid for using overdraft.
+
+        `INTEREST`: Interest paid for the amount over drafted.
+
+        `BILL_INVOICE_PAYMENT_RETURNED`: A `BILL_INVOICE_PAYMENT` that was returned.
+
+        `BILL_INVOICE_PAYMENT_RECEIVED`: A `BILL_INVOICE_PAYMENT` that was received.
+
+        '
+      enum:
+      - ATM
+      - IN_STORE
+      - ONLINE
+      - PLEO_INVOICE
+      - PLEO_INVOICE_REFUND
+      - REIMBURSEMENT_TO_COMPANY
+      - REIMBURSEMENT_TO_EMPLOYEE
+      - REIMBURSEMENT_TO_EMPLOYEE_REFUND
+      - LOAD
+      - UNLOAD
+      - WITHDRAWAL
+      - FEE
+      - INTEREST
+      - BILL_INVOICE_PAYMENT_RETURNED
+      - BILL_INVOICE_PAYMENT_RECEIVED
+    AccountingEntrySupplier:
+      type: object
+      properties:
+        cif:
+          type: string
+        documentNumber:
+          type: string
+        documentType:
+          type: string
+          description: This can be one of `SupplierDocumentType` values.
+          example: FACTURA
+        externalAccountNumber:
+          type: string
+        externalSupplierId:
+          type: string
+    AccountingEntryTagV1:
+      required:
+      - tagGroupId
+      type: object
+      properties:
+        tagGroupId:
+          type: string
+          description: The unique identifier of the tag group to which the tag belongs.
+          format: uuid
+        tagId:
+          type: string
+          description: 'The unique identifier of the tag. If `I don''t know` is selected,
+            then in the API endpoint response, `"00000000-0000-0000-0000-000000000000"`
+            is returned. '
+          format: uuid
+      description: A list of `AccountingEntryTagV1` objects representing the tags
+        associated with the split item.
+    AccountingEntryV1:
+      required:
+      - attendees
+      - companyId
+      - createdAt
+      - exportStatus
+      - family
+      - id
+      - performedAt
+      - receiptIds
+      - reviewStatus
+      - splitItems
+      - status
+      - tags
+      - transactionValue
+      - updatedAt
+      type: object
+      properties:
+        accountCode:
+          type: string
+          description: The account code allocated to the specific accounting entry.
+            For example, an expense incurred for meals and drinks account would have
+            a specific account code.
+        accountId:
+          type: string
+          description: 'Unique identification number of the account (Category) allocated
+            to the transaction. If `I don''t know` is selected, then in the API endpoint
+            response, `"00000000-0000-0000-0000-000000000000"` is returned, implying
+            no category is yet selected for the specific accounting entry. '
+          format: uuid
+        attendees:
+          type: array
+          description: A list of attendee objects associated with the accounting entry.
+            For example, in the case of a business meal expense, attendees would be
+            the people who attended the meal. Each attendee is represented as an `AttendeeV1`
+            object containing identifying information for either an employee or a
+            contact.
+          items:
+            description: A list of attendee objects associated with the accounting
+              entry. For example, in the case of a business meal expense, attendees
+              would be the people who attended the meal. Each attendee is represented
+              as an `AttendeeV1` object containing identifying information for either
+              an employee or a contact.
+            allOf:
+            - $ref: '#/components/schemas/AttendeeV1'
+        bookkeepingDate:
+          type: string
+          description: The date when the transaction was settled, except for out of
+            pocket expenses; for out of pocket expense, the bookkeeping date is when
+            the purchase was done.
+          format: date-time
+        companyId:
+          type: string
+          description: The unique identifier of the company that to which the accounting
+            entry belongs.
+          format: uuid
+        createdAt:
+          type: string
+          description: The date and time when the specific accounting entry is created.
+          format: date-time
+        deletedAt:
+          type: string
+          description: If the accounting entry is deleted, this field specifies the
+            date and time of deletion.
+          format: date-time
+        employeeId:
+          type: string
+          description: The unique identifier of the employee who incurred the expense.
+          format: uuid
+        exportStatus:
+          type: string
+          description: 'This can be one of `ExportStatus` values.
+
+
+            `CREATED`: The accounting entry has been created.
+
+            `EXPORTED`: The accounting entry has been exported.
+
+            `EXPORTING`: The accounting entry is in the process of being exported.
+
+            `QUEUED`: The accounting entry is in the queue to be exported.
+
+            '
+          example: CREATED
+        family:
+          type: string
+          description: 'This can be one of `AccountingEntryFamily` values.
+
+
+            `BALANCE_AMENDMENT`: Represents manual wallet balance adjustments, often
+            through human intervention.
+
+            `BILL_INVOICE`: Represents an invoice issued to the company. If payment
+            of the invoice is made via Pleo, the payment is recorded separately, using
+            the `BILL_INVOICE_PAYMENT` family.
+
+            `CARD_PURCHASE`: Represents a purchase made using a physical or virtual
+            Pleo card.
+
+            `CASHBACK`: An amount of money that is returned to the company through
+            Pleo cashback.
+
+            `CREDIT_NOTE`: Represents a credit note issued to the company, stored
+            only in the accounting entry metadata table.
+
+            `MILEAGE`: Represents a Mileage expense incurred by an employee. The amount
+            is owed to the employee.
+
+            `OUT_OF_POCKET`: Represents an amount that is spent by an employee out
+            of their own pocket. The amount is owed to the employee.
+
+            `OVERDRAFT`: Represents either the monthly subscription fee for using
+            Pleo Overdraft, or a the interest incurred on an existing overdraft.
+
+            `PER_DIEM`: Represents a daily allowance given to an employee during travel
+            - the amount is owed to the employee.
+
+            `PLEO_INVOICE`: Represents the SaaS invoice from Pleo to the company.
+
+            `REIMBURSEMENT`: Represents a reimbursement from the company to the employee
+            or vice-versa.
+
+            `WALLET`: Represents a top up or withdrawal on the Pleo wallet
+
+            `BILL_INVOICE_PAYMENT`: Represents a payment of an invoice from the company
+            wallet.
+
+            '
+          example: BALANCE_AMENDMENT
+        foreignExtensionId:
+          type: string
+          description: This is an auto-generated ID that populates when the Accounting
+            Entries API endpoints interact with other Pleo APIs.
+        id:
+          type: string
+          description: The unique identifier of the specific accounting entry.
+          format: uuid
+        note:
+          type: string
+          description: An optional note that can be added to the accounting entry.
+        performedAt:
+          type: string
+          description: The date and time when the transaction was performed.
+          format: date-time
+        receiptIds:
+          uniqueItems: true
+          type: array
+          description: IDs of any receipts associated with the specific accounting
+            entry.
+          items:
+            type: string
+            description: IDs of any receipts associated with the specific accounting
+              entry.
+            format: uuid
+        reviewStatus:
+          type: string
+          description: 'This can be one of `ReviewStatus` values.
+
+
+            `NOT_OK`: The accounting entry has been reviewed as `Not OK`.
+
+            `NOT_REQUIRED`: The accounting entry does not require review.
+
+            `NOT_SET`: The accounting entry has not been reviewed yet.
+
+            `OK`: The accounting entry has been reviewed as `OK`.
+
+            `WAITING_FOR_EXPENSE_OWNER`: The accounting entry is waiting for more
+            details from the Expense Owner.
+
+            `WAITING_FOR_REVIEWER`: The accounting entry is waiting for review by
+            a reviewer.
+
+            `WAITING_FOR_COMPANY_REVIEWER`: The accounting entry is waiting for review
+            by a company reviewer.
+
+            `WAITING_FOR_TEAM_REVIEWER`: The accounting entry is waiting for review
+            by a team reviewer.
+
+            `WAITING_FOR_TAG_REVIEWER`: The accounting entry is waiting for review
+            by a tag reviewer.
+
+            '
+          example: NOT_OK
+        settledAt:
+          type: string
+          description: The date and time when the transaction was settled. For example
+            in the case of a card purchase, the date when the transaction was finalized.
+          format: date-time
+        splitItems:
+          type: array
+          description: A list of `SplitItemV1` objects associated with the accounting
+            entry. The list is empty when the entry has not been split. When the entry
+            is split, the list contains the resulting split items.
+          items:
+            description: A list of `SplitItemV1` objects associated with the accounting
+              entry. The list is empty when the entry has not been split. When the
+              entry is split, the list contains the resulting split items.
+            allOf:
+            - $ref: '#/components/schemas/SplitItemV1'
+        status:
+          type: string
+          description: "This can be one of `AccountingEntryStatus` values.\n\n`DRAFT`:\
+            \ The accounting entry is still in a work-in-progress stage; the details\
+            \ might change.\n`PENDING`: Payment is in progress. The transaction amount\
+            \ in the specific currency is final, yet the funds have not\n  yet been\
+            \ settled.> ⚠️ **Note**: The customer can no longer cancel this expense.\n\
+            > amount/currency is fixed, funds have been reserved but not yet settled,\n\
+            > and expense can no longer be canceled by user\n`COMPLETED`: The transaction\
+            \ is complete, implying the funds have been settled for the final bill\
+            \ amount.\n`COMPLETED_EXTERNALLY`: Payment has completed *outside of Pleo*.\
+            \ Hence, it does not impact the Pleo wallet\n`CANCELLED`: Canceled by\
+            \ user, Pleo, or an external party\n`REJECTED`: Rejected by user, Pleo\
+            \ or an external party\n`ERROR`: An error prevented the accounting entry\
+            \ from being settled\n"
+          example: DRAFT
+        subFamily:
+          type: string
+          description: 'This can be one of `AccountingEntrySubFamily` values.
+
+
+            `ATM`: A `CARD_PURCHASE` that was performed at an ATM.
+
+            `IN_STORE`: A `CARD_PURCHASE` that was performed at a physical store.
+
+            `ONLINE`: A `CARD_PURCHASE` that was performed online.
+
+            `PLEO_INVOICE`: A `PLEO_INVOICE` that was paid.
+
+            `PLEO_INVOICE_REFUND`: A `PLEO_INVOICE` that was refunded.
+
+            `REIMBURSEMENT_TO_COMPANY`: A `REIMBURSEMENT` was made to the company.
+
+            `REIMBURSEMENT_TO_EMPLOYEE`: A `REIMBURSEMENT` was made to the employee.
+
+            `REIMBURSEMENT_TO_EMPLOYEE_REFUND`: A `REIMBURSEMENT` to the employee
+            was refunded.
+
+            `LOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` load.
+
+            `UNLOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` unload - Money leaves
+            the Pleo wallet.
+
+            `WITHDRAWAL`: A `WALLET` withdrawal.
+
+            `FEE`: A monthly fee paid for using overdraft.
+
+            `INTEREST`: Interest paid for the amount over drafted.
+
+            `BILL_INVOICE_PAYMENT_RETURNED`: A `BILL_INVOICE_PAYMENT` that was returned.
+
+            `BILL_INVOICE_PAYMENT_RECEIVED`: A `BILL_INVOICE_PAYMENT` that was received.
+
+            '
+          example: ATM
+        supplier:
+          $ref: '#/components/schemas/AccountingEntrySupplier'
+        tags:
+          type: array
+          description: A list of `AccountingEntryTagV1` objects representing the tags
+            associated with the accounting entry.
+          items:
+            description: A list of `AccountingEntryTagV1` objects representing the
+              tags associated with the accounting entry.
+            allOf:
+            - $ref: '#/components/schemas/AccountingEntryTagV1'
+        taxCodeId:
+          type: string
+          description: A unique identifier that references the specific `TaxCode`
+            applied to the specific accounting entry.
+          format: uuid
+        teamId:
+          type: string
+          description: A unique identifier of the team to which the accounting entry
+            belongs. For example, an accounting entry is associated with the Design
+            team of a company. So, the entry specifies the Design Team ID
+          format: uuid
+        totalBillValue:
+          description: The billed value of the transaction used for accounting purposes,
+            represented as a `Money` object in the company’s default currency.
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        transactionValue:
+          description: The transaction amount in the currency in which the payment
+            was made, represented as a `Money` object. For example, if an expense
+            is incurred in France, the value is returned in EUR.
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        updatedAt:
+          type: string
+          description: Specifies the date and time when details of the specific accounting
+            entry is modified.
+          format: date-time
+    AggregatedTagGroupDimensionModel:
+      required:
+      - code
+      - createdAt
+      - displayOrder
+      - id
+      - name
+      - updatedAt
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine
+            the display position.
+          format: int32
+        id:
+          type: string
+          description: Unique identifier of the tag group dimension.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        visible:
+          type: boolean
+          description: Determines if this dimension is displayed in the UI.
+          example: false
+      description: List of all the dimensions associated with this tag group.
+    AggregatedTagGroupModel:
+      required:
+      - archived
+      - code
+      - companyId
+      - createdAt
+      - dimensions
+      - id
+      - name
+      - updatedAt
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        companyId:
+          type: string
+          description: Unique identifier of the company the tag group belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        dimensions:
+          type: array
+          description: List of all the dimensions associated with this tag group.
+          items:
+            $ref: '#/components/schemas/AggregatedTagGroupDimensionModel'
+        id:
+          type: string
+          description: Unique identifier of the tag group.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group.
+          example: Projects
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+    AggregatedTagModel:
+      required:
+      - archived
+      - code
+      - companyId
+      - createdAt
+      - dimensions
+      - group
+      - id
+      - updatedAt
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag.
+          example: '12345'
+        companyId:
+          type: string
+          description: Unique identifier of the company the tag belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        dimensions:
+          type: array
+          description: List of all the dimensions and dimension values associated
+            with the tag.
+          items:
+            $ref: '#/components/schemas/AggregatedTagTagDimensionModel'
+        group:
+          $ref: '#/components/schemas/AggregatedTagTagGroupModel'
+        id:
+          type: string
+          description: Unique identifier of the tag.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag.
+          example: Lunch allowance
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+    AggregatedTagTagDimensionModel:
+      required:
+      - code
+      - displayOrder
+      - id
+      - name
+      - value
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the dimension to determine the
+            display position. Starts from 1.
+          format: int32
+          example: 1
+        id:
+          type: string
+          description: Unique identifier of the tag group dimension.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        value:
+          type: string
+          description: Value of the given dimension for the given tag.
+        visible:
+          type: boolean
+          description: Determines if this dimension is displayed in the UI.
+          example: false
+      description: List of all the dimensions and dimension values associated with
+        the tag.
+    AggregatedTagTagGroupModel:
+      required:
+      - code
+      - id
+      - name
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        id:
+          type: string
+          description: Unique identifier of the tag group.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: Unique identifier of the company the tag group belongs to.
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+      description: Details of the tag group the tag belongs to.
+    AmountTaxBreakdown:
+      required:
+      - gross
+      - net
+      - tax
+      type: object
+      properties:
+        gross:
+          $ref: '#/components/schemas/Money'
+        net:
+          $ref: '#/components/schemas/Money'
+        tax:
+          $ref: '#/components/schemas/Money'
+      description: Tax breakdown for the eMoneyAccountValue of the core accounting
+        entry.
+    AttendeeV1:
+      required:
+      - attendableId
+      - attendableType
+      - id
+      type: object
+      properties:
+        attendableId:
+          type: string
+        attendableType:
+          type: string
+          description: This can be one of `AccountingEntryAttendeeType` values.
+          example: CONTACT
+        id:
+          type: string
+      description: A list of attendee objects associated with the accounting entry.
+        For example, in the case of a business meal expense, attendees would be the
+        people who attended the meal. Each attendee is represented as an `AttendeeV1`
+        object containing identifying information for either an employee or a contact.
+    BulkTagArchiveModel:
+      required:
+      - archived
+      - companyId
+      - tagIds
+      type: object
+      properties:
+        archived:
+          type: boolean
+        companyId:
+          type: string
+          format: uuid
+        tagIds:
+          maxLength: 100
+          minLength: 1
+          type: array
+          description: IDs of tags to update
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            description: IDs of tags to update
+            format: uuid
+    BulkTagDeleteModel:
+      required:
+      - companyId
+      - tagIds
+      type: object
+      properties:
+        companyId:
+          type: string
+          format: uuid
+        tagIds:
+          maxLength: 100
+          minLength: 1
+          type: array
+          description: IDs of tags to delete
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            description: IDs of tags to delete
+            format: uuid
+    CalculateTaxesRequest:
+      required:
+      - amountsByTaxCodeId
+      type: object
+      properties:
+        amountsByTaxCodeId:
+          type: object
+          additionalProperties:
+            type: array
+            description: The amounts to apply the tax code to
+            items:
+              $ref: '#/components/schemas/TaxedAmount'
+          description: The amounts to apply the tax code to
+      description: Tax code IDs and a list of id + amount pairs to calculate tax for
+    CalculateTaxesResponse:
+      required:
+      - taxes
+      type: object
+      properties:
+        taxes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Taxes'
+    CompositeTagSearchRequest:
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: True if only archived tags should be returned, False if only
+            non-archived tags should be returned. if provided, includeArchived flag
+            will be ignored. If not provided or null, archived and non-archived tags
+            will be returned depending on the includeArchived flag.
+        includeArchived:
+          type: boolean
+          description: Boolean flag to determine whether archived tags should be included.
+            If not provided, only non-archived tags will be returned.
+        tagGroupIds:
+          uniqueItems: true
+          type: array
+          description: List of tag group IDs that you are searching for.
+          items:
+            type: string
+            description: List of tag group IDs that you are searching for.
+            format: uuid
+        tagIds:
+          uniqueItems: true
+          type: array
+          description: List of tag IDs that you are searching for.
+          items:
+            type: string
+            description: List of tag IDs that you are searching for.
+            format: uuid
+        textSearch:
+          type: string
+          description: Free text search for tags by name.
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    CursorPaginatedResponseAccountingEntryCoreV6:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountingEntryCoreV6'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseAccountingEntryV1:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountingEntryV1'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseAggregatedTagModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregatedTagModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseReceiptModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReceiptModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseTagModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseTaxCodeModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxCodeModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    DataResponseAccountingEntryCoreV6:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AccountingEntryCoreV6'
+    DataResponseAccountingEntryV1:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AccountingEntryV1'
+    DataResponseCalculateTaxesResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CalculateTaxesResponse'
+    DataResponseListAggregatedTagGroupModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregatedTagGroupModel'
+    DataResponseListTagDimensionValueModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagDimensionValueModel'
+    DataResponseListTagGroupDimensionModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagGroupDimensionModel'
+    DataResponseListTagGroupModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagGroupModel'
+    DataResponseListTagModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagModel'
+    DataResponseReceiptModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ReceiptModel'
+    DataResponseTagDimensionValueModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagDimensionValueModel'
+    DataResponseTagGroupDimensionModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagGroupDimensionModel'
+    DataResponseTagGroupModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagGroupModel'
+    DataResponseTagGroupUsageModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagGroupUsageModel'
+    DataResponseTagModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagModel'
+    DataResponseTaxCodeModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TaxCodeModel'
+    ExportStatus:
+      type: string
+      description: '`CREATED`: The accounting entry has been created.
+
+        `EXPORTED`: The accounting entry has been exported.
+
+        `EXPORTING`: The accounting entry is in the process of being exported.
+
+        `QUEUED`: The accounting entry is in the queue to be exported.
+
+        '
+      enum:
+      - CREATED
+      - EXPORTED
+      - EXPORTING
+      - NOT_CREATED
+      - NOT_EXPORTED
+      - QUEUED
+    Money:
+      required:
+      - currency
+      - minors
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The currency codes followed in Pleo conforms with ISO 4217.
+          example: EUR
+        minors:
+          type: integer
+          description: "The transaction amount is represented in smallest denomination\
+            \ in a specific currency.\n For example:\n- A transaction amount is £65.80\
+            \ in Great Britain Pounds (GBP); this represented as `6580`.\n- A transaction\
+            \ amount is 1500 ISK in Icelandic Króna (ISK); this is represented as\
+            \ `1500`."
+          format: int64
+          example: 10
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+    ReceiptFileType:
+      type: string
+      description: '`ORIGINAL`: The original file as it was uploaded.
+
+        `THUMBNAIL`: Representation of the original file in a small image.
+
+        `PREVIEW`: Display of the original file in a concise format.
+
+        '
+      enum:
+      - EMBED
+      - ORIGINAL
+      - THUMBNAIL
+      - PREVIEW
+    ReceiptMimeType:
+      type: string
+      description: '`unknown`: The MIME type of the file is unknown.
+
+        `application/pdf`: The receipt file is a PDF file.
+
+        `application/postscript`: The receipt file is a PostScript file.
+
+        `application/xml`: The receipt file is a xml e-invoice.
+
+        `image/jpeg`: The receipt file is a JPEG image.
+
+        `image/png`: The receipt file is a PNG image.
+
+        `image/heic`: The receipt file is a HEIC image.
+
+        `image/heif`: The receipt file is a HEIF image.
+
+        `image/gif`: The receipt file is a GIF image.
+
+        `text/xml`: The receipt file is a xml e-invoice.
+
+        '
+      enum:
+      - unknown
+      - application/pdf
+      - application/postscript
+      - application/xml
+      - image/jpeg
+      - image/png
+      - image/heic
+      - image/heif
+      - image/gif
+      - text/xml
+    ReceiptModel:
+      required:
+      - accountingEntryId
+      - createdAt
+      - fileType
+      - id
+      - mimeType
+      - sizeInBytes
+      - source
+      - url
+      type: object
+      properties:
+        accountingEntryId:
+          type: string
+          description: The ID of accounting entry that this receipt belongs to.
+          format: uuid
+        createdAt:
+          type: string
+          description: The time when the receipt was uploaded.
+          format: date-time
+        fileType:
+          type: string
+          description: 'This can be one of `ReceiptFileType` values.
+
+
+            `ORIGINAL`: The original file as it was uploaded.
+
+            `THUMBNAIL`: Representation of the original file in a small image.
+
+            `PREVIEW`: Display of the original file in a concise format.
+
+            '
+          example: EMBED
+        id:
+          type: string
+          description: The ID of the receipt.
+          format: uuid
+        mimeType:
+          type: string
+          description: 'This can be one of `ReceiptMimeType` values.
+
+
+            `unknown`: The MIME type of the file is unknown.
+
+            `application/pdf`: The receipt file is a PDF file.
+
+            `application/postscript`: The receipt file is a PostScript file.
+
+            `application/xml`: The receipt file is a xml e-invoice.
+
+            `image/jpeg`: The receipt file is a JPEG image.
+
+            `image/png`: The receipt file is a PNG image.
+
+            `image/heic`: The receipt file is a HEIC image.
+
+            `image/heif`: The receipt file is a HEIF image.
+
+            `image/gif`: The receipt file is a GIF image.
+
+            `text/xml`: The receipt file is a xml e-invoice.
+
+            '
+          example: unknown
+        ocrDocumentId:
+          type: string
+          description: The ID of the OCR document that might be linked to this receipt.
+          format: uuid
+        sizeInBytes:
+          type: integer
+          description: The size of the file in bytes.
+          format: int32
+        source:
+          type: string
+          description: 'This can be one of `ReceiptSource` values.
+
+
+            `APP_SHARE`: The receipt was uploaded via the share to Pleo mobile app
+            function.
+
+            `BOLT`: The receipt was retrieved from Bolt mobile app.
+
+            `CAMERA`: The receipt was uploaded via the camera in the Pleo mobile app.
+
+            `CASHBACK`: The receipt was generated by the Cashback feature.
+
+            `EMAIL_FETCHING`: The receipt was automatically fetched via Pleo Fetch.
+
+            `EMAIL_FETCHING_BATCHED`: The receipt was automatically fetch via Pleo
+            Fetch in a batch.
+
+            `EMAIL_FORWARDING`: The receipt was forwarded to Pleo via email.
+
+            `GENERATED_RECEIPT`: The receipt was generated by internal systems.
+
+            `LOST_RECEIPT`: The receipt was generated by the Lost Receipt feature.
+
+            `ROGER`: The receipt was automatically fetched via the Roger integration
+
+            `STOREBOX`: The receipt was uploaded via the Storebox integration.
+
+            `STRIPE`: The receipt was uploaded via the Stripe integration.
+
+            `TRAVELPERK`: The receipt was uploaded via the TravelPerk integration.
+
+            `USER`: The receipt was uploaded by the user.
+
+            '
+          example: APP_SHARE
+        url:
+          type: string
+          description: A URL with an expiry period of 24 hours for accessing the receipt
+            file.
+          format: url
+    ReceiptSearchRequest:
+      required:
+      - includeDeleted
+      type: object
+      properties:
+        accountingEntryIds:
+          type: array
+          description: 'Only return receipts for the given accounting entry ID. '
+          items:
+            type: string
+            description: 'Only return receipts for the given accounting entry ID. '
+            format: uuid
+        employeeIds:
+          type: array
+          description: 'Only return receipts for the given Employee ID. '
+          items:
+            type: string
+            description: 'Only return receipts for the given Employee ID. '
+            format: uuid
+        fileType:
+          $ref: '#/components/schemas/ReceiptFileType'
+        includeDeleted:
+          type: boolean
+          description: Include deleted receipts
+          default: false
+        mimeType:
+          type: array
+          description: Only return receipts with the given mime type. Useful for fetching
+            a list of receipts uploaded with particular mime types.
+          items:
+            $ref: '#/components/schemas/ReceiptMimeType'
+        source:
+          type: array
+          description: Only return receipts that are uploaded from the specific source.
+            Useful for fetching a list of receipts uploaded via particular sources.
+          items:
+            $ref: '#/components/schemas/ReceiptSource'
+    ReceiptSource:
+      type: string
+      description: '`APP_SHARE`: The receipt was uploaded via the share to Pleo mobile
+        app function.
+
+        `BOLT`: The receipt was retrieved from Bolt mobile app.
+
+        `CAMERA`: The receipt was uploaded via the camera in the Pleo mobile app.
+
+        `CASHBACK`: The receipt was generated by the Cashback feature.
+
+        `EMAIL_FETCHING`: The receipt was automatically fetched via Pleo Fetch.
+
+        `EMAIL_FETCHING_BATCHED`: The receipt was automatically fetch via Pleo Fetch
+        in a batch.
+
+        `EMAIL_FORWARDING`: The receipt was forwarded to Pleo via email.
+
+        `GENERATED_RECEIPT`: The receipt was generated by internal systems.
+
+        `LOST_RECEIPT`: The receipt was generated by the Lost Receipt feature.
+
+        `ROGER`: The receipt was automatically fetched via the Roger integration
+
+        `STOREBOX`: The receipt was uploaded via the Storebox integration.
+
+        `STRIPE`: The receipt was uploaded via the Stripe integration.
+
+        `TRAVELPERK`: The receipt was uploaded via the TravelPerk integration.
+
+        `USER`: The receipt was uploaded by the user.
+
+        '
+      enum:
+      - APP_SHARE
+      - BOLT
+      - CAMERA
+      - CASHBACK
+      - EMAIL_FETCHING
+      - EMAIL_FETCHING_BATCHED
+      - EMAIL_FORWARDING
+      - GENERATED_RECEIPT
+      - LOST_RECEIPT
+      - ROGER
+      - STOREBOX
+      - STRIPE
+      - TRAVELPERK
+      - USER
+    ReceiptsSortingKeys:
+      type: string
+      enum:
+      - createdAt
+      - id
+      - size
+    ReviewStatus:
+      type: string
+      description: '`NOT_OK`: The accounting entry has been reviewed as `Not OK`.
+
+        `NOT_REQUIRED`: The accounting entry does not require review.
+
+        `NOT_SET`: The accounting entry has not been reviewed yet.
+
+        `OK`: The accounting entry has been reviewed as `OK`.
+
+        `WAITING_FOR_EXPENSE_OWNER`: The accounting entry is waiting for more details
+        from the Expense Owner.
+
+        `WAITING_FOR_REVIEWER`: The accounting entry is waiting for review by a reviewer.
+
+        `WAITING_FOR_COMPANY_REVIEWER`: The accounting entry is waiting for review
+        by a company reviewer.
+
+        `WAITING_FOR_TEAM_REVIEWER`: The accounting entry is waiting for review by
+        a team reviewer.
+
+        `WAITING_FOR_TAG_REVIEWER`: The accounting entry is waiting for review by
+        a tag reviewer.
+
+        '
+      enum:
+      - NOT_OK
+      - NOT_REQUIRED
+      - NOT_SET
+      - OK
+      - WAITING_FOR_EXPENSE_OWNER
+      - WAITING_FOR_REVIEWER
+      - WAITING_FOR_COMPANY_REVIEWER
+      - WAITING_FOR_TEAM_REVIEWER
+      - WAITING_FOR_TAG_REVIEWER
+    SplitItemV1:
+      required:
+      - createdAt
+      - id
+      - tags
+      - updatedAt
+      type: object
+      properties:
+        accountCode:
+          type: string
+          description: 'The account code picked for the specific split item. If this
+            is not null, it should be used instead of the account code from the `accountId`
+            field. '
+        accountId:
+          type: string
+          description: 'The id of the account (Category) allocated to the transaction.
+            If `I don''t know` is selected, then in the API endpoint response, `"00000000-0000-0000-0000-000000000000"`
+            is returned. '
+          format: uuid
+        createdAt:
+          type: string
+          description: The time when the split item was created. This is in ISO 8601
+            format. For example, `2024-01-01T12:00:00Z`.
+          format: date-time
+        id:
+          type: string
+          description: Unique identifier of the split item
+          format: uuid
+        tags:
+          type: array
+          description: A list of `AccountingEntryTagV1` objects representing the tags
+            associated with the split item.
+          items:
+            description: A list of `AccountingEntryTagV1` objects representing the
+              tags associated with the split item.
+            allOf:
+            - $ref: '#/components/schemas/AccountingEntryTagV1'
+        taxCodeId:
+          type: string
+          description: A unique identifier that references the specific `TaxCode`
+            applied to the specific split item.
+          format: uuid
+        totalBillValue:
+          description: The portion of the transaction amount assigned to this split
+            item, represented as a `Money` object in the company's default currency.
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        transactionValue:
+          description: The transaction amount in the currency in which the payment
+            was made, represented as a `Money` object. For example, if an expense
+            is incurred in France, the value is returned in EUR.
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        updatedAt:
+          type: string
+          description: The time when the split item was last updated. This is in ISO
+            8601 format. For example, `2024-01-01T12:00:00Z`.
+          format: date-time
+      description: A list of `SplitItemV1` objects associated with the accounting
+        entry. The list is empty when the entry has not been split. When the entry
+        is split, the list contains the resulting split items.
+    TagCreateModel:
+      required:
+      - archived
+      - code
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag.
+          example: '12345'
+        name:
+          type: string
+          description: User readable name of the tag.
+          example: Lunch allowance
+        otherDimensionValues:
+          type: array
+          description: Dimension values outside the two main dimensions ordered by
+            display order. Values not provided will be given empty values.Values will
+            be ignored if there is not enough dimensions to add them to.
+          example:
+          - value1
+          - value2
+          items:
+            type: string
+            description: Dimension values outside the two main dimensions ordered
+              by display order. Values not provided will be given empty values.Values
+              will be ignored if there is not enough dimensions to add them to.
+            example: '["value1","value2"]'
+    TagDimensionValueCreateModel:
+      required:
+      - value
+      type: object
+      properties:
+        value:
+          type: string
+    TagDimensionValueModel:
+      required:
+      - createdAt
+      - dimensionId
+      - tagId
+      - updatedAt
+      - value
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        dimensionId:
+          type: string
+          description: Unique identifier of the tag group dimension this dimension
+            value is associated with.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        tagId:
+          type: string
+          description: Unique identifier of the tag this dimension value belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        value:
+          type: string
+          description: Value of the given dimension for the given tag.
+    TagDimensionValueUpdateModel:
+      required:
+      - value
+      type: object
+      properties:
+        value:
+          type: string
+    TagGroupCreateModel:
+      required:
+      - archived
+      - code
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Place to store additional information about the tag group.
+          description: Place to store additional information about the tag group.
+        name:
+          type: string
+          description: User readable name of the tag group.
+    TagGroupDimensionCreateModel:
+      required:
+      - code
+      - name
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        displayOrder:
+          type: integer
+          description: This field is no longer in use. The display order of a new
+            tag group dimension is now managed by the highest column order value.
+          format: int32
+          nullable: true
+          example: 1
+          deprecated: true
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        visible:
+          type: boolean
+          description: Determines if this tag group dimension is displayed in the
+            UI.
+          example: false
+    TagGroupDimensionModel:
+      required:
+      - code
+      - createdAt
+      - displayOrder
+      - groupId
+      - id
+      - name
+      - updatedAt
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine
+            the display position.
+          format: int32
+          example: 1
+        groupId:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        id:
+          type: string
+          description: Unique identifier of the tag group dimension.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        visible:
+          type: boolean
+          description: Determines if this tag group dimension is displayed in the
+            UI.
+          example: false
+    TagGroupDimensionUpdateModel:
+      required:
+      - code
+      - displayOrder
+      - name
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine
+            the display position.
+          format: int32
+          example: 1
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        visible:
+          type: boolean
+          description: Determines if this tag group dimension is displayed in the
+            UI.
+          example: false
+    TagGroupModel:
+      required:
+      - archived
+      - code
+      - companyId
+      - createdAt
+      - id
+      - metadata
+      - name
+      - updatedAt
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        companyId:
+          type: string
+          description: Unique identifier of the company the tag group belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        id:
+          type: string
+          description: Unique identifier of the tag group.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Place to store additional information about the tag group.
+            example: '{"externalExtraId":"f302f9ec-6c17-11ee-b962-0242ac120002"}'
+          description: Place to store additional information about the tag group.
+          example:
+            externalExtraId: f302f9ec-6c17-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group.
+          example: Projects
+        totalTagsCount:
+          type: integer
+          description: Total number of Tags belonging to this TagGroup.
+          format: int64
+          example: 4
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+    TagGroupUpdateModel:
+      required:
+      - archived
+      - code
+      - metadata
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag group.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Place to store additional information about the tag group.
+          description: Place to store additional information about the tag group.
+        name:
+          type: string
+          description: User readable name of the tag group.
+    TagGroupUsageModel:
+      required:
+      - usages
+      type: object
+      properties:
+        usages:
+          type: array
+          description: List of tag usage models.
+          items:
+            $ref: '#/components/schemas/TagUsageModel'
+    TagModel:
+      required:
+      - archived
+      - code
+      - createdAt
+      - groupId
+      - id
+      - updatedAt
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag.
+          example: '12345'
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        groupId:
+          type: string
+          description: Unique identifier of the tag group this tag belongs to.
+          format: uuid
+        id:
+          type: string
+          description: Unique identifier of the tag.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag.
+          example: Lunch allowance
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+    TagUpdateModel:
+      required:
+      - archived
+      - code
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify
+            the tag.
+          example: '12345'
+        name:
+          type: string
+          description: User readable name of the tag.
+          example: Lunch allowance
+        otherDimensionValues:
+          type: array
+          description: Dimension values outside the two main dimensions ordered by
+            display order. Values not provided will not be changed.Values will be
+            ignored if there is not enough dimensions to add them to
+          example:
+          - value1
+          - value2
+          items:
+            type: string
+            description: Dimension values outside the two main dimensions ordered
+              by display order. Values not provided will not be changed.Values will
+              be ignored if there is not enough dimensions to add them to
+            example: '["value1","value2"]'
+    TagUsageModel:
+      required:
+      - count
+      - id
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of expenses linked to the tag.
+          format: int32
+        id:
+          type: string
+          description: Unique identifier of the tag.
+          format: uuid
+      description: List of tag usage models.
+    TaxCodeCreateUpdateModel:
+      required:
+      - archived
+      - companyId
+      - name
+      - rate
+      - type
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to archive or unarchive a category (when
+            set to true, account is not visible or usable on the platform)
+        code:
+          type: string
+          description: The accounting system's internal identifier of the tax code
+          nullable: true
+          example: '01'
+        companyId:
+          type: string
+          description: Company ID the tax code is being created/updated for
+          format: uuid
+        ingoingTaxAccount:
+          type: string
+          description: Ingoing tax account usually used to account for reverse VAT
+          nullable: true
+        name:
+          type: string
+          description: Name of the tax code
+          example: Standardmoms (25 %)
+        outgoingTaxAccount:
+          type: string
+          description: Outgoing tax account usually used to account for reverse VAT
+          nullable: true
+        rate:
+          type: number
+          description: Percentage rate applied for this tax code (This is represented
+            in decimals and not the percentage. e.g. 20% tax rate would be 0.20)
+        type:
+          $ref: '#/components/schemas/TaxCodeTypeModel'
+    TaxCodeModel:
+      required:
+      - archived
+      - companyId
+      - createdAt
+      - id
+      - name
+      - rate
+      - type
+      - updatedAt
+      type: object
+      properties:
+        accountingIntegrationSystem:
+          type: string
+          description: Accounting integration system
+          nullable: true
+        archived:
+          type: boolean
+          description: Boolean flag used to archive or unarchive an account (when
+            set to true, account is not visible or usable on the platform)
+        code:
+          type: string
+          description: The accounting system's internal identifier of the tax code
+          nullable: true
+          example: '01'
+        companyId:
+          type: string
+          description: The Pleo unique identifier of the company the tax code belongs
+            to
+          format: uuid
+        createdAt:
+          pattern: YYYY-MM-DDTHH:mi:ssZ
+          type: string
+          description: Date and time the tax code was created
+          format: date-time
+        id:
+          type: string
+          description: The unique identifier generated by Pleo for the tax code
+          format: uuid
+        ingoingTaxAccount:
+          type: string
+          description: Ingoing tax account usually used to account for reverse VAT
+          nullable: true
+        name:
+          type: string
+          description: Name of the tax code
+          example: Standardmoms (25 %)
+        outgoingTaxAccount:
+          type: string
+          description: Outgoing tax account usually used to account for reverse VAT
+          nullable: true
+        rate:
+          type: number
+          description: Percentage rate applied for this tax code (This is represented
+            in decimals and not the percentage. e.g. 20% tax rate would be 0.20)
+        type:
+          $ref: '#/components/schemas/TaxCodeTypeModel'
+        updatedAt:
+          pattern: YYYY-MM-DDTHH:mi:ssZ
+          type: string
+          description: Date and time the tax code was last updated
+          format: date-time
+    TaxCodeSearchRequest:
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: If set to true will only return tax codes that have been archived,
+            if set to false will only return tax codes that have not been archived.
+            By default,both archived and non-archived tax codes will be returned.
+        code:
+          type: string
+          description: Filter by code.
+        taxCodeIds:
+          uniqueItems: true
+          type: array
+          description: Useful for fetching a list of tax codes given a specific list
+            of IDs.
+          items:
+            type: string
+            description: Useful for fetching a list of tax codes given a specific
+              list of IDs.
+            format: uuid
+        type:
+          $ref: '#/components/schemas/TaxCodeTypeModel'
+    TaxCodeTypeModel:
+      type: string
+      description: Classification of this tax code. Exclusive tax codes are not currently
+        supported.
+      enum:
+      - inclusive
+      - exclusive
+      - reverse
+    TaxedAmount:
+      required:
+      - amount
+      - id
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Money'
+        id:
+          type: string
+          description: An identifier to associate the amount to
+      description: The amounts to apply the tax code to
+    Taxes:
+      required:
+      - amountTaxBreakdown
+      - id
+      type: object
+      properties:
+        amountTaxBreakdown:
+          $ref: '#/components/schemas/AmountTaxBreakdown'
+        id:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Bearer token authentication. Include the token in the Authorization
+        header as: `Bearer <token>`'
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      description: Basic HTTP authentication using API key. Use your API key as the
+        username and leave the password empty. The credentials will be Base64 encoded
+        automatically.
+      scheme: basic

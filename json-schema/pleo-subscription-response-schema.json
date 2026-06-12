@@ -1,0 +1,13 @@
+{
+  "required": [
+    "data"
+  ],
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/components/schemas/SubscriptionModel"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SubscriptionResponse"
+}

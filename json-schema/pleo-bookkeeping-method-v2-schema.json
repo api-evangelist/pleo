@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "description": "Specifies the type of bookkeeping system used for recording the accounting entry.",
+  "enum": [
+    "none",
+    "journal",
+    "accounts_payable"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BookkeepingMethodV2"
+}

@@ -1,0 +1,38 @@
+{
+  "id": "ae-01HXYZ5555",
+  "companyId": "cmp-01HXYZ1111",
+  "employeeId": "emp-01HXYZ2222",
+  "accountId": "bk-acc-01HXYZ9999",
+  "accountCode": "6010",
+  "bookkeepingDate": "2026-06-10",
+  "exportStatus": "READY",
+  "family": "PURCHASE",
+  "subFamily": "CARD",
+  "amount": {
+    "value": 12500,
+    "currency": "EUR",
+    "decimalDigits": 2
+  },
+  "description": "Team lunch — Noma Restaurant",
+  "taxAmount": {
+    "value": 2500,
+    "currency": "EUR",
+    "decimalDigits": 2
+  },
+  "taxCode": {
+    "id": "tc-01HXYZ7777",
+    "code": "VAT25",
+    "rate": 25.0
+  },
+  "tags": [
+    {
+      "id": "tag-01HXYZ3333",
+      "name": "Q2-Marketing",
+      "tagGroupId": "tg-01HXYZ4444"
+    }
+  ],
+  "hasReceipts": true,
+  "receiptCount": 1,
+  "createdAt": "2026-06-10T12:34:56Z",
+  "updatedAt": "2026-06-11T08:00:00Z"
+}

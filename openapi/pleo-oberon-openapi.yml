@@ -1,0 +1,482 @@
+openapi: 3.0.1
+info:
+  title: Oberon API
+  description: Oberon open api definitions
+  termsOfService: https://pleo.io/terms/
+  contact:
+    email: apiteam@pleo.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 50.7.0
+servers:
+- url: https://external.pleo.io
+  description: Production server
+- url: https://external.staging.pleo.io
+  description: Staging server
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: SCIM
+  description: "SCIM-compatible User API. The SCIM (System for Cross-domain Identity\n\
+    Management) specification standardises a schema for user representation and\n\
+    provides a RESTful API to create, update, retrieve and delete user identities.\n\
+    <br> In particular, this API enables third-party systems to efficiently manage\n\
+    user provisioning and de-provisioning.\n <br> API available at `/scim/v2`"
+  externalDocs:
+    description: Read more about SCIM
+    url: https://datatracker.ietf.org/doc/html/rfc7644
+- name: Employees
+  description: "The Employees API enables you to search for employee records that\n\
+    are managed in Pleo. You can perform the following: \n - Search for multiple\n\
+    employees \n - Search for a specific employee record by employee ID"
+- name: Companies
+  description: "The Companies API enables you to search for company records that are\
+    \ managed in Pleo. You can perform the following: \n - Search for multiple companies\n\
+    \ - Search for a specific company record by company ID"
+paths:
+  /v1/companies:
+    get:
+      tags:
+      - Companies
+      summary: Search for Companies
+      description: Use this endpoint to search for companies associated with a specific
+        organisation.
+      operationId: Search for Companies
+      parameters:
+      - name: organization_id
+        in: query
+        description: Enter the organization ID of the companies you are searching
+          for. Ensure that the access token used for authentication has the correct
+          permissions to search for companies in the given organization.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      responses:
+        '200':
+          description: Company search successful
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseExternalCompanyResponseModel'
+        '403':
+          description: User lacks the necessary permissions
+  /v1/companies/{companyId}:
+    get:
+      tags:
+      - Companies
+      summary: Search for a Specific Company
+      description: Search for a specific company by company ID.
+      operationId: Get company by ID
+      parameters:
+      - name: companyId
+        in: path
+        description: Enter the company ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Company resource found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseExternalCompanyResponseModel'
+        '403':
+          description: User lacks the necessary permissions.
+        '404':
+          description: Company with given ID not found
+  /v2/employees:
+    get:
+      tags:
+      - Employees
+      summary: Search for employees
+      description: Use this endpoint to search for multiple employees.
+      operationId: Search Employees
+      parameters:
+      - name: companyId
+        in: query
+        description: Enter the company ID of the employees you are searching for.
+          This is not a mandatory parameter; hence, if you do not know the company
+          ID, the response message contains details of all employees to which you
+          have access. If you are searching for employees at the organisation level,
+          ensure that the access token used for authentication has the correct permissions.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      - name: email
+        in: query
+        description: The email of the Employee you are searching for.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: code
+        in: query
+        description: The external ID of the Employee you are searching for.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      responses:
+        '200':
+          description: Employee search successful
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseExternalEmployeeResponseModel'
+        '403':
+          description: 'Forbidden: User lacks the necessary permissions'
+  /v2/employees/{employeeId}:
+    get:
+      tags:
+      - Employees
+      summary: Search for a specific employee
+      description: Search for a specific employee by employee ID.
+      operationId: Get employee by ID
+      parameters:
+      - name: employeeId
+        in: path
+        description: Enter the employee ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Employee resource found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseExternalEmployeeResponseModel'
+        '403':
+          description: 'Forbidden: User lacks the necessary permissions to access
+            this Employee'
+        '404':
+          description: 'Not Found: Employee with given ID not found'
+  /scim/v2/{subResource}: {}
+components:
+  schemas:
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    CursorPaginatedResponseExternalCompanyResponseModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalCompanyResponseModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseExternalEmployeeResponseModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalEmployeeResponseModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    DataResponseExternalCompanyResponseModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalCompanyResponseModel'
+    DataResponseExternalEmployeeResponseModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalEmployeeResponseModel'
+    ExternalAddressResponseModel:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: Line 1 of the company address.
+        addressLine2:
+          type: string
+          description: Line 2 of the company address.
+        country:
+          type: string
+          description: Country of the company.
+        locality:
+          type: string
+          description: Locality of the company address.
+        postalCode:
+          type: string
+          description: Postal code of the company address.
+        region:
+          type: string
+          description: Region of the company.
+      description: Address of the company
+    ExternalCompanyResponseModel:
+      required:
+      - address
+      - id
+      - name
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ExternalAddressResponseModel'
+        id:
+          type: string
+          description: ID of the Company
+          format: uuid
+        name:
+          type: string
+          description: Name of the Company
+        organizationId:
+          type: string
+          description: Organization ID of the Company
+          format: uuid
+        registrationNumber:
+          type: string
+          description: Registration number of the company
+    ExternalEmployeeResponseModel:
+      required:
+      - companyId
+      - email
+      - firstName
+      - id
+      - lastName
+      type: object
+      properties:
+        code:
+          type: string
+          description: External ID of the Employee
+        companyId:
+          type: string
+          description: Company ID of the Employee
+          format: uuid
+        email:
+          type: string
+          description: Email of the Employee
+        firstName:
+          type: string
+          description: First name of the Employee
+        id:
+          type: string
+          description: ID of the Employee
+          format: uuid
+        jobTitle:
+          type: string
+          description: Job title of the Employee
+        lastName:
+          type: string
+          description: Last name of the Employee
+        phone:
+          type: string
+          description: Phone number of the Employee
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Bearer token authentication. Include the token in the Authorization
+        header as: `Bearer <token>`'
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      description: Basic HTTP authentication using API key. Use your API key as the
+        username and leave the password empty. The credentials will be Base64 encoded
+        automatically.
+      scheme: basic

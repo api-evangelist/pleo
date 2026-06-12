@@ -1,0 +1,15 @@
+{
+  "id": "vnd-01HXYZ8888",
+  "companyId": "cmp-01HXYZ1111",
+  "name": "Noma ApS",
+  "externalId": "sup-1042",
+  "code": "NOMA",
+  "countryCode": "DK",
+  "registrationNumber": "DK28505016",
+  "defaultAccountCode": "6010",
+  "defaultTaxCodeExternalId": "VAT25",
+  "isActive": true,
+  "isArchived": false,
+  "createdAt": "2025-01-15T09:00:00Z",
+  "updatedAt": "2026-06-01T10:30:00Z"
+}

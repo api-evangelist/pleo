@@ -1,0 +1,19 @@
+{
+  "required": [
+    "externalId"
+  ],
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record."
+    },
+    "externalId": {
+      "type": "string",
+      "description": "Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available."
+    }
+  },
+  "description": "The request containing the acknowledgement of the vendor creation in the target ERP/accounting system",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ActivateVendorEventRequest"
+}

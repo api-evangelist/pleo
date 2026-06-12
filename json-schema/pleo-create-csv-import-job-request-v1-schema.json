@@ -1,0 +1,40 @@
+{
+  "required": [
+    "companyId",
+    "originalFilename",
+    "type"
+  ],
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": "string",
+      "description": "Unique identifier for the company.",
+      "format": "uuid"
+    },
+    "csvFormat": {
+      "$ref": "#/components/schemas/CsvFormatV1"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data."
+      },
+      "description": "Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data."
+    },
+    "originalFilename": {
+      "minLength": 1,
+      "type": "string",
+      "description": "Original filename of the uploaded CSV file.",
+      "example": "vendors.csv"
+    },
+    "type": {
+      "minLength": 1,
+      "type": "string",
+      "description": "Type of CSV import job.",
+      "example": "vendors"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CreateCsvImportJobRequestV1"
+}

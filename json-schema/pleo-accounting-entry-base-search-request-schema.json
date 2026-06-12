@@ -1,0 +1,175 @@
+{
+  "required": [
+    "includeDeleted"
+  ],
+  "type": "object",
+  "properties": {
+    "accountIds": {
+      "maxItems": 100,
+      "minItems": 0,
+      "type": "array",
+      "description": "Only return accounting entries that match with the given account IDs.",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "bookkeepingDateEnd": {
+      "type": "string",
+      "description": "Return accounting entries that have been recorded prior to the specific bookkeeping date. This value cannot be used with other date search criteria.",
+      "format": "date-time"
+    },
+    "bookkeepingDateStart": {
+      "type": "string",
+      "description": "Return accounting entries that have been recorded after the specific bookkeeping date. This value cannot be used with any other date search criteria.",
+      "format": "date-time"
+    },
+    "employeeIds": {
+      "maxItems": 100,
+      "minItems": 0,
+      "type": "array",
+      "description": "Only return accounting entries that match with the specific Employee ID.",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "exportStatus": {
+      "type": "array",
+      "description": "Only return accounting entries that match with the specific export status. ",
+      "items": {
+        "$ref": "#/components/schemas/ExportStatus"
+      }
+    },
+    "families": {
+      "type": "array",
+      "description": "Only return accounting entries that belong to the specific accounting entry families",
+      "items": {
+        "$ref": "#/components/schemas/AccountingEntryFamily"
+      }
+    },
+    "foreignExtensionIds": {
+      "maxItems": 100,
+      "minItems": 0,
+      "type": "array",
+      "description": "Only return accounting entries with the given `foreignExtensionId`. This is an auto-generated ID that populates when the Accounting Entries API endpoints interact with other Pleo APIs.'",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hasAccount": {
+      "type": "boolean",
+      "description": "Only return accounting entries with an Account ID assigned"
+    },
+    "hasBookkeepingDate": {
+      "type": "boolean",
+      "description": "Only return Accounting Entries that have bookkeeping date set"
+    },
+    "hasNote": {
+      "type": "boolean",
+      "description": "Return accounting entries that have a note"
+    },
+    "includeDeleted": {
+      "type": "boolean",
+      "description": "Include deleted accounting entries",
+      "default": false
+    },
+    "performedAtEnd": {
+      "type": "string",
+      "description": "Only return accounting entries performed before this date. Cannot be used with any other date filters",
+      "format": "date-time"
+    },
+    "performedAtStart": {
+      "type": "string",
+      "description": "Only return accounting entries performed after this date. Cannot be used with any other date filters",
+      "format": "date-time"
+    },
+    "reviewStatus": {
+      "type": "array",
+      "description": "Only return accounting entries that match with the specific review status. ",
+      "items": {
+        "$ref": "#/components/schemas/ReviewStatus"
+      }
+    },
+    "settled": {
+      "type": "boolean",
+      "description": "Only return accounting entries that have a settled status."
+    },
+    "settledAtEnd": {
+      "type": "string",
+      "description": "Only return accounting entries settled before this date. Cannot be used with any other date filters",
+      "format": "date-time"
+    },
+    "settledAtStart": {
+      "type": "string",
+      "description": "Only return accounting entries settled after this date. Cannot be used with any other date filters",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "array",
+      "description": "Only return accounting entries that match with the specific accounting entry status.",
+      "items": {
+        "$ref": "#/components/schemas/AccountingEntryStatus"
+      }
+    },
+    "subFamilies": {
+      "type": "array",
+      "description": "Only return accounting entries that belong to the specific sub family.",
+      "items": {
+        "$ref": "#/components/schemas/AccountingEntrySubFamily"
+      }
+    },
+    "tagGroupIdsUnset": {
+      "maxItems": 100,
+      "minItems": 0,
+      "type": "array",
+      "description": "Only return accounting entries where the given Tag Group IDs do not have a tag value set.",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "tagRowIds": {
+      "maxItems": 100,
+      "minItems": 0,
+      "type": "array",
+      "description": "Only return accounting entries with the given Tag ID.",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "taxCodeIds": {
+      "maxItems": 100,
+      "minItems": 0,
+      "uniqueItems": true,
+      "type": "array",
+      "description": "Only return accounting entries that match with the specific tax code IDs",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "teamIds": {
+      "maxItems": 100,
+      "minItems": 0,
+      "type": "array",
+      "description": "Only return accounting entries with the given Team ID. The Team ID is not the one allocated to an employee, It is allocated to a team of a company. For example, an accounting entry contains the team ID of Design team as the specific entry is associated with the Design team",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "transactionValueCurrencies": {
+      "maxItems": 100,
+      "minItems": 0,
+      "type": "array",
+      "description": "Only return accounting entries with the given transaction currency codes (ISO 4217). Filters on the original transaction currency of the expense.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AccountingEntryBaseSearchRequest"
+}

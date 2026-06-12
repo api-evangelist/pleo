@@ -1,0 +1,57 @@
+{
+  "required": [
+    "archived",
+    "companyId",
+    "name",
+    "rate",
+    "type"
+  ],
+  "type": "object",
+  "properties": {
+    "archived": {
+      "type": "boolean",
+      "description": "Boolean flag used to archive or unarchive a category (when set to true, account is not visible or usable on the platform)"
+    },
+    "code": {
+      "type": "string",
+      "description": "The accounting system's internal identifier of the tax code",
+      "nullable": true,
+      "example": "01"
+    },
+    "companyId": {
+      "type": "string",
+      "description": "Company ID the tax code is being created/updated for",
+      "format": "uuid"
+    },
+    "ingoingTaxAccount": {
+      "type": "string",
+      "description": "Ingoing tax account usually used to account for reverse VAT",
+      "nullable": true
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the tax code",
+      "example": "Standardmoms (25 %)"
+    },
+    "outgoingTaxAccount": {
+      "type": "string",
+      "description": "Outgoing tax account usually used to account for reverse VAT",
+      "nullable": true
+    },
+    "rate": {
+      "type": "number",
+      "description": "Percentage rate applied for this tax code (This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20)"
+    },
+    "type": {
+      "type": "string",
+      "description": "Classification of this tax code",
+      "enum": [
+        "inclusive",
+        "exclusive",
+        "reverse"
+      ]
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TaxCodeCreateUpdateModel"
+}

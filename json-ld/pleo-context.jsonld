@@ -1,0 +1,132 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "pleo": "https://developers.pleo.io/vocabulary#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "AccountingEntry": "pleo:AccountingEntry",
+    "BookkeepingAccount": "pleo:BookkeepingAccount",
+    "ExportJob": "pleo:ExportJob",
+    "ExportItem": "pleo:ExportItem",
+    "ExportJobEvent": "pleo:ExportJobEvent",
+    "Vendor": "pleo:Vendor",
+    "TagGroup": "pleo:TagGroup",
+    "Tag": "pleo:Tag",
+    "TaxCode": "pleo:TaxCode",
+    "Employee": "pleo:Employee",
+    "Company": "pleo:Company",
+    "WebhookSubscription": "pleo:WebhookSubscription",
+    "Installation": "pleo:Installation",
+    "Receipt": "pleo:Receipt",
+    "ChartOfAccounts": "pleo:ChartOfAccounts",
+    "Dimension": "pleo:Dimension",
+
+    "id": "@id",
+    "type": "@type",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "status": "pleo:status",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "companyId": {
+      "@id": "pleo:companyId",
+      "@type": "xsd:string"
+    },
+    "employeeId": {
+      "@id": "pleo:employeeId",
+      "@type": "xsd:string"
+    },
+    "vendorId": {
+      "@id": "pleo:vendorId",
+      "@type": "xsd:string"
+    },
+    "accountId": {
+      "@id": "pleo:accountId",
+      "@type": "xsd:string"
+    },
+    "tagId": {
+      "@id": "pleo:tagId",
+      "@type": "xsd:string"
+    },
+    "tagGroupId": {
+      "@id": "pleo:tagGroupId",
+      "@type": "xsd:string"
+    },
+    "taxCodeId": {
+      "@id": "pleo:taxCodeId",
+      "@type": "xsd:string"
+    },
+    "subscriptionId": {
+      "@id": "pleo:subscriptionId",
+      "@type": "xsd:string"
+    },
+
+    "amount": {
+      "@id": "schema:price",
+      "@type": "xsd:decimal"
+    },
+    "currency": {
+      "@id": "schema:priceCurrency",
+      "@type": "xsd:string"
+    },
+
+    "accountingEntryFamily": "pleo:accountingEntryFamily",
+    "accountingEntryStatus": "pleo:accountingEntryStatus",
+    "accountingEntrySubFamily": "pleo:accountingEntrySubFamily",
+
+    "exportJobStatus": "pleo:exportJobStatus",
+    "eventTypes": "pleo:eventTypes",
+    "webhookUrl": "pleo:webhookUrl",
+    "secret": "pleo:secret",
+
+    "scope": "pleo:scope",
+    "bearerToken": "pleo:bearerToken",
+    "apiKey": "pleo:apiKey",
+
+    "cursor": "pleo:cursor",
+    "pageSize": "pleo:pageSize",
+    "pageOrder": "pleo:pageOrder",
+    "hasNextPage": "pleo:hasNextPage",
+    "hasPreviousPage": "pleo:hasPreviousPage",
+
+    "dimensions": {
+      "@id": "pleo:dimensions",
+      "@container": "@set"
+    },
+    "tags": {
+      "@id": "pleo:tags",
+      "@container": "@set"
+    },
+    "items": {
+      "@id": "pleo:items",
+      "@container": "@set"
+    },
+    "receipts": {
+      "@id": "pleo:receipts",
+      "@container": "@set"
+    },
+
+    "url": "schema:url",
+    "email": "schema:email",
+    "phone": "schema:telephone",
+    "address": "schema:address",
+
+    "isActive": {
+      "@id": "pleo:isActive",
+      "@type": "xsd:boolean"
+    },
+    "isArchived": {
+      "@id": "pleo:isArchived",
+      "@type": "xsd:boolean"
+    }
+  }
+}

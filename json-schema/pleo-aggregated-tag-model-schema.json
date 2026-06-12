@@ -1,0 +1,66 @@
+{
+  "required": [
+    "archived",
+    "code",
+    "companyId",
+    "createdAt",
+    "dimensions",
+    "group",
+    "id",
+    "updatedAt"
+  ],
+  "type": "object",
+  "properties": {
+    "archived": {
+      "type": "boolean",
+      "description": "This tag is not used anymore",
+      "example": false
+    },
+    "code": {
+      "type": "string",
+      "description": "External identifier of the Tag",
+      "example": "12345"
+    },
+    "companyId": {
+      "type": "string",
+      "description": "Unique identifier of the company the Tag Group belongs to",
+      "format": "uuid",
+      "example": "c04c7e9e-6c15-11ee-b962-0242ac120003"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Creation date and time",
+      "format": "date-time",
+      "example": "2023-08-23T03:11:48.000Z"
+    },
+    "dimensions": {
+      "type": "array",
+      "description": "List of all the dimensions and dimension values associated with the tag",
+      "items": {
+        "$ref": "#/components/schemas/AggregatedTagTagDimensionModel"
+      }
+    },
+    "group": {
+      "$ref": "#/components/schemas/AggregatedTagTagGroupModel"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of Tag",
+      "format": "uuid",
+      "example": "c04c7e9e-6c15-11ee-b962-0242ac120002"
+    },
+    "name": {
+      "type": "string",
+      "description": "User readable name that is used for the possible value within a tag group on an expense",
+      "example": "Lunch allowance"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Date and time of the last update",
+      "format": "date-time",
+      "example": "2023-08-23T03:11:48.000Z"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AggregatedTagModel"
+}

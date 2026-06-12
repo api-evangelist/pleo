@@ -1,0 +1,25 @@
+{
+  "required": [
+    "companyId",
+    "items"
+  ],
+  "type": "object",
+  "properties": {
+    "companyId": {
+      "type": "string",
+      "description": "Pleo's internal identifier for the company the accounts are associated with.",
+      "format": "uuid"
+    },
+    "items": {
+      "maxItems": 1000,
+      "minItems": 1,
+      "type": "array",
+      "description": "List of bookkeeping accounts to be created.\nThe number of accounts in the batch must be between 1 and 1000.",
+      "items": {
+        "$ref": "#/components/schemas/BookkeepingAccountBatchRequestItemV1"
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BookkeepingAccountBatchCreateRequestV1"
+}

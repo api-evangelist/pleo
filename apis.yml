@@ -1,0 +1,86 @@
+aid: pleo
+name: Pleo
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/pleo/refs/heads/main/apis.yml
+created: 2026-06-12
+modified: 2026-06-12
+specificationVersion: '0.19'
+description: >
+  Pleo is a business spend management platform that issues smart company cards
+  to employees, enabling real-time expense tracking, receipt capture, and
+  automated bookkeeping. The Pleo REST API lets developers automate workflows,
+  sync accounting data, manage users and cards, and build custom integrations
+  against accounting systems. The API supports OAuth 2.0 (with PKCE) and API
+  key authentication with a scopes-based permission model, and offers both
+  a sandbox and production environment. Pleo also runs an App Marketplace
+  where partners can publish integrations available to thousands of businesses
+  across Europe.
+tags:
+  - Expense Management
+  - Company Cards
+  - Spend Management
+  - Reimbursements
+  - Accounting
+  - FinTech
+  - Finance
+apis:
+  - name: Pleo Accounting API
+    description: >
+      RESTful API for exporting accounting data, managing chart of accounts,
+      tax codes, vendors, employees, cost centers, and integrating with
+      accounting software. Supports OpenAPI/Swagger specification and Postman
+      collections.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developers.pleo.io/docs/pleo-introduction
+    baseURL: https://external.pleo.io
+    tags:
+      - Accounting
+      - Expense Management
+      - Vendors
+      - Employees
+    properties:
+      - type: Documentation
+        url: https://developers.pleo.io/docs/pleo-introduction
+      - type: OpenAPI
+        url: https://developers.pleo.io/openapi
+  - name: Pleo Webhooks API
+    description: >
+      Event subscription management API enabling real-time notifications via
+      webhooks for spend events, card activity, and expense updates.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developers.pleo.io/docs/webhooks
+    baseURL: https://external.pleo.io
+    tags:
+      - Webhooks
+      - Events
+      - Subscriptions
+    properties:
+      - type: Documentation
+        url: https://developers.pleo.io/docs/webhooks
+common:
+  - type: Website
+    url: https://www.pleo.io
+  - type: Documentation
+    url: https://developers.pleo.io
+  - type: GitHubOrganization
+    url: https://github.com/pleo-io
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/pleo-company
+  - type: X
+    url: https://x.com/pleo
+  - type: Blog
+    url: https://blog.pleo.io/en
+  - type: Pricing
+    url: https://www.pleo.io/en/pricing
+  - type: StatusPage
+    url: https://status.pleo.io
+  - type: Plans
+    url: plans/pleo-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/pleo-rate-limits.yml
+  - type: FinOps
+    url: finops/pleo-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

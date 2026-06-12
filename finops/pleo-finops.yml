@@ -1,0 +1,117 @@
+specification: FinOps Framework 1.0
+provider: Pleo
+providerId: pleo
+created: 2026-06-12
+modified: 2026-06-12
+url: https://www.pleo.io/en/pricing
+billingModel:
+  type: subscription_plus_metered
+  description: >
+    Pleo charges a base monthly subscription fee per plan tier (with 3 users
+    included) plus a per-active-user monthly fee for each additional cardholder.
+    Cashback is returned as a percentage of card spend on Advanced and Beyond
+    plans, partially offsetting subscription costs.
+  currency: GBP
+  billingCycle: monthly
+  annualDiscountAvailable: true
+focusColumns:
+  - column: Provider
+    value: Pleo
+  - column: ServiceName
+    value: Pleo Spend Management API
+  - column: ServiceCategory
+    value: FinTech / Spend Management
+  - column: ChargeType
+    values:
+      - Usage (per active user)
+      - Subscription (base plan fee)
+      - Credit (cashback on card spend)
+  - column: BillingCurrency
+    value: GBP
+  - column: PricingUnit
+    value: user/month
+meters:
+  - name: Active Users
+    description: >
+      Count of active cardholders (employees issued a Pleo card) in the
+      billing period. Billed above the 3 users included in the base plan.
+    unit: user
+    billingCycle: monthly
+    rates:
+      - plan: Essential
+        pricePerUnit: 11.00
+        currency: GBP
+      - plan: Advanced
+        pricePerUnit: 15.00
+        currency: GBP
+      - plan: Beyond
+        pricePerUnit: 18.00
+        currency: GBP
+  - name: Card Spend (Cashback Credit)
+    description: >
+      Total card spend that qualifies for cashback on Advanced and Beyond
+      plans. Cashback is returned as a percentage credit against costs.
+    unit: GBP spent
+    billingCycle: monthly
+    rates:
+      - plan: Advanced
+        cashbackRate: 0.5
+        unit: percent
+      - plan: Beyond
+        cashbackRate: 0.75
+        unit: percent
+  - name: Base Subscription Fee
+    description: >
+      Fixed monthly platform fee per plan tier, inclusive of 3 users.
+    unit: month
+    billingCycle: monthly
+    rates:
+      - plan: Starter
+        price: 9.50
+        currency: GBP
+        billingNote: Yearly only
+      - plan: Essential
+        priceMonthly: 45.00
+        priceYearly: 39.00
+        currency: GBP
+      - plan: Advanced
+        priceMonthly: 109.00
+        priceYearly: 99.00
+        currency: GBP
+      - plan: Beyond
+        priceMonthly: 219.00
+        priceYearly: 199.00
+        currency: GBP
+principles:
+  Visibility:
+    description: >
+      Pleo provides real-time spend visibility through its dashboard and
+      reporting tools. API consumers can export accounting data, query
+      expense records, and retrieve cost center breakdowns programmatically
+      for internal FinOps reporting pipelines.
+    dataExports:
+      - type: Accounting Export Jobs
+        endpoint: /export-jobs
+        formats:
+          - JSON
+      - type: Expense Data
+        endpoint: /employees
+        formats:
+          - JSON
+  Optimization:
+    description: >
+      Spend optimization is supported through budget controls, approval
+      workflows, vendor card limits, and cashback programs available on
+      Advanced and Beyond plans. API-level automation allows enforcement
+      of spending policies at scale, reducing maverick spend.
+    controls:
+      - name: Card Spending Limits
+        description: Per-card limits configurable via API and dashboard
+      - name: Budgets
+        description: Team and project budgets available on Advanced+ plans
+      - name: Approval Workflows
+        description: Multi-step spend approval configurable on Essential+ plans
+      - name: Cashback
+        description: >
+          0.5% (Advanced) or 0.75% (Beyond) returned on all card spend,
+          directly reducing the effective cost of the subscription.

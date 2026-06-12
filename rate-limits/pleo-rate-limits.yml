@@ -1,0 +1,49 @@
+specification: API Commons Rate Limits 0.1
+provider: Pleo
+providerId: pleo
+created: 2026-06-12
+modified: 2026-06-12
+url: https://developers.pleo.io/docs/pleo-introduction
+notes: >
+  Pleo has not publicly documented specific numeric rate limits in their
+  developer documentation. The API uses standard HTTP 429 Too Many Requests
+  responses when limits are exceeded. Developers experiencing throttling
+  should use exponential back-off and contact api@pleo.io for limit increases.
+retryAfter:
+  header: Retry-After
+  description: >
+    When a 429 response is returned, the Retry-After header indicates the
+    number of seconds the client should wait before retrying the request.
+throttled:
+  httpStatusCode: 429
+  description: Too Many Requests — the client has exceeded the allowed request rate.
+limits:
+  - scope: account
+    metric: requests
+    limit: null
+    timeFrame: minute
+    note: >
+      No publicly stated per-minute request limit. Pleo's API is accessed
+      under the Advanced and Beyond plans; actual limits are enforced
+      server-side and communicated via 429 responses.
+  - scope: account
+    metric: export_job_items_batch
+    limit: 100
+    timeFrame: request
+    note: >
+      Export job item batch updates are capped at 100 items per request,
+      as documented in the Pleo API reference.
+  - scope: account
+    metric: webhook_subscriptions
+    limit: null
+    timeFrame: account
+    note: >
+      No publicly stated cap on webhook subscriptions. Contact Pleo support
+      for enterprise-level needs.
+headers:
+  - name: Retry-After
+    description: Seconds to wait before the next request after receiving a 429 response.
+  - name: X-RateLimit-Limit
+    description: Not confirmed as used by Pleo; check response headers at runtime.
+  - name: X-RateLimit-Remaining
+    description: Not confirmed as used by Pleo; check response headers at runtime.

@@ -1,0 +1,198 @@
+specification: API Commons Plans 0.1
+provider: Pleo
+providerId: pleo
+created: 2026-06-12
+modified: 2026-06-12
+reconciled: true
+url: https://www.pleo.io/en/pricing
+plans:
+  - name: Starter
+    description: >
+      Entry-level plan for very small teams. Includes physical and virtual
+      company cards, real-time expense tracking, automated reports, and
+      accounting integrations. No API access included.
+    type: paid
+    currency: GBP
+    billingCycle: monthly
+    price: 9.50
+    priceNote: Per month (yearly billing). 3 users included; no additional users.
+    features:
+      - type: boolean
+        name: Physical Cards
+        value: true
+      - type: boolean
+        name: Virtual Cards
+        value: true
+      - type: boolean
+        name: Real-Time Expense Tracking
+        value: true
+      - type: boolean
+        name: Automated Reports
+        value: true
+      - type: boolean
+        name: Accounting Integrations
+        value: true
+      - type: boolean
+        name: Open API Access
+        value: false
+      - type: quota
+        name: Vendor Cards
+        limit: 1
+        unit: cards
+      - type: quota
+        name: Included Users
+        limit: 3
+        unit: users
+  - name: Essential
+    description: >
+      Adds reimbursements, mileage tracking, approval workflows, and flexible
+      card limits. Suitable for growing teams. No open API access.
+    type: paid
+    currency: GBP
+    billingCycle: monthly
+    price: 45.00
+    priceYearly: 39.00
+    additionalUserPrice: 11.00
+    additionalUserUnit: per user per month
+    features:
+      - type: boolean
+        name: Physical Cards
+        value: true
+      - type: boolean
+        name: Virtual Cards
+        value: true
+      - type: boolean
+        name: Reimbursements
+        value: true
+      - type: boolean
+        name: Mileage Tracking
+        value: true
+      - type: boolean
+        name: Approval Workflows
+        value: true
+      - type: boolean
+        name: Open API Access
+        value: false
+      - type: quota
+        name: Vendor Cards
+        limit: 25
+        unit: cards
+      - type: quota
+        name: Included Users
+        limit: 3
+        unit: users
+      - type: quota
+        name: Credit Limit
+        limit: 20000
+        unit: GBP
+  - name: Advanced
+    description: >
+      Includes everything in Essential plus open API access, multi-entity
+      management, HRIS integrations, cashback, budgets, and phone support.
+      This is the first tier to include Pleo's Open API.
+    type: paid
+    currency: GBP
+    billingCycle: monthly
+    price: 109.00
+    priceYearly: 99.00
+    additionalUserPrice: 15.00
+    additionalUserUnit: per user per month
+    features:
+      - type: boolean
+        name: Physical Cards
+        value: true
+      - type: boolean
+        name: Virtual Cards
+        value: true
+      - type: boolean
+        name: Reimbursements
+        value: true
+      - type: boolean
+        name: Open API Access
+        value: true
+      - type: boolean
+        name: Multi-Entity Management
+        value: true
+      - type: boolean
+        name: HRIS Integrations
+        value: true
+      - type: boolean
+        name: Budgets
+        value: true
+      - type: metered
+        name: Cashback
+        rate: 0.5
+        unit: percent
+      - type: quota
+        name: Vendor Cards
+        limit: 100
+        unit: cards
+      - type: quota
+        name: Included Users
+        limit: 3
+        unit: users
+      - type: quota
+        name: Credit Limit
+        limit: 250000
+        unit: GBP
+  - name: Beyond
+    description: >
+      Top-tier plan with everything in Advanced plus AI expense review, spending
+      insights, sub-accounts, purchase orders, higher cashback, and a dedicated
+      customer success manager. Full open API access included.
+    type: paid
+    currency: GBP
+    billingCycle: monthly
+    price: 219.00
+    priceYearly: 199.00
+    additionalUserPrice: 18.00
+    additionalUserUnit: per user per month
+    features:
+      - type: boolean
+        name: Physical Cards
+        value: true
+      - type: boolean
+        name: Virtual Cards
+        value: true
+      - type: boolean
+        name: Reimbursements
+        value: true
+      - type: boolean
+        name: Open API Access
+        value: true
+      - type: boolean
+        name: Multi-Entity Management
+        value: true
+      - type: boolean
+        name: AI Expense Review
+        value: true
+      - type: boolean
+        name: Spending Insights
+        value: true
+      - type: boolean
+        name: Purchase Orders
+        value: true
+      - type: boolean
+        name: Customer Success Manager
+        value: true
+      - type: metered
+        name: Cashback
+        rate: 0.75
+        unit: percent
+      - type: quota
+        name: Sub-Accounts
+        limit: 10
+        unit: accounts
+      - type: quota
+        name: Vendor Cards
+        limit: 100
+        unit: cards
+        note: Unlimited available on request
+      - type: quota
+        name: Included Users
+        limit: 3
+        unit: users
+      - type: quota
+        name: Credit Limit
+        limit: 500000
+        unit: GBP

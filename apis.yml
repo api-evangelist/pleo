@@ -1,7 +1,7 @@
 aid: pleo
 name: Pleo
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/pleo/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -30,7 +30,7 @@ apis:
       RESTful API for managing bookkeeping accounts — creating, updating,
       searching, and deleting chart-of-accounts entries linked to Pleo
       company spend.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -45,7 +45,7 @@ apis:
     description: >
       Core accounting-entry and tagging API covering tag groups, tags,
       tax codes, and accounting entries with enrichment and search.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -62,7 +62,7 @@ apis:
     description: >
       Enrichment API for attaching receipts and cost-categorisation tags
       to existing Pleo card accounting entries.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -78,7 +78,7 @@ apis:
     description: >
       Company and employee management API providing search and retrieval
       of employee profiles and company entities within a Pleo organisation.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -94,7 +94,7 @@ apis:
     description: >
       Export job management API for packaging and delivering accounting
       entries to ERP and accounting systems across v0–v3 versioned endpoints.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -110,7 +110,7 @@ apis:
     description: >
       CRUD and search API for managing VAT and sales-tax codes used in
       Pleo bookkeeping and expense categorisation.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -126,7 +126,7 @@ apis:
     description: >
       Tag group and tag management API for multi-dimensional cost allocation
       including aggregation, dimension values, and bulk operations.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -142,7 +142,7 @@ apis:
     description: >
       Installation lifecycle and introspection API for Pleo App Marketplace
       partners managing OAuth-based integration installations.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -158,7 +158,7 @@ apis:
     description: >
       Vendor registry API for creating, updating, activating, archiving, and
       bulk-importing suppliers via CSV with presigned-URL file upload support.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:
@@ -174,7 +174,7 @@ apis:
     description: >
       Event subscription management API enabling real-time notifications via
       webhooks for spend events, card activity, and expense updates.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/webhooks
     baseURL: https://external.pleo.io
     tags:
@@ -190,7 +190,7 @@ apis:
     description: >
       Chart of accounts management API for creating single and batch ledger
       accounts, searching, updating, and deleting nominal account records.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developers.pleo.io/docs/pleo-introduction
     baseURL: https://external.pleo.io
     tags:

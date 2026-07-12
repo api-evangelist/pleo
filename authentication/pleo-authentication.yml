@@ -1,0 +1,42 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/pleo-app-marketplace-openapi.yml, openapi/pleo-bookkeeping-core-openapi.yml,
+  openapi/pleo-chart-of-accounts-openapi.yml, openapi/pleo-export-openapi.yml, openapi/pleo-gjoll-openapi.yml,
+  openapi/pleo-oberon-openapi.yml, openapi/pleo-tags-openapi.yml, openapi/pleo-tax-code-openapi.yml,
+  openapi/pleo-triton-openapi.yml, openapi/pleo-vendors-openapi.yml, openapi/pleo-webhook-subscriptions-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: 'JWT Bearer token authentication. Include the token in the Authorization header
+    as: `Bearer <token>`'
+  sources:
+  - openapi/pleo-app-marketplace-openapi.yml
+  - openapi/pleo-bookkeeping-core-openapi.yml
+  - openapi/pleo-chart-of-accounts-openapi.yml
+  - openapi/pleo-export-openapi.yml
+  - openapi/pleo-gjoll-openapi.yml
+  - openapi/pleo-oberon-openapi.yml
+  - openapi/pleo-tags-openapi.yml
+  - openapi/pleo-tax-code-openapi.yml
+  - openapi/pleo-triton-openapi.yml
+  - openapi/pleo-vendors-openapi.yml
+  - openapi/pleo-webhook-subscriptions-openapi.yml
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: Basic HTTP authentication using API key. Use your API key as the username and
+    leave the password empty. The credentials will be Base64 encoded automatically.
+  sources:
+  - openapi/pleo-app-marketplace-openapi.yml
+  - openapi/pleo-chart-of-accounts-openapi.yml
+  - openapi/pleo-export-openapi.yml
+  - openapi/pleo-gjoll-openapi.yml
+  - openapi/pleo-oberon-openapi.yml
+  - openapi/pleo-triton-openapi.yml
+  - openapi/pleo-vendors-openapi.yml
+  - openapi/pleo-webhook-subscriptions-openapi.yml

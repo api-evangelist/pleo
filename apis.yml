@@ -203,6 +203,8 @@ apis:
       - type: OpenAPI
         url: openapi/pleo-chart-of-accounts-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/pleo-agentic-access.yml
   - type: DomainSecurity
     url: security/pleo-domain-security.yml
   - type: Authentication

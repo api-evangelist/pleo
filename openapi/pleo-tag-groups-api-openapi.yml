@@ -1,0 +1,774 @@
+openapi: 3.0.1
+info:
+  title: App Marketplace accounting-entries tag-groups API
+  description: API for Pleo App Marketplace
+  termsOfService: https://pleo.io/terms/
+  contact:
+    email: partner-ecosystem-team@pleo.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 39.4.0
+servers:
+- url: https://external.pleo.io
+  description: Production server
+- url: https://external.staging.pleo.io
+  description: Staging server
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: tag-groups
+paths:
+  /v0/aggregations/tag-groups:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve the tag groups for a company or an organisation in aggregated format
+      description: "\n            ⚠️ Attention: either the `company_id` or the `organization_id` query parameter MUST be provided. \n            If you supply both, the `company_id` will be used. If you supply neither, the request will fail. \n            If you supply the `company_id`, the response will contain only the tag groups for that company.\n            If you supply the `organization_id`, the response will contain the tag groups for all companies in the organization.\n            If you supply the `company_id` and the `organization_id`, the response will contain only the tag groups for the company. \n            If you supply the `tag_group_ids` query parameter, the response will contain only the tag groups with the given ids, including archived ones.\n            "
+      operationId: getAggregatedTagGroups
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Enter the company ID whose tag groups you are searching for. Required if organization_id is not provided. If you enter both company_id and organization_id, the company_id is used to filter the tag groups.
+          format: uuid
+      - name: organization_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Enter the organization ID whose tag groups you are searching for. Required if company_id is not provided. If you enter both company_id and organization_id, the company_id is used to filter the tag groups.
+          format: uuid
+      - name: tag_group_ids
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          description: Enter the list of tag groups IDs that you are searching for.
+          items:
+            type: string
+            description: Enter the list of tag groups IDs that you are searching for.
+            format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseListAggregatedTagGroupModel'
+  /v0/tag-groups:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve tag groups for a company or an organisation
+      description: "\n            ⚠️ Attention: either the `company_id` or the `organization_id` query parameter MUST be provided.\n            If you supply both, the `company_id` will be used. If you supply neither, the request will fail.\n            If you supply the `company_id`, the response will contain only the tag groups for that company. \n            If you supply the `organization_id`, the response will contain the tag groups for all companies in the organization.\n            If you supply the `company_id` and the `organization_id`, the response will contain only the tag groups for the company.\n            "
+      operationId: getTagGroups
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Enter the company ID whose tag groups you are searching for. Required if organization_id is not provided. If you enter both company_id and organization_id, the company_id is used to filter the tag groups.
+          format: uuid
+      - name: organization_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Enter the organization ID whose tag groups you are searching for. Required if company_id is not provided. If you enter both company_id and organization_id, the company_id is used to filter the tag groups.
+          format: uuid
+      - name: include_archived
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: include_tags_count
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseListTagGroupModel'
+    post:
+      tags:
+      - tag-groups
+      summary: Create a new tag group
+      description: Create a new tag group in Pleo.
+      operationId: createTagGroup
+      parameters:
+      - name: company_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Unique identifier of the company the tag group will be associated with.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagGroupCreateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupModel'
+  /v0/tag-groups/{groupId}:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve a tag group by its id
+      description: Retrieve details of a tag group by its id.
+      operationId: getTagGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to retrieve.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupModel'
+    put:
+      tags:
+      - tag-groups
+      summary: Update a tag group
+      description: Modify details of a tag group by its id.
+      operationId: updateTagGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to update.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagGroupUpdateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupModel'
+    delete:
+      tags:
+      - tag-groups
+      summary: Delete a tag group
+      description: Delete a tag group by its id.
+      operationId: deleteTagGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to delete.
+          format: uuid
+      responses:
+        '204':
+          description: Tag group successfully removed.
+  /v0/tag-groups/{groupId}/dimensions:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve a list of tag group dimensions
+      description: "\n            Retrieve a list of tag group dimensions excluding the name and code dimensions which are always present in a tag group. \n            The name and code dimensions are returned only when they do not follow the standard name and code naming convention.\n            "
+      operationId: getTagGroupDimensions
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to fetch dimensions for.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseListTagGroupDimensionModel'
+    post:
+      tags:
+      - tag-groups
+      summary: Create a new tag group dimension
+      operationId: createTagGroupDimension
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group this dimension will be associated with.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagGroupDimensionCreateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupDimensionModel'
+  /v0/tag-groups/{groupId}/dimensions/{dimensionId}:
+    get:
+      tags:
+      - tag-groups
+      summary: Retrieve a tag group dimension
+      operationId: getTagGroupDimension
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group dimension to be retrieved.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupDimensionModel'
+    put:
+      tags:
+      - tag-groups
+      summary: Update a tag group dimension
+      description: Update a tag group dimension by its id.
+      operationId: updateTagGroupDimension
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group dimension to be updated.
+          format: uuid
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/TagGroupDimensionUpdateModel'
+        required: true
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupDimensionModel'
+    delete:
+      tags:
+      - tag-groups
+      summary: Delete a tag group dimension
+      operationId: deleteTagGroupDimension
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+      - name: dimensionId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group dimension to be deleted.
+          format: uuid
+      responses:
+        default:
+          description: default response
+          content:
+            application/json;charset=UTF-8: {}
+  /v0/tag-groups/{groupId}/usage:
+    get:
+      tags:
+      - tag-groups
+      summary: Get usage for a tag group
+      description: Returns the number of expenses that are linked to each tag within a tag group.
+      operationId: getTagGroupUsage
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Unique identifier of the tag group to get usage for.
+          format: uuid
+      responses:
+        '200':
+          description: Tag group usage successfully retrieved.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseTagGroupUsageModel'
+        '403':
+          description: 'Forbidden: User lacks the necessary permissions.'
+        '404':
+          description: 'Not found: Tag group with given id was not found or deleted.'
+components:
+  schemas:
+    TagGroupDimensionModel:
+      required:
+      - code
+      - createdAt
+      - displayOrder
+      - groupId
+      - id
+      - name
+      - updatedAt
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine the display position.
+          format: int32
+          example: 1
+        groupId:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        id:
+          type: string
+          description: Unique identifier of the tag group dimension.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        visible:
+          type: boolean
+          description: Determines if this tag group dimension is displayed in the UI.
+          example: false
+    AggregatedTagGroupModel:
+      required:
+      - archived
+      - code
+      - companyId
+      - createdAt
+      - dimensions
+      - id
+      - name
+      - updatedAt
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        companyId:
+          type: string
+          description: Unique identifier of the company the tag group belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        dimensions:
+          type: array
+          description: List of all the dimensions associated with this tag group.
+          items:
+            $ref: '#/components/schemas/AggregatedTagGroupDimensionModel'
+        id:
+          type: string
+          description: Unique identifier of the tag group.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group.
+          example: Projects
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+    DataResponseListTagGroupDimensionModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagGroupDimensionModel'
+    DataResponseListAggregatedTagGroupModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregatedTagGroupModel'
+    TagGroupModel:
+      required:
+      - archived
+      - code
+      - companyId
+      - createdAt
+      - id
+      - metadata
+      - name
+      - updatedAt
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        companyId:
+          type: string
+          description: Unique identifier of the company the tag group belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        id:
+          type: string
+          description: Unique identifier of the tag group.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Place to store additional information about the tag group.
+            example: '{"externalExtraId":"f302f9ec-6c17-11ee-b962-0242ac120002"}'
+          description: Place to store additional information about the tag group.
+          example:
+            externalExtraId: f302f9ec-6c17-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group.
+          example: Projects
+        totalTagsCount:
+          type: integer
+          description: Total number of Tags belonging to this TagGroup.
+          format: int64
+          example: 4
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+    DataResponseTagGroupUsageModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagGroupUsageModel'
+    DataResponseTagGroupModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagGroupModel'
+    TagGroupDimensionCreateModel:
+      required:
+      - code
+      - name
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        displayOrder:
+          type: integer
+          description: This field is no longer in use. The display order of a new tag group dimension is now managed by the highest column order value.
+          format: int32
+          nullable: true
+          example: 1
+          deprecated: true
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        visible:
+          type: boolean
+          description: Determines if this tag group dimension is displayed in the UI.
+          example: false
+    TagGroupDimensionUpdateModel:
+      required:
+      - code
+      - displayOrder
+      - name
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine the display position.
+          format: int32
+          example: 1
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        visible:
+          type: boolean
+          description: Determines if this tag group dimension is displayed in the UI.
+          example: false
+    TagGroupUpdateModel:
+      required:
+      - archived
+      - code
+      - metadata
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Place to store additional information about the tag group.
+          description: Place to store additional information about the tag group.
+        name:
+          type: string
+          description: User readable name of the tag group.
+    TagGroupUsageModel:
+      required:
+      - usages
+      type: object
+      properties:
+        usages:
+          type: array
+          description: List of tag usage models.
+          items:
+            $ref: '#/components/schemas/TagUsageModel'
+    TagGroupCreateModel:
+      required:
+      - archived
+      - code
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Place to store additional information about the tag group.
+          description: Place to store additional information about the tag group.
+        name:
+          type: string
+          description: User readable name of the tag group.
+    TagUsageModel:
+      required:
+      - count
+      - id
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Number of expenses linked to the tag.
+          format: int32
+        id:
+          type: string
+          description: Unique identifier of the tag.
+          format: uuid
+      description: List of tag usage models.
+    DataResponseTagGroupDimensionModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagGroupDimensionModel'
+    AggregatedTagGroupDimensionModel:
+      required:
+      - code
+      - createdAt
+      - displayOrder
+      - id
+      - name
+      - updatedAt
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine the display position.
+          format: int32
+        id:
+          type: string
+          description: Unique identifier of the tag group dimension.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        visible:
+          type: boolean
+          description: Determines if this dimension is displayed in the UI.
+          example: false
+      description: List of all the dimensions associated with this tag group.
+    DataResponseListTagGroupModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagGroupModel'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Bearer token authentication. Include the token in the Authorization header as: `Bearer <token>`'
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      description: Basic HTTP authentication using API key. Use your API key as the username and leave the password empty. The credentials will be Base64 encoded automatically.
+      scheme: basic

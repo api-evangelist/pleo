@@ -1,14 +1,14 @@
 openapi: 3.0.1
 info:
-  title: Webhook Subscriptions API
-  description: Webhook Subscriptions definitions
+  title: App Marketplace accounting-entries Subscriptions API
+  description: API for Pleo App Marketplace
   termsOfService: https://pleo.io/terms/
   contact:
     email: partner-ecosystem-team@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 11.6.2
+  version: 39.4.0
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -18,12 +18,6 @@ security:
 - bearerAuth: []
 - basicAuth: []
 tags:
-- name: Webhook Subscriptions
-  description: The Webhooks functionality sends real-time event notifications to third-party
-    integrations. To receive notifications, you must register for webhook subscriptions.
-    This API enables you to perform CRUD (Create, Read, Update, and Delete) subscription
-    operations.
-- name: Event Types
 - name: Subscriptions
 paths:
   /v1/subscriptions:
@@ -31,15 +25,12 @@ paths:
       tags:
       - Subscriptions
       summary: Get subscriptions
-      description: Retrieves a list of subscriptions for the specific event types
-        (registered for the specific company or organisation by the third party application).
+      description: Retrieves a list of subscriptions for the specific event types (registered for the specific company or organisation by the third party application).
       operationId: getSubscriptions
       parameters:
       - name: status
         in: query
-        description: Filters subscriptions by status. If the value is null, all subscriptions
-          for the specific event types (registered for the specific company or organisation
-          by the third party application) are returned.
+        description: Filters subscriptions by status. If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.
         required: false
         style: form
         explode: true
@@ -48,10 +39,7 @@ paths:
         example: ACTIVE
       - name: event_types
         in: query
-        description: Filters subscriptions by versioned event types.  If the value
-          is null, all subscriptions for the specific event types (registered for
-          the specific company or organisation by the third party application) are
-          returned.
+        description: Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.
         required: false
         style: form
         explode: true
@@ -63,8 +51,7 @@ paths:
         example: v1.export-job.created
       - name: before
         in: query
-        description: Lower bound of the page of data to return (cannot be used together
-          with [after] or [offset]).
+        description: Lower bound of the page of data to return (cannot be used together with [after] or [offset]).
         required: false
         style: form
         explode: true
@@ -73,8 +60,7 @@ paths:
           type: string
       - name: after
         in: query
-        description: Upper bound of the page of data to return (cannot be used together
-          with [before] or [offset]).
+        description: Upper bound of the page of data to return (cannot be used together with [before] or [offset]).
         required: false
         style: form
         explode: true
@@ -83,8 +69,7 @@ paths:
           type: string
       - name: offset
         in: query
-        description: Offset of the page of data to return (cannot be used together
-          with [before] or [after]).
+        description: Offset of the page of data to return (cannot be used together with [before] or [after]).
         required: false
         style: form
         explode: true
@@ -112,8 +97,7 @@ paths:
             type: string
       - name: sorting_order
         in: query
-        description: The order to sort the results by. Must be the same length as
-          [sortingKeys]; one order per key.
+        description: The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.
         required: false
         style: form
         explode: true
@@ -131,9 +115,7 @@ paths:
         '400':
           description: Bad request
         '500':
-          description: Cannot retrieve list of subscriptions due to infrastructure
-            issue Please try after some time. If the problem persists, reach out to
-            Pleo customer support.
+          description: Cannot retrieve list of subscriptions due to infrastructure issue Please try after some time. If the problem persists, reach out to Pleo customer support.
     post:
       tags:
       - Subscriptions
@@ -157,9 +139,7 @@ paths:
         '400':
           description: Bad request
         '500':
-          description: Cannot create subscription due to infrastructure issue. Please
-            try after some time. If the problem persists, reach out to Pleo customer
-            support.
+          description: Cannot create subscription due to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.
   /v1/subscriptions/{id}:
     get:
       tags:
@@ -223,9 +203,7 @@ paths:
         '404':
           description: The subscription record could not be found.
         '500':
-          description: Could not update the subscription record owing to infrastructure
-            issue. Please try after some time. If the problem persists, reach out
-            to Pleo customer support.
+          description: Could not update the subscription record owing to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.
     delete:
       tags:
       - Subscriptions
@@ -249,9 +227,7 @@ paths:
         '404':
           description: The subscription record could not be found.
         '500':
-          description: Cannot delete subscription due to infrastructure issue. Please
-            try after some time. If the problem persists, reach out to Pleo customer
-            support.
+          description: Cannot delete subscription due to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.
   /v1/subscriptions/{id}/activities:
     get:
       tags:
@@ -272,8 +248,7 @@ paths:
         example: 123e4567-e89b-12d3-a456-426614174000
       - name: operation_types
         in: query
-        description: Filters subscriptions by operationTypes. If the value is null,
-          all subscription activities for the specified subscriptionId are returned.
+        description: Filters subscriptions by operationTypes. If the value is null, all subscription activities for the specified subscriptionId are returned.
         required: false
         style: form
         explode: true
@@ -290,8 +265,7 @@ paths:
         - CREATE
       - name: before
         in: query
-        description: Lower bound of the page of data to return (cannot be used together
-          with [after] or [offset]).
+        description: Lower bound of the page of data to return (cannot be used together with [after] or [offset]).
         required: false
         style: form
         explode: true
@@ -300,8 +274,7 @@ paths:
           type: string
       - name: after
         in: query
-        description: Upper bound of the page of data to return (cannot be used together
-          with [before] or [offset]).
+        description: Upper bound of the page of data to return (cannot be used together with [before] or [offset]).
         required: false
         style: form
         explode: true
@@ -310,8 +283,7 @@ paths:
           type: string
       - name: offset
         in: query
-        description: Offset of the page of data to return (cannot be used together
-          with [before] or [after]).
+        description: Offset of the page of data to return (cannot be used together with [before] or [after]).
         required: false
         style: form
         explode: true
@@ -339,8 +311,7 @@ paths:
             type: string
       - name: sorting_order
         in: query
-        description: The order to sort the results by. Must be the same length as
-          [sortingKeys]; one order per key.
+        description: The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.
         required: false
         style: form
         explode: true
@@ -362,9 +333,7 @@ paths:
       tags:
       - Subscriptions
       summary: Get subscription secret by id
-      description: Fetches webhook subscription secret ID by the specific subscription
-        identification code; this is done to verify the webhook event that the customer
-        has subscribed for.
+      description: Fetches webhook subscription secret ID by the specific subscription identification code; this is done to verify the webhook event that the customer has subscribed for.
       operationId: getSubscriptionSecret
       parameters:
       - name: id
@@ -388,117 +357,6 @@ paths:
           description: The subscription secret record could not be found.
 components:
   schemas:
-    AuthCredential:
-      type: object
-      properties:
-        password:
-          type: string
-          description: Password for basic authentication
-          example: password
-        token:
-          type: string
-          description: Token for bearer authentication
-          example: token
-        username:
-          type: string
-          description: Username for basic authentication
-          example: username
-      description: Authentication credentials
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    CursorPaginatedResponseSubscriptionActivityModel:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionActivityModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    CursorPaginatedResponseSubscriptionModel:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    EndpointAuth:
-      type: object
-      properties:
-        credentials:
-          $ref: '#/components/schemas/AuthCredential'
-        type:
-          type: string
-          description: Authentication type for the endpoint. Default is NONE
-          example: NONE
-          enum:
-          - NONE
-          - BASIC
-      description: Authentication details for the endpoint
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
     SubscriptionActivityModel:
       required:
       - actorUrn
@@ -542,6 +400,128 @@ components:
           format: uuid
           readOnly: true
           example: 123e4567-e89b-12d3-a456-426614174000
+    EndpointAuth:
+      type: object
+      properties:
+        credentials:
+          $ref: '#/components/schemas/AuthCredential'
+        type:
+          type: string
+          description: Authentication type for the endpoint. Default is NONE
+          example: NONE
+          enum:
+          - NONE
+          - BASIC
+      description: Authentication details for the endpoint
+    SubscriptionRequest:
+      required:
+      - endpointUrl
+      - eventTypes
+      type: object
+      properties:
+        customHeaders:
+          type: object
+          additionalProperties:
+            type: string
+            description: Key values as headers to be sent to the webhooks vendor
+            example: '{"user":"pass"}'
+          description: Key values as headers to be sent to the webhooks vendor
+          example:
+            user: pass
+        endpointAuth:
+          $ref: '#/components/schemas/EndpointAuth'
+        endpointUrl:
+          type: string
+          description: The URL where the events should be sent
+          example: https://example.com/webhook
+        eventTypes:
+          uniqueItems: true
+          type: array
+          description: Name of the event types you wish to subscribe to. Possible values can be found in the EventType enum.
+          example:
+          - v1.export-job.created
+          items:
+            type: string
+            description: Name of the event types you wish to subscribe to. Possible values can be found in the EventType enum.
+            example: '["v1.export-job.created"]'
+        status:
+          type: string
+          description: Status of subscription
+          example: ACTIVE
+          enum:
+          - INACTIVE
+          - ACTIVE
+          default: ACTIVE
+    AuthCredential:
+      type: object
+      properties:
+        password:
+          type: string
+          description: Password for basic authentication
+          example: password
+        token:
+          type: string
+          description: Token for bearer authentication
+          example: token
+        username:
+          type: string
+          description: Username for basic authentication
+          example: username
+      description: Authentication credentials
+    SubscriptionResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubscriptionModel'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    SubscriptionSecretModel:
+      type: object
+      properties:
+        secretKey:
+          type: string
+          description: The subscription's verification secret. It is required to verify the subscription events
+          readOnly: true
+          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
+    CursorPaginatedResponseSubscriptionModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    SubscriptionSecretResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubscriptionSecretModel'
     SubscriptionModel:
       required:
       - createdAt
@@ -615,80 +595,63 @@ components:
           format: date-time
           readOnly: true
           example: '2022-01-10T00:00:00Z'
-    SubscriptionRequest:
+    CursorPaginatedResponseSubscriptionActivityModel:
       required:
-      - endpointUrl
-      - eventTypes
+      - data
+      - pagination
       type: object
       properties:
-        customHeaders:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionActivityModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
           type: object
           additionalProperties:
-            type: string
-            description: Key values as headers to be sent to the webhooks vendor
-            example: '{"user":"pass"}'
-          description: Key values as headers to be sent to the webhooks vendor
-          example:
-            user: pass
-        endpointAuth:
-          $ref: '#/components/schemas/EndpointAuth'
-        endpointUrl:
-          type: string
-          description: The URL where the events should be sent
-          example: https://example.com/webhook
-        eventTypes:
-          uniqueItems: true
+            type: array
+            items:
+              type: string
+        sortingKeys:
           type: array
-          description: Name of the event types you wish to subscribe to. Possible
-            values can be found in the EventType enum.
-          example:
-          - v1.export-job.created
           items:
             type: string
-            description: Name of the event types you wish to subscribe to. Possible
-              values can be found in the EventType enum.
-            example: '["v1.export-job.created"]'
-        status:
-          type: string
-          description: Status of subscription
-          example: ACTIVE
-          enum:
-          - INACTIVE
-          - ACTIVE
-          default: ACTIVE
-    SubscriptionResponse:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/SubscriptionModel'
-    SubscriptionSecretModel:
-      type: object
-      properties:
-        secretKey:
-          type: string
-          description: The subscription's verification secret. It is required to verify
-            the subscription events
-          readOnly: true
-          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
-    SubscriptionSecretResponse:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/SubscriptionSecretModel'
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
   securitySchemes:
     bearerAuth:
       type: http
-      description: 'JWT Bearer token authentication. Include the token in the Authorization
-        header as: `Bearer <token>`'
+      description: 'JWT Bearer token authentication. Include the token in the Authorization header as: `Bearer <token>`'
       scheme: bearer
       bearerFormat: JWT
     basicAuth:
       type: http
-      description: Basic HTTP authentication using API key. Use your API key as the
-        username and leave the password empty. The credentials will be Base64 encoded
-        automatically.
+      description: Basic HTTP authentication using API key. Use your API key as the username and leave the password empty. The credentials will be Base64 encoded automatically.
       scheme: basic

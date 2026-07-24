@@ -1,0 +1,90 @@
+openapi: 3.0.1
+info:
+  title: App Marketplace accounting-entries External Clients API
+  description: API for Pleo App Marketplace
+  termsOfService: https://pleo.io/terms/
+  contact:
+    email: partner-ecosystem-team@pleo.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 39.4.0
+servers:
+- url: https://external.pleo.io
+  description: Production server
+- url: https://external.staging.pleo.io
+  description: Staging server
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: External Clients
+paths:
+  /v1/introspect:
+    get:
+      tags:
+      - External Clients
+      summary: Introspect the details of the current authentication.
+      description: Returns the detail of the current authentication and what scope of the authentication (i.e API KEY or OAuth bearer token)
+      operationId: introspect
+      responses:
+        '200':
+          description: Introspection successful.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExternalClientModelDetails'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot complete introspection due to infrastructure issue
+components:
+  schemas:
+    ExternalClientModel:
+      required:
+      - authMethod
+      - clientId
+      - scope
+      type: object
+      properties:
+        applicationName:
+          type: string
+          description: The name of the application this client belongs to.
+          example: Netsuite
+        authMethod:
+          type: string
+          description: The authentication method of the application for which the authentication was created.
+          example: API_KEY
+          enum:
+          - OAUTH2
+          - API_KEY
+          - NONE
+        clientId:
+          type: string
+          description: The clientId used in obtaining the authentication.
+          example: d8b8a6d4-3c4b-4b8e-8b2e-1f2a3d4e5f6a
+        scope:
+          type: string
+          description: The scope of the application for which the authentication was created.
+          example: export:read users:write expense:read
+        subjectURN:
+          type: string
+          description: The subject URN for which the authentication was created.
+          example: urn:pleo:company:d7b8a6d4-3c4b-4b8e-8b2e-1f2a3d4e5f6b
+    ExternalClientModelDetails:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalClientModel'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Bearer token authentication. Include the token in the Authorization header as: `Bearer <token>`'
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      description: Basic HTTP authentication using API key. Use your API key as the username and leave the password empty. The credentials will be Base64 encoded automatically.
+      scheme: basic

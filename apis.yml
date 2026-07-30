@@ -1,7 +1,20 @@
 aid: pleo
 name: Pleo
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pleo.png
 url: https://raw.githubusercontent.com/api-evangelist/pleo/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -25,183 +38,325 @@ tags:
   - FinTech
   - Finance
 apis:
-  - name: Pleo Bookkeeping Core API
-    description: >
-      RESTful API for managing bookkeeping accounts — creating, updating,
-      searching, and deleting chart-of-accounts entries linked to Pleo
-      company spend.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Accounting
-      - Bookkeeping
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-bookkeeping-core-openapi.yml
-  - name: Pleo Gjoll API
-    description: >
-      Core accounting-entry and tagging API covering tag groups, tags,
-      tax codes, and accounting entries with enrichment and search.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Accounting
-      - Tags
-      - Tax Codes
-      - Expense Management
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-gjoll-openapi.yml
-  - name: Pleo Triton API
-    description: >
-      Enrichment API for attaching receipts and cost-categorisation tags
-      to existing Pleo card accounting entries.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Accounting
-      - Receipts
-      - Enrichment
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-triton-openapi.yml
-  - name: Pleo Oberon API
-    description: >
-      Company and employee management API providing search and retrieval
-      of employee profiles and company entities within a Pleo organisation.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Employees
-      - Companies
-      - Identity
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-oberon-openapi.yml
-  - name: Pleo Export API
-    description: >
-      Export job management API for packaging and delivering accounting
-      entries to ERP and accounting systems across v0–v3 versioned endpoints.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Export
-      - ERP Integration
-      - Accounting
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-export-openapi.yml
-  - name: Pleo Tax Code API
-    description: >
-      CRUD and search API for managing VAT and sales-tax codes used in
-      Pleo bookkeeping and expense categorisation.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Tax
-      - VAT
-      - Accounting
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-tax-code-openapi.yml
-  - name: Pleo Tags API
-    description: >
-      Tag group and tag management API for multi-dimensional cost allocation
-      including aggregation, dimension values, and bulk operations.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Tags
-      - Cost Centres
-      - Categorisation
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-tags-openapi.yml
-  - name: Pleo App Marketplace API
-    description: >
-      Installation lifecycle and introspection API for Pleo App Marketplace
-      partners managing OAuth-based integration installations.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Marketplace
-      - OAuth
-      - Integrations
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-app-marketplace-openapi.yml
-  - name: Pleo Vendors API
-    description: >
-      Vendor registry API for creating, updating, activating, archiving, and
-      bulk-importing suppliers via CSV with presigned-URL file upload support.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Vendors
-      - Suppliers
-      - Accounting
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-vendors-openapi.yml
-  - name: Pleo Webhook Subscriptions API
-    description: >
-      Event subscription management API enabling real-time notifications via
-      webhooks for spend events, card activity, and expense updates.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/webhooks
-    baseURL: https://external.pleo.io
-    tags:
-      - Webhooks
-      - Events
-      - Subscriptions
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/webhooks
-      - type: OpenAPI
-        url: openapi/pleo-webhook-subscriptions-openapi.yml
-  - name: Pleo Chart of Accounts API
-    description: >
-      Chart of accounts management API for creating single and batch ledger
-      accounts, searching, updating, and deleting nominal account records.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developers.pleo.io/docs/pleo-introduction
-    baseURL: https://external.pleo.io
-    tags:
-      - Chart of Accounts
-      - Bookkeeping
-      - Accounting
-    properties:
-      - type: Documentation
-        url: https://developers.pleo.io/docs/pleo-introduction
-      - type: OpenAPI
-        url: openapi/pleo-chart-of-accounts-openapi.yml
+- aid: pleo:pleo-accounting-entries-api
+  name: Pleo accounting-entries API
+  description: >-
+    The Accounting Entries API endpoints enable you to perform the following:
+      - Apply filters and search for accounting entries and accounting receipts.
+      - Retrieve list of accounting entries and accounting receipts.
+      - Retrieve details of a specific accounting entry.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - accounting-entries
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-accounting-entries-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-accounting-entries-external-api
+  name: Pleo accounting-entries-external API
+  description: >-
+    The accounting-entries-external API from Pleo — 3 operation(s) for accounting-entries-external.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - accounting-entries-external
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-accounting-entries-external-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-accountingentryenrichmentv2-api
+  name: Pleo AccountingEntryEnrichmentV2 API
+  description: >-
+    The AccountingEntryEnrichmentV2 API from Pleo — 1 operation(s) for accountingentryenrichmentv2.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - AccountingEntryEnrichmentV2
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-accountingentryenrichmentv2-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-accounts-api
+  name: Pleo Accounts API
+  description: >-
+    This API enables you to create an account in Pleo, search for an account by its specific ID, update
+    details of an account recorded in Pleo, delete an account from Pleo, or apply specific filters to
+    retrieve a list of accounts managed in Pleo.
+
+
+    💡**Note**
+
+
+    Please note that only response codes specific to the API behaviour are documented. Otherwise, we follow
+    HTTP response codes.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-companies-api
+  name: Pleo Companies API
+  description: "The Companies API enables you to search for company records that are managed in Pleo.\
+    \ You can perform the following: \n - Search for multiple companies\n - Search for a specific company\
+    \ record by company ID"
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Companies
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-companies-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-employees-api
+  name: Pleo Employees API
+  description: "The Employees API enables you to search for employee records that\nare managed in Pleo.\
+    \ You can perform the following: \n - Search for multiple\nemployees \n - Search for a specific employee\
+    \ record by employee ID"
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Employees
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-employees-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-export-api-v0-api
+  name: Pleo Export API (v0) API
+  description: The Export API (v0) API from Pleo — 4 operation(s) for export api (v0).
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Export API (v0)
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-export-api-v0-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-export-api-v1-api
+  name: Pleo Export API (v1) API
+  description: The Export API (v1) API from Pleo — 4 operation(s) for export api (v1).
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Export API (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-export-api-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-export-api-v2-api
+  name: Pleo Export API (v2) API
+  description: The Export API (v2) API from Pleo — 4 operation(s) for export api (v2).
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Export API (v2)
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-export-api-v2-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-export-api-v3-api
+  name: Pleo Export API (v3) API
+  description: The Export API (v3) API from Pleo — 6 operation(s) for export api (v3).
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Export API (v3)
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-export-api-v3-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-export-items-v0-api
+  name: Pleo Export Items (v0) API
+  description: The Export Items (v0) API from Pleo — 1 operation(s) for export items (v0).
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Export Items (v0)
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-export-items-v0-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-export-items-v1-api
+  name: Pleo Export Items (v1) API
+  description: The Export Items (v1) API from Pleo — 1 operation(s) for export items (v1).
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Export Items (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-export-items-v1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-export-items-v2-api
+  name: Pleo Export Items (v2) API
+  description: The Export Items (v2) API from Pleo — 1 operation(s) for export items (v2).
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Export Items (v2)
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-export-items-v2-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-export-items-v3-api
+  name: Pleo Export Items (v3) API
+  description: The Export Items (v3) API from Pleo — 1 operation(s) for export items (v3).
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Export Items (v3)
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-export-items-v3-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-external-clients-api
+  name: Pleo External Clients API
+  description: The External Clients API from Pleo — 1 operation(s) for external clients.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - External Clients
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-external-clients-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-external-vendors-api
+  name: Pleo external-vendors API
+  description: The external-vendors API from Pleo — 13 operation(s) for external-vendors.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - external-vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-external-vendors-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-installations-api
+  name: Pleo Installations API
+  description: >-
+    Installations of applications. An installation is a representation of an application being installed
+    for a resource. Currently we support companies and organizations, future support might include users
+    or teams. <br> Installations are created automatically after a successful OAuth flow. <br> The main
+    use case for these APIs is to enable third party apps to manage their own installations and to get
+    information about the installations that exist for a specific resource.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Installations
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-installations-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-subscriptions-api
+  name: Pleo Subscriptions API
+  description: The Subscriptions API from Pleo — 4 operation(s) for subscriptions.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-tag-groups-api
+  name: Pleo tag-groups API
+  description: The tag-groups API from Pleo — 6 operation(s) for tag-groups.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - tag-groups
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-tag-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-tags-api
+  name: Pleo tags API
+  description: The tags API from Pleo — 8 operation(s) for tags.
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - tags
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-tags-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
+- aid: pleo:pleo-tax-codes-api
+  name: Pleo tax-codes API
+  description: Tax Codes API
+  humanURL: https://developers.pleo.io/docs/pleo-introduction
+  baseURL: https://external.pleo.io
+  tags:
+  - tax-codes
+  properties:
+  - type: OpenAPI
+    url: openapi/pleo-tax-codes-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pleo.io/docs/pleo-introduction
+  - type: Documentation
+    url: https://developers.pleo.io/docs/webhooks
 common:
   - type: AgenticAccess
     url: agentic-access/pleo-agentic-access.yml

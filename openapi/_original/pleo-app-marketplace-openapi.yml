@@ -1,0 +1,402 @@
+openapi: 3.0.1
+info:
+  title: App Marketplace API
+  description: API for Pleo App Marketplace
+  termsOfService: https://pleo.io/terms/
+  contact:
+    email: partner-ecosystem-team@pleo.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 39.4.0
+servers:
+- url: https://external.pleo.io
+  description: Production server
+- url: https://external.staging.pleo.io
+  description: Staging server
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: Applications
+  description: Applications that are available in the Pleo App Marketplace. Applications
+    connect Pleo with target systems and to make the user experience better, the application
+    are typically named after the target system they are integrating with. <br> The
+    main use case for these APIs is to list and manage the applications that are available
+    in the Pleo App Marketplace. <br> You can also use this API to find out which
+    applications are installed for a specific resource.
+  externalDocs:
+    description: Read more about applications
+    url: https://www.notion.so/pleo/Application-41194c1252fa42f5946e3c3d0f028b96?pvs=4
+- name: Installations
+  description: Installations of applications. An installation is a representation
+    of an application being installed for a resource. Currently we support companies
+    and organizations, future support might include users or teams. <br> Installations
+    are created automatically after a successful OAuth flow. <br> The main use case
+    for these APIs is to enable third party apps to manage their own installations
+    and to get information about the installations that exist for a specific resource.
+  externalDocs:
+    description: Read more about installations
+    url: https://www.notion.so/pleo/Installation-dbf7ce32f2e84848b8a36a5ebeaeb8f0?pvs=4
+- name: Authentication
+  description: Authentication is done using a JWT token. The token should be passed
+    in the Authorization header as a Bearer token. If the token is not present an
+    HTTP 401 Unauthorized response will be returned.
+- name: Capabilities
+  description: Capabilities of an application. It represents the different functionalities
+    that an application can have.
+- name: health
+paths:
+  /v1/installations/completions:
+    put:
+      tags:
+      - Installations
+      summary: Complete the installation of a client
+      description: '**Deprecated**: Please use /installations/me:activate instead.
+        Marks the installation as complete'
+      operationId: completeInstallationExternalClientOnlyIdempotently
+      responses:
+        '200':
+          description: Installation completed.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/InstallationResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot complete installation due to infrastructure issue
+      deprecated: true
+  /v1/installations/me:
+    get:
+      tags:
+      - Installations
+      summary: Get client installation
+      description: Retrieve the list of installations that you have done
+      operationId: getClientInstallation
+      parameters:
+      - name: company_id
+        in: query
+        description: Optional company ID to filter installations within the authenticated
+          organisation.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Installation exists.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/InstallationResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot retrieve installation due to infrastructure issue
+    put:
+      tags:
+      - Installations
+      summary: Update a client installation
+      description: Send a request to this endpoint if you want to modify the installation
+        status or the metadata.
+      operationId: updateClientInstallation
+      requestBody:
+        description: Installation request
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/UpdateInstallationRequest'
+        required: true
+      responses:
+        '200':
+          description: Installation updated.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/InstallationResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot update installation due to infrastructure issue
+    post:
+      tags:
+      - Installations
+      summary: Create a client installation
+      description: The integration sends a request to this endpoint to create an installation.
+        This is required, especially when API keys are used for authorisation.
+      operationId: createClientInstallation
+      requestBody:
+        description: Installation request
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/CreateClientInstallationRequest'
+        required: true
+      responses:
+        '200':
+          description: Installation created.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/InstallationResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot create installation due to infrastructure issue
+    delete:
+      tags:
+      - Installations
+      summary: Delete client's installation
+      description: Deletes the installation for the client and will revoke all access
+        and refresh tokens for the client.
+      operationId: deleteClientInstallation
+      responses:
+        '204':
+          description: Installation deleted successfully
+        '404':
+          description: Installation does not exist
+        '502':
+          description: Installation could not be deleted due to infrastructure issue
+  /v1/installations/me:activate:
+    post:
+      tags:
+      - Installations
+      summary: Activate the installation for a client
+      description: The integration sends a request to this endpoint to activate the
+        installation, post authorisation. The request is sent after the integration
+        has synchronised tags, tax codes, and vendors between the Pleo account and
+        the client. Note that this is applicable when OAuth is used for authorisation.
+      operationId: activateMyInstallation
+      responses:
+        '200':
+          description: Installation is successfully activated.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/InstallationResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot activate the installation due to infrastructure issue
+  /v1/introspect:
+    get:
+      tags:
+      - External Clients
+      summary: Introspect the details of the current authentication.
+      description: Returns the detail of the current authentication and what scope
+        of the authentication (i.e API KEY or OAuth bearer token)
+      operationId: introspect
+      responses:
+        '200':
+          description: Introspection successful.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExternalClientModelDetails'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot complete introspection due to infrastructure issue
+components:
+  schemas:
+    CreateClientInstallationRequest:
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Metadata associated with the installation. This can be used
+              to store additional information about the installation, for example  external
+              references, but it is not used by any Pleo system.
+            example:
+              externalConfigurationId: '123456789'
+          description: Metadata associated with the installation. This can be used
+            to store additional information about the installation, for example  external
+            references, but it is not used by any Pleo system.
+          example:
+            externalConfigurationId: '123456789'
+        status:
+          $ref: '#/components/schemas/InstallationStatus'
+    ExternalClientModel:
+      required:
+      - authMethod
+      - clientId
+      - scope
+      type: object
+      properties:
+        applicationName:
+          type: string
+          description: The name of the application this client belongs to.
+          example: Netsuite
+        authMethod:
+          type: string
+          description: The authentication method of the application for which the
+            authentication was created.
+          example: API_KEY
+          enum:
+          - OAUTH2
+          - API_KEY
+          - NONE
+        clientId:
+          type: string
+          description: The clientId used in obtaining the authentication.
+          example: d8b8a6d4-3c4b-4b8e-8b2e-1f2a3d4e5f6a
+        scope:
+          type: string
+          description: The scope of the application for which the authentication was
+            created.
+          example: export:read users:write expense:read
+        subjectURN:
+          type: string
+          description: The subject URN for which the authentication was created.
+          example: urn:pleo:company:d7b8a6d4-3c4b-4b8e-8b2e-1f2a3d4e5f6b
+    ExternalClientModelDetails:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalClientModel'
+    InstallationErrorCode:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | NOT_ENTITLED | The installation is not entitled to use the application.
+        |
+
+        | AUTH_ERROR | There was an authentication error during installation. |'
+      enum:
+      - NOT_ENTITLED
+      - AUTH_ERROR
+    InstallationResponse:
+      required:
+      - applicationId
+      - createdAt
+      - id
+      - metadata
+      - resource
+      - status
+      - updatedAt
+      type: object
+      properties:
+        applicationId:
+          type: string
+          description: The unique identifier of the application this installation
+            is for.
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+        createdAt:
+          type: string
+          description: The date and time when the installation was created.
+          format: date-time
+          readOnly: true
+          example: '2021-01-01T00:00:00Z'
+        errorCode:
+          type: string
+          description: Explains the error that inactivated the installation. This
+            appear if the installation status is inactive.
+          readOnly: true
+          example: NOT_ENTITLED
+        id:
+          type: string
+          description: The unique identifier of the installation.
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Additional information about the installation.
+            example:
+              key: value
+          description: Additional information about the installation.
+          example:
+            key: value
+        resource:
+          type: string
+          description: The resource that the installation is for.
+          readOnly: true
+          example: urn:pleo:company:123e4567-e89b-12d3-a456-426614174000
+        status:
+          type: string
+          description: This can be one of InstallationStatus values
+          example: ACTIVATED
+        updatedAt:
+          type: string
+          description: The date and time when the installation was last updated.
+          format: date-time
+          readOnly: true
+          example: '2021-01-01T00:00:00Z'
+    InstallationStatus:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | ACTIVATED | The installation is active and operational. |
+
+        | INACTIVE | The installation is inactive and not currently in use. |
+
+        | AUTHORIZED | The Pleo authorisation server has authorised the user, but
+        the installation is not yet active or ready for use. |
+
+        | PENDING_INTEGRATION | The integration is synchronising or performing other
+        background tasks. When an installation is in progress, the integration synchronises
+        the user''s Pleo account with the target application, so that tax codes, tags,
+        and vendors are all similar in both Pleo and the third-party application.
+        |
+
+        | ERROR | The installation has encountered an error and is not operational.
+        An error code will be provided to explain the reason for the error. |'
+      enum:
+      - ACTIVATED
+      - INACTIVE
+      - AUTHORIZED
+      - PENDING_INTEGRATION
+      - ERROR
+    UpdateInstallationRequest:
+      required:
+      - status
+      type: object
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/InstallationErrorCode'
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: A means to store any metadata about the installation. Could
+              for example be settings for the application
+            example:
+              externalApplicationId: '123456789'
+          description: A means to store any metadata about the installation. Could
+            for example be settings for the application
+          example:
+            externalApplicationId: '123456789'
+        status:
+          $ref: '#/components/schemas/InstallationStatus'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Bearer token authentication. Include the token in the Authorization
+        header as: `Bearer <token>`'
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      description: Basic HTTP authentication using API key. Use your API key as the
+        username and leave the password empty. The credentials will be Base64 encoded
+        automatically.
+      scheme: basic

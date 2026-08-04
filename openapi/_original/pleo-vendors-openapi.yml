@@ -1,0 +1,1771 @@
+openapi: 3.0.1
+info:
+  title: Vendors API
+  description: Vendors OpenAPI definitions
+  termsOfService: https://pleo.io/terms/
+  contact:
+    email: apiteam@pleo.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 34.17.0
+servers:
+- url: https://external.pleo.io
+  description: Production server
+- url: https://external.staging.pleo.io
+  description: Staging server
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: health
+- name: admin
+- name: Aggregated Company Vendor Resource
+- name: Company Recurring Vendor Resource
+- name: Company Vendor Resource
+- name: Enablement Resource
+- name: Expense Vendor Resource
+- name: Generic Vendors Resource
+- name: Prompts Resource
+- name: Recurring Vendor Resource
+- name: Sandbox Resource
+- name: Supplier Resource
+- name: Vendor Clean Resource
+- name: Vendor Group Resource
+- name: Vendor Resource
+- name: Vendors Resource
+- name: Vendor API
+  description: 'The Vendor API enables you to perform the following:
+
+    - Create a new vendor record.
+
+    - Retrieve a vendor record by ID.
+
+    - Modify the vendor details.
+
+    - Archive a vendor record by ID.
+
+    - Activate a vendor record by ID.
+
+    - Fetch vendors'' details by search criteria.
+
+    - Import vendors via CSV.'
+- name: Recurring Merchant Info Resource
+- name: Vendor Clean Resource V2
+paths:
+  /v1/vendors:
+    post:
+      tags:
+      - external-vendors
+      summary: Create a New Vendor
+      description: 'This endpoint has the following functions:
+
+        - Create a corresponding record in Pleo for any new vendor created in the
+        ERP/accounting system.
+
+        - Create a new vendor in Pleo, without the record yet existing in the ERP/accounting
+        system.'
+      operationId: postVendor
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/VendorCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: New vendor created
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseVendorResponse'
+        '409':
+          description: Vendor already exists
+  /v1/vendors/csv-import/jobs:
+    post:
+      tags:
+      - external-vendors
+      summary: Create an import job
+      operationId: createCsvImportJobV1
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/CreateCsvImportJobRequestV1'
+        required: true
+      responses:
+        '201':
+          description: Successfully created import job
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseCsvImportJobV1'
+        '400':
+          description: Bad request
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: VALIDATION_FAILED
+                message: Validation failed for request parameters
+        '500':
+          description: Processing failed. Returned if there was an internal error
+            creating the import job.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: PROCESSING_FAILED
+                message: Failed to create CSV import job
+      x-exclude: 'true'
+  /v1/vendors/csv-import/jobs/{jobId}:
+    get:
+      tags:
+      - external-vendors
+      summary: Get CSV import job details
+      operationId: getCsvImportJobV1
+      parameters:
+      - name: jobId
+        in: path
+        description: ID of the import job to retrieve.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174015
+      responses:
+        '200':
+          description: Import job retrieved successfully
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseCsvImportJobV1'
+        '400':
+          description: Invalid path parameter
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: PARAMETER_VALIDATION_FAILED
+                message: Validation failed for path parameters
+        '404':
+          description: CSV import job not found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: IMPORT_JOB_NOT_FOUND
+                message: CSV import job with ID 123e4567-e89b-12d3-a456-426614174000
+                  not found
+      x-exclude: 'true'
+  /v1/vendors/csv-import/jobs/{jobId}/errors:
+    get:
+      tags:
+      - external-vendors
+      summary: Get import job errors
+      operationId: getCsvImportJobErrorsV1
+      parameters:
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      - name: jobId
+        in: path
+        description: ID of the import job to retrieve errors for.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174015
+      responses:
+        '200':
+          description: Import job errors retrieved successfully
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseCsvRowImportErrorV1'
+        '400':
+          description: Invalid path parameter
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: PARAMETER_VALIDATION_FAILED
+                message: Validation failed for path parameters
+        '404':
+          description: CSV import job not found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: IMPORT_JOB_NOT_FOUND
+                message: CSV import job with ID 123e4567-e89b-12d3-a456-426614174000
+                  not found
+      x-exclude: 'true'
+  /v1/vendors/csv-import/jobs/{jobId}/metadata:
+    put:
+      tags:
+      - external-vendors
+      summary: Update metadata for CSV import job
+      operationId: updateCsvImportJobMetadataV1
+      parameters:
+      - name: jobId
+        in: path
+        description: ID of the import job to update.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174015
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/UpdateMetadataRequestV1'
+        required: true
+      responses:
+        '200':
+          description: Import job updated successfully
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseCsvImportJobV1'
+        '400':
+          description: Invalid request body
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: JSON_MAPPING_EXCEPTION
+                message: Validation failed for request body
+        '404':
+          description: CSV import job not found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: IMPORT_JOB_NOT_FOUND
+                message: CSV import job with ID 123e4567-e89b-12d3-a456-426614174000
+                  not found
+        '500':
+          description: Processing failed
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: PROCESSING_FAILED
+                message: 'Failed to update metadata for CSV import job with ID: 123e4567-e89b-12d3-a456-426614174000'
+      x-exclude: 'true'
+  /v1/vendors/csv-import/jobs/{jobId}/status:
+    put:
+      tags:
+      - external-vendors
+      summary: Update status for CSV import job
+      operationId: updateCsvImportJobStatusV1
+      parameters:
+      - name: jobId
+        in: path
+        description: ID of the import job to update.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174015
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/UpdateStatusRequestV1'
+        required: true
+      responses:
+        '200':
+          description: Import job updated successfully
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseCsvImportJobV1'
+        '400':
+          description: Invalid request body
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: JSON_MAPPING_EXCEPTION
+                message: Validation failed for request body
+        '404':
+          description: CSV import job not found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: IMPORT_JOB_NOT_FOUND
+                message: CSV import job with ID 123e4567-e89b-12d3-a456-426614174000
+                  not found
+        '500':
+          description: Processing failed
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: PROCESSING_FAILED
+                message: 'Failed to update status for CSV import job with ID: 123e4567-e89b-12d3-a456-426614174000'
+      x-exclude: 'true'
+  /v1/vendors/csv-import/jobs/{jobId}:get-presigned-url:
+    post:
+      tags:
+      - external-vendors
+      summary: Get presigned URL for file upload
+      operationId: getCsvImportJobPresignedUrlV1
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: S3 presigned URL generated successfully
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponsePresignedUrlV1'
+        '400':
+          description: Invalid path parameter
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: PARAMETER_VALIDATION_FAILED
+                message: Validation failed for path parameters
+        '404':
+          description: CSV import job not found
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: IMPORT_JOB_NOT_FOUND
+                message: CSV import job with ID 123e4567-e89b-12d3-a456-426614174000
+                  not found
+        '500':
+          description: Processing failed
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: PROCESSING_FAILED
+                message: 'Failed to update S3 key for CSV import job with ID: 123e4567-e89b-12d3-a456-426614174000'
+      x-exclude: 'true'
+  /v1/vendors/csv-import/jobs/{jobId}:run:
+    post:
+      tags:
+      - external-vendors
+      summary: Run import job
+      operationId: runCsvImportJobV1
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Processing started
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseCsvImportJobV1'
+        '400':
+          description: Invalid path parameter
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: PARAMETER_VALIDATION_FAILED
+                message: Validation failed for path parameters
+        '404':
+          description: Import job not found (thrown during background processing)
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: IMPORT_JOB_NOT_FOUND
+                message: CSV import job with ID 123e4567-e89b-12d3-a456-426614174000
+                  not found
+        '409':
+          description: Invalid status transition (thrown during background processing)
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: INVALID_STATUS_TRANSITION
+                message: Cannot process CSV job in status COMPLETED. Job must be in
+                  QUEUED or PROCESSING status.
+      x-exclude: 'true'
+  /v1/vendors/csv-import/jobs:search:
+    post:
+      tags:
+      - external-vendors
+      summary: Search CSV import jobs by filter
+      operationId: searchCsvImportJobsV1
+      parameters:
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      - name: company_id
+        in: query
+        description: Only return CSV import jobs for the given company Id.
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174015
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/SearchCsvImportJobsRequestV1'
+        required: true
+      responses:
+        '200':
+          description: Returning search results
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseCsvImportJobV1'
+        '400':
+          description: Bad request
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ExceptionInfo'
+              example:
+                type: VALIDATION_FAILED
+                message: Validation failed for search query
+      x-exclude: 'true'
+  /v1/vendors/{id}:
+    get:
+      tags:
+      - external-vendors
+      summary: Retrieves a Vendor in Pleo by its id
+      description: Retrieves a Vendor in Pleo by its id.
+      operationId: getVendorById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Enter the specific vendor ID of the record that you want to
+            view in detail.
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '200':
+          description: Fetches vendor by id
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseVendorResponse'
+        '404':
+          description: Vendor not found
+    put:
+      tags:
+      - external-vendors
+      summary: Update a Vendor
+      description: Updates a Vendor for a company in Pleo.
+      operationId: updateVendor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Pleo's internal identifier of the vendor.
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/VendorUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Vendor updated
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DataResponseVendorResponse'
+        '400':
+          description: Invalid vendor update request
+        '404':
+          description: Vendor not found
+        '409':
+          description: Conflicting vendor update
+  /v1/vendors/{id}:activate:
+    post:
+      tags:
+      - external-vendors
+      summary: Activate a Vendor
+      description: Updates the vendor state to Active, reflecting its availability
+        in the target ERP/accounting system
+      operationId: activateVendor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Pleo's internal identifier of the vendor.
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/ActivateVendorEventRequest'
+        required: true
+      responses:
+        '204':
+          description: Vendor activated
+        '404':
+          description: Vendor not found
+  /v1/vendors/{id}:archive:
+    post:
+      tags:
+      - external-vendors
+      summary: Archive a Vendor
+      description: Archives a Vendor in Pleo by its id.
+      operationId: archiveVendorById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Pleo's internal identifier of the vendor.
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '204':
+          description: Vendor archived
+        '404':
+          description: Vendor not found
+  /v1/vendors:search:
+    post:
+      tags:
+      - external-vendors
+      summary: Fetches Vendors by search criteria
+      description: Retrieves a list of vendors with filters. Results are paginated.
+      operationId: searchVendors
+      parameters:
+      - name: company_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Pleo's internal identifier for the company the Vendor is associated
+            with.
+          format: uuid
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/VendorSearchRequestV1'
+      responses:
+        '200':
+          description: Fetches vendors by search criteria
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseVendorResponse'
+components:
+  schemas:
+    ActivateVendorEventRequest:
+      required:
+      - externalId
+      type: object
+      properties:
+        code:
+          type: string
+          description: Account code assigned to the vendor in the target ERP/accounting
+            system for aiding users in identifying the correct record.
+        externalId:
+          type: string
+          description: Unique external identifier of the vendor, assigned by the target
+            ERP/accounting system, used by the client for identification. Can be the
+            same as code if no other identifier is available.
+      description: The request containing the acknowledgement of the vendor creation
+        in the target ERP/accounting system
+    CountryCode:
+      type: string
+      description: Country of registration of the Vendor (ISO 3166-1 alpha-2 country
+        code (2 letters))
+      example: DK
+      enum:
+      - UNDEFINED
+      - AC
+      - AD
+      - AE
+      - AF
+      - AG
+      - AI
+      - AL
+      - AM
+      - AN
+      - AO
+      - AQ
+      - AR
+      - AS
+      - AT
+      - AU
+      - AW
+      - AX
+      - AZ
+      - BA
+      - BB
+      - BD
+      - BE
+      - BF
+      - BG
+      - BH
+      - BI
+      - BJ
+      - BL
+      - BM
+      - BN
+      - BO
+      - BQ
+      - BR
+      - BS
+      - BT
+      - BU
+      - BV
+      - BW
+      - BY
+      - BZ
+      - CA
+      - CC
+      - CD
+      - CF
+      - CG
+      - CH
+      - CI
+      - CK
+      - CL
+      - CM
+      - CN
+      - CO
+      - CP
+      - CR
+      - CS
+      - CU
+      - CV
+      - CW
+      - CX
+      - CY
+      - CZ
+      - DE
+      - DG
+      - DJ
+      - DK
+      - DM
+      - DO
+      - DZ
+      - EA
+      - EC
+      - EE
+      - EG
+      - EH
+      - ER
+      - ES
+      - ET
+      - EU
+      - EZ
+      - FI
+      - FJ
+      - FK
+      - FM
+      - FO
+      - FR
+      - FX
+      - GA
+      - GB
+      - GD
+      - GE
+      - GF
+      - GG
+      - GH
+      - GI
+      - GL
+      - GM
+      - GN
+      - GP
+      - GQ
+      - GR
+      - GS
+      - GT
+      - GU
+      - GW
+      - GY
+      - HK
+      - HM
+      - HN
+      - HR
+      - HT
+      - HU
+      - IC
+      - ID
+      - IE
+      - IL
+      - IM
+      - IN
+      - IO
+      - IQ
+      - IR
+      - IS
+      - IT
+      - JE
+      - JM
+      - JO
+      - JP
+      - KE
+      - KG
+      - KH
+      - KI
+      - KM
+      - KN
+      - KP
+      - KR
+      - KW
+      - KY
+      - KZ
+      - LA
+      - LB
+      - LC
+      - LI
+      - LK
+      - LR
+      - LS
+      - LT
+      - LU
+      - LV
+      - LY
+      - MA
+      - MC
+      - MD
+      - ME
+      - MF
+      - MG
+      - MH
+      - MK
+      - ML
+      - MM
+      - MN
+      - MO
+      - MP
+      - MQ
+      - MR
+      - MS
+      - MT
+      - MU
+      - MV
+      - MW
+      - MX
+      - MY
+      - MZ
+      - NA
+      - NC
+      - NE
+      - NF
+      - NG
+      - NI
+      - NL
+      - 'NO'
+      - NP
+      - NR
+      - NT
+      - NU
+      - NZ
+      - OM
+      - PA
+      - PE
+      - PF
+      - PG
+      - PH
+      - PK
+      - PL
+      - PM
+      - PN
+      - PR
+      - PS
+      - PT
+      - PW
+      - PY
+      - QA
+      - RE
+      - RO
+      - RS
+      - RU
+      - RW
+      - SA
+      - SB
+      - SC
+      - SD
+      - SE
+      - SF
+      - SG
+      - SH
+      - SI
+      - SJ
+      - SK
+      - SL
+      - SM
+      - SN
+      - SO
+      - SR
+      - SS
+      - ST
+      - SU
+      - SV
+      - SX
+      - SY
+      - SZ
+      - TA
+      - TC
+      - TD
+      - TF
+      - TG
+      - TH
+      - TJ
+      - TK
+      - TL
+      - TM
+      - TN
+      - TO
+      - TP
+      - TR
+      - TT
+      - TV
+      - TW
+      - TZ
+      - UA
+      - UG
+      - UK
+      - UM
+      - US
+      - UY
+      - UZ
+      - VA
+      - VC
+      - VE
+      - VG
+      - VI
+      - VN
+      - VU
+      - WF
+      - WS
+      - XI
+      - XU
+      - XK
+      - YE
+      - YT
+      - YU
+      - ZA
+      - ZM
+      - ZR
+      - ZW
+    CreateCsvImportJobRequestV1:
+      required:
+      - companyId
+      - originalFilename
+      - type
+      type: object
+      properties:
+        companyId:
+          type: string
+          description: Unique identifier for the company.
+          format: uuid
+        csvFormat:
+          $ref: '#/components/schemas/CsvFormatV1'
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Place for API users to store flexible data. The value provided
+              in this field will be passed to consuming service for every CSV row
+              along with the parsed data.
+          description: Place for API users to store flexible data. The value provided
+            in this field will be passed to consuming service for every CSV row along
+            with the parsed data.
+        originalFilename:
+          minLength: 1
+          type: string
+          description: Original filename of the uploaded CSV file.
+          example: vendors.csv
+        type:
+          minLength: 1
+          type: string
+          description: Type of CSV import job.
+          example: vendors
+    CsvFormatV1:
+      required:
+      - delimiter
+      - ignoreEmptyLines
+      - recordSeparator
+      - skipHeaderRecord
+      type: object
+      properties:
+        delimiter:
+          type: string
+          description: Values delimiter.
+          example: ','
+        escapeCharacter:
+          type: string
+          description: Character used for escaping special characters.
+          example: \
+        ignoreEmptyLines:
+          type: boolean
+          description: Whether to ignore empty lines in the CSV file.
+          example: true
+        quoteCharacter:
+          type: string
+          description: Character used for quoting values.
+          example: '"'
+        recordSeparator:
+          type: string
+          description: Record separator.
+          example: ''
+        skipHeaderRecord:
+          type: boolean
+          description: Whether to skip the first record as a header.
+          example: true
+      description: CSV format configuration including delimiter, quote character,
+        and other parsing options. If not provided for a CSV import job, the parser
+        will try to guess it based on the actual data in the file.
+      example:
+        delimiter: ','
+        quoteCharacter: '"'
+        escapeCharacter: \
+        recordSeparator: '
+
+          '
+        ignoreEmptyLines: true
+        skipHeaderRecord: true
+    CsvImportErrorTypeV1:
+      type: string
+      enum:
+      - INVALID_FILE_FORMAT
+      - FILE_TOO_LARGE
+      - FILE_TOO_SMALL
+      - FILE_TYPE_NOT_SUPPORTED
+      - FILE_EXTENSION_NOT_SUPPORTED
+      - IMPORT_JOB_NOT_FOUND
+      - INVALID_STATUS_TRANSITION
+      - PROCESSING_FAILED
+    CsvImportJobStatusV1:
+      type: string
+      description: Status of CSV import job.
+      enum:
+      - UPLOAD_INITIATED
+      - UPLOADED
+      - READY_FOR_IMPORT
+      - QUEUED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+    CsvImportJobV1:
+      required:
+      - companyId
+      - createdAt
+      - id
+      - status
+      - type
+      - updatedAt
+      type: object
+      properties:
+        columnNames:
+          type: array
+          description: List of column names from the CSV file.
+          example:
+          - Konto
+          - Name
+          - USt-IdNr.
+          items:
+            type: string
+            description: List of column names from the CSV file.
+            example: '["Konto","Name","USt-IdNr."]'
+        companyId:
+          type: string
+          description: Unique identifier for the company.
+          format: uuid
+        createdAt:
+          type: string
+          description: Timestamp when the import job was created.
+          format: date-time
+        csvFormat:
+          $ref: '#/components/schemas/CsvFormatV1'
+        errorCode:
+          type: string
+          description: This can be one of CsvImportErrorTypeV1 values
+          example: INVALID_FILE_FORMAT
+        errorMessage:
+          type: string
+          description: Error message if status is FAILED.
+          example: Uploaded file is not a valid CSV format.
+        id:
+          type: string
+          description: Unique identifier for the import job.
+          format: uuid
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Place for API users to store flexible data. The value provided
+              in this field will be passed to consuming service for every CSV row
+              along with the parsed data.
+          description: Place for API users to store flexible data. The value provided
+            in this field will be passed to consuming service for every CSV row along
+            with the parsed data.
+        originalFilename:
+          type: string
+          description: Original filename of the uploaded CSV file.
+          example: vendors.csv
+        rowsFailed:
+          type: integer
+          description: Number of rows that failed processing.
+          format: int32
+          example: 50
+        rowsSkipped:
+          type: integer
+          description: Number of rows that were skipped.
+          format: int32
+          example: 10
+        rowsSucceeded:
+          type: integer
+          description: Number of rows successfully processed.
+          format: int32
+          example: 1450
+        rowsTotal:
+          type: integer
+          description: Total number of rows in the CSV file.
+          format: int32
+          example: 1500
+        s3Key:
+          type: string
+          description: S3 key where the uploaded CSV file is stored.
+          example: uploads/company-123/vendors-abc.csv
+        status:
+          type: string
+          description: This can be one of CsvImportJobStatusV1 values
+          example: UPLOAD_INITIATED
+        type:
+          type: string
+          description: Type of CSV import job.
+          example: vendors
+        updatedAt:
+          type: string
+          description: Timestamp when the import job was last updated.
+          format: date-time
+    CsvRowImportErrorV1:
+      required:
+      - createdAt
+      - csvImportJobId
+      - errorCode
+      - errorMessage
+      - id
+      - rawData
+      - rowNumber
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: Timestamp when the error was recorded.
+          format: date-time
+        csvImportJobId:
+          type: string
+          description: Unique identifier for the import job.
+          format: uuid
+        errorCode:
+          type: string
+          description: Code representing the type of error.
+          example: INVALID_VAT_NUMBER
+        errorMessage:
+          type: string
+          description: Description of the error.
+          example: Invalid VAT number format
+        id:
+          type: string
+          description: Unique identifier for the error.
+          format: uuid
+        rawData:
+          type: string
+          description: Raw CSV row data as JSON string.
+          example: '''"70001","Müller GmbH","INVALID"'''
+        rowNumber:
+          type: integer
+          description: Row number in the CSV file where the error occurred.
+          format: int32
+          example: 42
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    CursorPaginatedResponseCsvImportJobV1:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CsvImportJobV1'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseCsvRowImportErrorV1:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CsvRowImportErrorV1'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseVendorResponse:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorResponse'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    DataResponseCsvImportJobV1:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CsvImportJobV1'
+    DataResponsePresignedUrlV1:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PresignedUrlV1'
+    DataResponseVendorResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorResponse'
+    ExceptionInfo:
+      required:
+      - type
+      type: object
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+    PresignedUrlV1:
+      required:
+      - presignedUrl
+      type: object
+      properties:
+        presignedUrl:
+          type: string
+          description: Presigned URL to upload the CSV file to.
+          format: url
+    SearchCsvImportJobsRequestV1:
+      type: object
+      properties:
+        ids:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: Pleo's internal identifier of the CSV import job.
+          format: uuid
+          nullable: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+          items:
+            type: string
+            format: uuid
+        statuses:
+          type: array
+          description: Only return import jobs in these statuses.
+          nullable: true
+          items:
+            $ref: '#/components/schemas/CsvImportJobStatusV1'
+        types:
+          type: array
+          description: Type of the CSV import job.
+          nullable: true
+          example: vendors
+          items:
+            type: string
+    UpdateMetadataRequestV1:
+      required:
+      - metadata
+      - strategy
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Place for API users to store flexible data. The value provided
+              in this field will be passed to consuming service for every CSV row
+              along with the parsed data.
+          description: Place for API users to store flexible data. The value provided
+            in this field will be passed to consuming service for every CSV row along
+            with the parsed data.
+        strategy:
+          $ref: '#/components/schemas/UpdateMetadataStrategyV1'
+    UpdateMetadataStrategyV1:
+      type: string
+      enum:
+      - REPLACE
+      - MERGE
+    UpdateStatusRequestV1:
+      required:
+      - status
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          description: Error message if status is FAILED.
+        errorType:
+          $ref: '#/components/schemas/CsvImportErrorTypeV1'
+        status:
+          $ref: '#/components/schemas/CsvImportJobStatusV1'
+    VendorCreateRequest:
+      required:
+      - companyId
+      - defaultCurrency
+      - name
+      type: object
+      properties:
+        code:
+          type: string
+          description: Account code assigned to the vendor in the target ERP/accounting
+            system for aiding users in identifying the correct record.
+        companyId:
+          type: string
+          description: Pleo's internal identifier for the company the Vendor is associated
+            with.
+          format: uuid
+          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        defaultCurrency:
+          type: string
+          description: Default currency in which the vendor's financial operations,such
+            as purchases, payments, or invoices, are primarily conducted. (ISO 4217
+            currency code (3 letters))
+          example: DKK
+        externalId:
+          type: string
+          description: Unique external identifier of the vendor, assigned by the target
+            ERP/accounting system, used by the client for identification. Can be the
+            same as code if no other identifier is available.
+        name:
+          type: string
+          description: The name field represents the official name of the Vendor as
+            it is recorded in the target ERP/accounting system. This name is used
+            to uniquely identify the vendor within the accounting workflow and is
+            visible to the Pleo bookkeeper.
+          example: Pleo
+        registrationNumber:
+          type: string
+          description: Unique identification of a registered vendor in a country.
+        taxRegistrationNumber:
+          type: string
+          description: VAT/GST/TaxId number of the Vendor.
+    VendorResponse:
+      required:
+      - companyId
+      - defaultCurrency
+      - id
+      - name
+      - state
+      type: object
+      properties:
+        accountingSystem:
+          type: string
+          description: The target ERP/accounting system the Vendor is associated with.
+        code:
+          type: string
+          description: Account code assigned to the vendor in the target ERP/accounting
+            system for aiding users in identifying the correct record.
+        companyId:
+          type: string
+          description: Pleo's internal identifier for the company the Vendor is associated
+            with.
+          format: uuid
+          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        createdAt:
+          type: string
+          description: The date and time when the vendor was created in Pleo.
+          format: date-time
+        defaultCurrency:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: Default currency in which the vendor's financial operations,such
+            as purchases, payments, or invoices, are primarily conducted. (ISO 4217
+            currency code (3 letters))
+          example: DKK
+        externalId:
+          type: string
+          description: Unique external identifier of the vendor, assigned by the target
+            ERP/accounting system, used by the client for identification. Can be the
+            same as code if no other identifier is available.
+        id:
+          type: string
+          description: Pleo's internal identifier of the vendor.
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        name:
+          type: string
+          description: The name field represents the official name of the Vendor as
+            it is recorded in the target ERP/accounting system. This name is used
+            to uniquely identify the vendor within the accounting workflow and is
+            visible to the Pleo bookkeeper.
+          example: Pleo
+        registrationNumber:
+          type: string
+          description: Unique identification of a registered vendor in a country.
+        state:
+          $ref: '#/components/schemas/VendorState'
+        taxRegistrationNumber:
+          type: string
+          description: VAT/GST/TaxId number of the Vendor.
+        updatedAt:
+          type: string
+          description: The date and time when the vendor details were updated (initially
+            same as createdAt).
+          format: date-time
+    VendorSearchRequestV1:
+      type: object
+      properties:
+        accountingSystems:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors linked to the given target ERP/accounting
+            systems.
+          items:
+            type: string
+            description: The target ERP/accounting system the Vendor is associated
+              with.
+        codes:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given vendor codes.
+          items:
+            type: string
+            description: Account code assigned to the vendor in the target ERP/accounting
+              system for aiding users in identifying the correct record.
+        countries:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given country codes.
+          items:
+            $ref: '#/components/schemas/CountryCode'
+        externalIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given vendor external ids.
+          items:
+            type: string
+            description: Unique external identifier of the vendor, assigned by the
+              target ERP/accounting system, used by the client for identification.
+              Can be the same as code if no other identifier is available.
+        ids:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given Vendor Ids.
+          items:
+            type: string
+            description: Pleo's internal identifier of the vendor.
+            format: uuid
+            example: 123e4567-e89b-12d3-a456-426614174000
+        name:
+          type: string
+          description: The name field represents the official name of the Vendor as
+            it is recorded in the target ERP/accounting system. This name is used
+            to uniquely identify the vendor within the accounting workflow and is
+            visible to the Pleo bookkeeper.
+          example: Pleo
+        states:
+          maxItems: 4
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given states.
+          items:
+            $ref: '#/components/schemas/VendorState'
+        taxRegistrationNumbers:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given Tax Registration Numbers.
+          items:
+            type: string
+            description: VAT/GST/TaxId number of the Vendor.
+    VendorState:
+      type: string
+      description: Current state of the Vendor. ACTIVE means the vendor is in-sync
+        with target ERP/accounting system. DRAFT means the vendor needs to be created
+        in the target ERP/accounting system.
+      enum:
+      - DRAFT
+      - ACTIVE
+      - ARCHIVED
+    VendorUpdateRequest:
+      required:
+      - companyId
+      - defaultCurrency
+      - externalId
+      - name
+      - state
+      type: object
+      properties:
+        code:
+          type: string
+          description: Account code assigned to the vendor in the target ERP/accounting
+            system for aiding users in identifying the correct record.
+        companyId:
+          type: string
+          description: Pleo's internal identifier for the company the Vendor is associated
+            with.
+          format: uuid
+          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        defaultCurrency:
+          type: string
+          description: Default currency in which the vendor's financial operations,such
+            as purchases, payments, or invoices, are primarily conducted. (ISO 4217
+            currency code (3 letters))
+          example: DKK
+        externalId:
+          type: string
+          description: Unique external identifier of the vendor, assigned by the target
+            ERP/accounting system, used by the client for identification. Can be the
+            same as code if no other identifier is available.
+        name:
+          type: string
+          description: The name field represents the official name of the Vendor as
+            it is recorded in the target ERP/accounting system. This name is used
+            to uniquely identify the vendor within the accounting workflow and is
+            visible to the Pleo bookkeeper.
+          example: Pleo
+        registrationNumber:
+          type: string
+          description: Unique identification of a registered vendor in a country.
+        state:
+          $ref: '#/components/schemas/VendorState'
+        taxRegistrationNumber:
+          type: string
+          description: VAT/GST/TaxId number of the Vendor.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Bearer token authentication. Include the token in the Authorization
+        header as: `Bearer <token>`'
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      description: Basic HTTP authentication using API key. Use your API key as the
+        username and leave the password empty. The credentials will be Base64 encoded
+        automatically.
+      scheme: basic

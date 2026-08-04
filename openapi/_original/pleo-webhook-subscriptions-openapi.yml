@@ -1,0 +1,694 @@
+openapi: 3.0.1
+info:
+  title: Webhook Subscriptions API
+  description: Webhook Subscriptions definitions
+  termsOfService: https://pleo.io/terms/
+  contact:
+    email: partner-ecosystem-team@pleo.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 11.6.2
+servers:
+- url: https://external.pleo.io
+  description: Production server
+- url: https://external.staging.pleo.io
+  description: Staging server
+security:
+- bearerAuth: []
+- basicAuth: []
+tags:
+- name: Webhook Subscriptions
+  description: The Webhooks functionality sends real-time event notifications to third-party
+    integrations. To receive notifications, you must register for webhook subscriptions.
+    This API enables you to perform CRUD (Create, Read, Update, and Delete) subscription
+    operations.
+- name: Event Types
+- name: Subscriptions
+paths:
+  /v1/subscriptions:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get subscriptions
+      description: Retrieves a list of subscriptions for the specific event types
+        (registered for the specific company or organisation by the third party application).
+      operationId: getSubscriptions
+      parameters:
+      - name: status
+        in: query
+        description: Filters subscriptions by status. If the value is null, all subscriptions
+          for the specific event types (registered for the specific company or organisation
+          by the third party application) are returned.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: ACTIVE
+      - name: event_types
+        in: query
+        description: Filters subscriptions by versioned event types.  If the value
+          is null, all subscriptions for the specific event types (registered for
+          the specific company or organisation by the third party application) are
+          returned.
+        required: false
+        style: form
+        explode: true
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        example: v1.export-job.created
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      responses:
+        '200':
+          description: Returns list of subscriptions.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseSubscriptionModel'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot retrieve list of subscriptions due to infrastructure
+            issue Please try after some time. If the problem persists, reach out to
+            Pleo customer support.
+    post:
+      tags:
+      - Subscriptions
+      summary: Create a subscription
+      description: Creates a subscription for given event type(s).
+      operationId: createSubscription
+      requestBody:
+        description: Create Subscription request
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+        required: true
+      responses:
+        '200':
+          description: A subscription for webhook notification is successfully created.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Cannot create subscription due to infrastructure issue. Please
+            try after some time. If the problem persists, reach out to Pleo customer
+            support.
+  /v1/subscriptions/{id}:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get subscription by id
+      description: Fetches subscription details by the specific subscription ID.
+      operationId: getSubscriptionById
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier of the subscription
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '200':
+          description: The subscription details are returned.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '404':
+          description: The subscription record could not be found.
+    put:
+      tags:
+      - Subscriptions
+      summary: Update a subscription
+      description: Modifies the subscription details.
+      operationId: updateSubscription
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier of the subscription
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      requestBody:
+        description: Update Subscription request
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+        required: true
+      responses:
+        '200':
+          description: Subscription updated.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '400':
+          description: Bad request
+        '404':
+          description: The subscription record could not be found.
+        '500':
+          description: Could not update the subscription record owing to infrastructure
+            issue. Please try after some time. If the problem persists, reach out
+            to Pleo customer support.
+    delete:
+      tags:
+      - Subscriptions
+      summary: Delete subscription by id
+      description: Removes the specified subscription record.
+      operationId: deleteSubscription
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier of the subscription
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '204':
+          description: Subscription deleted.
+        '404':
+          description: The subscription record could not be found.
+        '500':
+          description: Cannot delete subscription due to infrastructure issue. Please
+            try after some time. If the problem persists, reach out to Pleo customer
+            support.
+  /v1/subscriptions/{id}/activities:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get subscription activities
+      description: Fetches subscription activities of a given subscription.
+      operationId: getSubscriptionActivities
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier of the subscription
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      - name: operation_types
+        in: query
+        description: Filters subscriptions by operationTypes. If the value is null,
+          all subscription activities for the specified subscriptionId are returned.
+        required: false
+        style: form
+        explode: true
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - CREATE
+            - UPDATE
+            - DELETE
+        example:
+        - CREATE
+      - name: before
+        in: query
+        description: Lower bound of the page of data to return (cannot be used together
+          with [after] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: after
+        in: query
+        description: Upper bound of the page of data to return (cannot be used together
+          with [before] or [offset]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          pattern: ^[A-Z2-7=~]+$
+          type: string
+      - name: offset
+        in: query
+        description: Offset of the page of data to return (cannot be used together
+          with [before] or [after]).
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: limit
+        in: query
+        description: The maximum amount of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+      - name: sorting_keys
+        in: query
+        description: The keys to sort the results by.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: sorting_order
+        in: query
+        description: The order to sort the results by. Must be the same length as
+          [sortingKeys]; one order per key.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+      responses:
+        '200':
+          description: The subscription activities are returned.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/CursorPaginatedResponseSubscriptionActivityModel'
+        '404':
+          description: The subscription record could not be found.
+  /v1/subscriptions/{id}/secret:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get subscription secret by id
+      description: Fetches webhook subscription secret ID by the specific subscription
+        identification code; this is done to verify the webhook event that the customer
+        has subscribed for.
+      operationId: getSubscriptionSecret
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier of the subscription
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      responses:
+        '200':
+          description: The subscription secret details are returned.
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/SubscriptionSecretResponse'
+        '404':
+          description: The subscription secret record could not be found.
+components:
+  schemas:
+    AuthCredential:
+      type: object
+      properties:
+        password:
+          type: string
+          description: Password for basic authentication
+          example: password
+        token:
+          type: string
+          description: Token for bearer authentication
+          example: token
+        username:
+          type: string
+          description: Username for basic authentication
+          example: username
+      description: Authentication credentials
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    CursorPaginatedResponseSubscriptionActivityModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionActivityModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPaginatedResponseSubscriptionModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    EndpointAuth:
+      type: object
+      properties:
+        credentials:
+          $ref: '#/components/schemas/AuthCredential'
+        type:
+          type: string
+          description: Authentication type for the endpoint. Default is NONE
+          example: NONE
+          enum:
+          - NONE
+          - BASIC
+      description: Authentication details for the endpoint
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+    SubscriptionActivityModel:
+      required:
+      - actorUrn
+      - createdAt
+      - description
+      - id
+      - operationType
+      - subscriptionId
+      type: object
+      properties:
+        actorUrn:
+          type: string
+          description: The identifier of the user who performed the activity
+          readOnly: true
+          example: urn:pleo:organisation:12345678-1234-1234-1234-123456789012
+        createdAt:
+          type: string
+          description: The time when the subscription activity was created
+          format: date-time
+          readOnly: true
+          example: '2022-01-01T00:00:00Z'
+        description:
+          type: string
+          description: The description of the activity
+          readOnly: true
+          example: Subscription deleted
+        id:
+          type: string
+          description: The unique identifier of the subscription activity
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+        operationType:
+          type: string
+          description: The type of the activity performed
+          readOnly: true
+          example: CREATE
+        subscriptionId:
+          type: string
+          description: The unique identifier of the subscription
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+    SubscriptionModel:
+      required:
+      - createdAt
+      - endpointUrl
+      - eventTypes
+      - id
+      - status
+      - updatedAt
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: The time when the subscription was created
+          format: date-time
+          readOnly: true
+          example: '2022-01-01T00:00:00Z'
+        customHeaders:
+          type: object
+          additionalProperties:
+            type: string
+            description: Key values as headers to be sent to the webhooks vendor
+            example: '{"user":"pass"}'
+          description: Key values as headers to be sent to the webhooks vendor
+          example:
+            user: pass
+        deletedAt:
+          type: string
+          description: The time when the subscription was deleted
+          format: date-time
+          readOnly: true
+          example: '2022-01-01T00:00:00Z'
+        deletedBy:
+          type: string
+          description: The identifier of the user who deleted the subscription
+          readOnly: true
+          example: urn:pleo:organisation:12345678-1234-1234-1234-123456789012
+        endpointAuth:
+          $ref: '#/components/schemas/EndpointAuth'
+        endpointUrl:
+          type: string
+          description: The URL where the events should be sent
+          readOnly: true
+          example: https://example.com/webhook
+        eventTypes:
+          uniqueItems: true
+          type: array
+          description: The type of the event
+          readOnly: true
+          example: v1.export-job.created
+          items:
+            type: string
+            description: The type of the event
+            readOnly: true
+            example: v1.export-job.created
+        id:
+          type: string
+          description: The unique identifier of the subscription
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+        status:
+          type: string
+          description: The status of the subscription
+          example: ACTIVE
+          enum:
+          - INACTIVE
+          - ACTIVE
+        updatedAt:
+          type: string
+          description: The last time the subscription was updated
+          format: date-time
+          readOnly: true
+          example: '2022-01-10T00:00:00Z'
+    SubscriptionRequest:
+      required:
+      - endpointUrl
+      - eventTypes
+      type: object
+      properties:
+        customHeaders:
+          type: object
+          additionalProperties:
+            type: string
+            description: Key values as headers to be sent to the webhooks vendor
+            example: '{"user":"pass"}'
+          description: Key values as headers to be sent to the webhooks vendor
+          example:
+            user: pass
+        endpointAuth:
+          $ref: '#/components/schemas/EndpointAuth'
+        endpointUrl:
+          type: string
+          description: The URL where the events should be sent
+          example: https://example.com/webhook
+        eventTypes:
+          uniqueItems: true
+          type: array
+          description: Name of the event types you wish to subscribe to. Possible
+            values can be found in the EventType enum.
+          example:
+          - v1.export-job.created
+          items:
+            type: string
+            description: Name of the event types you wish to subscribe to. Possible
+              values can be found in the EventType enum.
+            example: '["v1.export-job.created"]'
+        status:
+          type: string
+          description: Status of subscription
+          example: ACTIVE
+          enum:
+          - INACTIVE
+          - ACTIVE
+          default: ACTIVE
+    SubscriptionResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubscriptionModel'
+    SubscriptionSecretModel:
+      type: object
+      properties:
+        secretKey:
+          type: string
+          description: The subscription's verification secret. It is required to verify
+            the subscription events
+          readOnly: true
+          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
+    SubscriptionSecretResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubscriptionSecretModel'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Bearer token authentication. Include the token in the Authorization
+        header as: `Bearer <token>`'
+      scheme: bearer
+      bearerFormat: JWT
+    basicAuth:
+      type: http
+      description: Basic HTTP authentication using API key. Use your API key as the
+        username and leave the password empty. The credentials will be Base64 encoded
+        automatically.
+      scheme: basic

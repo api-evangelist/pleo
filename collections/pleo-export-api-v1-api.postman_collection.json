@@ -1,0 +1,853 @@
+{
+  "item": [
+    {
+      "id": "b48025a8-d5ba-43ad-afcd-e3651ec3ddf9",
+      "name": "Export API (v1)",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f7618aeb-c151-47e2-ae32-65c3848ac6fc",
+          "name": "Create an Export Job Event",
+          "request": {
+            "name": "Create an Export Job Event",
+            "description": {
+              "content": "\n            The Export Job Events imply the different status of an Export Job through the export lifecycle.\n            Use this endpoint to create a new status.\n            For example, started event implies the export job is initiated.\n            The existing Export Job Events are as follows:\n            - started: An export job is initiated. This allows the integration\n                service to start processing the export job items.\n            - failed: The export job has failed when an irrecoverable error happens and this could have happened while processing the export job items.\n            - completed: The export job items have been successfully exported.\n            - completed_with_errors: The export job items have been processed, although some of them could not be exported.\n            ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "export-job-events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"<string>\",\n  \"jobId\": \"<uuid>\",\n  \"failureReason\": \"<string>\",\n  \"failureReasonType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2f1d9d2-9ceb-4a2d-8748-7d61dba87246",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "export-job-events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": \"<string>\",\n  \"jobId\": \"<uuid>\",\n  \"failureReason\": \"<string>\",\n  \"failureReasonType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d01cab3-72d2-4ab1-88d4-395aa26a3039",
+          "name": "Get a list of Export Jobs",
+          "request": {
+            "name": "Get a list of Export Jobs",
+            "description": {
+              "content": "Fetch a list of export jobs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "export-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<uuid>",
+                  "description": "Enter the specific company ID for which you want to retrieve the list of export jobs processed before."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Fetch a list of jobs for a specific status."
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Fetch a list of jobs for specific statuses."
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Fetch a list of jobs for specific statuses."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4058f13d-3da2-469f-9c53-d1586d9cc187",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "export-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"companyId\": \"2ad1e099-8e09-747d-7be9-b61de91591b0\",\n      \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"expiresIn\": 421,\n      \"id\": \"0bb19aa0-577f-602f-9863-6412322c2ce5\",\n      \"isInteractive\": false,\n      \"numberOfItems\": 3560,\n      \"status\": \"in_progress\",\n      \"vendorBasedBookkeeping\": true,\n      \"completedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"createdBy\": null,\n      \"expiredAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"failureReason\": \"string\",\n      \"failureReasonType\": \"authentication_failure\",\n      \"lastUpdatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"startedAt\": \"YYYY-MM-DDTHH:mi:ssZ\"\n    },\n    {\n      \"companyId\": \"2bfc2c93-f770-d249-fd5b-9510290486db\",\n      \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"expiresIn\": 4294,\n      \"id\": \"c220ba51-4e7e-057b-dec0-716274a9b832\",\n      \"isInteractive\": true,\n      \"numberOfItems\": 3301,\n      \"status\": \"failed\",\n      \"vendorBasedBookkeeping\": false,\n      \"completedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"createdBy\": null,\n      \"expiredAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"failureReason\": \"string\",\n      \"failureReasonType\": \"invalid_configuration\",\n      \"lastUpdatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"startedAt\": \"YYYY-MM-DDTHH:mi:ssZ\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 451,\n      \"offset\": 3374,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": false,\n    \"hasPreviousPage\": true,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 1970\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a846876e-0f74-4fc3-9748-f084b8eaf987",
+          "name": "Create a new export job",
+          "request": {
+            "name": "Create a new export job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "export-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountingEntryIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"companyId\": \"<uuid>\",\n  \"employeeId\": \"<uuid>\",\n  \"isInteractive\": true,\n  \"options\": {\n    \"vendorBasedBookkeeping\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2bb750fb-d968-483d-9931-476115c91705",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "export-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountingEntryIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"companyId\": \"<uuid>\",\n  \"employeeId\": \"<uuid>\",\n  \"isInteractive\": true,\n  \"options\": {\n    \"vendorBasedBookkeeping\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"ff1d6493-003d-17c7-d07a-f2207a885b89\",\n    \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"expiresIn\": 4530,\n    \"id\": \"02fd194f-1961-f34c-facc-d5837cbeb7e0\",\n    \"isInteractive\": false,\n    \"numberOfItems\": 4485,\n    \"status\": \"completed_with_errors\",\n    \"vendorBasedBookkeeping\": true,\n    \"completedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"createdBy\": null,\n    \"expiredAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"failureReason\": \"string\",\n    \"failureReasonType\": \"canceled_by_user\",\n    \"lastUpdatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"startedAt\": \"YYYY-MM-DDTHH:mi:ssZ\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfdf2436-2a72-4820-a5dd-34fede9e644d",
+          "name": "Get an Export Job",
+          "request": {
+            "name": "Get an Export Job",
+            "description": {
+              "content": "Retrieve an export job for a given export job ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "export-jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "jobId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "688ad52d-cb95-4b41-9692-391090dcfcaf",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "export-jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"ff1d6493-003d-17c7-d07a-f2207a885b89\",\n    \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"expiresIn\": 4530,\n    \"id\": \"02fd194f-1961-f34c-facc-d5837cbeb7e0\",\n    \"isInteractive\": false,\n    \"numberOfItems\": 4485,\n    \"status\": \"completed_with_errors\",\n    \"vendorBasedBookkeeping\": true,\n    \"completedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"createdBy\": null,\n    \"expiredAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"failureReason\": \"string\",\n    \"failureReasonType\": \"canceled_by_user\",\n    \"lastUpdatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"startedAt\": \"YYYY-MM-DDTHH:mi:ssZ\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d36c5290-822f-4847-ab09-eaab6ba38133",
+          "name": "Get Export Job Items",
+          "request": {
+            "name": "Get Export Job Items",
+            "description": {
+              "content": "Fetch a list of export job items",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "export-jobs",
+                ":jobId",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Enter a specific status with which the list of export job items returned conforms."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "jobId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8c1b929-f6fe-4163-b6a1-83005fa9c47d",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "export-jobs",
+                    ":jobId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"accountingEntryId\": \"c4dba68e-2c53-f2b2-e62f-f2289ebaa7d7\",\n      \"exportJobId\": \"00ef1416-4fd9-b441-1ff7-819f5f255572\",\n      \"status\": \"pending\",\n      \"exportedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"externalId\": \"string\",\n      \"externalUrl\": \"string\",\n      \"failureReason\": \"string\",\n      \"failureReasonType\": \"receipt_file_size_limit_exceeded\"\n    },\n    {\n      \"accountingEntryId\": \"e4ee8d57-0684-a056-1945-e49d386ae694\",\n      \"exportJobId\": \"8760070d-171b-89bc-e4ba-70a115dad905\",\n      \"status\": \"successful\",\n      \"exportedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"externalId\": \"string\",\n      \"externalUrl\": \"string\",\n      \"failureReason\": \"string\",\n      \"failureReasonType\": \"receipt_file_size_limit_exceeded\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 3023,\n      \"offset\": 7004,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 2345\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0010f0a9-a0d7-47d8-9cf5-540cda0c63d7",
+          "name": "Update Export Job Items",
+          "request": {
+            "name": "Update Export Job Items",
+            "description": {
+              "content": "Update the status and other attributes of the export job items in batches of 100. This API only supports updating up to 100 items.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "export-jobs",
+                ":jobId",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "jobId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"accountingEntryId\": \"<uuid>\",\n    \"status\": \"<string>\",\n    \"exportedAt\": \"<dateTime>\",\n    \"externalId\": \"<string>\",\n    \"externalUrl\": \"<string>\",\n    \"failureReason\": \"<string>\",\n    \"failureReasonType\": \"<string>\"\n  },\n  {\n    \"accountingEntryId\": \"<uuid>\",\n    \"status\": \"<string>\",\n    \"exportedAt\": \"<dateTime>\",\n    \"externalId\": \"<string>\",\n    \"externalUrl\": \"<string>\",\n    \"failureReason\": \"<string>\",\n    \"failureReasonType\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0f5ed71-3d0d-4a5d-83e7-24a4a7f47529",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "export-jobs",
+                    ":jobId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"accountingEntryId\": \"<uuid>\",\n    \"status\": \"<string>\",\n    \"exportedAt\": \"<dateTime>\",\n    \"externalId\": \"<string>\",\n    \"externalUrl\": \"<string>\",\n    \"failureReason\": \"<string>\",\n    \"failureReasonType\": \"<string>\"\n  },\n  {\n    \"accountingEntryId\": \"<uuid>\",\n    \"status\": \"<string>\",\n    \"exportedAt\": \"<dateTime>\",\n    \"externalId\": \"<string>\",\n    \"externalUrl\": \"<string>\",\n    \"failureReason\": \"<string>\",\n    \"failureReasonType\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"accountingEntryId\": \"b56d0457-91f9-5fcc-cc0f-1d2baeec438d\",\n      \"exportJobId\": \"14d34204-46b1-038c-3b6e-efab6e0f1b02\",\n      \"status\": \"abandoned\",\n      \"exportedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"externalId\": \"string\",\n      \"externalUrl\": \"string\",\n      \"failureReason\": \"string\",\n      \"failureReasonType\": \"accounting_system_timeout\"\n    },\n    {\n      \"accountingEntryId\": \"9d588440-2cd8-15ea-f0ae-de49c5e18939\",\n      \"exportJobId\": \"895961f8-ddff-4bff-684d-d2d4ccc019e1\",\n      \"status\": \"in_progress\",\n      \"exportedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"externalId\": \"string\",\n      \"externalUrl\": \"string\",\n      \"failureReason\": \"string\",\n      \"failureReasonType\": \"missing_configuration\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"accountingEntryId\": \"59c382e9-bb28-b613-a073-5bd74ffa2675\",\n      \"message\": \"string\",\n      \"type\": \"EXPORT_ENTRY_STATUS_UPDATE_FAILED\"\n    },\n    {\n      \"accountingEntryId\": \"3addf6c5-4054-9679-33b3-0635fbedc220\",\n      \"message\": \"string\",\n      \"type\": \"ACCOUNTING_ENTRY_DOES_NOT_EXIST\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e93dd7ce-5951-4cae-be9c-34d4de304166",
+    "name": "App Marketplace accounting-entries Export API (v1) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

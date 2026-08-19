@@ -1,0 +1,2293 @@
+{
+  "item": [
+    {
+      "id": "74db7282-026f-4f5a-a2e1-185731f3a5f1",
+      "name": "tags",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4c491e64-d38a-4c6a-a8be-45bcb00b0870",
+          "name": "Retrieve tags in aggregated format",
+          "request": {
+            "name": "Retrieve tags in aggregated format",
+            "description": {
+              "content": "Retrieve tags for a company in aggregated format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "aggregations",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"includeArchived\": \"<boolean>\",\n  \"tagGroupIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"tagIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"textSearch\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0eedc180-48a8-4e90-8d67-283b00287c0f",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "aggregations",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"includeArchived\": \"<boolean>\",\n  \"tagGroupIds\": [\n    \"<uuid>\"\n  ],\n  \"tagIds\": [\n    \"<uuid>\"\n  ],\n  \"textSearch\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"dimensions\": [\n        {\n          \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n          \"displayOrder\": 1,\n          \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n          \"name\": \"Project\",\n          \"value\": \"string\",\n          \"visible\": false\n        },\n        {\n          \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n          \"displayOrder\": 1,\n          \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n          \"name\": \"Project\",\n          \"value\": \"string\",\n          \"visible\": false\n        }\n      ],\n      \"group\": {\n        \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n        \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n        \"name\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\"\n      },\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    },\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"dimensions\": [\n        {\n          \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n          \"displayOrder\": 1,\n          \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n          \"name\": \"Project\",\n          \"value\": \"string\",\n          \"visible\": false\n        },\n        {\n          \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n          \"displayOrder\": 1,\n          \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n          \"name\": \"Project\",\n          \"value\": \"string\",\n          \"visible\": false\n        }\n      ],\n      \"group\": {\n        \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n        \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n        \"name\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\"\n      },\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_2\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 8670,\n      \"offset\": 4015,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": false,\n    \"hasPreviousPage\": true,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 8837\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "703f6d32-f074-4169-b173-fbf7c0265e7e",
+          "name": "Retrieve tags for a tag group",
+          "request": {
+            "name": "Retrieve tags for a tag group",
+            "description": {
+              "content": "Retrieve a list of tags associated with a tag group.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tag-groups",
+                ":groupId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_archived",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "groupId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d81da475-8a4e-41f6-8ead-f93d969588db",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tag-groups",
+                    ":groupId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_archived",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "groupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"groupId\": \"1f374152-27d7-50ba-bba8-68a3d2c4b586\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    },\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"groupId\": \"3b102ba8-5920-5646-7ffc-7516dc055c69\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 7699,\n      \"offset\": 3377,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": true,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 285\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63095d85-db85-464f-a3a3-587babd9edea",
+          "name": "Create a new tag for a tag group",
+          "request": {
+            "name": "Create a new tag for a tag group",
+            "description": {
+              "content": "Create a new tag for a tag group in Pleo.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tag-groups",
+                ":groupId",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "groupId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"otherDimensionValues\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cff6bb1b-bbb3-4067-9225-6f9b0d0e58da",
+              "name": "Tag created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tag-groups",
+                    ":groupId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "groupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": false,\n  \"code\": \"12345\",\n  \"name\": \"Lunch allowance\",\n  \"otherDimensionValues\": [\n    \"value1\",\n    \"value2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"12345\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"groupId\": \"339a53db-cb63-8d8a-1a6c-1ddff19342a9\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"name\": \"Lunch allowance\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74fc6e1f-fccf-4eb1-8f68-0a92c6f88b75",
+              "name": "Tag group already contains maximum number of active tags.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tag-groups",
+                    ":groupId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "groupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": false,\n  \"code\": \"12345\",\n  \"name\": \"Lunch allowance\",\n  \"otherDimensionValues\": [\n    \"value1\",\n    \"value2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc4d2187-b556-43f6-8ae4-1321eb390a22",
+              "name": "Conflict: tag with the same `code` already exists in Pleo.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tag-groups",
+                    ":groupId",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "groupId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": false,\n  \"code\": \"12345\",\n  \"name\": \"Lunch allowance\",\n  \"otherDimensionValues\": [\n    \"value1\",\n    \"value2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d15db062-02a1-46db-b67e-b39aee4441f7",
+          "name": "Search tags",
+          "request": {
+            "name": "Search tags",
+            "description": {},
+            "url": {
+              "path": [
+                "v0",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "text_search",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_group_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_group_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_archived",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "36893e8e-9643-439a-ad30-f165a9523f2a",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "text_search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_group_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "tag_group_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "include_archived",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"groupId\": \"82243f17-b192-31e4-5851-bda52b63b690\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    },\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"groupId\": \"dedd3ede-8778-ad00-029d-a9efc9d98d7e\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 5511,\n      \"offset\": 6167,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 7817\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d060a91-c3ab-448f-8d00-71e376b219b1",
+          "name": "Bulk delete tags",
+          "request": {
+            "name": "Bulk delete tags",
+            "description": {
+              "content": "Bulk delete tags for a company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"tagIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a16b36e8-797a-4f2b-ac3b-b32c54331917",
+              "name": "Tags deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"tagIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9740e93-2ff5-40d6-8260-1146c6dace44",
+          "name": "Bulk archive or unarchive Tags",
+          "request": {
+            "name": "Bulk archive or unarchive Tags",
+            "description": {
+              "content": "Bulk archive or unarchive Tags for a company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"tagIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "03451e14-dff0-4e39-8705-29a85308a2ff",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"tagIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"groupId\": \"ef44eee4-7d69-d96f-03fa-0bac47b6ff73\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    },\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"groupId\": \"8cc00545-448c-6901-bdf4-e5909e6ab798\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c455080a-6653-4382-bf6e-d932cad275db",
+          "name": "Retrieve a tag by its id",
+          "request": {
+            "name": "Retrieve a tag by its id",
+            "description": {
+              "content": "Retrieve details of a tag by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                ":tagId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "tagId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e881fca-2aac-4b4a-b190-3d4bbab5c7fb",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"12345\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"groupId\": \"339a53db-cb63-8d8a-1a6c-1ddff19342a9\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"name\": \"Lunch allowance\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fad679de-7558-46df-860d-50e117019df8",
+          "name": "Update a tag",
+          "request": {
+            "name": "Update a tag",
+            "description": {
+              "content": "Modify details of a tag by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                ":tagId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "tagId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"otherDimensionValues\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41a0bac6-d7c9-466d-8f69-7231568ab062",
+              "name": "Tag updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": false,\n  \"code\": \"12345\",\n  \"name\": \"Lunch allowance\",\n  \"otherDimensionValues\": [\n    \"value1\",\n    \"value2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"12345\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"groupId\": \"339a53db-cb63-8d8a-1a6c-1ddff19342a9\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"name\": \"Lunch allowance\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7373eb28-0ce3-45bf-a7ba-538f8c13f191",
+              "name": "Tag not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": false,\n  \"code\": \"12345\",\n  \"name\": \"Lunch allowance\",\n  \"otherDimensionValues\": [\n    \"value1\",\n    \"value2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a610e652-92c2-45f3-86b5-81d427157cad",
+              "name": "Conflict: update to tag changes the code to use an existing one.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": false,\n  \"code\": \"12345\",\n  \"name\": \"Lunch allowance\",\n  \"otherDimensionValues\": [\n    \"value1\",\n    \"value2\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "056e95dc-e007-41ea-8e7c-5750178ba8d5",
+          "name": "Delete a tag",
+          "request": {
+            "name": "Delete a tag",
+            "description": {
+              "content": "Delete a tag by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                ":tagId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "tagId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09939c3a-f4d0-4129-a06d-ec646e6fd594",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "\"\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5793a568-9bc8-4297-9a0c-e17f838ffeac",
+          "name": "Retrieve dimension values",
+          "request": {
+            "name": "Retrieve dimension values",
+            "description": {
+              "content": "Retrieve a list of dimension values for a tag.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                ":tagId",
+                "dimensions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "tagId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57e64f41-2c2f-43f9-a686-b136fb1112de",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId",
+                    "dimensions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"dimensionId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"tagId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"value\": \"string\"\n    },\n    {\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"dimensionId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"tagId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64a79810-1ceb-4eac-9b49-c9cb15e12b04",
+          "name": "Retrieve a dimension value",
+          "request": {
+            "name": "Retrieve a dimension value",
+            "description": {},
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                ":tagId",
+                "dimensions",
+                ":dimensionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "tagId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dimensionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7cbeedea-fa80-4088-93fc-ce9044873ebd",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId",
+                    "dimensions",
+                    ":dimensionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dimensionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"dimensionId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"tagId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d27da99-d42c-4981-be22-a258d75dd2aa",
+          "name": "Update a dimension value",
+          "request": {
+            "name": "Update a dimension value",
+            "description": {
+              "content": "Update a dimension value for a tag.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                ":tagId",
+                "dimensions",
+                ":dimensionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "tagId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dimensionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "112e4f5e-209f-412c-a649-2d2f4b1343f6",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId",
+                    "dimensions",
+                    ":dimensionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dimensionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"dimensionId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"tagId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc311913-a731-4081-a7e5-f6b0c02cea65",
+          "name": "Create a new dimension value",
+          "request": {
+            "name": "Create a new dimension value",
+            "description": {
+              "content": "Create a new dimension value for a tag.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                ":tagId",
+                "dimensions",
+                ":dimensionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "tagId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dimensionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e477c77-0343-4d9b-a01d-ae99e05d205e",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId",
+                    "dimensions",
+                    ":dimensionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dimensionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"dimensionId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"tagId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f001c7a2-f6a9-4ad7-a8d9-bf556bebbaab",
+          "name": "Delete a dimension value",
+          "request": {
+            "name": "Delete a dimension value",
+            "description": {
+              "content": "Delete a dimension value for a tag.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "tags",
+                ":tagId",
+                "dimensions",
+                ":dimensionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "tagId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dimensionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "daa935c2-dc12-4393-94da-cecaa7fd6dd3",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags",
+                    ":tagId",
+                    "dimensions",
+                    ":dimensionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "tagId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dimensionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"dimensionId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"tagId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40e719c5-a30c-43bc-aa77-b8fe0e324614",
+          "name": "Search tags",
+          "request": {
+            "name": "Search tags",
+            "description": {},
+            "url": {
+              "path": [
+                "v0",
+                "tags:search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"includeArchived\": \"<boolean>\",\n  \"tagGroupIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"tagIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"textSearch\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35a16cbc-0c74-4f51-803d-da70488c6d33",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "tags:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"includeArchived\": \"<boolean>\",\n  \"tagGroupIds\": [\n    \"<uuid>\"\n  ],\n  \"tagIds\": [\n    \"<uuid>\"\n  ],\n  \"textSearch\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"groupId\": \"82243f17-b192-31e4-5851-bda52b63b690\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    },\n    {\n      \"archived\": false,\n      \"code\": \"12345\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"groupId\": \"dedd3ede-8778-ad00-029d-a9efc9d98d7e\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"name\": \"Lunch allowance\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 5511,\n      \"offset\": 6167,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 7817\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "eeccf5fc-741e-446d-aa6f-da64dc710fa0",
+    "name": "App Marketplace accounting-entries tags API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

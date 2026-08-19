@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries AccountingEntryEnrichmentV2 API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AccountingEntryEnrichmentV2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enrich Accounting Entry V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v2/accounting-entries:enrich",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the Pleo user who made the purchase. Used as an optional matching parameter."
+              },
+              {
+                "name": "performed_at",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 timestamp of when the purchase was authorised (i.e. when the transaction happened). Either `performed_at` or `settled_at` must be provided."
+              },
+              {
+                "name": "settled_at",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 timestamp of when the purchase was settled (i.e. when the funds were transferred). Either `performed_at` or `settled_at` must be provided."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Transaction amount in minor units (e.g. 1500 represents €15.00)."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "ISO 4217 currency code of the transaction (e.g. EUR, GBP, DKK)."
+              },
+              {
+                "name": "card_last_four_digits",
+                "value": "",
+                "type": "query",
+                "description": "Last four digits of the Pleo card used for the transaction. Used as a matching parameter to identify the correct accounting entry."
+              },
+              {
+                "name": "merchant_name",
+                "value": "",
+                "type": "query",
+                "description": "Name of the merchant as it appears on the transaction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enriches an existing Pleo card accounting entry by attaching one or more receipts and applying optional cost categorisation tags. Pleo identifies the matching entry using the transaction details provided as query parameters. Use this endpoint for all new implementations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,201 @@
+{
+  "item": [
+    {
+      "id": "e6c039f8-4ca7-4958-aba5-076f192e6330",
+      "name": "External Clients",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fbdb0cbe-5fa9-4705-83a2-cd91e1a4ffd7",
+          "name": "Introspect the details of the current authentication.",
+          "request": {
+            "name": "Introspect the details of the current authentication.",
+            "description": {
+              "content": "Returns the detail of the current authentication and what scope of the authentication (i.e API KEY or OAuth bearer token)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "introspect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1bd2974a-49b5-43c4-a6d7-b36a2e0e89af",
+              "name": "Introspection successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "introspect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"authMethod\": \"API_KEY\",\n    \"clientId\": \"d8b8a6d4-3c4b-4b8e-8b2e-1f2a3d4e5f6a\",\n    \"scope\": \"export:read users:write expense:read\",\n    \"applicationName\": \"Netsuite\",\n    \"subjectURN\": \"urn:pleo:company:d7b8a6d4-3c4b-4b8e-8b2e-1f2a3d4e5f6b\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2706f015-c249-46c7-acad-da9fe80df884",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "introspect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6b7206e5-1cd7-4af4-982b-5072f3694292",
+              "name": "Cannot complete introspection due to infrastructure issue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "introspect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dde54ecd-f8fc-4ed0-82a5-5dad285969e5",
+    "name": "App Marketplace accounting-entries External Clients API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

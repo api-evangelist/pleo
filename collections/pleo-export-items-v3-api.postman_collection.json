@@ -1,0 +1,375 @@
+{
+  "item": [
+    {
+      "id": "f9bd08ff-59c1-4631-873e-022355a64f99",
+      "name": "Export Items (v3)",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b797de0d-6841-4c22-ab83-7e7f9dd25d5e",
+          "name": "Get Export Items",
+          "request": {
+            "name": "Get Export Items",
+            "description": {
+              "content": "An export item = an accounting entry transformed into an exportable entry. The accounting and bookkeeping information is collected from an accounting entry to form an export item.\n\n•  A request to this endpoint retrieves a list of export items selected for export.\n\n•  Please note that you can retrieve a list of export items only from `pending` and `in_progress` export jobs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "export-items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "job_id",
+                  "value": "<uuid>",
+                  "description": "The Export Job ID in which the accounting entries have been included for export."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "458d370a-1172-4e30-9b71-dafc820771c6",
+              "name": "Export Items retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "export-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "job_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_links\": {\n        \"web\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"mobile\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"api\": {\n          \"exportItem\": \"https://example.com\"\n        }\n      },\n      \"accountingEntryId\": \"00000000-0000-0000-0000-000000000000\",\n      \"accountingEntryLines\": [\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"name\": \"Meals and Entertainment\",\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\",\n            \"ingoingTaxAccount\": \"123456\",\n            \"outgoingTaxAccount\": \"123456\"\n          }\n        },\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"name\": \"Meals and Entertainment\",\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\",\n            \"ingoingTaxAccount\": \"123456\",\n            \"outgoingTaxAccount\": \"123456\"\n          }\n        }\n      ],\n      \"additionalInformation\": {\n        \"reconciliationId\": \"string\",\n        \"attendees\": [\n          \"string\",\n          \"string\"\n        ],\n        \"invoiceInformation\": {\n          \"invoiceDate\": \"YYYY-MM-DD\",\n          \"invoiceNumber\": \"string\",\n          \"status\": \"pending_approval\",\n          \"dueDate\": \"YYYY-MM-DD\",\n          \"paymentDate\": \"YYYY-MM-DD\",\n          \"supplierBankAccount\": {\n            \"bankName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bankCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bic\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"iban\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reconciledEntries\": [\n          \"string\"\n        ]\n      },\n      \"amount\": {\n        \"inSupplierCurrency\": {\n          \"currency\": \"RUR\",\n          \"value\": 3902.73446348544\n        },\n        \"inWalletCurrency\": {\n          \"currency\": \"IDR\",\n          \"value\": 8365.261894850362\n        }\n      },\n      \"companyId\": \"00000000-0000-0000-0000-000000000000\",\n      \"date\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"type\": \"card_purchase\",\n      \"bookkeeping\": {\n        \"method\": \"none\"\n      },\n      \"contraAccount\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Pleo GBP Account\",\n        \"code\": \"string\",\n        \"identifier\": \"string\"\n      },\n      \"files\": [\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        },\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        }\n      ],\n      \"note\": \"string\",\n      \"servicePeriod\": {\n        \"from\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\",\n        \"to\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\"\n      },\n      \"subType\": \"reimbursement_to_employee_refund\",\n      \"supplier\": {\n        \"account\": \"string\",\n        \"categoryCode\": \"5999\",\n        \"code\": \"string\",\n        \"country\": \"DK\",\n        \"name\": \"GOOGLE*ADS8693645259\",\n        \"taxIdentifier\": \"string\"\n      },\n      \"team\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Marketing\",\n        \"code\": \"string\"\n      },\n      \"user\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"John Doe\",\n        \"code\": \"string\"\n      },\n      \"vendor\": {\n        \"defaultCurrency\": \"DKK\",\n        \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"name\": \"Pleo\",\n        \"code\": \"string\",\n        \"country\": \"DK\",\n        \"externalId\": \"string\",\n        \"registrationNumber\": \"string\",\n        \"taxRegistrationNumber\": \"string\"\n      }\n    },\n    {\n      \"_links\": {\n        \"web\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"mobile\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"api\": {\n          \"exportItem\": \"https://example.com\"\n        }\n      },\n      \"accountingEntryId\": \"00000000-0000-0000-0000-000000000000\",\n      \"accountingEntryLines\": [\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"name\": \"Meals and Entertainment\",\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\",\n            \"ingoingTaxAccount\": \"123456\",\n            \"outgoingTaxAccount\": \"123456\"\n          }\n        },\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"name\": \"Meals and Entertainment\",\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\",\n            \"ingoingTaxAccount\": \"123456\",\n            \"outgoingTaxAccount\": \"123456\"\n          }\n        }\n      ],\n      \"additionalInformation\": {\n        \"reconciliationId\": \"string\",\n        \"attendees\": [\n          \"string\",\n          \"string\"\n        ],\n        \"invoiceInformation\": {\n          \"invoiceDate\": \"YYYY-MM-DD\",\n          \"invoiceNumber\": \"string\",\n          \"status\": \"pending_approval\",\n          \"dueDate\": \"YYYY-MM-DD\",\n          \"paymentDate\": \"YYYY-MM-DD\",\n          \"supplierBankAccount\": {\n            \"bankName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bankCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bic\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"iban\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reconciledEntries\": [\n          \"string\"\n        ]\n      },\n      \"amount\": {\n        \"inSupplierCurrency\": {\n          \"currency\": \"NIO\",\n          \"value\": 7965.123998559657\n        },\n        \"inWalletCurrency\": {\n          \"currency\": \"BYR\",\n          \"value\": 4361.968824896783\n        }\n      },\n      \"companyId\": \"00000000-0000-0000-0000-000000000000\",\n      \"date\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"type\": \"card_purchase\",\n      \"bookkeeping\": {\n        \"method\": \"none\"\n      },\n      \"contraAccount\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Pleo GBP Account\",\n        \"code\": \"string\",\n        \"identifier\": \"string\"\n      },\n      \"files\": [\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        },\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        }\n      ],\n      \"note\": \"string\",\n      \"servicePeriod\": {\n        \"from\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\",\n        \"to\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\"\n      },\n      \"subType\": \"reimbursement_to_employee_refund\",\n      \"supplier\": {\n        \"account\": \"string\",\n        \"categoryCode\": \"5999\",\n        \"code\": \"string\",\n        \"country\": \"DK\",\n        \"name\": \"GOOGLE*ADS8693645259\",\n        \"taxIdentifier\": \"string\"\n      },\n      \"team\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Marketing\",\n        \"code\": \"string\"\n      },\n      \"user\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"John Doe\",\n        \"code\": \"string\"\n      },\n      \"vendor\": {\n        \"defaultCurrency\": \"DKK\",\n        \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"name\": \"Pleo\",\n        \"code\": \"string\",\n        \"country\": \"DK\",\n        \"externalId\": \"string\",\n        \"registrationNumber\": \"string\",\n        \"taxRegistrationNumber\": \"string\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 9120,\n      \"offset\": 8878,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": false,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 7928\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53308e69-18bf-48e3-a2a1-7e1a18336b79",
+              "name": "Contra accounts are not fully configured. Please map contra accounts in the Accounting settings. Export items cannot be retrieved until all Pleo accounts have corresponding contra accounts configured in the ERP/accounting system.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "export-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "job_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"MISSING_CONTRA_ACCOUNTS\",\n  \"message\": \"Contra accounts are not fully configured. Please map contra accounts in the Accounting settings.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "139a624a-d5cd-4b4a-a2ec-dfddff013fb8",
+              "name": "Export Job has finished. Only Export Items from running jobs can be retrieved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "export-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "job_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"EXPORT_JOB_STATUS_UNPROCESSABLE\",\n  \"message\": \"Export Job is finished and can no longer be processed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b914ae5b-0f1f-4798-aaed-0b6d60209bb0",
+    "name": "App Marketplace accounting-entries Export Items (v3) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

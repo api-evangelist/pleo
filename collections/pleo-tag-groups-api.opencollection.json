@@ -1,0 +1,296 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries tag-groups API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tag-groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the tag groups for a company or an organisation in aggregated format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v0/aggregations/tag-groups",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_group_ids",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "\n            ⚠️ Attention: either the `company_id` or the `organization_id` query parameter MUST be provided. \n            If you supply both, the `company_id` will be used. If you supply neither, the request will fail. \n            If you supply the `company_id`, the response will contain only the tag groups for that company.\n            If you supply the `organization_id`, the response will contain the tag groups for all companies in the organization.\n            If you supply the `company_id`"
+        },
+        {
+          "info": {
+            "name": "Retrieve tag groups for a company or an organisation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v0/tag-groups",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_tags_count",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "\n            ⚠️ Attention: either the `company_id` or the `organization_id` query parameter MUST be provided.\n            If you supply both, the `company_id` will be used. If you supply neither, the request will fail.\n            If you supply the `company_id`, the response will contain only the tag groups for that company. \n            If you supply the `organization_id`, the response will contain the tag groups for all companies in the organization.\n            If you supply the `company_id` "
+        },
+        {
+          "info": {
+            "name": "Create a new tag group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v0/tag-groups",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new tag group in Pleo."
+        },
+        {
+          "info": {
+            "name": "Retrieve a tag group by its id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a tag group by its id."
+        },
+        {
+          "info": {
+            "name": "Update a tag group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify details of a tag group by its id."
+        },
+        {
+          "info": {
+            "name": "Delete a tag group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a tag group by its id."
+        },
+        {
+          "info": {
+            "name": "Retrieve a list of tag group dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId/dimensions",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n            Retrieve a list of tag group dimensions excluding the name and code dimensions which are always present in a tag group. \n            The name and code dimensions are returned only when they do not follow the standard name and code naming convention.\n            "
+        },
+        {
+          "info": {
+            "name": "Create a new tag group dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId/dimensions",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new tag group dimension"
+        },
+        {
+          "info": {
+            "name": "Retrieve a tag group dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId/dimensions/:dimensionId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dimensionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a tag group dimension"
+        },
+        {
+          "info": {
+            "name": "Update a tag group dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId/dimensions/:dimensionId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dimensionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a tag group dimension by its id."
+        },
+        {
+          "info": {
+            "name": "Delete a tag group dimension",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId/dimensions/:dimensionId",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dimensionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a tag group dimension"
+        },
+        {
+          "info": {
+            "name": "Get usage for a tag group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v0/tag-groups/:groupId/usage",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the number of expenses that are linked to each tag within a tag group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

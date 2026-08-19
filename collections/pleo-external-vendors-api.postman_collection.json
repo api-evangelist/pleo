@@ -1,0 +1,3238 @@
+{
+  "item": [
+    {
+      "id": "4acd6af8-514f-4e6b-8506-cb0131a18787",
+      "name": "external-vendors",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "219465ab-acdf-4129-af33-9c804fcd7bc5",
+          "name": "Create a New Vendor",
+          "request": {
+            "name": "Create a New Vendor",
+            "description": {
+              "content": "This endpoint has the following functions:\n- Create a corresponding record in Pleo for any new vendor created in the ERP/accounting system.\n- Create a new vendor in Pleo, without the record yet existing in the ERP/accounting system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vendors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"defaultCurrency\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"country\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"registrationNumber\": \"<string>\",\n  \"taxRegistrationNumber\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "03b65b2d-9d5a-47ac-9ce1-27096303269b",
+              "name": "New vendor created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n  \"defaultCurrency\": \"DKK\",\n  \"name\": \"Pleo\",\n  \"code\": \"<string>\",\n  \"country\": \"DK\",\n  \"externalId\": \"<string>\",\n  \"registrationNumber\": \"<string>\",\n  \"taxRegistrationNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n    \"defaultCurrency\": \"DKK\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"name\": \"Pleo\",\n    \"state\": \"DRAFT\",\n    \"accountingSystem\": \"string\",\n    \"code\": \"string\",\n    \"country\": \"DK\",\n    \"createdAt\": \"2003-08-07T06:56:44.511Z\",\n    \"externalId\": \"string\",\n    \"registrationNumber\": \"string\",\n    \"taxRegistrationNumber\": \"string\",\n    \"updatedAt\": \"1979-11-18T08:29:08.931Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36a1121f-a6ce-4cba-9c95-bff701c08a4c",
+              "name": "Vendor already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n  \"defaultCurrency\": \"DKK\",\n  \"name\": \"Pleo\",\n  \"code\": \"<string>\",\n  \"country\": \"DK\",\n  \"externalId\": \"<string>\",\n  \"registrationNumber\": \"<string>\",\n  \"taxRegistrationNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc9a3ec8-43b0-4141-9c87-9c55d22035c2",
+          "name": "Create an import job",
+          "request": {
+            "name": "Create an import job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "csv-import",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"originalFilename\": \"<string>\",\n  \"type\": \"<string>\",\n  \"csvFormat\": {\n    \"delimiter\": \"<string>\",\n    \"ignoreEmptyLines\": \"<boolean>\",\n    \"recordSeparator\": \"<string>\",\n    \"skipHeaderRecord\": \"<boolean>\",\n    \"escapeCharacter\": \"<string>\",\n    \"quoteCharacter\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21f59a09-e278-49e4-acb4-1d3936292ce6",
+              "name": "Successfully created import job",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"originalFilename\": \"vendors.csv\",\n  \"type\": \"vendors\",\n  \"csvFormat\": {\n    \"delimiter\": \",\",\n    \"quoteCharacter\": \"\\\"\",\n    \"escapeCharacter\": \"\\\\\",\n    \"recordSeparator\": \"\\n\",\n    \"ignoreEmptyLines\": true,\n    \"skipHeaderRecord\": true\n  },\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"7bcde287-6625-f2d6-0695-ec15feec0de4\",\n    \"createdAt\": \"1953-09-28T12:43:41.290Z\",\n    \"id\": \"fdfc1229-a1d7-9cb0-796f-4e0a7b8b24d5\",\n    \"status\": \"UPLOAD_INITIATED\",\n    \"type\": \"vendors\",\n    \"updatedAt\": \"1969-06-23T20:18:08.835Z\",\n    \"columnNames\": [\n      \"Konto\",\n      \"Name\",\n      \"USt-IdNr.\"\n    ],\n    \"csvFormat\": {\n      \"delimiter\": \",\",\n      \"quoteCharacter\": \"\\\"\",\n      \"escapeCharacter\": \"\\\\\",\n      \"recordSeparator\": \"\\n\",\n      \"ignoreEmptyLines\": true,\n      \"skipHeaderRecord\": true\n    },\n    \"errorCode\": \"INVALID_FILE_FORMAT\",\n    \"errorMessage\": \"Uploaded file is not a valid CSV format.\",\n    \"metadata\": {\n      \"key_0\": {}\n    },\n    \"originalFilename\": \"vendors.csv\",\n    \"rowsFailed\": 50,\n    \"rowsSkipped\": 10,\n    \"rowsSucceeded\": 1450,\n    \"rowsTotal\": 1500,\n    \"s3Key\": \"uploads/company-123/vendors-abc.csv\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca495f2e-7b0f-4eec-b68d-d531701eccf1",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"originalFilename\": \"vendors.csv\",\n  \"type\": \"vendors\",\n  \"csvFormat\": {\n    \"delimiter\": \",\",\n    \"quoteCharacter\": \"\\\"\",\n    \"escapeCharacter\": \"\\\\\",\n    \"recordSeparator\": \"\\n\",\n    \"ignoreEmptyLines\": true,\n    \"skipHeaderRecord\": true\n  },\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"VALIDATION_FAILED\",\n  \"message\": \"Validation failed for request parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38c3e7dd-abbb-4718-a459-c24333705ab2",
+              "name": "Processing failed. Returned if there was an internal error creating the import job.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"originalFilename\": \"vendors.csv\",\n  \"type\": \"vendors\",\n  \"csvFormat\": {\n    \"delimiter\": \",\",\n    \"quoteCharacter\": \"\\\"\",\n    \"escapeCharacter\": \"\\\\\",\n    \"recordSeparator\": \"\\n\",\n    \"ignoreEmptyLines\": true,\n    \"skipHeaderRecord\": true\n  },\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"PROCESSING_FAILED\",\n  \"message\": \"Failed to create CSV import job\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c6d774e-103e-4dee-a7c0-2eed3b02f278",
+          "name": "Get CSV import job details",
+          "request": {
+            "name": "Get CSV import job details",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "csv-import",
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "jobId",
+                  "description": "(Required) ID of the import job to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "83e9f280-7df8-4dd9-9b32-b9cf53a08a96",
+              "name": "Import job retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"e17967e0-7654-4218-5397-5e87da9aabb0\",\n    \"createdAt\": \"1982-11-06T04:45:41.939Z\",\n    \"id\": \"60f4ede8-2bc4-b8d4-e09d-c343f99fa07a\",\n    \"status\": \"UPLOAD_INITIATED\",\n    \"type\": \"vendors\",\n    \"updatedAt\": \"1993-07-22T06:54:07.328Z\",\n    \"columnNames\": [\n      \"Konto\",\n      \"Name\",\n      \"USt-IdNr.\"\n    ],\n    \"csvFormat\": {\n      \"delimiter\": \",\",\n      \"quoteCharacter\": \"\\\"\",\n      \"escapeCharacter\": \"\\\\\",\n      \"recordSeparator\": \"\\n\",\n      \"ignoreEmptyLines\": true,\n      \"skipHeaderRecord\": true\n    },\n    \"errorCode\": \"INVALID_FILE_FORMAT\",\n    \"errorMessage\": \"Uploaded file is not a valid CSV format.\",\n    \"metadata\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"originalFilename\": \"vendors.csv\",\n    \"rowsFailed\": 50,\n    \"rowsSkipped\": 10,\n    \"rowsSucceeded\": 1450,\n    \"rowsTotal\": 1500,\n    \"s3Key\": \"uploads/company-123/vendors-abc.csv\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7afe6e2b-7d03-4c94-957c-8e23c60a3cf3",
+              "name": "Invalid path parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"PARAMETER_VALIDATION_FAILED\",\n  \"message\": \"Validation failed for path parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11c550e0-4f8d-4651-b94a-3175f1fe5f8b",
+              "name": "CSV import job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"IMPORT_JOB_NOT_FOUND\",\n  \"message\": \"CSV import job with ID 123e4567-e89b-12d3-a456-426614174000 not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f59812f-403d-42c6-ab39-f83612824a9f",
+          "name": "Get import job errors",
+          "request": {
+            "name": "Get import job errors",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "csv-import",
+                "jobs",
+                ":jobId",
+                "errors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "jobId",
+                  "description": "(Required) ID of the import job to retrieve errors for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f94507dc-2bfb-449d-af86-1f8bb8763774",
+              "name": "Import job errors retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "errors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to retrieve errors for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"createdAt\": \"1975-06-04T21:54:05.591Z\",\n      \"csvImportJobId\": \"332a15cb-1b4b-9887-8db6-d34833d0edec\",\n      \"errorCode\": \"INVALID_VAT_NUMBER\",\n      \"errorMessage\": \"Invalid VAT number format\",\n      \"id\": \"f56a3c64-7697-6fd6-3fa1-f2ab5da19d54\",\n      \"rawData\": \"'\\\"70001\\\",\\\"Müller GmbH\\\",\\\"INVALID\\\"'\",\n      \"rowNumber\": 42\n    },\n    {\n      \"createdAt\": \"1949-08-30T12:13:51.646Z\",\n      \"csvImportJobId\": \"439d13d8-51ab-00e4-a4b3-d10b4089b568\",\n      \"errorCode\": \"INVALID_VAT_NUMBER\",\n      \"errorMessage\": \"Invalid VAT number format\",\n      \"id\": \"c1a6636b-d545-bc41-2f65-845a27d2fe1d\",\n      \"rawData\": \"'\\\"70001\\\",\\\"Müller GmbH\\\",\\\"INVALID\\\"'\",\n      \"rowNumber\": 42\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 253,\n      \"offset\": 2148,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 3112\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "172b324b-c81b-4de4-b485-472f3d6ba731",
+              "name": "Invalid path parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "errors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to retrieve errors for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"PARAMETER_VALIDATION_FAILED\",\n  \"message\": \"Validation failed for path parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72ff2a07-e1b6-409e-b6f4-0a7dea95d2da",
+              "name": "CSV import job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "errors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to retrieve errors for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"IMPORT_JOB_NOT_FOUND\",\n  \"message\": \"CSV import job with ID 123e4567-e89b-12d3-a456-426614174000 not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5166afed-6d43-432b-9d9f-34cb9c850e2e",
+          "name": "Update metadata for CSV import job",
+          "request": {
+            "name": "Update metadata for CSV import job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "csv-import",
+                "jobs",
+                ":jobId",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "jobId",
+                  "description": "(Required) ID of the import job to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"strategy\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0b0a41e4-f414-4bd1-bd99-534a4b0b3151",
+              "name": "Import job updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"strategy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"e17967e0-7654-4218-5397-5e87da9aabb0\",\n    \"createdAt\": \"1982-11-06T04:45:41.939Z\",\n    \"id\": \"60f4ede8-2bc4-b8d4-e09d-c343f99fa07a\",\n    \"status\": \"UPLOAD_INITIATED\",\n    \"type\": \"vendors\",\n    \"updatedAt\": \"1993-07-22T06:54:07.328Z\",\n    \"columnNames\": [\n      \"Konto\",\n      \"Name\",\n      \"USt-IdNr.\"\n    ],\n    \"csvFormat\": {\n      \"delimiter\": \",\",\n      \"quoteCharacter\": \"\\\"\",\n      \"escapeCharacter\": \"\\\\\",\n      \"recordSeparator\": \"\\n\",\n      \"ignoreEmptyLines\": true,\n      \"skipHeaderRecord\": true\n    },\n    \"errorCode\": \"INVALID_FILE_FORMAT\",\n    \"errorMessage\": \"Uploaded file is not a valid CSV format.\",\n    \"metadata\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"originalFilename\": \"vendors.csv\",\n    \"rowsFailed\": 50,\n    \"rowsSkipped\": 10,\n    \"rowsSucceeded\": 1450,\n    \"rowsTotal\": 1500,\n    \"s3Key\": \"uploads/company-123/vendors-abc.csv\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8480b433-dcd5-422a-92be-2ad12c79e6cb",
+              "name": "Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"strategy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"JSON_MAPPING_EXCEPTION\",\n  \"message\": \"Validation failed for request body\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8611546-c10c-4349-93ba-2a61dd8e0781",
+              "name": "CSV import job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"strategy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"IMPORT_JOB_NOT_FOUND\",\n  \"message\": \"CSV import job with ID 123e4567-e89b-12d3-a456-426614174000 not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c26be7c0-8c97-4c61-a7c5-83ef91eaf18a",
+              "name": "Processing failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"strategy\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"PROCESSING_FAILED\",\n  \"message\": \"Failed to update metadata for CSV import job with ID: 123e4567-e89b-12d3-a456-426614174000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14919875-56ef-4fd2-b510-e615a037322f",
+          "name": "Update status for CSV import job",
+          "request": {
+            "name": "Update status for CSV import job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "csv-import",
+                "jobs",
+                ":jobId",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "jobId",
+                  "description": "(Required) ID of the import job to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"errorMessage\": \"<string>\",\n  \"errorType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a380c0f-15e4-4c40-8676-61a4b149aaaf",
+              "name": "Import job updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"errorMessage\": \"<string>\",\n  \"errorType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"e17967e0-7654-4218-5397-5e87da9aabb0\",\n    \"createdAt\": \"1982-11-06T04:45:41.939Z\",\n    \"id\": \"60f4ede8-2bc4-b8d4-e09d-c343f99fa07a\",\n    \"status\": \"UPLOAD_INITIATED\",\n    \"type\": \"vendors\",\n    \"updatedAt\": \"1993-07-22T06:54:07.328Z\",\n    \"columnNames\": [\n      \"Konto\",\n      \"Name\",\n      \"USt-IdNr.\"\n    ],\n    \"csvFormat\": {\n      \"delimiter\": \",\",\n      \"quoteCharacter\": \"\\\"\",\n      \"escapeCharacter\": \"\\\\\",\n      \"recordSeparator\": \"\\n\",\n      \"ignoreEmptyLines\": true,\n      \"skipHeaderRecord\": true\n    },\n    \"errorCode\": \"INVALID_FILE_FORMAT\",\n    \"errorMessage\": \"Uploaded file is not a valid CSV format.\",\n    \"metadata\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"originalFilename\": \"vendors.csv\",\n    \"rowsFailed\": 50,\n    \"rowsSkipped\": 10,\n    \"rowsSucceeded\": 1450,\n    \"rowsTotal\": 1500,\n    \"s3Key\": \"uploads/company-123/vendors-abc.csv\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f961f3c-3bfb-4bf6-9c07-3fbb25a0c7c4",
+              "name": "Invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"errorMessage\": \"<string>\",\n  \"errorType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"JSON_MAPPING_EXCEPTION\",\n  \"message\": \"Validation failed for request body\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee47cf78-3272-40b2-9333-fa6b3aaeca1c",
+              "name": "CSV import job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"errorMessage\": \"<string>\",\n  \"errorType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"IMPORT_JOB_NOT_FOUND\",\n  \"message\": \"CSV import job with ID 123e4567-e89b-12d3-a456-426614174000 not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b16a99c7-6749-491b-8c23-7e2b9d45400d",
+              "name": "Processing failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    ":jobId",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) ID of the import job to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"errorMessage\": \"<string>\",\n  \"errorType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"PROCESSING_FAILED\",\n  \"message\": \"Failed to update status for CSV import job with ID: 123e4567-e89b-12d3-a456-426614174000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01bea957-ec22-4c80-8cca-05582eb7f26e",
+          "name": "Get presigned URL for file upload",
+          "request": {
+            "name": "Get presigned URL for file upload",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "csv-import",
+                "jobs",
+                "{{jobId}}:get-presigned-url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f26d9596-d4a4-487a-8b9d-b209f9a9bf38",
+              "name": "S3 presigned URL generated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    "{{jobId}}:get-presigned-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"presignedUrl\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a2784da-d3cb-4505-b624-3a12eee6efde",
+              "name": "Invalid path parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    "{{jobId}}:get-presigned-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"PARAMETER_VALIDATION_FAILED\",\n  \"message\": \"Validation failed for path parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01034003-141d-4802-9583-86136fce2a45",
+              "name": "CSV import job not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    "{{jobId}}:get-presigned-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"IMPORT_JOB_NOT_FOUND\",\n  \"message\": \"CSV import job with ID 123e4567-e89b-12d3-a456-426614174000 not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7e49217-2c2f-4f9a-a426-811202703b7d",
+              "name": "Processing failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    "{{jobId}}:get-presigned-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"PROCESSING_FAILED\",\n  \"message\": \"Failed to update S3 key for CSV import job with ID: 123e4567-e89b-12d3-a456-426614174000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ccc1b462-60fd-4feb-b516-19fdb7ae96c2",
+          "name": "Run import job",
+          "request": {
+            "name": "Run import job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "csv-import",
+                "jobs",
+                "{{jobId}}:run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "274849aa-b628-4bdd-8f76-09deaf2fc56c",
+              "name": "Processing started",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    "{{jobId}}:run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"e17967e0-7654-4218-5397-5e87da9aabb0\",\n    \"createdAt\": \"1982-11-06T04:45:41.939Z\",\n    \"id\": \"60f4ede8-2bc4-b8d4-e09d-c343f99fa07a\",\n    \"status\": \"UPLOAD_INITIATED\",\n    \"type\": \"vendors\",\n    \"updatedAt\": \"1993-07-22T06:54:07.328Z\",\n    \"columnNames\": [\n      \"Konto\",\n      \"Name\",\n      \"USt-IdNr.\"\n    ],\n    \"csvFormat\": {\n      \"delimiter\": \",\",\n      \"quoteCharacter\": \"\\\"\",\n      \"escapeCharacter\": \"\\\\\",\n      \"recordSeparator\": \"\\n\",\n      \"ignoreEmptyLines\": true,\n      \"skipHeaderRecord\": true\n    },\n    \"errorCode\": \"INVALID_FILE_FORMAT\",\n    \"errorMessage\": \"Uploaded file is not a valid CSV format.\",\n    \"metadata\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"originalFilename\": \"vendors.csv\",\n    \"rowsFailed\": 50,\n    \"rowsSkipped\": 10,\n    \"rowsSucceeded\": 1450,\n    \"rowsTotal\": 1500,\n    \"s3Key\": \"uploads/company-123/vendors-abc.csv\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2952d07d-6fba-447e-b03f-6e7d60cfc1c7",
+              "name": "Invalid path parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    "{{jobId}}:run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"PARAMETER_VALIDATION_FAILED\",\n  \"message\": \"Validation failed for path parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93c83e54-d047-4084-a16b-8ac17d4e9bb5",
+              "name": "Import job not found (thrown during background processing)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    "{{jobId}}:run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"IMPORT_JOB_NOT_FOUND\",\n  \"message\": \"CSV import job with ID 123e4567-e89b-12d3-a456-426614174000 not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae6a5574-d344-4c99-b136-0f9ebbdb5213",
+              "name": "Invalid status transition (thrown during background processing)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs",
+                    "{{jobId}}:run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"INVALID_STATUS_TRANSITION\",\n  \"message\": \"Cannot process CSV job in status COMPLETED. Job must be in QUEUED or PROCESSING status.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c80f0bb-7a42-42d5-b618-58b851597d5a",
+          "name": "Search CSV import jobs by filter",
+          "request": {
+            "name": "Search CSV import jobs by filter",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "csv-import",
+                "jobs:search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<uuid>",
+                  "description": "(Required) Only return CSV import jobs for the given company Id."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"statuses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f12aa28e-673b-4edc-8f79-927d8d446492",
+              "name": "Returning search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "123e4567-e89b-12d3-a456-426614174015"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<uuid>\"\n  ],\n  \"statuses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"companyId\": \"7846ee6b-2450-dbd8-d735-742589da2969\",\n      \"createdAt\": \"1961-05-09T17:02:28.592Z\",\n      \"id\": \"23c33d6c-aa2e-d25d-b02e-32ee0700c90e\",\n      \"status\": \"UPLOAD_INITIATED\",\n      \"type\": \"vendors\",\n      \"updatedAt\": \"2024-05-10T10:28:50.666Z\",\n      \"columnNames\": [\n        \"Konto\",\n        \"Name\",\n        \"USt-IdNr.\"\n      ],\n      \"csvFormat\": {\n        \"delimiter\": \",\",\n        \"quoteCharacter\": \"\\\"\",\n        \"escapeCharacter\": \"\\\\\",\n        \"recordSeparator\": \"\\n\",\n        \"ignoreEmptyLines\": true,\n        \"skipHeaderRecord\": true\n      },\n      \"errorCode\": \"INVALID_FILE_FORMAT\",\n      \"errorMessage\": \"Uploaded file is not a valid CSV format.\",\n      \"metadata\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      },\n      \"originalFilename\": \"vendors.csv\",\n      \"rowsFailed\": 50,\n      \"rowsSkipped\": 10,\n      \"rowsSucceeded\": 1450,\n      \"rowsTotal\": 1500,\n      \"s3Key\": \"uploads/company-123/vendors-abc.csv\"\n    },\n    {\n      \"companyId\": \"eb92e350-5981-8a06-023f-0f625bbcd267\",\n      \"createdAt\": \"1963-10-02T09:10:44.633Z\",\n      \"id\": \"4ec418ab-eae3-f68e-315a-8a397975da4a\",\n      \"status\": \"UPLOAD_INITIATED\",\n      \"type\": \"vendors\",\n      \"updatedAt\": \"2025-11-15T02:14:35.798Z\",\n      \"columnNames\": [\n        \"Konto\",\n        \"Name\",\n        \"USt-IdNr.\"\n      ],\n      \"csvFormat\": {\n        \"delimiter\": \",\",\n        \"quoteCharacter\": \"\\\"\",\n        \"escapeCharacter\": \"\\\\\",\n        \"recordSeparator\": \"\\n\",\n        \"ignoreEmptyLines\": true,\n        \"skipHeaderRecord\": true\n      },\n      \"errorCode\": \"INVALID_FILE_FORMAT\",\n      \"errorMessage\": \"Uploaded file is not a valid CSV format.\",\n      \"metadata\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {}\n      },\n      \"originalFilename\": \"vendors.csv\",\n      \"rowsFailed\": 50,\n      \"rowsSkipped\": 10,\n      \"rowsSucceeded\": 1450,\n      \"rowsTotal\": 1500,\n      \"s3Key\": \"uploads/company-123/vendors-abc.csv\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 624,\n      \"offset\": 2878,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": false,\n    \"hasPreviousPage\": true,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 1089\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87c22954-92e9-4d28-8b13-7bde823af63b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "csv-import",
+                    "jobs:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "123e4567-e89b-12d3-a456-426614174015"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    \"<uuid>\"\n  ],\n  \"statuses\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"VALIDATION_FAILED\",\n  \"message\": \"Validation failed for search query\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91022bba-2ee3-4cbb-8053-94eccafb1232",
+          "name": "Retrieves a Vendor in Pleo by its id",
+          "request": {
+            "name": "Retrieves a Vendor in Pleo by its id",
+            "description": {
+              "content": "Retrieves a Vendor in Pleo by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a75c0050-6758-494b-aef2-9a65c8982dfe",
+              "name": "Fetches vendor by id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n    \"defaultCurrency\": \"DKK\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"name\": \"Pleo\",\n    \"state\": \"DRAFT\",\n    \"accountingSystem\": \"string\",\n    \"code\": \"string\",\n    \"country\": \"DK\",\n    \"createdAt\": \"2003-08-07T06:56:44.511Z\",\n    \"externalId\": \"string\",\n    \"registrationNumber\": \"string\",\n    \"taxRegistrationNumber\": \"string\",\n    \"updatedAt\": \"1979-11-18T08:29:08.931Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f6ada5d-d91a-4247-8acd-c95ce1229281",
+              "name": "Vendor not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c4165f8-ff55-4ff9-8a95-ddfffc5e58c8",
+          "name": "Update a Vendor",
+          "request": {
+            "name": "Update a Vendor",
+            "description": {
+              "content": "Updates a Vendor for a company in Pleo.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"defaultCurrency\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"state\": \"<string>\",\n  \"code\": \"<string>\",\n  \"country\": \"<string>\",\n  \"registrationNumber\": \"<string>\",\n  \"taxRegistrationNumber\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "075148ee-1ac5-47e1-9672-415e9a030c4b",
+              "name": "Vendor updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n  \"defaultCurrency\": \"DKK\",\n  \"externalId\": \"<string>\",\n  \"name\": \"Pleo\",\n  \"state\": \"<string>\",\n  \"code\": \"<string>\",\n  \"country\": \"DK\",\n  \"registrationNumber\": \"<string>\",\n  \"taxRegistrationNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n    \"defaultCurrency\": \"DKK\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"name\": \"Pleo\",\n    \"state\": \"<string>\",\n    \"accountingSystem\": \"string\",\n    \"code\": \"string\",\n    \"country\": \"DK\",\n    \"createdAt\": \"2005-02-17T08:43:05.320Z\",\n    \"externalId\": \"string\",\n    \"registrationNumber\": \"string\",\n    \"taxRegistrationNumber\": \"string\",\n    \"updatedAt\": \"2000-07-16T13:06:23.267Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72f942da-76a8-42a4-9195-9efaa7e8ed5c",
+              "name": "Invalid vendor update request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n  \"defaultCurrency\": \"DKK\",\n  \"externalId\": \"<string>\",\n  \"name\": \"Pleo\",\n  \"state\": \"<string>\",\n  \"code\": \"<string>\",\n  \"country\": \"DK\",\n  \"registrationNumber\": \"<string>\",\n  \"taxRegistrationNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3338e618-a8c2-44c2-93aa-ceb65cd20c79",
+              "name": "Vendor not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n  \"defaultCurrency\": \"DKK\",\n  \"externalId\": \"<string>\",\n  \"name\": \"Pleo\",\n  \"state\": \"<string>\",\n  \"code\": \"<string>\",\n  \"country\": \"DK\",\n  \"registrationNumber\": \"<string>\",\n  \"taxRegistrationNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6feb7429-57be-480a-bdb7-9cf06ad98c78",
+              "name": "Conflicting vendor update",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n  \"defaultCurrency\": \"DKK\",\n  \"externalId\": \"<string>\",\n  \"name\": \"Pleo\",\n  \"state\": \"<string>\",\n  \"code\": \"<string>\",\n  \"country\": \"DK\",\n  \"registrationNumber\": \"<string>\",\n  \"taxRegistrationNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fb706ef-edbd-4d8c-9152-1cc2608fe719",
+          "name": "Activate a Vendor",
+          "request": {
+            "name": "Activate a Vendor",
+            "description": {
+              "content": "Updates the vendor state to Active, reflecting its availability in the target ERP/accounting system",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "{{id}}:activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalId\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "631f67aa-de64-43a8-a711-f0c0cc990e05",
+              "name": "Vendor activated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "{{id}}:activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3da7f366-037b-44ca-bac6-d52e53fabdaf",
+              "name": "Vendor not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "{{id}}:activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e15fd86-6f54-4e9c-8e37-ebb329c3f2eb",
+          "name": "Archive a Vendor",
+          "request": {
+            "name": "Archive a Vendor",
+            "description": {
+              "content": "Archives a Vendor in Pleo by its id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vendors",
+                "{{id}}:archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae45e7ac-5acf-4639-816a-0868708578b2",
+              "name": "Vendor archived",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "{{id}}:archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78832112-eff8-4936-9564-af53871c78f8",
+              "name": "Vendor not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors",
+                    "{{id}}:archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cccc4202-5fda-4b08-9b11-48d213838907",
+          "name": "Fetches Vendors by search criteria",
+          "request": {
+            "name": "Fetches Vendors by search criteria",
+            "description": {
+              "content": "Retrieves a list of vendors with filters. Results are paginated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "vendors:search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountingSystems\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"codes\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"externalIds\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ids\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"name\": \"<string>\",\n  \"states\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"taxRegistrationNumbers\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "334137de-bde7-4cff-9abf-4448204ad59b",
+              "name": "Fetches vendors by search criteria",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "vendors:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountingSystems\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"codes\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\",\n    \"DK\"\n  ],\n  \"externalIds\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"ids\": [\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\",\n    \"123e4567-e89b-12d3-a456-426614174000\"\n  ],\n  \"name\": \"Pleo\",\n  \"states\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"taxRegistrationNumbers\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n      \"defaultCurrency\": \"DKK\",\n      \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"name\": \"Pleo\",\n      \"state\": \"<string>\",\n      \"accountingSystem\": \"string\",\n      \"code\": \"string\",\n      \"country\": \"DK\",\n      \"createdAt\": \"1959-02-20T13:42:11.571Z\",\n      \"externalId\": \"string\",\n      \"registrationNumber\": \"string\",\n      \"taxRegistrationNumber\": \"string\",\n      \"updatedAt\": \"1993-07-10T21:54:18.377Z\"\n    },\n    {\n      \"companyId\": \"c082afd8-c1d2-46ee-8f56-1512638f0e67\",\n      \"defaultCurrency\": \"DKK\",\n      \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"name\": \"Pleo\",\n      \"state\": \"<string>\",\n      \"accountingSystem\": \"string\",\n      \"code\": \"string\",\n      \"country\": \"DK\",\n      \"createdAt\": \"1996-04-08T21:24:05.713Z\",\n      \"externalId\": \"string\",\n      \"registrationNumber\": \"string\",\n      \"taxRegistrationNumber\": \"string\",\n      \"updatedAt\": \"1984-02-12T01:44:14.708Z\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 2151,\n      \"offset\": 4417,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 5964\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<uuid>",
+      "key": "jobId"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<uuid>",
+      "key": "id"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b0267e25-1f2e-4d1c-84df-6c08003df523",
+    "name": "App Marketplace accounting-entries external-vendors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

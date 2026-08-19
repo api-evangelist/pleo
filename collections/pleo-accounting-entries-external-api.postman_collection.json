@@ -1,0 +1,859 @@
+{
+  "item": [
+    {
+      "id": "60772d85-3020-47b4-bd68-b0a66daea7b4",
+      "name": "accounting-entries-external",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55c584c1-3225-43a8-b113-868596793dfd",
+          "name": "Fetch core accounting entries based on filters. ",
+          "request": {
+            "name": "Fetch core accounting entries based on filters. ",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounting-entries",
+                "core:search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<uuid>",
+                  "description": "Only return accounting entries that have the specific company ID. Required if partner_id or organization_id is not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<uuid>",
+                  "description": "Only return accounting entries that belong to the companies associated.  to the given Organization Id. Required if company_id or partner_id is not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after])"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before])"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"includeDeleted\": false,\n  \"accountIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"bookkeepingDateEnd\": \"<dateTime>\",\n  \"bookkeepingDateStart\": \"<dateTime>\",\n  \"employeeIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exportStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"families\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"foreignExtensionIds\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"hasAccount\": \"<boolean>\",\n  \"hasBookkeepingDate\": \"<boolean>\",\n  \"hasNote\": \"<boolean>\",\n  \"performedAtEnd\": \"<dateTime>\",\n  \"performedAtStart\": \"<dateTime>\",\n  \"reviewStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"settled\": \"<boolean>\",\n  \"settledAtEnd\": \"<dateTime>\",\n  \"settledAtStart\": \"<dateTime>\",\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subFamilies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tagGroupIdsUnset\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"tagRowIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"taxCodeIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"teamIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"transactionValueCurrencies\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9311af86-a4b0-4465-8460-e6e362ae0f00",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting-entries",
+                    "core:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDeleted\": false,\n  \"accountIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"bookkeepingDateEnd\": \"<dateTime>\",\n  \"bookkeepingDateStart\": \"<dateTime>\",\n  \"employeeIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exportStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"families\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"foreignExtensionIds\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"hasAccount\": \"<boolean>\",\n  \"hasBookkeepingDate\": \"<boolean>\",\n  \"hasNote\": \"<boolean>\",\n  \"performedAtEnd\": \"<dateTime>\",\n  \"performedAtStart\": \"<dateTime>\",\n  \"reviewStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"settled\": \"<boolean>\",\n  \"settledAtEnd\": \"<dateTime>\",\n  \"settledAtStart\": \"<dateTime>\",\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subFamilies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tagGroupIdsUnset\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"tagRowIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"taxCodeIds\": [\n    \"<uuid>\"\n  ],\n  \"teamIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"transactionValueCurrencies\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"companyId\": \"b6a66d88-1121-1781-2f20-748407e4ea6d\",\n      \"createdAt\": \"2008-08-30T20:19:21.992Z\",\n      \"exportStatus\": \"CREATED\",\n      \"family\": \"BALANCE_AMENDMENT\",\n      \"fees\": {\n        \"key_0\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"key_1\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        }\n      },\n      \"id\": \"d25b631b-54f6-d60a-09d4-e2bec7950d81\",\n      \"performedAt\": \"2008-12-30T13:53:26.947Z\",\n      \"receiptIds\": [\n        \"1e1ce7a8-247d-3c10-a269-d7a27c6ab3bd\",\n        \"7e79d231-3262-af72-61af-02cba935f0e3\"\n      ],\n      \"reviewStatus\": \"NOT_OK\",\n      \"status\": \"DRAFT\",\n      \"transactionValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"updatedAt\": \"1994-04-26T03:24:16.599Z\",\n      \"accountCode\": \"string\",\n      \"accountId\": \"0e71e767-c759-dc3a-5866-d7d508df1237\",\n      \"bookkeepingDate\": \"2014-05-24T14:50:04.775Z\",\n      \"deletedAt\": \"1992-04-09T13:17:40.222Z\",\n      \"employeeId\": \"48512d6f-7c14-713e-6573-b6bf177370a3\",\n      \"externalAccountId\": \"ad262f30-7a5f-1762-72ec-cbc3a5e64a69\",\n      \"foreignExtensionId\": \"string\",\n      \"grossBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"netBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"note\": \"string\",\n      \"reconciliationId\": \"4113617\",\n      \"settledAt\": \"1989-10-08T23:30:53.217Z\",\n      \"spendTransactionIds\": [\n        \"7d450568-8b69-058b-c6a6-e0eaac581b67\",\n        \"ddadf0cf-0f20-3749-459a-cf53d0015c6f\"\n      ],\n      \"subFamily\": \"ATM\",\n      \"supplier\": {\n        \"cif\": \"string\",\n        \"documentNumber\": \"string\",\n        \"documentType\": \"FACTURA\",\n        \"externalAccountNumber\": \"string\",\n        \"externalSupplierId\": \"string\"\n      },\n      \"taxBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"taxCodeId\": \"21b871c5-44ec-9103-5278-9202f13d84f5\",\n      \"teamId\": \"db2c52ba-565e-20d0-f276-bd6116c0397a\",\n      \"totalBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"transactionWalletValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      }\n    },\n    {\n      \"companyId\": \"1878af99-b638-a966-bd37-9038582f7464\",\n      \"createdAt\": \"1988-04-23T23:04:20.287Z\",\n      \"exportStatus\": \"CREATED\",\n      \"family\": \"BALANCE_AMENDMENT\",\n      \"fees\": {\n        \"key_0\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"key_1\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"key_2\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        }\n      },\n      \"id\": \"011794ad-26a9-9dda-cc14-0976f463f4aa\",\n      \"performedAt\": \"1994-10-25T03:50:55.183Z\",\n      \"receiptIds\": [\n        \"1e52351d-643d-5874-0741-15900161f44d\",\n        \"eff801ec-4e22-6723-5226-f6aca9451b8e\"\n      ],\n      \"reviewStatus\": \"NOT_OK\",\n      \"status\": \"DRAFT\",\n      \"transactionValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"updatedAt\": \"1990-07-20T20:13:38.596Z\",\n      \"accountCode\": \"string\",\n      \"accountId\": \"add0873e-48bb-abbb-5a3e-33e9e9ca25f8\",\n      \"bookkeepingDate\": \"1954-03-28T15:04:16.822Z\",\n      \"deletedAt\": \"2018-09-11T09:27:54.253Z\",\n      \"employeeId\": \"f8fe9d80-2df5-4eaa-9644-9ea5529e8623\",\n      \"externalAccountId\": \"0083b6d1-50a4-125c-384a-31c69332d18c\",\n      \"foreignExtensionId\": \"string\",\n      \"grossBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"netBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"note\": \"string\",\n      \"reconciliationId\": \"4113617\",\n      \"settledAt\": \"2012-06-12T18:35:47.053Z\",\n      \"spendTransactionIds\": [\n        \"580b13ea-db7a-0c88-bc48-d1ca694ec163\",\n        \"14250e5b-de52-688e-786a-fd7f5bbeaf7e\"\n      ],\n      \"subFamily\": \"ATM\",\n      \"supplier\": {\n        \"cif\": \"string\",\n        \"documentNumber\": \"string\",\n        \"documentType\": \"FACTURA\",\n        \"externalAccountNumber\": \"string\",\n        \"externalSupplierId\": \"string\"\n      },\n      \"taxBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"taxCodeId\": \"c87e8679-9559-7bb1-a561-39b01cbc72c2\",\n      \"teamId\": \"f4d63fac-c9a4-179e-4576-55e122824104\",\n      \"totalBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"transactionWalletValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      }\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 7284,\n      \"offset\": 3854,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 8321\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a50a493-19ce-44b1-8a40-ab329c4c8aca",
+          "name": "Fetch accounting entries based on filters. ",
+          "request": {
+            "name": "Fetch accounting entries based on filters. ",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounting-entries:search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<uuid>",
+                  "description": "Only return accounting entries that have the specific company ID. Required if partner_id or organization_id is not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<uuid>",
+                  "description": "Only return accounting entries that belong to the companies associated.  to the given Organization Id. Required if company_id or partner_id is not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after])"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before])"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"includeDeleted\": false,\n  \"accountIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"bookkeepingDateEnd\": \"<dateTime>\",\n  \"bookkeepingDateStart\": \"<dateTime>\",\n  \"employeeIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exportStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"families\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"foreignExtensionIds\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"hasAccount\": \"<boolean>\",\n  \"hasBookkeepingDate\": \"<boolean>\",\n  \"hasNote\": \"<boolean>\",\n  \"performedAtEnd\": \"<dateTime>\",\n  \"performedAtStart\": \"<dateTime>\",\n  \"reviewStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"settled\": \"<boolean>\",\n  \"settledAtEnd\": \"<dateTime>\",\n  \"settledAtStart\": \"<dateTime>\",\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subFamilies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tagGroupIdsUnset\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"tagRowIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"taxCodeIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"teamIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"transactionValueCurrencies\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e549edf8-b064-46b2-9061-60a2d73c3ffb",
+              "name": "A paginated list of accounting entries matching the search criteria.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting-entries:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDeleted\": false,\n  \"accountIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"bookkeepingDateEnd\": \"<dateTime>\",\n  \"bookkeepingDateStart\": \"<dateTime>\",\n  \"employeeIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exportStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"families\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"foreignExtensionIds\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"hasAccount\": \"<boolean>\",\n  \"hasBookkeepingDate\": \"<boolean>\",\n  \"hasNote\": \"<boolean>\",\n  \"performedAtEnd\": \"<dateTime>\",\n  \"performedAtStart\": \"<dateTime>\",\n  \"reviewStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"settled\": \"<boolean>\",\n  \"settledAtEnd\": \"<dateTime>\",\n  \"settledAtStart\": \"<dateTime>\",\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subFamilies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tagGroupIdsUnset\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"tagRowIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"taxCodeIds\": [\n    \"<uuid>\"\n  ],\n  \"teamIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"transactionValueCurrencies\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"attendees\": [\n        {\n          \"attendableId\": \"string\",\n          \"attendableType\": \"CONTACT\",\n          \"id\": \"string\"\n        },\n        {\n          \"attendableId\": \"string\",\n          \"attendableType\": \"CONTACT\",\n          \"id\": \"string\"\n        }\n      ],\n      \"companyId\": \"9e730a5f-0879-61e5-05e7-8ccef326688e\",\n      \"createdAt\": \"1976-04-05T07:18:44.964Z\",\n      \"exportStatus\": \"CREATED\",\n      \"family\": \"BALANCE_AMENDMENT\",\n      \"id\": \"40a2bca8-8e53-857f-a674-dd2e580908ef\",\n      \"performedAt\": \"2006-09-03T11:57:40.081Z\",\n      \"receiptIds\": [\n        \"720d75a9-6007-a633-4a81-64e0db24ee47\",\n        \"a093a9d0-ccd0-40d4-d486-9f84d7409acb\"\n      ],\n      \"reviewStatus\": \"NOT_OK\",\n      \"splitItems\": [\n        {\n          \"createdAt\": \"2025-12-16T02:35:20.556Z\",\n          \"id\": \"045e3eb4-1d6a-4d00-3665-278e8f55a11b\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"updatedAt\": \"1974-03-02T21:37:45.274Z\",\n          \"accountCode\": \"string\",\n          \"accountId\": \"4f035ade-cb56-f246-be53-66186a4c14bb\",\n          \"taxCodeId\": \"70e323e1-73b5-e3ae-7181-f6846a70bf3a\",\n          \"totalBillValue\": {\n            \"description\": \"The portion of the transaction amount assigned to this split item, represented as a `Money` object in the company's default currency.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transactionValue\": {\n            \"description\": \"The transaction amount in the currency in which the payment was made, represented as a `Money` object. For example, if an expense is incurred in France, the value is returned in EUR.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"createdAt\": \"1964-12-24T03:26:03.484Z\",\n          \"id\": \"ed6158a2-ed97-99e8-fe8c-92e28983f4da\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"updatedAt\": \"1994-02-15T12:29:43.516Z\",\n          \"accountCode\": \"string\",\n          \"accountId\": \"b8dbb0eb-6f47-124c-bf98-1572dbbdc777\",\n          \"taxCodeId\": \"9427dd3f-bf26-48f4-1291-18c273468afb\",\n          \"totalBillValue\": {\n            \"description\": \"The portion of the transaction amount assigned to this split item, represented as a `Money` object in the company's default currency.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transactionValue\": {\n            \"description\": \"The transaction amount in the currency in which the payment was made, represented as a `Money` object. For example, if an expense is incurred in France, the value is returned in EUR.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"status\": \"DRAFT\",\n      \"tags\": [\n        {\n          \"tagGroupId\": \"9f434bca-8662-5112-0861-88a5e57ef1e9\",\n          \"tagId\": \"5f8ea16c-65e2-3e4f-4e09-ff09b60746d6\"\n        },\n        {\n          \"tagGroupId\": \"ec58ca19-50a5-ce06-29b2-2558222d36d4\",\n          \"tagId\": \"7361445a-5123-d17f-ae9c-20768cbb03e0\"\n        }\n      ],\n      \"transactionValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"updatedAt\": \"2005-07-30T16:23:00.187Z\",\n      \"accountCode\": \"string\",\n      \"accountId\": \"b60e827c-9874-b0d0-1bd6-c1c8fd9a8323\",\n      \"bookkeepingDate\": \"1961-04-18T03:15:30.499Z\",\n      \"deletedAt\": \"1969-12-12T19:02:30.308Z\",\n      \"employeeId\": \"90b9449d-3ac5-3fbb-7939-a17735d7f083\",\n      \"foreignExtensionId\": \"string\",\n      \"note\": \"string\",\n      \"settledAt\": \"1968-01-31T03:34:16.943Z\",\n      \"subFamily\": \"ATM\",\n      \"supplier\": {\n        \"cif\": \"string\",\n        \"documentNumber\": \"string\",\n        \"documentType\": \"FACTURA\",\n        \"externalAccountNumber\": \"string\",\n        \"externalSupplierId\": \"string\"\n      },\n      \"taxCodeId\": \"eef339b7-e19e-a503-897e-77863ed12d36\",\n      \"teamId\": \"bad063d3-b929-e45e-a77f-98b589df313b\",\n      \"totalBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      }\n    },\n    {\n      \"attendees\": [\n        {\n          \"attendableId\": \"string\",\n          \"attendableType\": \"CONTACT\",\n          \"id\": \"string\"\n        },\n        {\n          \"attendableId\": \"string\",\n          \"attendableType\": \"CONTACT\",\n          \"id\": \"string\"\n        }\n      ],\n      \"companyId\": \"007c7ddd-5675-9ac8-39b0-6f8068842096\",\n      \"createdAt\": \"1995-09-11T02:09:52.882Z\",\n      \"exportStatus\": \"CREATED\",\n      \"family\": \"BALANCE_AMENDMENT\",\n      \"id\": \"27f1ea90-93bd-09d5-a4af-98038069a01a\",\n      \"performedAt\": \"1991-11-21T07:35:24.553Z\",\n      \"receiptIds\": [\n        \"39fa3fc0-8dc7-075d-8923-377cc17a5f35\",\n        \"163e5239-f82a-3d3f-5bbc-ba19d1109881\"\n      ],\n      \"reviewStatus\": \"NOT_OK\",\n      \"splitItems\": [\n        {\n          \"createdAt\": \"1970-08-15T07:05:57.160Z\",\n          \"id\": \"e36a0ce7-de20-2b70-13d1-bd9838de10ad\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"updatedAt\": \"1947-05-19T23:37:53.005Z\",\n          \"accountCode\": \"string\",\n          \"accountId\": \"d5891d24-20b3-cabd-c7c9-995fe91fd62f\",\n          \"taxCodeId\": \"bd5a2a84-368c-178a-8fee-c16ad1a2f99d\",\n          \"totalBillValue\": {\n            \"description\": \"The portion of the transaction amount assigned to this split item, represented as a `Money` object in the company's default currency.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transactionValue\": {\n            \"description\": \"The transaction amount in the currency in which the payment was made, represented as a `Money` object. For example, if an expense is incurred in France, the value is returned in EUR.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"createdAt\": \"2009-09-27T16:18:30.332Z\",\n          \"id\": \"dd0b9814-8efb-7de2-6d37-c611b815aa68\",\n          \"tags\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"updatedAt\": \"1985-11-11T03:22:45.204Z\",\n          \"accountCode\": \"string\",\n          \"accountId\": \"c5d9991d-aad2-56f7-d499-b4e7e0c01d48\",\n          \"taxCodeId\": \"bc1c6d78-003f-997a-7706-2f9b0f592efd\",\n          \"totalBillValue\": {\n            \"description\": \"The portion of the transaction amount assigned to this split item, represented as a `Money` object in the company's default currency.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transactionValue\": {\n            \"description\": \"The transaction amount in the currency in which the payment was made, represented as a `Money` object. For example, if an expense is incurred in France, the value is returned in EUR.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"status\": \"DRAFT\",\n      \"tags\": [\n        {\n          \"tagGroupId\": \"6b1a6f77-a3a9-994a-b98c-1eb57795b99e\",\n          \"tagId\": \"3d044c60-47bc-a740-91da-2ed1add0620e\"\n        },\n        {\n          \"tagGroupId\": \"1828ad5e-c95e-3b02-1645-af72268f3431\",\n          \"tagId\": \"8112d2b7-01a6-d3ae-c250-ad332d855a08\"\n        }\n      ],\n      \"transactionValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      },\n      \"updatedAt\": \"2017-12-17T03:17:44.868Z\",\n      \"accountCode\": \"string\",\n      \"accountId\": \"be611ab6-6d5f-de48-2812-9f2f50e6a36f\",\n      \"bookkeepingDate\": \"1988-11-06T02:19:08.764Z\",\n      \"deletedAt\": \"1975-10-14T18:13:10.579Z\",\n      \"employeeId\": \"b9b8f1d1-b20f-b7cb-50f0-4e431e8eb6cc\",\n      \"foreignExtensionId\": \"string\",\n      \"note\": \"string\",\n      \"settledAt\": \"1948-04-25T21:40:45.731Z\",\n      \"subFamily\": \"ATM\",\n      \"supplier\": {\n        \"cif\": \"string\",\n        \"documentNumber\": \"string\",\n        \"documentType\": \"FACTURA\",\n        \"externalAccountNumber\": \"string\",\n        \"externalSupplierId\": \"string\"\n      },\n      \"taxCodeId\": \"c88ba30f-af99-ec82-c36e-aa0a34f2741b\",\n      \"teamId\": \"bdfb53f9-b24d-c50e-df67-489a525efec5\",\n      \"totalBillValue\": {\n        \"currency\": \"EUR\",\n        \"minors\": 10\n      }\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_2\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 6767,\n      \"offset\": 7948,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": true,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 6404\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97c03241-9c14-4534-acae-1d8b3be7b869",
+              "name": "Forbidden: client lacks the necessary permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting-entries:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDeleted\": false,\n  \"accountIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"bookkeepingDateEnd\": \"<dateTime>\",\n  \"bookkeepingDateStart\": \"<dateTime>\",\n  \"employeeIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exportStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"families\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"foreignExtensionIds\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"hasAccount\": \"<boolean>\",\n  \"hasBookkeepingDate\": \"<boolean>\",\n  \"hasNote\": \"<boolean>\",\n  \"performedAtEnd\": \"<dateTime>\",\n  \"performedAtStart\": \"<dateTime>\",\n  \"reviewStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"settled\": \"<boolean>\",\n  \"settledAtEnd\": \"<dateTime>\",\n  \"settledAtStart\": \"<dateTime>\",\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subFamilies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tagGroupIdsUnset\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"tagRowIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"taxCodeIds\": [\n    \"<uuid>\"\n  ],\n  \"teamIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"transactionValueCurrencies\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b43f92ee-d397-4a7a-b135-0691ba783e57",
+              "name": "Service temporarily unavailable. The request can be retried.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting-entries:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "company_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "organization_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDeleted\": false,\n  \"accountIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"bookkeepingDateEnd\": \"<dateTime>\",\n  \"bookkeepingDateStart\": \"<dateTime>\",\n  \"employeeIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exportStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"families\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"foreignExtensionIds\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"hasAccount\": \"<boolean>\",\n  \"hasBookkeepingDate\": \"<boolean>\",\n  \"hasNote\": \"<boolean>\",\n  \"performedAtEnd\": \"<dateTime>\",\n  \"performedAtStart\": \"<dateTime>\",\n  \"reviewStatus\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"settled\": \"<boolean>\",\n  \"settledAtEnd\": \"<dateTime>\",\n  \"settledAtStart\": \"<dateTime>\",\n  \"status\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"subFamilies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tagGroupIdsUnset\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"tagRowIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"taxCodeIds\": [\n    \"<uuid>\"\n  ],\n  \"teamIds\": [\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"transactionValueCurrencies\": [\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a3ac219-ae05-4d5a-b8ae-07344b908fc3",
+          "name": "Fetch a single accounting entry by id. ",
+          "request": {
+            "name": "Fetch a single accounting entry by id. ",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "accounting-entries",
+                ":accountingEntryId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_deleted",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountingEntryId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e10d5b5-c132-4722-8fa5-e053c40d08f0",
+              "name": "The accounting entry for the specified ID.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting-entries",
+                    ":accountingEntryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_deleted",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountingEntryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"attendees\": [\n      {\n        \"attendableId\": \"string\",\n        \"attendableType\": \"CONTACT\",\n        \"id\": \"string\"\n      },\n      {\n        \"attendableId\": \"string\",\n        \"attendableType\": \"CONTACT\",\n        \"id\": \"string\"\n      }\n    ],\n    \"companyId\": \"07527a54-ca94-1dc8-2794-dcb6ad17debb\",\n    \"createdAt\": \"1974-12-29T05:01:56.022Z\",\n    \"exportStatus\": \"CREATED\",\n    \"family\": \"BALANCE_AMENDMENT\",\n    \"id\": \"dda8cdd7-998e-f18e-c7c0-f3c66458e97f\",\n    \"performedAt\": \"1947-07-23T14:49:30.727Z\",\n    \"receiptIds\": [\n      \"5f6e3e3e-7e22-ea0f-5cbf-1d06e094b2f0\",\n      \"a5f4808a-d734-53e5-3416-e4932c31d3f9\"\n    ],\n    \"reviewStatus\": \"NOT_OK\",\n    \"splitItems\": [\n      {\n        \"createdAt\": \"1952-10-21T15:12:08.036Z\",\n        \"id\": \"e7533f2f-6578-af80-3a63-8a88d33ea7ae\",\n        \"tags\": [\n          {\n            \"description\": \"A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"description\": \"A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"updatedAt\": \"1982-04-13T21:20:02.901Z\",\n        \"accountCode\": \"string\",\n        \"accountId\": \"c564be0c-fb27-e802-d5b6-5e3ad7482c38\",\n        \"taxCodeId\": \"e92866ac-1542-cc47-85e8-83bfc6095a10\",\n        \"totalBillValue\": {\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"minors\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"transactionValue\": {\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"minors\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      {\n        \"createdAt\": \"2020-06-03T11:27:37.016Z\",\n        \"id\": \"07e26440-02fc-f79e-f01b-2a3e9ac90b13\",\n        \"tags\": [\n          {\n            \"description\": \"A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"description\": \"A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.\",\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"updatedAt\": \"2018-11-23T20:50:46.349Z\",\n        \"accountCode\": \"string\",\n        \"accountId\": \"66a5310a-50fa-5044-cde9-5ff083a302ad\",\n        \"taxCodeId\": \"1d47aa1d-6dc6-76c6-af0b-d91d40451fa6\",\n        \"totalBillValue\": {\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"minors\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"transactionValue\": {\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"minors\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    ],\n    \"status\": \"DRAFT\",\n    \"tags\": [\n      {\n        \"tagGroupId\": \"2386a5a0-255a-1502-383d-1d93374a8b91\",\n        \"tagId\": \"25eea4a8-f5eb-cc4e-6f43-f17a74d862eb\"\n      },\n      {\n        \"tagGroupId\": \"653257be-bf7e-b19c-8f21-f03a69f77b54\",\n        \"tagId\": \"62b1766c-ef9d-1c25-5dfb-d39a1a97f6cf\"\n      }\n    ],\n    \"transactionValue\": {\n      \"currency\": \"EUR\",\n      \"minors\": 10\n    },\n    \"updatedAt\": \"1999-06-07T04:09:05.027Z\",\n    \"accountCode\": \"string\",\n    \"accountId\": \"34e206a5-fac6-9089-f02e-af3e5502030f\",\n    \"bookkeepingDate\": \"1961-01-28T01:20:19.455Z\",\n    \"deletedAt\": \"1987-10-20T21:28:12.321Z\",\n    \"employeeId\": \"5bc139d9-3365-c316-c1a3-5a3d68283f9e\",\n    \"foreignExtensionId\": \"string\",\n    \"note\": \"string\",\n    \"settledAt\": \"1976-01-20T05:24:39.127Z\",\n    \"subFamily\": \"ATM\",\n    \"supplier\": {\n      \"cif\": \"string\",\n      \"documentNumber\": \"string\",\n      \"documentType\": \"FACTURA\",\n      \"externalAccountNumber\": \"string\",\n      \"externalSupplierId\": \"string\"\n    },\n    \"taxCodeId\": \"6f76977d-8c5a-325c-bbf8-07403e322211\",\n    \"teamId\": \"7bba683c-f2e0-2e11-ec41-5fa05d95d7de\",\n    \"totalBillValue\": {\n      \"currency\": \"EUR\",\n      \"minors\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75fdabbe-9624-41b3-91ac-c5dbcb9aa9e0",
+              "name": "Forbidden: client lacks the necessary permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting-entries",
+                    ":accountingEntryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_deleted",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountingEntryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db0c1475-8f41-4764-a64e-6e999f56f35f",
+              "name": "Accounting entry not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting-entries",
+                    ":accountingEntryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_deleted",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountingEntryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "929fd192-d08a-4b2c-9470-a3251d07d1b5",
+              "name": "Service temporarily unavailable. The request can be retried.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting-entries",
+                    ":accountingEntryId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_deleted",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountingEntryId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c1f34b6b-1e62-457c-869b-95c1e8026a9d",
+    "name": "App Marketplace accounting-entries accounting-entries-external API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,407 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries external-vendors API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "external-vendors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a New Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/vendors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint has the following functions:\n- Create a corresponding record in Pleo for any new vendor created in the ERP/accounting system.\n- Create a new vendor in Pleo, without the record yet existing in the ERP/accounting system."
+        },
+        {
+          "info": {
+            "name": "Create an import job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/vendors/csv-import/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an import job"
+        },
+        {
+          "info": {
+            "name": "Get CSV import job details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/vendors/csv-import/jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the import job to retrieve."
+              }
+            ]
+          },
+          "docs": "Get CSV import job details"
+        },
+        {
+          "info": {
+            "name": "Get import job errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/vendors/csv-import/jobs/:jobId/errors",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              },
+              {
+                "name": "jobId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the import job to retrieve errors for."
+              }
+            ]
+          },
+          "docs": "Get import job errors"
+        },
+        {
+          "info": {
+            "name": "Update metadata for CSV import job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v1/vendors/csv-import/jobs/:jobId/metadata",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the import job to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update metadata for CSV import job"
+        },
+        {
+          "info": {
+            "name": "Update status for CSV import job",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v1/vendors/csv-import/jobs/:jobId/status",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the import job to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update status for CSV import job"
+        },
+        {
+          "info": {
+            "name": "Get presigned URL for file upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/vendors/csv-import/jobs/:jobId:get-presigned-url",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get presigned URL for file upload"
+        },
+        {
+          "info": {
+            "name": "Run import job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/vendors/csv-import/jobs/:jobId:run",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Run import job"
+        },
+        {
+          "info": {
+            "name": "Search CSV import jobs by filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/vendors/csv-import/jobs:search",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              },
+              {
+                "name": "company_id",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "query",
+                "description": "Only return CSV import jobs for the given company Id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search CSV import jobs by filter"
+        },
+        {
+          "info": {
+            "name": "Retrieves a Vendor in Pleo by its id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/vendors/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a Vendor in Pleo by its id."
+        },
+        {
+          "info": {
+            "name": "Update a Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v1/vendors/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Vendor for a company in Pleo."
+        },
+        {
+          "info": {
+            "name": "Activate a Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/vendors/:id:activate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the vendor state to Active, reflecting its availability in the target ERP/accounting system"
+        },
+        {
+          "info": {
+            "name": "Archive a Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/vendors/:id:archive",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archives a Vendor in Pleo by its id."
+        },
+        {
+          "info": {
+            "name": "Fetches Vendors by search criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/vendors:search",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves a list of vendors with filters. Results are paginated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

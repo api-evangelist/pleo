@@ -1,0 +1,457 @@
+{
+  "item": [
+    {
+      "id": "7ca65d06-7664-4cc0-ad77-42e2fbf13867",
+      "name": "AccountingEntryEnrichmentV2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "79d78084-b081-4322-8f94-a28f45ec13e9",
+          "name": "Enrich Accounting Entry V2",
+          "request": {
+            "name": "Enrich Accounting Entry V2",
+            "description": {
+              "content": "Enriches an existing Pleo card accounting entry by attaching one or more receipts and applying optional cost categorisation tags. Pleo identifies the matching entry using the transaction details provided as query parameters. Use this endpoint for all new implementations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "accounting-entries:enrich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "Email address of the Pleo user who made the purchase. Used as an optional matching parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "performed_at",
+                  "value": "<string>",
+                  "description": "ISO 8601 timestamp of when the purchase was authorised (i.e. when the transaction happened). Either `performed_at` or `settled_at` must be provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "settled_at",
+                  "value": "<string>",
+                  "description": "ISO 8601 timestamp of when the purchase was settled (i.e. when the funds were transferred). Either `performed_at` or `settled_at` must be provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<long>",
+                  "description": "(Required) Transaction amount in minor units (e.g. 1500 represents €15.00)."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "(Required) ISO 4217 currency code of the transaction (e.g. EUR, GBP, DKK)."
+                },
+                {
+                  "disabled": false,
+                  "key": "card_last_four_digits",
+                  "value": "<string>",
+                  "description": "(Required) Last four digits of the Pleo card used for the transaction. Used as a matching parameter to identify the correct accounting entry."
+                },
+                {
+                  "disabled": false,
+                  "key": "merchant_name",
+                  "value": "<string>",
+                  "description": "(Required) Name of the merchant as it appears on the transaction."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"receipts\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tags\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "722f73f8-7200-4783-bcf9-be94a8279970",
+              "name": "No matching accounting entry found. The receipt has been stored in the Receipt Inbox for manual resolution.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "accounting-entries:enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "performed_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "settled_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card_last_four_digits",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "merchant_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"receipts\": [\n    \"JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoK\",\n    \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"\n  ],\n  \"tags\": [\n    \"ef6f10a1-e608-418b-99f1-08150a9ae129\",\n    \"c111b173-d9da-4117-ab70-8f4b8acf496d\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"receiptStatus\": \"ADDED_TO_RECEIPT_INBOX\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2db16aa5-9f00-43ec-8831-b685c5e6fac9",
+              "name": "Matching accounting entry found. The receipt has been attached and tags applied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "accounting-entries:enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "performed_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "settled_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card_last_four_digits",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "merchant_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"receipts\": [\n    \"JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoK\",\n    \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"\n  ],\n  \"tags\": [\n    \"ef6f10a1-e608-418b-99f1-08150a9ae129\",\n    \"c111b173-d9da-4117-ab70-8f4b8acf496d\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"accountingEntryId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"receiptStatus\": \"UPLOADED\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ae8e3b2-13a3-425e-a74e-8f4ae53cb707",
+              "name": "Request accepted. Pleo will retry matching the receipt to an accounting entry asynchronously.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "accounting-entries:enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "performed_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "settled_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card_last_four_digits",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "merchant_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"receipts\": [\n    \"JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoK\",\n    \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"\n  ],\n  \"tags\": [\n    \"ef6f10a1-e608-418b-99f1-08150a9ae129\",\n    \"c111b173-d9da-4117-ab70-8f4b8acf496d\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"receiptStatus\": \"ACCEPTED\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "268b9faa-aa66-4ac0-b967-b66f7caa6d35",
+              "name": "Request could not be processed. The card, employee, or one or more tag IDs were not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "accounting-entries:enrich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "performed_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "settled_at",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card_last_four_digits",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "merchant_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"receipts\": [\n    \"JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoK\",\n    \"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"\n  ],\n  \"tags\": [\n    \"ef6f10a1-e608-418b-99f1-08150a9ae129\",\n    \"c111b173-d9da-4117-ab70-8f4b8acf496d\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"receiptStatus\": \"UNRESOLVED\",\n    \"message\": \"Card not found\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "26f40108-ba07-4951-8f15-9971c8755646",
+    "name": "App Marketplace accounting-entries AccountingEntryEnrichmentV2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

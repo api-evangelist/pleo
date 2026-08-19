@@ -1,0 +1,241 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries Subscriptions API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/subscriptions",
+            "params": [
+              {
+                "name": "status",
+                "value": "ACTIVE",
+                "type": "query",
+                "description": "Filters subscriptions by status. If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned."
+              },
+              {
+                "name": "event_types",
+                "value": "v1.export-job.created",
+                "type": "query",
+                "description": "Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of subscriptions for the specific event types (registered for the specific company or organisation by the third party application)."
+        },
+        {
+          "info": {
+            "name": "Create a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a subscription for given event type(s)."
+        },
+        {
+          "info": {
+            "name": "Get subscription by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "The unique identifier of the subscription"
+              }
+            ]
+          },
+          "docs": "Fetches subscription details by the specific subscription ID."
+        },
+        {
+          "info": {
+            "name": "Update a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v1/subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "The unique identifier of the subscription"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies the subscription details."
+        },
+        {
+          "info": {
+            "name": "Delete subscription by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://external.pleo.io/v1/subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "The unique identifier of the subscription"
+              }
+            ]
+          },
+          "docs": "Removes the specified subscription record."
+        },
+        {
+          "info": {
+            "name": "Get subscription activities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/subscriptions/:id/activities",
+            "params": [
+              {
+                "name": "id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "The unique identifier of the subscription"
+              },
+              {
+                "name": "operation_types",
+                "value": "CREATE",
+                "type": "query",
+                "description": "Filters subscriptions by operationTypes. If the value is null, all subscription activities for the specified subscriptionId are returned."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ]
+          },
+          "docs": "Fetches subscription activities of a given subscription."
+        },
+        {
+          "info": {
+            "name": "Get subscription secret by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/subscriptions/:id/secret",
+            "params": [
+              {
+                "name": "id",
+                "value": "123e4567-e89b-12d3-a456-426614174000",
+                "type": "path",
+                "description": "The unique identifier of the subscription"
+              }
+            ]
+          },
+          "docs": "Fetches webhook subscription secret ID by the specific subscription identification code; this is done to verify the webhook event that the customer has subscribed for."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

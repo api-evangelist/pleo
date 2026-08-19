@@ -1,0 +1,296 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries Export API (v3) API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Export API (v3)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an Export Job Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v3/export-job-events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n            The Export Job Events imply the current status of the Export Job through the export lifecycle.\n            Send a request to this endpoint to update the status of the export job. If an export job has failed,\n            mention the failure reason and the reason type.\n            "
+        },
+        {
+          "info": {
+            "name": "Retrieve an export job item for a given accounting entry ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v3/export-job-items",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "accounting_entry_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve an export job item for a given accounting entry ID"
+        },
+        {
+          "info": {
+            "name": "Search for export job items by accounting entry IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v3/export-job-items:search",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is a temporary workaround and should not be used by external consumers."
+        },
+        {
+          "info": {
+            "name": "Get a list of Export Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v3/export-jobs",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Enter the company ID for which you want to retrieve the list of export jobs processed previously."
+              },
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Fetch a list of jobs in specific states."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ]
+          },
+          "docs": "Fetch a list of export jobs."
+        },
+        {
+          "info": {
+            "name": "Create a new export job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v3/export-jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to create a new export job that would transfer a list of specific accounting entries from Pleo to the target ERP/accounting system."
+        },
+        {
+          "info": {
+            "name": "Get an Export Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v3/export-jobs/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve an export job by a specific export job ID."
+        },
+        {
+          "info": {
+            "name": "Get Export Job Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v3/export-jobs/:jobId/items",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Enter a status to retrieve a list of export job items in the specified state."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ]
+          },
+          "docs": "An export job item tracks the export progress of a specific accounting entry in an export job. Use this endpoint to retrieve a list of export job items that you want to track."
+        },
+        {
+          "info": {
+            "name": "Update Export Job Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v3/export-jobs/:jobId/items",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the status and other attributes of the export job items in batches of 100. This API only supports updating up to 100 items."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

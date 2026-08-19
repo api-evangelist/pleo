@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries Installations API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Installations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Complete the installation of a client",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v1/installations/completions"
+          },
+          "docs": "**Deprecated**: Please use /installations/me:activate instead. Marks the installation as complete"
+        },
+        {
+          "info": {
+            "name": "Get client installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/installations/me",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional company ID to filter installations within the authenticated organisation."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of installations that you have done"
+        },
+        {
+          "info": {
+            "name": "Create a client installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/installations/me",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The integration sends a request to this endpoint to create an installation. This is required, especially when API keys are used for authorisation."
+        },
+        {
+          "info": {
+            "name": "Update a client installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v1/installations/me",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a request to this endpoint if you want to modify the installation status or the metadata."
+        },
+        {
+          "info": {
+            "name": "Delete client's installation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://external.pleo.io/v1/installations/me"
+          },
+          "docs": "Deletes the installation for the client and will revoke all access and refresh tokens for the client."
+        },
+        {
+          "info": {
+            "name": "Activate the installation for a client",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/installations/me:activate"
+          },
+          "docs": "The integration sends a request to this endpoint to activate the installation, post authorisation. The request is sent after the integration has synchronised tags, tax codes, and vendors between the Pleo account and the client. Note that this is applicable when OAuth is used for authorisation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries tax-codes API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tax-codes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new tax code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v0/tax-codes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new tax code"
+        },
+        {
+          "info": {
+            "name": "Returns a given tax code",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v0/tax-codes/:taxCodeId",
+            "params": [
+              {
+                "name": "taxCodeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a given tax code"
+        },
+        {
+          "info": {
+            "name": "Update an tax code",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v0/tax-codes/:taxCodeId",
+            "params": [
+              {
+                "name": "taxCodeId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an tax code"
+        },
+        {
+          "info": {
+            "name": "Delete an tax code",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://external.pleo.io/v0/tax-codes/:taxCodeId",
+            "params": [
+              {
+                "name": "taxCodeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an tax code"
+        },
+        {
+          "info": {
+            "name": "Calculate gross, net, and tax amounts for a list of tax code ids and amounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v0/tax-codes:calculate-tax-amounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calculate gross, net, and tax amounts for a list of tax code ids and amounts."
+        },
+        {
+          "info": {
+            "name": "Returns a list of tax codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v0/tax-codes:search",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of tax codes"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

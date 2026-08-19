@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries Export Items (v3) API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Export Items (v3)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Export Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v3/export-items",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query",
+                "description": "The Export Job ID in which the accounting entries have been included for export."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ]
+          },
+          "docs": "An export item = an accounting entry transformed into an exportable entry. The accounting and bookkeeping information is collected from an accounting entry to form an export item.\n\n•  A request to this endpoint retrieves a list of export items selected for export.\n\n•  Please note that you can retrieve a list of export items only from `pending` and `in_progress` export jobs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2351 @@
+{
+  "item": [
+    {
+      "id": "9b71f01b-9ce6-4b79-aad7-94a085576d0d",
+      "name": "Accounts",
+      "description": {
+        "content": "This API enables you to create an account in Pleo, search for an account by its specific ID, update details of an account recorded in Pleo, delete an account from Pleo, or apply specific filters to retrieve a list of accounts managed in Pleo.\n\n💡**Note**\n\nPlease note that only response codes specific to the API behaviour are documented. Otherwise, we follow HTTP response codes.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ec9278b-e3d7-40b2-a490-24885ab0e553",
+          "name": "Create a new account.",
+          "request": {
+            "name": "Create a new account.",
+            "description": {
+              "content": "\n        The integration sends a request to this endpoint to create a corresponding account in Pleo for any \n        new record created in the external ERP/accounting system. The request fails if any similar accounts with \n        the same `externalId` and `companyId` already exists in Pleo.\n        ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1-beta",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "922b3bc4-baf9-4236-bfb3-74e20885aaa2",
+              "name": "Request matched existing account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"2001\",\n    \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n    \"externalId\": \"External Id\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n    \"name\": \"Bank Charges\",\n    \"taxCodeExternalId\": \"IVA 20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1de11709-3592-45d6-a4f1-237c56b07c78",
+              "name": "Account created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"2001\",\n    \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n    \"externalId\": \"External Id\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n    \"name\": \"Bank Charges\",\n    \"taxCodeExternalId\": \"IVA 20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fda2f8f-3998-4294-86f7-78bff8703299",
+              "name": "Bad request (e.g. missing required fields).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "840bb8a1-2afb-4ac1-b48c-bbb1eda915c6",
+              "name": "\n                    Conflict (account with the same `externalId` exists in Pleo)\n                ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "696fee42-ba50-4f17-bcef-b915cb147bab",
+          "name": "Retrieves an account in Pleo by its ID.",
+          "request": {
+            "name": "Retrieves an account in Pleo by its ID.",
+            "description": {
+              "content": "Search for a specific account by its account ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1-beta",
+                "accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountId",
+                  "description": "(Required) ID of the account to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f3757be-ca81-4ed1-8f21-dee9cc528a34",
+              "name": "Retrieval of account successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"2001\",\n    \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n    \"externalId\": \"External Id\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n    \"name\": \"Bank Charges\",\n    \"taxCodeExternalId\": \"IVA 20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "574cbca1-89e3-492e-b5cc-aded2bab8438",
+              "name": "Account not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61c12a2a-9f8a-4c5f-8578-1fa1f3f5c515",
+          "name": "Update an account",
+          "request": {
+            "name": "Update an account",
+            "description": {
+              "content": "\n                Update details of an existing account in Pleo. The integration must send a request to this endpoint \n                when it is trying to archive an account linked to accounting entries.\n            ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1-beta",
+                "accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountId",
+                  "description": "(Required) ID of the account to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd276cf1-a435-4cb9-9303-92df979b917e",
+              "name": "Update of account successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"2001\",\n    \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n    \"externalId\": \"External Id\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n    \"name\": \"Bank Charges\",\n    \"taxCodeExternalId\": \"IVA 20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea18e212-a300-4286-9750-338a083475dc",
+              "name": "Bad request (e.g. missing required fields, tax code does not exist in Pleo).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cd140000-2638-4d07-8a9c-85fa5e6d0f2e",
+              "name": "Account not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f75d1d9a-0637-4a6b-8c62-b39b64fd2b37",
+          "name": "Delete an account",
+          "request": {
+            "name": "Delete an account",
+            "description": {
+              "content": "Deletes an existing account in Pleo.\n\nOnly accounts not linked to any accounting entries can be deleted. Trying to delete an account linked to accounting entries will result in an error. If an account is linked, it can be archived instead. Use UPDATE endpoint to archive an account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1-beta",
+                "accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountId",
+                  "description": "(Required) ID of the account to delete."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d9a0087f-b08e-4d5f-b870-4c78ff2808f8",
+              "name": "Deletion of account successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c37f6442-074f-422e-bb32-864e71bb78eb",
+              "name": "Account not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f973144-5963-44ab-a165-b9f9c6a943a7",
+              "name": "Account linked to accounting entries and cannot be deleted. Use UPDATE endpoint to archive the account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13e41059-2a25-44cf-9986-1ba5c25f22d0",
+          "name": "Fetch a list of accounts",
+          "request": {
+            "name": "Fetch a list of accounts",
+            "description": {
+              "content": "Retrieves a list of accounts with optional filters for companyId, ids, name, code and archived status. Results are paginated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1-beta",
+                "accounts:search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"externalId\": \"<string>\",\n  \"ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c6c67164-44f1-4daf-98c4-8d86f2110e52",
+              "name": "Fetch of accounts successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"123e4567-e89b-12d3-a456-426614174011\",\n  \"archived\": false,\n  \"code\": \"2001\",\n  \"externalId\": \"123e4567-e89b-12d3-a456-426614174011\",\n  \"ids\": [\n    \"<uuid>\"\n  ],\n  \"name\": \"Bank Charges\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"accountingSystem\": \"xero\",\n      \"archived\": false,\n      \"code\": \"2001\",\n      \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n      \"externalId\": \"External Id\",\n      \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n      \"name\": \"Bank Charges\",\n      \"taxCodeExternalId\": \"IVA 20\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {}\n    },\n    \"endCursor\": \"string\",\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": true,\n    \"startCursor\": \"string\",\n    \"total\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4356d4a-173f-404a-8155-995ab689c4c0",
+              "name": "Bad request (e.g. missing required fields, tax code does not exist in Pleo).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1-beta",
+                    "accounts:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"123e4567-e89b-12d3-a456-426614174011\",\n  \"archived\": false,\n  \"code\": \"2001\",\n  \"externalId\": \"123e4567-e89b-12d3-a456-426614174011\",\n  \"ids\": [\n    \"<uuid>\"\n  ],\n  \"name\": \"Bank Charges\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31d7a245-41c9-43ab-b9ec-291b9467a381",
+          "name": "Create a new account",
+          "request": {
+            "name": "Create a new account",
+            "description": {
+              "content": "\nThe integration sends a request to this endpoint to create a corresponding account in Pleo for any new record created in the external ERP/accounting system.\nThe request will fail if an account with the same `externalId` and `companyId` already exists in Pleo.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chart-of-accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\",\n    \"key_2\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "972ba9dc-bb9c-4e10-bc1f-4c54d854b440",
+              "name": "Request matched existing account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"2001\",\n    \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n    \"externalId\": \"External Id\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n    \"name\": \"Bank Charges\",\n    \"taxCodeExternalId\": \"IVA 20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81570bb7-bc4b-4b89-ae91-3bf2be4e3b8f",
+              "name": "Account created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"2001\",\n    \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n    \"externalId\": \"External Id\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n    \"name\": \"Bank Charges\",\n    \"taxCodeExternalId\": \"IVA 20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47a981d2-7bf1-4fc4-9033-5684499be78c",
+              "name": "Bad request: for example, missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b79a2c01-d854-4ef8-a061-6abf761a0e34",
+              "name": "Conflict: account with the same `externalId` exists in Pleo.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"externalId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35bdf293-f545-48c9-83a3-d6ac84b1b912",
+          "name": "Create multiple accounts in a single request",
+          "request": {
+            "name": "Create multiple accounts in a single request",
+            "description": {
+              "content": "\nCreates multiple bookkeeping accounts in a single batch operation.\nThis endpoint validates each account in the batch and returns both successfully created accounts and failed items with their failure reasons.\nAccounts that pass validation will be created, while invalid accounts will be returned in the failed list.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chart-of-accounts",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"items\": [\n    {\n      \"archived\": \"<boolean>\",\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"metadata\": {\n        \"key_0\": \"<object>\"\n      },\n      \"taxCodeExternalId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "da97a567-20be-4a43-837b-d84c92ce8761",
+              "name": "Batch creation completed. Check the response for created and failed items.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"items\": [\n    {\n      \"archived\": \"<boolean>\",\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"metadata\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\"\n      },\n      \"taxCodeExternalId\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"created\": [\n      {\n        \"archived\": false,\n        \"code\": \"2001\",\n        \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n        \"externalId\": \"ext-001\",\n        \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n        \"name\": \"Bank Charges\",\n        \"taxCodeExternalId\": \"IVA 20\"\n      },\n      {\n        \"archived\": false,\n        \"code\": \"2002\",\n        \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n        \"externalId\": \"ext-002\",\n        \"id\": \"123e4567-e89b-12d3-a456-426614174007\",\n        \"name\": \"Office Supplies\",\n        \"taxCodeExternalId\": \"IVA 20\"\n      }\n    ],\n    \"failed\": [\n      {\n        \"reasons\": [\n          \"EXTERNAL_ID_ALREADY_EXISTS\",\n          \"NAME_EMPTY\"\n        ],\n        \"request\": {\n          \"archived\": false,\n          \"code\": \"2003\",\n          \"externalId\": \"ext-duplicate\",\n          \"name\": \"\",\n          \"taxCodeExternalId\": \"IVA 20\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63f3f2a7-2251-4fb2-9c64-edd3fd11d5f5",
+              "name": "Bad request: for example, batch size outside allowed range, missing required fields or contains invalid input.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"items\": [\n    {\n      \"archived\": \"<boolean>\",\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"metadata\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\"\n      },\n      \"taxCodeExternalId\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad75ec97-2656-46c2-b942-f34480968f2f",
+          "name": "Retrieve an account in Pleo by its ID",
+          "request": {
+            "name": "Retrieve an account in Pleo by its ID",
+            "description": {
+              "content": "Search for a specific account by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chart-of-accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountId",
+                  "description": "(Required) ID of the account to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4dd7d08e-0b83-4b70-81e2-74d2955d711f",
+              "name": "Retrieval of account successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"2001\",\n    \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n    \"externalId\": \"External Id\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n    \"name\": \"Bank Charges\",\n    \"taxCodeExternalId\": \"IVA 20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7948cd70-b9de-405c-a1c3-aa259a7bbfbe",
+              "name": "Account not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d324e9ca-8a3c-4327-88ae-95a1ad17e7f5",
+          "name": "Update an account",
+          "request": {
+            "name": "Update an account",
+            "description": {
+              "content": "\nUpdate details of an existing account in Pleo.\nThe integration must send a request to this endpoint when it is trying to archive an account linked to accounting entries.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chart-of-accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountId",
+                  "description": "(Required) ID of the account to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\",\n    \"key_2\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e66766fb-4a92-4241-8cf8-f61877ac74be",
+              "name": "Update of account successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"2001\",\n    \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n    \"externalId\": \"External Id\",\n    \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n    \"name\": \"Bank Charges\",\n    \"taxCodeExternalId\": \"IVA 20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "634d5ddf-1031-4e89-831c-a1a77e2d3d2f",
+              "name": "Bad request: for example, missing required fields, tax code does not exist in Pleo.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "83618dfd-64b2-4487-a3ae-b220a4caa4fc",
+              "name": "Account not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  },\n  \"taxCodeExternalId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66ef15e7-dd32-4340-ae9a-c670780904d4",
+          "name": "Delete an account",
+          "request": {
+            "name": "Delete an account",
+            "description": {
+              "content": "\nDeletes an existing account in Pleo.\n\nOnly accounts not linked to any accounting entries can be deleted. Trying to delete an account linked to accounting entries will result in an error. If an account is linked, it can only be archived. Use UPDATE endpoint to archive an account.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chart-of-accounts",
+                ":accountId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "accountId",
+                  "description": "(Required) ID of the account to delete."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1dd921c-3046-4d75-8ad8-553610b9892c",
+              "name": "Deletion of account successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58ecb5eb-cb27-488f-8421-b26714d5c81f",
+              "name": "Account not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f5edbff7-3ae7-416d-bc61-06e40c8093ce",
+              "name": "Account linked to accounting entries and cannot be deleted. Use UPDATE endpoint to archive the account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts",
+                    ":accountId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "accountId",
+                      "description": "(Required) ID of the account to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46b99f84-3ab1-4c1f-aa6b-b2f2f0d9112f",
+          "name": "Fetch a list of accounts",
+          "request": {
+            "name": "Fetch a list of accounts",
+            "description": {
+              "content": "Retrieves a list of accounts with companyId and other optional filters. Results are paginated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chart-of-accounts:search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json;charset=UTF-8"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"companyId\": \"<uuid>\",\n  \"excludeIfAssignedToCategory\": false,\n  \"excludeIfAssignedToContraAccount\": false,\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"externalId\": \"<string>\",\n  \"ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ca555ec0-6f9e-40ee-bdd9-56cf310d17be",
+              "name": "Retrieval of accounts successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"123e4567-e89b-12d3-a456-426614174011\",\n  \"excludeIfAssignedToCategory\": false,\n  \"excludeIfAssignedToContraAccount\": false,\n  \"archived\": false,\n  \"code\": \"2001\",\n  \"codes\": [\n    \"<string>\"\n  ],\n  \"externalId\": \"123e4567-e89b-12d3-a456-426614174011\",\n  \"ids\": [\n    \"<uuid>\"\n  ],\n  \"name\": \"Bank Charges\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"accountingSystem\": \"xero\",\n      \"archived\": false,\n      \"code\": \"2001\",\n      \"companyId\": \"123e4567-e89b-12d3-a456-426614174006\",\n      \"externalId\": \"External Id\",\n      \"id\": \"123e4567-e89b-12d3-a456-426614174005\",\n      \"name\": \"Bank Charges\",\n      \"taxCodeExternalId\": \"IVA 20\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {}\n    },\n    \"endCursor\": \"string\",\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": true,\n    \"startCursor\": \"string\",\n    \"total\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c81b4dd1-2236-4175-8733-d68ea7b927e0",
+              "name": "Bad request: for example, missing required fields, tax code does not exist in Pleo.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chart-of-accounts:search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"companyId\": \"123e4567-e89b-12d3-a456-426614174011\",\n  \"excludeIfAssignedToCategory\": false,\n  \"excludeIfAssignedToContraAccount\": false,\n  \"archived\": false,\n  \"code\": \"2001\",\n  \"codes\": [\n    \"<string>\"\n  ],\n  \"externalId\": \"123e4567-e89b-12d3-a456-426614174011\",\n  \"ids\": [\n    \"<uuid>\"\n  ],\n  \"name\": \"Bank Charges\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4d07a94d-e284-403c-bbef-bd77a40f153d",
+    "name": "App Marketplace accounting-entries Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

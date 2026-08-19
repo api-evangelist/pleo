@@ -1,0 +1,213 @@
+{
+  "item": [
+    {
+      "id": "1acc723b-9187-4d31-abb5-76239038a4df",
+      "name": "Export Items (v0)",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d605280c-0fd9-43c3-bfed-4004ef87d69a",
+          "name": "Get Export Items",
+          "request": {
+            "name": "Get Export Items",
+            "description": {
+              "content": "Fetch a list of export items that have been marked for export for a given job. The data for these accounting entries are transformed accordingly for export purposes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "export-items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "job_id",
+                  "value": "<uuid>",
+                  "description": "The Export Job ID in which the accounting entries have been included for export."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<long>",
+                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The maximum amount of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_keys",
+                  "value": "<string>",
+                  "description": "The keys to sort the results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorting_order",
+                  "value": "<string>",
+                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b969808e-cc61-4f9c-b5b6-83b8a57bc8fb",
+              "name": "default response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "export-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "job_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_keys",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorting_order",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_links\": {\n        \"web\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"mobile\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"api\": {\n          \"exportItem\": \"https://example.com\"\n        }\n      },\n      \"accountingEntryId\": \"00000000-0000-0000-0000-000000000000\",\n      \"accountingEntryLines\": [\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\"\n          }\n        },\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": 0.2,\n            \"type\": \"exclusive\",\n            \"code\": \"string\"\n          }\n        }\n      ],\n      \"amount\": {\n        \"inSupplierCurrency\": {\n          \"currency\": \"MOP\",\n          \"value\": 1873.4154263752534\n        },\n        \"inWalletCurrency\": {\n          \"currency\": \"CUP\",\n          \"value\": 4848.218021195308\n        }\n      },\n      \"companyId\": \"00000000-0000-0000-0000-000000000000\",\n      \"date\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"metadata\": {\n        \"reconciliationId\": \"string\",\n        \"attendees\": [\n          \"string\",\n          \"string\"\n        ],\n        \"invoiceInformation\": {\n          \"invoiceDate\": \"YYYY-MM-DD\",\n          \"invoiceNumber\": \"string\",\n          \"status\": \"scheduled\",\n          \"dueDate\": \"YYYY-MM-DD\",\n          \"paymentDate\": \"YYYY-MM-DD\",\n          \"supplierBankAccount\": {\n            \"bankName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bankCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bic\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"iban\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"type\": \"atm_withdrawal\",\n      \"user\": {\n        \"name\": \"John Doe\",\n        \"code\": \"string\"\n      },\n      \"files\": [\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        },\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        }\n      ],\n      \"note\": \"string\",\n      \"supplier\": {\n        \"account\": \"string\",\n        \"categoryCode\": \"5999\",\n        \"country\": \"DK\",\n        \"identifier\": \"string\",\n        \"name\": \"GOOGLE*ADS8693645259\",\n        \"taxIdentifier\": \"string\"\n      },\n      \"teamCode\": \"string\"\n    },\n    {\n      \"_links\": {\n        \"web\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"mobile\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"api\": {\n          \"exportItem\": \"https://example.com\"\n        }\n      },\n      \"accountingEntryId\": \"00000000-0000-0000-0000-000000000000\",\n      \"accountingEntryLines\": [\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\"\n          }\n        },\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rate\": 0.2,\n            \"type\": \"exclusive\",\n            \"code\": \"string\"\n          }\n        }\n      ],\n      \"amount\": {\n        \"inSupplierCurrency\": {\n          \"currency\": \"PAB\",\n          \"value\": 1036.5811227515198\n        },\n        \"inWalletCurrency\": {\n          \"currency\": \"KYD\",\n          \"value\": 49.478522218333595\n        }\n      },\n      \"companyId\": \"00000000-0000-0000-0000-000000000000\",\n      \"date\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"metadata\": {\n        \"reconciliationId\": \"string\",\n        \"attendees\": [\n          \"string\",\n          \"string\"\n        ],\n        \"invoiceInformation\": {\n          \"invoiceDate\": \"YYYY-MM-DD\",\n          \"invoiceNumber\": \"string\",\n          \"status\": \"voided_by_user\",\n          \"dueDate\": \"YYYY-MM-DD\",\n          \"paymentDate\": \"YYYY-MM-DD\",\n          \"supplierBankAccount\": {\n            \"bankName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bankCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bic\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"iban\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"type\": \"refund\",\n      \"user\": {\n        \"name\": \"John Doe\",\n        \"code\": \"string\"\n      },\n      \"files\": [\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        },\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        }\n      ],\n      \"note\": \"string\",\n      \"supplier\": {\n        \"account\": \"string\",\n        \"categoryCode\": \"5999\",\n        \"country\": \"DK\",\n        \"identifier\": \"string\",\n        \"name\": \"GOOGLE*ADS8693645259\",\n        \"taxIdentifier\": \"string\"\n      },\n      \"teamCode\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 6143,\n      \"offset\": 8277,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 5745\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://external.pleo.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2da7e4d5-836c-43b7-bb78-7b677d1c7fdf",
+    "name": "App Marketplace accounting-entries Export Items (v0) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+      "type": "text/plain"
+    }
+  }
+}

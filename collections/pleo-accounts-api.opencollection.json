@@ -1,0 +1,297 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries Accounts API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1-beta/accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n        The integration sends a request to this endpoint to create a corresponding account in Pleo for any \n        new record created in the external ERP/accounting system. The request fails if any similar accounts with \n        the same `externalId` and `companyId` already exists in Pleo.\n        "
+        },
+        {
+          "info": {
+            "name": "Retrieves an account in Pleo by its ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1-beta/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the account to retrieve."
+              }
+            ]
+          },
+          "docs": "Search for a specific account by its account ID."
+        },
+        {
+          "info": {
+            "name": "Update an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v1-beta/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the account to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n                Update details of an existing account in Pleo. The integration must send a request to this endpoint \n                when it is trying to archive an account linked to accounting entries.\n            "
+        },
+        {
+          "info": {
+            "name": "Delete an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://external.pleo.io/v1-beta/accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the account to delete."
+              }
+            ]
+          },
+          "docs": "Deletes an existing account in Pleo.\n\nOnly accounts not linked to any accounting entries can be deleted. Trying to delete an account linked to accounting entries will result in an error. If an account is linked, it can be archived instead. Use UPDATE endpoint to archive an account."
+        },
+        {
+          "info": {
+            "name": "Fetch a list of accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1-beta/accounts:search",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return"
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by"
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves a list of accounts with optional filters for companyId, ids, name, code and archived status. Results are paginated."
+        },
+        {
+          "info": {
+            "name": "Create a new account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/chart-of-accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nThe integration sends a request to this endpoint to create a corresponding account in Pleo for any new record created in the external ERP/accounting system.\nThe request will fail if an account with the same `externalId` and `companyId` already exists in Pleo.\n"
+        },
+        {
+          "info": {
+            "name": "Create multiple accounts in a single request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/chart-of-accounts/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nCreates multiple bookkeeping accounts in a single batch operation.\nThis endpoint validates each account in the batch and returns both successfully created accounts and failed items with their failure reasons.\nAccounts that pass validation will be created, while invalid accounts will be returned in the failed list.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve an account in Pleo by its ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/chart-of-accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the account to retrieve."
+              }
+            ]
+          },
+          "docs": "Search for a specific account by its ID."
+        },
+        {
+          "info": {
+            "name": "Update an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://external.pleo.io/v1/chart-of-accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the account to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\nUpdate details of an existing account in Pleo.\nThe integration must send a request to this endpoint when it is trying to archive an account linked to accounting entries.\n"
+        },
+        {
+          "info": {
+            "name": "Delete an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://external.pleo.io/v1/chart-of-accounts/:accountId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "123e4567-e89b-12d3-a456-426614174015",
+                "type": "path",
+                "description": "ID of the account to delete."
+              }
+            ]
+          },
+          "docs": "\nDeletes an existing account in Pleo.\n\nOnly accounts not linked to any accounting entries can be deleted. Trying to delete an account linked to accounting entries will result in an error. If an account is linked, it can only be archived. Use UPDATE endpoint to archive an account.\n"
+        },
+        {
+          "info": {
+            "name": "Fetch a list of accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/chart-of-accounts:search",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum amount of items to return."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by."
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves a list of accounts with companyId and other optional filters. Results are paginated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

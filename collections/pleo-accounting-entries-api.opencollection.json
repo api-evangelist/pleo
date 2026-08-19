@@ -1,0 +1,342 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "accounting-entries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch core accounting entries based on filters. ",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/accounting-entries/core:search",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Only return accounting entries that have the specific company ID. Required if partner_id or organization_id is not provided."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Only return accounting entries that belong to the companies associated.  to the given Organization Id. Required if company_id or partner_id is not provided."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after])"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before])"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch core accounting entries based on filters. "
+        },
+        {
+          "info": {
+            "name": "Fetch accounting entries based on filters. ",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/accounting-entries:search",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Only return accounting entries that have the specific company ID. Required if partner_id or organization_id is not provided."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Only return accounting entries that belong to the companies associated.  to the given Organization Id. Required if company_id or partner_id is not provided."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after])"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before])"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch accounting entries based on filters. "
+        },
+        {
+          "info": {
+            "name": "Fetch a single accounting entry by id. ",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/accounting-entries/:accountingEntryId",
+            "params": [
+              {
+                "name": "accountingEntryId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Fetch a single accounting entry by id. "
+        },
+        {
+          "info": {
+            "name": "Apply filters to search for specific accounting entry receipts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://external.pleo.io/v1/accounting-entries/receipts:search",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "Return only receipts of the given Company Id. Required if `partner_id` or `organization_id` is not provided."
+              },
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "query",
+                "description": "Return only receipts of the specific companies associated with the given Partner ID. Required if `company_id` or `organization_id` is not provided."
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query",
+                "description": "Return only receipts of the specific companies associated with the given Organization ID. Required if `company_id` or `partner_id` is not provided."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after])"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before])"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply filters to search for specific accounting entry receipts."
+        },
+        {
+          "info": {
+            "name": "Get details of an accounting entry.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/accounting-entries/:accountingEntryId/core",
+            "params": [
+              {
+                "name": "accountingEntryId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_hidden",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get details of an accounting entry."
+        },
+        {
+          "info": {
+            "name": "Get all receipts of an accounting entry.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/accounting-entries/:accountingEntryId/receipts",
+            "params": [
+              {
+                "name": "accountingEntryId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Only return Receipts with the given source. Useful for fetching a list of receipts uploaded via particular sources."
+              },
+              {
+                "name": "file_type",
+                "value": "",
+                "type": "query",
+                "description": "Return all receipts with the presigned URL generated for the given file type. Used for fetching receipts with a presigned URL other than the default (ORIGINAL)."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Lower bound of the page of data to return (cannot be used together with [after])"
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Upper bound of the page of data to return (cannot be used together with [before])"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sorting_order",
+                "value": "",
+                "type": "query",
+                "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+              },
+              {
+                "name": "sorting_keys",
+                "value": "",
+                "type": "query",
+                "description": "The keys to sort the results by"
+              }
+            ]
+          },
+          "docs": "Get all receipts of an accounting entry."
+        },
+        {
+          "info": {
+            "name": "Returns a receipt with time-bound access to the receipt file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/accounting-entries/:accountingEntryId/receipts/:receiptId",
+            "params": [
+              {
+                "name": "accountingEntryId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "receiptId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "file_type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a receipt with time-bound access to the receipt file."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

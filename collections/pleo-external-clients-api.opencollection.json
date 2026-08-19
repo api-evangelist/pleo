@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "App Marketplace accounting-entries External Clients API",
+    "version": "39.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "External Clients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Introspect the details of the current authentication.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://external.pleo.io/v1/introspect"
+          },
+          "docs": "Returns the detail of the current authentication and what scope of the authentication (i.e API KEY or OAuth bearer token)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

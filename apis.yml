@@ -33,6 +33,14 @@ tags:
   - Expense Management
   - Company Cards
   - Spend Management
+  - Reimbursement
+  - Accounting
+  - Fintech
+  - Finance
+tags_raw:
+  - Expense Management
+  - Company Cards
+  - Spend Management
   - Reimbursements
   - Accounting
   - FinTech
@@ -48,6 +56,8 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
+  - AccountingEntries
+  tags_raw:
   - accounting-entries
   properties:
   - type: OpenAPI
@@ -102,6 +112,8 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -307,6 +319,8 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -321,6 +335,8 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
+  - Tag Groups
+  tags_raw:
   - tag-groups
   properties:
   - type: OpenAPI
@@ -335,6 +351,8 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
+  - Tags
+  tags_raw:
   - tags
   properties:
   - type: OpenAPI
@@ -349,6 +367,8 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
+  - Tax Codes
+  tags_raw:
   - tax-codes
   properties:
   - type: OpenAPI

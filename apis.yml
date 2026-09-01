@@ -68,7 +68,7 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
-  - accounting-entries
+  - AccountingEntries
   tags_raw:
   - accounting-entries
   properties:
@@ -347,7 +347,7 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
-  - tag-groups
+  - Tag Groups
   tags_raw:
   - tag-groups
   properties:
@@ -379,7 +379,7 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
-  - tax-codes
+  - Tax Codes
   tags_raw:
   - tax-codes
   properties:

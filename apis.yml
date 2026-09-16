@@ -30,7 +30,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pleo.png
 url: https://raw.githubusercontent.com/api-evangelist/pleo/refs/heads/main/apis.yml
 created: 2026-06-12
-modified: 2026-06-12
+modified: '2026-09-13'
 specificationVersion: '0.23'
 description: >
   Pleo is a business spend management platform that issues smart company cards
@@ -423,6 +423,9 @@ common:
     url: vocabulary/pleo-vocabulary.yml
   - type: JSONLDContext
     url: json-ld/pleo-context.jsonld
+  - name: MCP Documentation
+    url: https://developers.pleo.io/docs/current/pleo-mcp/get-started/pleo-mcp-overview
+    type: MCPDocumentation
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

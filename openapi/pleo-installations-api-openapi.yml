@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries Installations API
+  title: App Marketplace Installations API
   description: API for Pleo App Marketplace
   termsOfService: https://pleo.io/terms/
   contact:
@@ -19,7 +19,11 @@ security:
 - basicAuth: []
 tags:
 - name: Installations
-  description: Installations of applications. An installation is a representation of an application being installed for a resource. Currently we support companies and organizations, future support might include users or teams. <br> Installations are created automatically after a successful OAuth flow. <br> The main use case for these APIs is to enable third party apps to manage their own installations and to get information about the installations that exist for a specific resource.
+  description: 'Installations of applications. An installation is a representation of an application being installed for a resource. Currently we support companies and organizations, future support might include users or teams.
+
+    Installations are created automatically after a successful OAuth flow.
+
+    The main use case for these APIs is to enable third party apps to manage their own installations and to get information about the installations that exist for a specific resource.'
   externalDocs:
     description: Read more about installations
     url: https://www.notion.so/pleo/Installation-dbf7ce32f2e84848b8a36a5ebeaeb8f0?pvs=4
@@ -171,20 +175,6 @@ components:
             externalApplicationId: '123456789'
         status:
           $ref: '#/components/schemas/InstallationStatus'
-    InstallationErrorCode:
-      type: string
-      description: '
-
-        | Value  | Description |
-
-        | ------ | ----------- |
-
-        | NOT_ENTITLED | The installation is not entitled to use the application. |
-
-        | AUTH_ERROR | There was an authentication error during installation. |'
-      enum:
-      - NOT_ENTITLED
-      - AUTH_ERROR
     InstallationResponse:
       required:
       - applicationId
@@ -244,6 +234,35 @@ components:
           format: date-time
           readOnly: true
           example: '2021-01-01T00:00:00Z'
+    CreateClientInstallationRequest:
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
+            example:
+              externalConfigurationId: '123456789'
+          description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
+          example:
+            externalConfigurationId: '123456789'
+        status:
+          $ref: '#/components/schemas/InstallationStatus'
+    InstallationErrorCode:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | NOT_ENTITLED | The installation is not entitled to use the application. |
+
+        | AUTH_ERROR | There was an authentication error during installation. |'
+      enum:
+      - NOT_ENTITLED
+      - AUTH_ERROR
     InstallationStatus:
       type: string
       description: '
@@ -267,21 +286,6 @@ components:
       - AUTHORIZED
       - PENDING_INTEGRATION
       - ERROR
-    CreateClientInstallationRequest:
-      type: object
-      properties:
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
-            example:
-              externalConfigurationId: '123456789'
-          description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
-          example:
-            externalConfigurationId: '123456789'
-        status:
-          $ref: '#/components/schemas/InstallationStatus'
   securitySchemes:
     bearerAuth:
       type: http

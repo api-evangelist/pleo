@@ -1,14 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries Companies API
-  description: API for Pleo App Marketplace
+  title: Oberon Companies API
+  description: Oberon open api definitions
   termsOfService: https://pleo.io/terms/
   contact:
-    email: partner-ecosystem-team@pleo.io
+    email: apiteam@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 50.7.0
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -19,7 +19,11 @@ security:
 - basicAuth: []
 tags:
 - name: Companies
-  description: "The Companies API enables you to search for company records that are managed in Pleo. You can perform the following: \n - Search for multiple companies\n - Search for a specific company record by company ID"
+  description: 'The Companies API enables you to search for company records that are managed in Pleo. You can perform the following:
+
+    - Search for multiple companies
+
+    - Search for a specific company record by company ID'
 paths:
   /v1/companies:
     get:
@@ -133,6 +137,29 @@ paths:
           description: Company with given ID not found
 components:
   schemas:
+    ExternalCompanyResponseModel:
+      required:
+      - address
+      - id
+      - name
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ExternalAddressResponseModel'
+        id:
+          type: string
+          description: ID of the Company
+          format: uuid
+        name:
+          type: string
+          description: Name of the Company
+        organizationId:
+          type: string
+          description: Organization ID of the Company
+          format: uuid
+        registrationNumber:
+          type: string
+          description: Registration number of the company
     DataResponseExternalCompanyResponseModel:
       required:
       - data
@@ -160,29 +187,27 @@ components:
         total:
           type: integer
           format: int64
-    ExternalCompanyResponseModel:
+    CursorPaginatedResponseExternalCompanyResponseModel:
       required:
-      - address
-      - id
-      - name
+      - data
+      - pagination
       type: object
       properties:
-        address:
-          $ref: '#/components/schemas/ExternalAddressResponseModel'
-        id:
-          type: string
-          description: ID of the Company
-          format: uuid
-        name:
-          type: string
-          description: Name of the Company
-        organizationId:
-          type: string
-          description: Organization ID of the Company
-          format: uuid
-        registrationNumber:
-          type: string
-          description: Registration number of the company
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalCompanyResponseModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     ExternalAddressResponseModel:
       type: object
       properties:
@@ -234,27 +259,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PageOrder'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
-    CursorPaginatedResponseExternalCompanyResponseModel:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalCompanyResponseModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
   securitySchemes:
     bearerAuth:
       type: http

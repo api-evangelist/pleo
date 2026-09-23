@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries External Clients API
+  title: App Marketplace External Clients API
   description: API for Pleo App Marketplace
   termsOfService: https://pleo.io/terms/
   contact:
@@ -24,7 +24,7 @@ paths:
     get:
       tags:
       - External Clients
-      summary: Introspect the details of the current authentication.
+      summary: Introspect the details of the current authentication
       description: Returns the detail of the current authentication and what scope of the authentication (i.e API KEY or OAuth bearer token)
       operationId: introspect
       responses:
@@ -40,6 +40,13 @@ paths:
           description: Cannot complete introspection due to infrastructure issue
 components:
   schemas:
+    ExternalClientModelDetails:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalClientModel'
     ExternalClientModel:
       required:
       - authMethod
@@ -71,13 +78,6 @@ components:
           type: string
           description: The subject URN for which the authentication was created.
           example: urn:pleo:company:d7b8a6d4-3c4b-4b8e-8b2e-1f2a3d4e5f6b
-    ExternalClientModelDetails:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/ExternalClientModel'
   securitySchemes:
     bearerAuth:
       type: http

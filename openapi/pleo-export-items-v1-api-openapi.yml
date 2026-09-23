@@ -1,14 +1,24 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries Export Items (v1) API
-  description: API for Pleo App Marketplace
+  title: Export Items (v1) API
+  description: 'This API enables you to perform the following:
+
+    - Retrieve a list of accounting entries that have been exported to the external ERP/accounting system.
+
+    - Create a new export job event.
+
+    - Retrieve a list of existing export jobs and create a new one.
+
+    - Retrieve details of an export job.
+
+    - Retrieve a list of export job items and update their information.'
   termsOfService: https://pleo.io/terms/
   contact:
-    email: partner-ecosystem-team@pleo.io
+    email: apiteam@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 32.1.0
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -105,6 +115,523 @@ paths:
       deprecated: true
 components:
   schemas:
+    TagV1:
+      required:
+      - code
+      - groupCode
+      - id
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type: string
+          description: This is the identifier to the specific cost allocation item. e.g. the specific project, department, etc.
+        groupCode:
+          type: string
+          description: Allocation grouping, e.g. project, cost center, department or if the if dimensions are being used, this would be the dimension group identifier.
+        id:
+          type: string
+          description: This is the Pleo internal identifier of the tag.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+      description: Tags are used to appropriate funds to specific projects, cost centers, departments, etc. This is what is known as "tags" in Pleo.
+    ExportItemLineV1:
+      required:
+      - accountingEntryLineId
+      - lineAmount
+      - netAmount
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountV1'
+        accountingEntryLineId:
+          type: string
+          description: This is the Pleo internal identifier of this accounting entry line.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        lineAmount:
+          $ref: '#/components/schemas/ExportItemAmount'
+        netAmount:
+          $ref: '#/components/schemas/ExportItemAmount'
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags are used to appropriate funds to specific projects, cost centers, departments, etc. This is what is known as "tags" in Pleo.
+          items:
+            $ref: '#/components/schemas/TagV1'
+        tax:
+          $ref: '#/components/schemas/TaxV1'
+      description: Accounting entry broken down in entry lines. There will always be an accounting entry line. If the accounting entry has been split into separate lines, then each line would represent the details of that accounting entry line, else there would only be one line present, representing the whole entry.
+    AccountV1:
+      required:
+      - id
+      - name
+      type:
+      - object
+      - 'null'
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The account code or number.
+        id:
+          type: string
+          description: This is the Pleo internal identifier of the account.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: The internal account identifier in the accounting system.
+        name:
+          type: string
+          description: This is the name of the account as set on the Pleo UI.
+          example: Meals and Entertainment
+      description: This is the GL account this accounting entry line is allocated to. The account code or the account identifier be present if an account has been allocated, or both.
+    InvoiceInformationV1:
+      required:
+      - invoiceDate
+      - invoiceNumber
+      - status
+      type:
+      - object
+      - 'null'
+      properties:
+        dueDate:
+          pattern: YYYY-MM-DD
+          type:
+          - string
+          - 'null'
+          description: Date the payment is due.
+          format: date-time
+        invoiceDate:
+          pattern: YYYY-MM-DD
+          type: string
+          description: Date the invoice was issued.
+          format: date-time
+        invoiceNumber:
+          type: string
+          description: The invoice number.
+        paymentDate:
+          pattern: YYYY-MM-DD
+          type:
+          - string
+          - 'null'
+          description: Date the invoice was paid if the status is paid.
+          format: date-time
+        status:
+          type: string
+          description: The invoice status.
+          enum:
+          - pending_approval
+          - parsed
+          - preparing
+          - prepared
+          - ready
+          - rejected_by_approver
+          - marked_as_paid
+          - scheduled
+          - payment_in_progress
+          - paid
+          - voided_by_user
+          - rejected_by_user
+          - failed_payment
+        supplierBankAccount:
+          $ref: '#/components/schemas/SupplierBankAccount'
+      description: In the case of an invoice, additional information pertaining to the invoice would be represented here.
+    TaxV1:
+      required:
+      - amount
+      - id
+      - rate
+      - type
+      type:
+      - object
+      - 'null'
+      properties:
+        amount:
+          $ref: '#/components/schemas/ExportItemAmount'
+        code:
+          type:
+          - string
+          - 'null'
+          description: Tax code
+        id:
+          type: string
+          description: This is the Pleo internal identifier of the tax code.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        rate:
+          type: number
+          description: Tax rate. This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20.
+          example: 0.2
+        type:
+          type: string
+          description: Tax type
+          enum:
+          - inclusive
+          - exclusive
+          - reverse
+      description: Tax details applicable to this accounting entry line. The tax details would usually either have the code or the identifier or both.
+    SupplierV1:
+      type:
+      - object
+      - 'null'
+      properties:
+        account:
+          type:
+          - string
+          - 'null'
+          description: Supplier account code in the accounting system.
+        categoryCode:
+          type:
+          - string
+          - 'null'
+          description: This is the category code that describes the merchant/supplier's activity.
+          example: '5999'
+        code:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the supplier in the accounting system.
+        country:
+          maxLength: 2
+          minLength: 2
+          type:
+          - string
+          - 'null'
+          description: The 2-letter country code the merchant or supplier operates in.
+          example: DK
+          enum:
+          - UNDEFINED
+          - AC
+          - AD
+          - AE
+          - AF
+          - AG
+          - AI
+          - AL
+          - AM
+          - AN
+          - AO
+          - AQ
+          - AR
+          - AS
+          - AT
+          - AU
+          - AW
+          - AX
+          - AZ
+          - BA
+          - BB
+          - BD
+          - BE
+          - BF
+          - BG
+          - BH
+          - BI
+          - BJ
+          - BL
+          - BM
+          - BN
+          - BO
+          - BQ
+          - BR
+          - BS
+          - BT
+          - BU
+          - BV
+          - BW
+          - BY
+          - BZ
+          - CA
+          - CC
+          - CD
+          - CF
+          - CG
+          - CH
+          - CI
+          - CK
+          - CL
+          - CM
+          - CN
+          - CO
+          - CP
+          - CR
+          - CS
+          - CU
+          - CV
+          - CW
+          - CX
+          - CY
+          - CZ
+          - DE
+          - DG
+          - DJ
+          - DK
+          - DM
+          - DO
+          - DZ
+          - EA
+          - EC
+          - EE
+          - EG
+          - EH
+          - ER
+          - ES
+          - ET
+          - EU
+          - EZ
+          - FI
+          - FJ
+          - FK
+          - FM
+          - FO
+          - FR
+          - FX
+          - GA
+          - GB
+          - GD
+          - GE
+          - GF
+          - GG
+          - GH
+          - GI
+          - GL
+          - GM
+          - GN
+          - GP
+          - GQ
+          - GR
+          - GS
+          - GT
+          - GU
+          - GW
+          - GY
+          - HK
+          - HM
+          - HN
+          - HR
+          - HT
+          - HU
+          - IC
+          - ID
+          - IE
+          - IL
+          - IM
+          - IN
+          - IO
+          - IQ
+          - IR
+          - IS
+          - IT
+          - JE
+          - JM
+          - JO
+          - JP
+          - KE
+          - KG
+          - KH
+          - KI
+          - KM
+          - KN
+          - KP
+          - KR
+          - KW
+          - KY
+          - KZ
+          - LA
+          - LB
+          - LC
+          - LI
+          - LK
+          - LR
+          - LS
+          - LT
+          - LU
+          - LV
+          - LY
+          - MA
+          - MC
+          - MD
+          - ME
+          - MF
+          - MG
+          - MH
+          - MK
+          - ML
+          - MM
+          - MN
+          - MO
+          - MP
+          - MQ
+          - MR
+          - MS
+          - MT
+          - MU
+          - MV
+          - MW
+          - MX
+          - MY
+          - MZ
+          - NA
+          - NC
+          - NE
+          - NF
+          - NG
+          - NI
+          - NL
+          - 'NO'
+          - NP
+          - NR
+          - NT
+          - NU
+          - NZ
+          - OM
+          - PA
+          - PE
+          - PF
+          - PG
+          - PH
+          - PK
+          - PL
+          - PM
+          - PN
+          - PR
+          - PS
+          - PT
+          - PW
+          - PY
+          - QA
+          - RE
+          - RO
+          - RS
+          - RU
+          - RW
+          - SA
+          - SB
+          - SC
+          - SD
+          - SE
+          - SF
+          - SG
+          - SH
+          - SI
+          - SJ
+          - SK
+          - SL
+          - SM
+          - SN
+          - SO
+          - SR
+          - SS
+          - ST
+          - SU
+          - SV
+          - SX
+          - SY
+          - SZ
+          - TA
+          - TC
+          - TD
+          - TF
+          - TG
+          - TH
+          - TJ
+          - TK
+          - TL
+          - TM
+          - TN
+          - TO
+          - TP
+          - TR
+          - TT
+          - TV
+          - TW
+          - TZ
+          - UA
+          - UG
+          - UK
+          - UM
+          - US
+          - UY
+          - UZ
+          - VA
+          - VC
+          - VE
+          - VG
+          - VI
+          - VN
+          - VU
+          - WF
+          - WS
+          - XI
+          - XU
+          - XK
+          - YE
+          - YT
+          - YU
+          - ZA
+          - ZM
+          - ZR
+          - ZW
+        name:
+          type:
+          - string
+          - 'null'
+          description: Name of the supplier or merchant.
+          example: GOOGLE*ADS8693645259
+        taxIdentifier:
+          type:
+          - string
+          - 'null'
+          description: This is the tax identification of the supplier in their country of operation.
+      description: The supplier or merchant involved.
+    ExportItemAdditionalInformationV1:
+      required:
+      - reconciliationId
+      type: object
+      properties:
+        attendees:
+          type:
+          - array
+          - 'null'
+          description: Used to represent attendance involvement or participants at the time of the spend. E.g. if an employee took clients to dinner, this would be used to capture who was present at the dinner.
+          items:
+            type:
+            - string
+            - 'null'
+            description: Used to represent attendance involvement or participants at the time of the spend. E.g. if an employee took clients to dinner, this would be used to capture who was present at the dinner.
+        invoiceInformation:
+          $ref: '#/components/schemas/InvoiceInformationV1'
+        reconciledEntries:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          description: A list of reconciliation IDs for reimbursement expenses that are settled by this reimbursement. Only included for reimbursement transactions.
+          items:
+            type:
+            - string
+            - 'null'
+            description: A list of reconciliation IDs for reimbursement expenses that are settled by this reimbursement. Only included for reimbursement transactions.
+        reconciliationId:
+          type: string
+          description: This is an identifier used to reconcile between Pleo and the accounting system. Also known in Pleo as the book ID.
+      description: Additional information applicable to this accounting entry.
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     ExportItemV1:
       required:
       - _links
@@ -145,23 +672,26 @@ components:
           description: Date the accounting entry should be bookkept.
           format: date-time
         files:
-          type: array
+          type:
+          - array
+          - 'null'
           description: Files that have been attached to this accounting entry.
-          nullable: true
           items:
             $ref: '#/components/schemas/ExportItemFile'
         note:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Additional comments potentially describing the accounting entry.
-          nullable: true
         supplier:
           $ref: '#/components/schemas/SupplierV1'
         team:
           $ref: '#/components/schemas/TeamV1'
         teamCode:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Team code is an identifier assigned to an expense to categorize it or associate it with a specific team.
-          nullable: true
         type:
           type: string
           description: This is the Pleo internal identifier of the accounting entry this export item is associated with.
@@ -185,59 +715,176 @@ components:
           - fee
         user:
           $ref: '#/components/schemas/ExportItemUserV1'
-    TaxV1:
+    TeamV1:
       required:
-      - amount
       - id
-      - rate
-      - type
-      type: object
+      - name
+      type:
+      - object
+      - 'null'
       properties:
-        amount:
-          $ref: '#/components/schemas/ExportItemAmount'
         code:
-          type: string
-          description: Tax code
-          nullable: true
+          type:
+          - string
+          - 'null'
+          description: Team code, usually the unique identifier of the team in the accounting system.
         id:
           type: string
-          description: This is the Pleo internal identifier of the tax code.
+          description: This is the Pleo internal identifier of the team.
           format: uuid
           example: 00000000-0000-0000-0000-000000000000
-        rate:
-          type: number
-          description: Tax rate. This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20.
-          example: 0.2
+        name:
+          type: string
+          description: This is the name of the team.
+          example: Marketing
+      description: Teams are assigned to an expense to categorize it or associate it with a specific team within the company.
+    ExportItemUserV1:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: This would usually represent the employee code.
+        id:
+          type:
+          - string
+          - 'null'
+          description: This is the Pleo internal identifier of the user.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        name:
+          type: string
+          description: Full name of the user.
+          example: John Doe
+      description: This applies to the person that initiated the spend. This would in most cases be the employee.
+    ExportItemFile:
+      required:
+      - size
+      - type
+      - url
+      type:
+      - object
+      - 'null'
+      properties:
+        size:
+          type: integer
+          description: Size of the file in bytes.
+          format: int32
+          example: 2084
         type:
           type: string
-          description: Tax type
-          enum:
-          - inclusive
-          - exclusive
-          - reverse
-      description: Tax details applicable to this accounting entry line. The tax details would usually either have the code or the identifier or both.
-      nullable: true
+          description: Type of file, usually represented similar to mime type.
+          example: application/pdf
+        url:
+          type: string
+          description: URL to retrieve the file attachment from. This URL is active for a limited time (24 Hours) from the time the export item is fetched.
+          example: https://file.url
+      description: Files that have been attached to this accounting entry.
+    ExportItemAmount:
+      required:
+      - inSupplierCurrency
+      - inWalletCurrency
+      type: object
+      properties:
+        inSupplierCurrency:
+          $ref: '#/components/schemas/MoneyModel'
+        inWalletCurrency:
+          $ref: '#/components/schemas/MoneyModel'
+      description: Export item amount.
+    CursorPaginatedResponseExportItemV1:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportItemV1'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    LinksResponse:
+      type: object
+      properties:
+        api:
+          type: object
+          additionalProperties:
+            type: string
+        mobile:
+          type: object
+          additionalProperties:
+            type: string
+        web:
+          type: object
+          additionalProperties:
+            type: string
+      description: Contains links relevant to the export item.
+      example:
+        web:
+          exportItem: https://example.com
+        mobile:
+          exportItem: https://example.com
+        api:
+          exportItem: https://example.com
     SupplierBankAccount:
       required:
       - bankName
       - country
-      type: object
+      type:
+      - object
+      - 'null'
       properties:
         accountNumber:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Bank account number.
-          nullable: true
         bankCode:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Bank code.
-          nullable: true
         bankName:
           type: string
           description: Name of the bank.
         bic:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Branch information.
-          nullable: true
         country:
           maxLength: 2
           minLength: 2
@@ -518,600 +1165,11 @@ components:
           - ZR
           - ZW
         iban:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Unique international bank account number.
-          nullable: true
       description: Bank account information of the supplier.
-      nullable: true
-    TagV1:
-      required:
-      - code
-      - groupCode
-      - id
-      type: object
-      properties:
-        code:
-          type: string
-          description: This is the identifier to the specific cost allocation item. e.g. the specific project, department, etc.
-        groupCode:
-          type: string
-          description: Allocation grouping, e.g. project, cost center, department or if the if dimensions are being used, this would be the dimension group identifier.
-        id:
-          type: string
-          description: This is the Pleo internal identifier of the tag.
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-      description: Tags are used to appropriate funds to specific projects, cost centers, departments, etc. This is what is known as "tags" in Pleo.
-      nullable: true
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
-    LinksResponse:
-      type: object
-      properties:
-        api:
-          type: object
-          additionalProperties:
-            type: string
-        mobile:
-          type: object
-          additionalProperties:
-            type: string
-        web:
-          type: object
-          additionalProperties:
-            type: string
-      description: Contains links relevant to the export item.
-      example:
-        web:
-          exportItem: https://example.com
-        mobile:
-          exportItem: https://example.com
-        api:
-          exportItem: https://example.com
-    ExportItemLineV1:
-      required:
-      - accountingEntryLineId
-      - lineAmount
-      - netAmount
-      type: object
-      properties:
-        account:
-          $ref: '#/components/schemas/AccountV1'
-        accountingEntryLineId:
-          type: string
-          description: This is the Pleo internal identifier of this accounting entry line.
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-        lineAmount:
-          $ref: '#/components/schemas/ExportItemAmount'
-        netAmount:
-          $ref: '#/components/schemas/ExportItemAmount'
-        tags:
-          type: array
-          description: Tags are used to appropriate funds to specific projects, cost centers, departments, etc. This is what is known as "tags" in Pleo.
-          nullable: true
-          items:
-            $ref: '#/components/schemas/TagV1'
-        tax:
-          $ref: '#/components/schemas/TaxV1'
-      description: Accounting entry broken down in entry lines. There will always be an accounting entry line. If the accounting entry has been split into separate lines, then each line would represent the details of that accounting entry line, else there would only be one line present, representing the whole entry.
-    ExportItemFile:
-      required:
-      - size
-      - type
-      - url
-      type: object
-      properties:
-        size:
-          type: integer
-          description: Size of the file in bytes.
-          format: int32
-          example: 2084
-        type:
-          type: string
-          description: Type of file, usually represented similar to mime type.
-          example: application/pdf
-        url:
-          type: string
-          description: URL to retrieve the file attachment from. This URL is active for a limited time (24 Hours) from the time the export item is fetched.
-          example: https://file.url
-      description: Files that have been attached to this accounting entry.
-      nullable: true
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    TeamV1:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        code:
-          type: string
-          description: Team code, usually the unique identifier of the team in the accounting system.
-          nullable: true
-        id:
-          type: string
-          description: This is the Pleo internal identifier of the team.
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-        name:
-          type: string
-          description: This is the name of the team.
-          example: Marketing
-      description: Teams are assigned to an expense to categorize it or associate it with a specific team within the company.
-      nullable: true
-    ExportItemUserV1:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        code:
-          type: string
-          description: This would usually represent the employee code.
-          nullable: true
-        id:
-          type: string
-          description: This is the Pleo internal identifier of the user.
-          format: uuid
-          nullable: true
-          example: 00000000-0000-0000-0000-000000000000
-        name:
-          type: string
-          description: Full name of the user.
-          example: John Doe
-      description: This applies to the person that initiated the spend. This would in most cases be the employee.
-    ExportItemAmount:
-      required:
-      - inSupplierCurrency
-      - inWalletCurrency
-      type: object
-      properties:
-        inSupplierCurrency:
-          $ref: '#/components/schemas/MoneyModel'
-        inWalletCurrency:
-          $ref: '#/components/schemas/MoneyModel'
-      description: Export item amount.
-    SupplierV1:
-      type: object
-      properties:
-        account:
-          type: string
-          description: Supplier account code in the accounting system.
-          nullable: true
-        categoryCode:
-          type: string
-          description: This is the category code that describes the merchant/supplier's activity.
-          nullable: true
-          example: '5999'
-        code:
-          type: string
-          description: Identifier of the supplier in the accounting system.
-          nullable: true
-        country:
-          maxLength: 2
-          minLength: 2
-          type: string
-          description: The 2-letter country code the merchant or supplier operates in.
-          nullable: true
-          example: DK
-          enum:
-          - UNDEFINED
-          - AC
-          - AD
-          - AE
-          - AF
-          - AG
-          - AI
-          - AL
-          - AM
-          - AN
-          - AO
-          - AQ
-          - AR
-          - AS
-          - AT
-          - AU
-          - AW
-          - AX
-          - AZ
-          - BA
-          - BB
-          - BD
-          - BE
-          - BF
-          - BG
-          - BH
-          - BI
-          - BJ
-          - BL
-          - BM
-          - BN
-          - BO
-          - BQ
-          - BR
-          - BS
-          - BT
-          - BU
-          - BV
-          - BW
-          - BY
-          - BZ
-          - CA
-          - CC
-          - CD
-          - CF
-          - CG
-          - CH
-          - CI
-          - CK
-          - CL
-          - CM
-          - CN
-          - CO
-          - CP
-          - CR
-          - CS
-          - CU
-          - CV
-          - CW
-          - CX
-          - CY
-          - CZ
-          - DE
-          - DG
-          - DJ
-          - DK
-          - DM
-          - DO
-          - DZ
-          - EA
-          - EC
-          - EE
-          - EG
-          - EH
-          - ER
-          - ES
-          - ET
-          - EU
-          - EZ
-          - FI
-          - FJ
-          - FK
-          - FM
-          - FO
-          - FR
-          - FX
-          - GA
-          - GB
-          - GD
-          - GE
-          - GF
-          - GG
-          - GH
-          - GI
-          - GL
-          - GM
-          - GN
-          - GP
-          - GQ
-          - GR
-          - GS
-          - GT
-          - GU
-          - GW
-          - GY
-          - HK
-          - HM
-          - HN
-          - HR
-          - HT
-          - HU
-          - IC
-          - ID
-          - IE
-          - IL
-          - IM
-          - IN
-          - IO
-          - IQ
-          - IR
-          - IS
-          - IT
-          - JE
-          - JM
-          - JO
-          - JP
-          - KE
-          - KG
-          - KH
-          - KI
-          - KM
-          - KN
-          - KP
-          - KR
-          - KW
-          - KY
-          - KZ
-          - LA
-          - LB
-          - LC
-          - LI
-          - LK
-          - LR
-          - LS
-          - LT
-          - LU
-          - LV
-          - LY
-          - MA
-          - MC
-          - MD
-          - ME
-          - MF
-          - MG
-          - MH
-          - MK
-          - ML
-          - MM
-          - MN
-          - MO
-          - MP
-          - MQ
-          - MR
-          - MS
-          - MT
-          - MU
-          - MV
-          - MW
-          - MX
-          - MY
-          - MZ
-          - NA
-          - NC
-          - NE
-          - NF
-          - NG
-          - NI
-          - NL
-          - 'NO'
-          - NP
-          - NR
-          - NT
-          - NU
-          - NZ
-          - OM
-          - PA
-          - PE
-          - PF
-          - PG
-          - PH
-          - PK
-          - PL
-          - PM
-          - PN
-          - PR
-          - PS
-          - PT
-          - PW
-          - PY
-          - QA
-          - RE
-          - RO
-          - RS
-          - RU
-          - RW
-          - SA
-          - SB
-          - SC
-          - SD
-          - SE
-          - SF
-          - SG
-          - SH
-          - SI
-          - SJ
-          - SK
-          - SL
-          - SM
-          - SN
-          - SO
-          - SR
-          - SS
-          - ST
-          - SU
-          - SV
-          - SX
-          - SY
-          - SZ
-          - TA
-          - TC
-          - TD
-          - TF
-          - TG
-          - TH
-          - TJ
-          - TK
-          - TL
-          - TM
-          - TN
-          - TO
-          - TP
-          - TR
-          - TT
-          - TV
-          - TW
-          - TZ
-          - UA
-          - UG
-          - UK
-          - UM
-          - US
-          - UY
-          - UZ
-          - VA
-          - VC
-          - VE
-          - VG
-          - VI
-          - VN
-          - VU
-          - WF
-          - WS
-          - XI
-          - XU
-          - XK
-          - YE
-          - YT
-          - YU
-          - ZA
-          - ZM
-          - ZR
-          - ZW
-        name:
-          type: string
-          description: Name of the supplier or merchant.
-          nullable: true
-          example: GOOGLE*ADS8693645259
-        taxIdentifier:
-          type: string
-          description: This is the tax identification of the supplier in their country of operation.
-          nullable: true
-      description: The supplier or merchant involved.
-      nullable: true
-    InvoiceInformationV1:
-      required:
-      - invoiceDate
-      - invoiceNumber
-      - status
-      type: object
-      properties:
-        dueDate:
-          pattern: YYYY-MM-DD
-          type: string
-          description: Date the payment is due.
-          format: date-time
-          nullable: true
-        invoiceDate:
-          pattern: YYYY-MM-DD
-          type: string
-          description: Date the invoice was issued.
-          format: date-time
-        invoiceNumber:
-          type: string
-          description: The invoice number.
-        paymentDate:
-          pattern: YYYY-MM-DD
-          type: string
-          description: Date the invoice was paid if the status is paid.
-          format: date-time
-          nullable: true
-        status:
-          type: string
-          description: The invoice status.
-          enum:
-          - pending_approval
-          - parsed
-          - preparing
-          - prepared
-          - ready
-          - rejected_by_approver
-          - marked_as_paid
-          - scheduled
-          - payment_in_progress
-          - paid
-          - voided_by_user
-          - rejected_by_user
-          - failed_payment
-        supplierBankAccount:
-          $ref: '#/components/schemas/SupplierBankAccount'
-      description: In the case of an invoice, additional information pertaining to the invoice would be represented here.
-      nullable: true
-    CursorPaginatedResponseExportItemV1:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportItemV1'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    ExportItemAdditionalInformationV1:
-      required:
-      - reconciliationId
-      type: object
-      properties:
-        attendees:
-          type: array
-          description: Used to represent attendance involvement or participants at the time of the spend. E.g. if an employee took clients to dinner, this would be used to capture who was present at the dinner.
-          nullable: true
-          items:
-            type: string
-            description: Used to represent attendance involvement or participants at the time of the spend. E.g. if an employee took clients to dinner, this would be used to capture who was present at the dinner.
-            nullable: true
-        invoiceInformation:
-          $ref: '#/components/schemas/InvoiceInformationV1'
-        reconciledEntries:
-          uniqueItems: true
-          type: array
-          description: A list of reconciliation IDs for reimbursement expenses that are settled by this reimbursement. Only included for reimbursement transactions.
-          nullable: true
-          items:
-            type: string
-            description: A list of reconciliation IDs for reimbursement expenses that are settled by this reimbursement. Only included for reimbursement transactions.
-            nullable: true
-        reconciliationId:
-          type: string
-          description: This is an identifier used to reconcile between Pleo and the accounting system. Also known in Pleo as the book ID.
-      description: Additional information applicable to this accounting entry.
     MoneyModel:
       required:
       - currency
@@ -1318,40 +1376,26 @@ components:
           type: number
           description: Represents the amount in cents (amount/100). For example, 896.96 SEK is represented as 89696.
       description: The total amount paid or owed to the supplier/vendor, in the currency the supplier/vendor operates in.
-    AccountV1:
+    CursorPageInfo:
       required:
-      - id
-      - name
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
       type: object
       properties:
-        code:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
           type: string
-          description: The account code or number.
-          nullable: true
-        id:
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
           type: string
-          description: This is the Pleo internal identifier of the account.
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-        identifier:
-          type: string
-          description: The internal account identifier in the accounting system.
-          nullable: true
-        name:
-          type: string
-          description: This is the name of the account as set on the Pleo UI.
-          example: Meals and Entertainment
-      description: This is the GL account this accounting entry line is allocated to. The account code or the account identifier be present if an account has been allocated, or both.
-      nullable: true
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
+        total:
+          type: integer
+          format: int64
   securitySchemes:
     bearerAuth:
       type: http

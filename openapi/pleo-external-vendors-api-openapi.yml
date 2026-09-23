@@ -1,14 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries external-vendors API
-  description: API for Pleo App Marketplace
+  title: External Vendors API
+  description: Vendors OpenAPI definitions
   termsOfService: https://pleo.io/terms/
   contact:
-    email: partner-ecosystem-team@pleo.io
+    email: apiteam@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 34.17.0
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -740,56 +740,167 @@ paths:
                 $ref: '#/components/schemas/CursorPaginatedResponseVendorResponse'
 components:
   schemas:
-    CsvImportErrorTypeV1:
-      type: string
-      enum:
-      - INVALID_FILE_FORMAT
-      - FILE_TOO_LARGE
-      - FILE_TOO_SMALL
-      - FILE_TYPE_NOT_SUPPORTED
-      - FILE_EXTENSION_NOT_SUPPORTED
-      - IMPORT_JOB_NOT_FOUND
-      - INVALID_STATUS_TRANSITION
-      - PROCESSING_FAILED
-    ExceptionInfo:
-      required:
-      - type
+    VendorSearchRequestV1:
       type: object
       properties:
-        message:
+        accountingSystems:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors linked to the given target ERP/accounting systems.
+          items:
+            type: string
+            description: The target ERP/accounting system the Vendor is associated with.
+        codes:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given vendor codes.
+          items:
+            type: string
+            description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
+        countries:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given country codes.
+          items:
+            $ref: '#/components/schemas/CountryCode'
+        externalIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given vendor external ids.
+          items:
+            type: string
+            description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
+        ids:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given Vendor Ids.
+          items:
+            type: string
+            description: Pleo's internal identifier of the vendor.
+            format: uuid
+            example: 123e4567-e89b-12d3-a456-426614174000
+        name:
           type: string
-        type:
-          type: string
-    CsvImportJobStatusV1:
-      type: string
-      description: Status of CSV import job.
-      enum:
-      - UPLOAD_INITIATED
-      - UPLOADED
-      - READY_FOR_IMPORT
-      - QUEUED
-      - PROCESSING
-      - COMPLETED
-      - FAILED
-    CursorPaginatedResponseCsvImportJobV1:
+          description: The name field represents the official name of the Vendor as it is recorded in the target ERP/accounting system. This name is used to uniquely identify the vendor within the accounting workflow and is visible to the Pleo bookkeeper.
+          example: Pleo
+        states:
+          maxItems: 4
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given states.
+          items:
+            $ref: '#/components/schemas/VendorState'
+        taxRegistrationNumbers:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return Vendors with the given Tax Registration Numbers.
+          items:
+            type: string
+            description: VAT/GST/TaxId number of the Vendor.
+    SearchCsvImportJobsRequestV1:
+      type: object
+      properties:
+        ids:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          description: Pleo's internal identifier of the CSV import job.
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+          items:
+            type: string
+            format: uuid
+        statuses:
+          type:
+          - array
+          - 'null'
+          description: Only return import jobs in these statuses.
+          items:
+            $ref: '#/components/schemas/CsvImportJobStatusV1'
+        types:
+          type:
+          - array
+          - 'null'
+          description: Type of the CSV import job.
+          example: vendors
+          items:
+            type: string
+    UpdateMetadataRequestV1:
+      required:
+      - metadata
+      - strategy
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data.
+          description: Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data.
+        strategy:
+          $ref: '#/components/schemas/UpdateMetadataStrategyV1'
+    DataResponsePresignedUrlV1:
       required:
       - data
-      - pagination
       type: object
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CsvImportJobV1'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    VendorState:
-      type: string
-      description: Current state of the Vendor. ACTIVE means the vendor is in-sync with target ERP/accounting system. DRAFT means the vendor needs to be created in the target ERP/accounting system.
-      enum:
-      - DRAFT
-      - ACTIVE
-      - ARCHIVED
+          $ref: '#/components/schemas/PresignedUrlV1'
+    VendorCreateRequest:
+      required:
+      - companyId
+      - defaultCurrency
+      - name
+      type: object
+      properties:
+        code:
+          type: string
+          description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
+        companyId:
+          type: string
+          description: Pleo's internal identifier for the company the Vendor is associated with.
+          format: uuid
+          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        defaultCurrency:
+          type: string
+          description: Default currency in which the vendor's financial operations,such as purchases, payments, or invoices, are primarily conducted. (ISO 4217 currency code (3 letters))
+          example: DKK
+        externalId:
+          type: string
+          description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
+        name:
+          type: string
+          description: The name field represents the official name of the Vendor as it is recorded in the target ERP/accounting system. This name is used to uniquely identify the vendor within the accounting workflow and is visible to the Pleo bookkeeper.
+          example: Pleo
+        registrationNumber:
+          type: string
+          description: Unique identification of a registered vendor in a country.
+        taxRegistrationNumber:
+          type: string
+          description: VAT/GST/TaxId number of the Vendor.
+    ActivateVendorEventRequest:
+      required:
+      - externalId
+      type: object
+      properties:
+        code:
+          type: string
+          description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
+        externalId:
+          type: string
+          description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
+      description: The request containing the acknowledgement of the vendor creation in the target ERP/accounting system
     CountryCode:
       type: string
       description: Country of registration of the Vendor (ISO 3166-1 alpha-2 country code (2 letters))
@@ -1067,246 +1178,46 @@ components:
       - ZM
       - ZR
       - ZW
-    SearchCsvImportJobsRequestV1:
-      type: object
-      properties:
-        ids:
-          maxItems: 100
-          minItems: 0
-          uniqueItems: true
-          type: array
-          description: Pleo's internal identifier of the CSV import job.
-          format: uuid
-          nullable: true
-          example: 123e4567-e89b-12d3-a456-426614174000
-          items:
-            type: string
-            format: uuid
-        statuses:
-          type: array
-          description: Only return import jobs in these statuses.
-          nullable: true
-          items:
-            $ref: '#/components/schemas/CsvImportJobStatusV1'
-        types:
-          type: array
-          description: Type of the CSV import job.
-          nullable: true
-          example: vendors
-          items:
-            type: string
-    DataResponseCsvImportJobV1:
+    CsvRowImportErrorV1:
       required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/CsvImportJobV1'
-    UpdateMetadataRequestV1:
-      required:
-      - metadata
-      - strategy
-      type: object
-      properties:
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data.
-          description: Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data.
-        strategy:
-          $ref: '#/components/schemas/UpdateMetadataStrategyV1'
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
-    VendorCreateRequest:
-      required:
-      - companyId
-      - defaultCurrency
-      - name
-      type: object
-      properties:
-        code:
-          type: string
-          description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
-        companyId:
-          type: string
-          description: Pleo's internal identifier for the company the Vendor is associated with.
-          format: uuid
-          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        defaultCurrency:
-          type: string
-          description: Default currency in which the vendor's financial operations,such as purchases, payments, or invoices, are primarily conducted. (ISO 4217 currency code (3 letters))
-          example: DKK
-        externalId:
-          type: string
-          description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
-        name:
-          type: string
-          description: The name field represents the official name of the Vendor as it is recorded in the target ERP/accounting system. This name is used to uniquely identify the vendor within the accounting workflow and is visible to the Pleo bookkeeper.
-          example: Pleo
-        registrationNumber:
-          type: string
-          description: Unique identification of a registered vendor in a country.
-        taxRegistrationNumber:
-          type: string
-          description: VAT/GST/TaxId number of the Vendor.
-    CursorPaginatedResponseCsvRowImportErrorV1:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CsvRowImportErrorV1'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    VendorResponse:
-      required:
-      - companyId
-      - defaultCurrency
+      - createdAt
+      - csvImportJobId
+      - errorCode
+      - errorMessage
       - id
-      - name
-      - state
+      - rawData
+      - rowNumber
       type: object
       properties:
-        accountingSystem:
-          type: string
-          description: The target ERP/accounting system the Vendor is associated with.
-        code:
-          type: string
-          description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
-        companyId:
-          type: string
-          description: Pleo's internal identifier for the company the Vendor is associated with.
-          format: uuid
-          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
-        country:
-          $ref: '#/components/schemas/CountryCode'
         createdAt:
           type: string
-          description: The date and time when the vendor was created in Pleo.
+          description: Timestamp when the error was recorded.
           format: date-time
-        defaultCurrency:
-          maxLength: 3
-          minLength: 3
+        csvImportJobId:
           type: string
-          description: Default currency in which the vendor's financial operations,such as purchases, payments, or invoices, are primarily conducted. (ISO 4217 currency code (3 letters))
-          example: DKK
-        externalId:
+          description: Unique identifier for the import job.
+          format: uuid
+        errorCode:
           type: string
-          description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
+          description: Code representing the type of error.
+          example: INVALID_VAT_NUMBER
+        errorMessage:
+          type: string
+          description: Description of the error.
+          example: Invalid VAT number format
         id:
           type: string
-          description: Pleo's internal identifier of the vendor.
+          description: Unique identifier for the error.
           format: uuid
-          example: 123e4567-e89b-12d3-a456-426614174000
-        name:
+        rawData:
           type: string
-          description: The name field represents the official name of the Vendor as it is recorded in the target ERP/accounting system. This name is used to uniquely identify the vendor within the accounting workflow and is visible to the Pleo bookkeeper.
-          example: Pleo
-        registrationNumber:
-          type: string
-          description: Unique identification of a registered vendor in a country.
-        state:
-          $ref: '#/components/schemas/VendorState'
-        taxRegistrationNumber:
-          type: string
-          description: VAT/GST/TaxId number of the Vendor.
-        updatedAt:
-          type: string
-          description: The date and time when the vendor details were updated (initially same as createdAt).
-          format: date-time
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
+          description: Raw CSV row data as JSON string.
+          example: '''"70001","Müller GmbH","INVALID"'''
+        rowNumber:
           type: integer
-          format: int64
-    PresignedUrlV1:
-      required:
-      - presignedUrl
-      type: object
-      properties:
-        presignedUrl:
-          type: string
-          description: Presigned URL to upload the CSV file to.
-          format: url
-    ActivateVendorEventRequest:
-      required:
-      - externalId
-      type: object
-      properties:
-        code:
-          type: string
-          description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
-        externalId:
-          type: string
-          description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
-      description: The request containing the acknowledgement of the vendor creation in the target ERP/accounting system
-    DataResponseVendorResponse:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/VendorResponse'
-    DataResponsePresignedUrlV1:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/PresignedUrlV1'
-    UpdateMetadataStrategyV1:
-      type: string
-      enum:
-      - REPLACE
-      - MERGE
+          description: Row number in the CSV file where the error occurred.
+          format: int32
+          example: 42
     UpdateStatusRequestV1:
       required:
       - status
@@ -1319,6 +1230,25 @@ components:
           $ref: '#/components/schemas/CsvImportErrorTypeV1'
         status:
           $ref: '#/components/schemas/CsvImportJobStatusV1'
+    CursorPaginatedResponseCsvRowImportErrorV1:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CsvRowImportErrorV1'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    DataResponseVendorResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorResponse'
     CsvFormatV1:
       required:
       - delimiter
@@ -1361,119 +1291,87 @@ components:
           '
         ignoreEmptyLines: true
         skipHeaderRecord: true
-    CursorPaginatedResponseVendorResponse:
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+    UpdateMetadataStrategyV1:
+      type: string
+      enum:
+      - REPLACE
+      - MERGE
+    ExceptionInfo:
+      required:
+      - type
+      type: object
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+    CsvImportJobStatusV1:
+      type: string
+      description: Status of CSV import job.
+      enum:
+      - UPLOAD_INITIATED
+      - UPLOADED
+      - READY_FOR_IMPORT
+      - QUEUED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+    CreateCsvImportJobRequestV1:
+      required:
+      - companyId
+      - originalFilename
+      - type
+      type: object
+      properties:
+        companyId:
+          type: string
+          description: Unique identifier for the company.
+          format: uuid
+        csvFormat:
+          $ref: '#/components/schemas/CsvFormatV1'
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data.
+          description: Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data.
+        originalFilename:
+          minLength: 1
+          type: string
+          description: Original filename of the uploaded CSV file.
+          example: vendors.csv
+        type:
+          minLength: 1
+          type: string
+          description: Type of CSV import job.
+          example: vendors
+    CsvImportErrorTypeV1:
+      type: string
+      enum:
+      - INVALID_FILE_FORMAT
+      - FILE_TOO_LARGE
+      - FILE_TOO_SMALL
+      - FILE_TYPE_NOT_SUPPORTED
+      - FILE_EXTENSION_NOT_SUPPORTED
+      - IMPORT_JOB_NOT_FOUND
+      - INVALID_STATUS_TRANSITION
+      - PROCESSING_FAILED
+    DataResponseCsvImportJobV1:
       required:
       - data
-      - pagination
       type: object
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/VendorResponse'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    VendorSearchRequestV1:
-      type: object
-      properties:
-        accountingSystems:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return Vendors linked to the given target ERP/accounting systems.
-          items:
-            type: string
-            description: The target ERP/accounting system the Vendor is associated with.
-        codes:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return Vendors with the given vendor codes.
-          items:
-            type: string
-            description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
-        countries:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return Vendors with the given country codes.
-          items:
-            $ref: '#/components/schemas/CountryCode'
-        externalIds:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return Vendors with the given vendor external ids.
-          items:
-            type: string
-            description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
-        ids:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return Vendors with the given Vendor Ids.
-          items:
-            type: string
-            description: Pleo's internal identifier of the vendor.
-            format: uuid
-            example: 123e4567-e89b-12d3-a456-426614174000
-        name:
-          type: string
-          description: The name field represents the official name of the Vendor as it is recorded in the target ERP/accounting system. This name is used to uniquely identify the vendor within the accounting workflow and is visible to the Pleo bookkeeper.
-          example: Pleo
-        states:
-          maxItems: 4
-          minItems: 0
-          type: array
-          description: Only return Vendors with the given states.
-          items:
-            $ref: '#/components/schemas/VendorState'
-        taxRegistrationNumbers:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return Vendors with the given Tax Registration Numbers.
-          items:
-            type: string
-            description: VAT/GST/TaxId number of the Vendor.
-    VendorUpdateRequest:
-      required:
-      - companyId
-      - defaultCurrency
-      - externalId
-      - name
-      - state
-      type: object
-      properties:
-        code:
-          type: string
-          description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
-        companyId:
-          type: string
-          description: Pleo's internal identifier for the company the Vendor is associated with.
-          format: uuid
-          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        defaultCurrency:
-          type: string
-          description: Default currency in which the vendor's financial operations,such as purchases, payments, or invoices, are primarily conducted. (ISO 4217 currency code (3 letters))
-          example: DKK
-        externalId:
-          type: string
-          description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
-        name:
-          type: string
-          description: The name field represents the official name of the Vendor as it is recorded in the target ERP/accounting system. This name is used to uniquely identify the vendor within the accounting workflow and is visible to the Pleo bookkeeper.
-          example: Pleo
-        registrationNumber:
-          type: string
-          description: Unique identification of a registered vendor in a country.
-        state:
-          $ref: '#/components/schemas/VendorState'
-        taxRegistrationNumber:
-          type: string
-          description: VAT/GST/TaxId number of the Vendor.
+          $ref: '#/components/schemas/CsvImportJobV1'
     CsvImportJobV1:
       required:
       - companyId
@@ -1563,84 +1461,189 @@ components:
           type: string
           description: Timestamp when the import job was last updated.
           format: date-time
-    CreateCsvImportJobRequestV1:
+    CursorPageCurrentRequestInfo:
       required:
-      - companyId
-      - originalFilename
-      - type
+      - parameters
       type: object
       properties:
-        companyId:
+        after:
           type: string
-          description: Unique identifier for the company.
-          format: uuid
-        csvFormat:
-          $ref: '#/components/schemas/CsvFormatV1'
-        metadata:
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
           type: object
           additionalProperties:
-            type: object
-            description: Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data.
-          description: Place for API users to store flexible data. The value provided in this field will be passed to consuming service for every CSV row along with the parsed data.
-        originalFilename:
-          minLength: 1
-          type: string
-          description: Original filename of the uploaded CSV file.
-          example: vendors.csv
-        type:
-          minLength: 1
-          type: string
-          description: Type of CSV import job.
-          example: vendors
-    CsvRowImportErrorV1:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    CursorPaginatedResponseVendorResponse:
       required:
-      - createdAt
-      - csvImportJobId
-      - errorCode
-      - errorMessage
-      - id
-      - rawData
-      - rowNumber
+      - data
+      - pagination
       type: object
       properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorResponse'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    VendorState:
+      type: string
+      description: Current state of the Vendor. ACTIVE means the vendor is in-sync with target ERP/accounting system. DRAFT means the vendor needs to be created in the target ERP/accounting system.
+      enum:
+      - DRAFT
+      - ACTIVE
+      - ARCHIVED
+    VendorResponse:
+      required:
+      - companyId
+      - defaultCurrency
+      - id
+      - name
+      - state
+      type: object
+      properties:
+        accountingSystem:
+          type: string
+          description: The target ERP/accounting system the Vendor is associated with.
+        code:
+          type: string
+          description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
+        companyId:
+          type: string
+          description: Pleo's internal identifier for the company the Vendor is associated with.
+          format: uuid
+          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
+        country:
+          $ref: '#/components/schemas/CountryCode'
         createdAt:
           type: string
-          description: Timestamp when the error was recorded.
+          description: The date and time when the vendor was created in Pleo.
           format: date-time
-        csvImportJobId:
+        defaultCurrency:
+          maxLength: 3
+          minLength: 3
           type: string
-          description: Unique identifier for the import job.
-          format: uuid
-        errorCode:
+          description: Default currency in which the vendor's financial operations,such as purchases, payments, or invoices, are primarily conducted. (ISO 4217 currency code (3 letters))
+          example: DKK
+        externalId:
           type: string
-          description: Code representing the type of error.
-          example: INVALID_VAT_NUMBER
-        errorMessage:
-          type: string
-          description: Description of the error.
-          example: Invalid VAT number format
+          description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
         id:
           type: string
-          description: Unique identifier for the error.
+          description: Pleo's internal identifier of the vendor.
           format: uuid
-        rawData:
+          example: 123e4567-e89b-12d3-a456-426614174000
+        name:
           type: string
-          description: Raw CSV row data as JSON string.
-          example: '''"70001","Müller GmbH","INVALID"'''
-        rowNumber:
-          type: integer
-          description: Row number in the CSV file where the error occurred.
-          format: int32
-          example: 42
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
+          description: The name field represents the official name of the Vendor as it is recorded in the target ERP/accounting system. This name is used to uniquely identify the vendor within the accounting workflow and is visible to the Pleo bookkeeper.
+          example: Pleo
+        registrationNumber:
+          type: string
+          description: Unique identification of a registered vendor in a country.
+        state:
+          $ref: '#/components/schemas/VendorState'
+        taxRegistrationNumber:
+          type: string
+          description: VAT/GST/TaxId number of the Vendor.
+        updatedAt:
+          type: string
+          description: The date and time when the vendor details were updated (initially same as createdAt).
+          format: date-time
+    PresignedUrlV1:
+      required:
+      - presignedUrl
+      type: object
+      properties:
+        presignedUrl:
+          type: string
+          description: Presigned URL to upload the CSV file to.
+          format: url
+    VendorUpdateRequest:
+      required:
+      - companyId
+      - defaultCurrency
+      - externalId
+      - name
+      - state
+      type: object
+      properties:
+        code:
+          type: string
+          description: Account code assigned to the vendor in the target ERP/accounting system for aiding users in identifying the correct record.
+        companyId:
+          type: string
+          description: Pleo's internal identifier for the company the Vendor is associated with.
+          format: uuid
+          example: c082afd8-c1d2-46ee-8f56-1512638f0e67
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        defaultCurrency:
+          type: string
+          description: Default currency in which the vendor's financial operations,such as purchases, payments, or invoices, are primarily conducted. (ISO 4217 currency code (3 letters))
+          example: DKK
+        externalId:
+          type: string
+          description: Unique external identifier of the vendor, assigned by the target ERP/accounting system, used by the client for identification. Can be the same as code if no other identifier is available.
+        name:
+          type: string
+          description: The name field represents the official name of the Vendor as it is recorded in the target ERP/accounting system. This name is used to uniquely identify the vendor within the accounting workflow and is visible to the Pleo bookkeeper.
+          example: Pleo
+        registrationNumber:
+          type: string
+          description: Unique identification of a registered vendor in a country.
+        state:
+          $ref: '#/components/schemas/VendorState'
+        taxRegistrationNumber:
+          type: string
+          description: VAT/GST/TaxId number of the Vendor.
+    CursorPaginatedResponseCsvImportJobV1:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CsvImportJobV1'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,14 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries AccountingEntryEnrichmentV2 API
-  description: API for Pleo App Marketplace
+  title: Triton Accounting Entry Enrichment V2 API
+  description: Triton OpenAPI definitions
   termsOfService: https://pleo.io/terms/
   contact:
-    email: partner-ecosystem-team@pleo.io
+    email: apiteam@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 8.6.1
 servers:
 - url: https://external.pleo.io
   description: Production server

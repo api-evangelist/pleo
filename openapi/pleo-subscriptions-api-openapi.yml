@@ -1,14 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries Subscriptions API
-  description: API for Pleo App Marketplace
+  title: Webhook Subscriptions API
+  description: Webhook Subscriptions definitions
   termsOfService: https://pleo.io/terms/
   contact:
     email: partner-ecosystem-team@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 11.6.2
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -357,62 +357,98 @@ paths:
           description: The subscription secret record could not be found.
 components:
   schemas:
-    SubscriptionActivityModel:
+    SubscriptionSecretModel:
+      type: object
+      properties:
+        secretKey:
+          type: string
+          description: The subscription's verification secret. It is required to verify the subscription events
+          readOnly: true
+          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
+    AuthCredential:
+      type: object
+      properties:
+        password:
+          type: string
+          description: Password for basic authentication
+          example: password
+        token:
+          type: string
+          description: Token for bearer authentication
+          example: token
+        username:
+          type: string
+          description: Username for basic authentication
+          example: username
+      description: Authentication credentials
+    CursorPageInfo:
       required:
-      - actorUrn
-      - createdAt
-      - description
-      - id
-      - operationType
-      - subscriptionId
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
       type: object
       properties:
-        actorUrn:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
           type: string
-          description: The identifier of the user who performed the activity
-          readOnly: true
-          example: urn:pleo:organisation:12345678-1234-1234-1234-123456789012
-        createdAt:
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
           type: string
-          description: The time when the subscription activity was created
-          format: date-time
-          readOnly: true
-          example: '2022-01-01T00:00:00Z'
-        description:
-          type: string
-          description: The description of the activity
-          readOnly: true
-          example: Subscription deleted
-        id:
-          type: string
-          description: The unique identifier of the subscription activity
-          format: uuid
-          readOnly: true
-          example: 123e4567-e89b-12d3-a456-426614174000
-        operationType:
-          type: string
-          description: The type of the activity performed
-          readOnly: true
-          example: CREATE
-        subscriptionId:
-          type: string
-          description: The unique identifier of the subscription
-          format: uuid
-          readOnly: true
-          example: 123e4567-e89b-12d3-a456-426614174000
-    EndpointAuth:
+        total:
+          type: integer
+          format: int64
+    CursorPaginatedResponseSubscriptionActivityModel:
+      required:
+      - data
+      - pagination
       type: object
       properties:
-        credentials:
-          $ref: '#/components/schemas/AuthCredential'
-        type:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionActivityModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
           type: string
-          description: Authentication type for the endpoint. Default is NONE
-          example: NONE
-          enum:
-          - NONE
-          - BASIC
-      description: Authentication details for the endpoint
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    SubscriptionSecretResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubscriptionSecretModel'
     SubscriptionRequest:
       required:
       - endpointUrl
@@ -452,22 +488,6 @@ components:
           - INACTIVE
           - ACTIVE
           default: ACTIVE
-    AuthCredential:
-      type: object
-      properties:
-        password:
-          type: string
-          description: Password for basic authentication
-          example: password
-        token:
-          type: string
-          description: Token for bearer authentication
-          example: token
-        username:
-          type: string
-          description: Username for basic authentication
-          example: username
-      description: Authentication credentials
     SubscriptionResponse:
       required:
       - data
@@ -475,34 +495,15 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/SubscriptionModel'
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    SubscriptionSecretModel:
-      type: object
-      properties:
-        secretKey:
-          type: string
-          description: The subscription's verification secret. It is required to verify the subscription events
-          readOnly: true
-          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     CursorPaginatedResponseSubscriptionModel:
       required:
       - data
@@ -515,13 +516,19 @@ components:
             $ref: '#/components/schemas/SubscriptionModel'
         pagination:
           $ref: '#/components/schemas/CursorPageInfo'
-    SubscriptionSecretResponse:
-      required:
-      - data
+    EndpointAuth:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/SubscriptionSecretModel'
+        credentials:
+          $ref: '#/components/schemas/AuthCredential'
+        type:
+          type: string
+          description: Authentication type for the endpoint. Default is NONE
+          example: NONE
+          enum:
+          - NONE
+          - BASIC
+      description: Authentication details for the endpoint
     SubscriptionModel:
       required:
       - createdAt
@@ -595,56 +602,49 @@ components:
           format: date-time
           readOnly: true
           example: '2022-01-10T00:00:00Z'
-    CursorPaginatedResponseSubscriptionActivityModel:
+    SubscriptionActivityModel:
       required:
-      - data
-      - pagination
+      - actorUrn
+      - createdAt
+      - description
+      - id
+      - operationType
+      - subscriptionId
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionActivityModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
+        actorUrn:
           type: string
-        before:
+          description: The identifier of the user who performed the activity
+          readOnly: true
+          example: urn:pleo:organisation:12345678-1234-1234-1234-123456789012
+        createdAt:
           type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
+          description: The time when the subscription activity was created
+          format: date-time
+          readOnly: true
+          example: '2022-01-01T00:00:00Z'
+        description:
+          type: string
+          description: The description of the activity
+          readOnly: true
+          example: Subscription deleted
+        id:
+          type: string
+          description: The unique identifier of the subscription activity
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+        operationType:
+          type: string
+          description: The type of the activity performed
+          readOnly: true
+          example: CREATE
+        subscriptionId:
+          type: string
+          description: The unique identifier of the subscription
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
   securitySchemes:
     bearerAuth:
       type: http

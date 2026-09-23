@@ -1,14 +1,24 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries Export Items (v2) API
-  description: API for Pleo App Marketplace
+  title: Export Items (v2) API
+  description: 'This API enables you to perform the following:
+
+    - Retrieve a list of accounting entries that have been exported to the external ERP/accounting system.
+
+    - Create a new export job event.
+
+    - Retrieve a list of existing export jobs and create a new one.
+
+    - Retrieve details of an export job.
+
+    - Retrieve a list of export job items and update their information.'
   termsOfService: https://pleo.io/terms/
   contact:
-    email: partner-ecosystem-team@pleo.io
+    email: apiteam@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 32.1.0
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -115,53 +125,34 @@ paths:
                 message: Export Job is finished and can no longer be processed.
 components:
   schemas:
-    CursorPaginatedResponseExportItemV2:
-      required:
-      - data
-      - pagination
-      type: object
+    SupplierV2:
+      type:
+      - object
+      - 'null'
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportItemV2'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    ExceptionInfo:
-      required:
-      - type
-      type: object
-      properties:
-        message:
-          type: string
-        type:
-          type: string
-    SupplierBankAccount:
-      required:
-      - bankName
-      - country
-      type: object
-      properties:
-        accountNumber:
-          type: string
-          description: Bank account number.
-          nullable: true
-        bankCode:
-          type: string
-          description: Bank code.
-          nullable: true
-        bankName:
-          type: string
-          description: Name of the bank.
-        bic:
-          type: string
-          description: Branch information.
-          nullable: true
+        account:
+          type:
+          - string
+          - 'null'
+          description: Supplier account code in the accounting system.
+        categoryCode:
+          type:
+          - string
+          - 'null'
+          description: This is the category code that describes the merchant/supplier's activity.
+          example: '5999'
+        code:
+          type:
+          - string
+          - 'null'
+          description: Identifier of the supplier in the accounting system.
         country:
           maxLength: 2
           minLength: 2
-          type: string
-          description: Country the bank is located in. This is an ISO 3166-1 alpha-2 country code.
+          type:
+          - string
+          - 'null'
+          description: The 2-letter country code the merchant or supplier operates in.
           example: DK
           enum:
           - UNDEFINED
@@ -436,57 +427,93 @@ components:
           - ZM
           - ZR
           - ZW
-        iban:
-          type: string
-          description: Unique international bank account number.
-          nullable: true
-      description: Bank account information of the supplier.
-      nullable: true
-    TagV2:
-      required:
-      - code
-      - groupCode
-      - id
-      type: object
-      properties:
-        code:
-          type: string
-          description: This is the unique identifier of the tag allocated to the export item.
-        groupCode:
-          type: string
-          description: This is the unique identifier of the tag group (a tag group is a collection of tags).
-        id:
-          type: string
-          description: This is the Pleo internal identifier of the tag.
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-      description: Tags are cost centres allocated to an export item.
-      nullable: true
-    AccountV2:
-      required:
-      - id
-      - name
-      type: object
-      properties:
-        code:
-          type: string
-          description: The account code or number.
-          nullable: true
-        id:
-          type: string
-          description: This is the Pleo internal identifier of the account.
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-        identifier:
-          type: string
-          description: The internal account identifier in the accounting system.
-          nullable: true
         name:
+          type:
+          - string
+          - 'null'
+          description: Name of the supplier or merchant.
+          example: GOOGLE*ADS8693645259
+        taxIdentifier:
+          type:
+          - string
+          - 'null'
+          description: This is the tax identification of the supplier in their country of operation.
+      description: The supplier or merchant involved.
+    ServicePeriodV2:
+      required:
+      - from
+      - to
+      type:
+      - object
+      - 'null'
+      properties:
+        from:
+          pattern: yyyy-MM-dd'T'HH:mm:ss'Z'
           type: string
-          description: This is the name of the account as set on the Pleo UI.
-          example: Meals and Entertainment
-      description: This is the specific General Ledger (GL) account allocated to the export item - the account code, the identifier, or both are mentioned, if any GL account is allocated.
-      nullable: true
+          description: The start of the service period in ISO 8601 datetime format.
+          format: date-time
+          example: '2025-01-01T00:00:00Z'
+        to:
+          pattern: yyyy-MM-dd'T'HH:mm:ss'Z'
+          type: string
+          description: The end of the service period in ISO 8601 datetime format.
+          format: date-time
+          example: '2025-01-31T00:00:00Z'
+      description: The period during which a service was provided, goods were delivered, or an expense was incurred.
+    CursorPaginatedResponseExportItemV2:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportItemV2'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    ExportItemAdditionalInformationV2:
+      required:
+      - reconciliationId
+      type: object
+      properties:
+        attendees:
+          type:
+          - array
+          - 'null'
+          description: Indicates attendance of participants at the time of the spend. For example, if an employee took clients to dinner, this attribute indicates who were present at the dinner.
+          items:
+            type:
+            - string
+            - 'null'
+            description: Indicates attendance of participants at the time of the spend. For example, if an employee took clients to dinner, this attribute indicates who were present at the dinner.
+        invoiceInformation:
+          $ref: '#/components/schemas/InvoiceInformationV2'
+        reconciledEntries:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          description: A list of reconciliation IDs for reimbursement expenses that are settled by this reimbursement. Only included for reimbursement transactions.
+          items:
+            type:
+            - string
+            - 'null'
+            description: A list of reconciliation IDs for reimbursement expenses that are settled by this reimbursement. Only included for reimbursement transactions.
+        reconciliationId:
+          type: string
+          description: This is an identifier used to reconcile between Pleo and the accounting system. Also known in Pleo as the book ID.
+      description: Additional information applicable to this accounting entry.
+    BookkeepingV2:
+      required:
+      - method
+      type:
+      - object
+      - 'null'
+      properties:
+        method:
+          $ref: '#/components/schemas/BookkeepingMethodV2'
+      description: Bookkeeping related configurations for an accounting entry.
     VendorV2:
       required:
       - defaultCurrency
@@ -524,33 +551,34 @@ components:
           type: string
           description: VAT/GST/TaxId number of the Vendor
       description: The vendor associated with the accounting entry.
-    ExportItemLineV2:
+    AccountV2:
       required:
-      - accountingEntryLineId
-      - lineAmount
-      - netAmount
-      type: object
+      - id
+      - name
+      type:
+      - object
+      - 'null'
       properties:
-        account:
-          $ref: '#/components/schemas/AccountV2'
-        accountingEntryLineId:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The account code or number.
+        id:
           type: string
-          description: This is the ID of the specific line.
+          description: This is the Pleo internal identifier of the account.
           format: uuid
           example: 00000000-0000-0000-0000-000000000000
-        lineAmount:
-          $ref: '#/components/schemas/ExportItemAmount'
-        netAmount:
-          $ref: '#/components/schemas/ExportItemAmount'
-        tags:
-          type: array
-          description: Tags are cost centres allocated to an export item.
-          nullable: true
-          items:
-            $ref: '#/components/schemas/TagV2'
-        tax:
-          $ref: '#/components/schemas/TaxV2'
-      description: An accounting entry is represented with either a single line or multiple lines that explain the details. So, if the accounting entry is split into multiple lines, each line has a unique ID.
+        identifier:
+          type:
+          - string
+          - 'null'
+          description: The internal account identifier in the accounting system.
+        name:
+          type: string
+          description: This is the name of the account as set on the Pleo UI.
+          example: Meals and Entertainment
+      description: This is the specific General Ledger (GL) account allocated to the export item - the account code, the identifier, or both are mentioned, if any GL account is allocated.
     CountryCode:
       type: string
       description: Country of registration of the vendor (ISO 3166-1 alpha-2 country code (2 letters))
@@ -832,53 +860,36 @@ components:
       required:
       - id
       - name
-      type: object
+      type:
+      - object
+      - 'null'
       properties:
         code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: This would usually represent the employee code.
-          nullable: true
         id:
-          type: string
+          type:
+          - string
+          - 'null'
           description: This is the Pleo internal identifier of the user.
           format: uuid
-          nullable: true
           example: 00000000-0000-0000-0000-000000000000
         name:
           type: string
           description: Full name of the user.
           example: John Doe
       description: This applies to the person that initiated the spend. In most cases this would be the employee.
-      nullable: true
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     ExportItemV2:
       required:
       - _links
@@ -920,29 +931,33 @@ components:
           description: The date when the export item was book kept.
           format: date-time
         files:
-          type: array
+          type:
+          - array
+          - 'null'
           description: Files that have been attached to this accounting entry.
-          nullable: true
           items:
             $ref: '#/components/schemas/ExportItemFile'
         note:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Additional comments potentially describing the accounting entry.
-          nullable: true
         servicePeriod:
           $ref: '#/components/schemas/ServicePeriodV2'
         subType:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Optional subtype for the export item, providing additional categorisation within the main type.
-          nullable: true
         supplier:
           $ref: '#/components/schemas/SupplierV2'
         team:
           $ref: '#/components/schemas/TeamV2'
         teamCode:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Team code is an identifier assigned to an expense to categorize it or associate it with a specific team.
-          nullable: true
         type:
           type: string
           description: This is the Pleo internal identifier assigned to the export item, based on the type of expense it is. For example, a specific identifier is assigned to a card_purchase accounting entry.
@@ -968,16 +983,92 @@ components:
           $ref: '#/components/schemas/ExportItemUserV2'
         vendor:
           $ref: '#/components/schemas/VendorV2'
+    TaxV2:
+      required:
+      - amount
+      - id
+      - rate
+      - type
+      type:
+      - object
+      - 'null'
+      properties:
+        amount:
+          $ref: '#/components/schemas/ExportItemAmount'
+        code:
+          type:
+          - string
+          - 'null'
+          description: Tax code.
+        id:
+          type: string
+          description: This is the Pleo internal identifier of the tax code.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        rate:
+          type: number
+          description: Tax rate. This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20.
+          example: 0.2
+        type:
+          type: string
+          description: Tax type.
+          enum:
+          - inclusive
+          - exclusive
+          - reverse
+      description: Tax details applicable to this accounting entry line. The tax details would usually either have the code or the identifier or both.
+    ExceptionInfo:
+      required:
+      - type
+      type: object
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+    BookkeepingMethodV2:
+      type: string
+      description: Specifies the type of bookkeeping system used for recording the accounting entry.
+      enum:
+      - none
+      - journal
+      - accounts_payable
+    ExportItemFile:
+      required:
+      - size
+      - type
+      - url
+      type:
+      - object
+      - 'null'
+      properties:
+        size:
+          type: integer
+          description: Size of the file in bytes.
+          format: int32
+          example: 2084
+        type:
+          type: string
+          description: Type of file, usually represented similar to mime type.
+          example: application/pdf
+        url:
+          type: string
+          description: URL to retrieve the file attachment from. This URL is active for a limited time (24 Hours) from the time the export item is fetched.
+          example: https://file.url
+      description: Files that have been attached to this accounting entry.
     TeamV2:
       required:
       - id
       - name
-      type: object
+      type:
+      - object
+      - 'null'
       properties:
         code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Team code, usually the unique identifier of the team in the accounting system.
-          nullable: true
         id:
           type: string
           description: This is the Pleo internal identifier of the team.
@@ -988,7 +1079,46 @@ components:
           description: This is the name of the team.
           example: Marketing
       description: Teams are assigned to an export item for categorisation or association with a specific team.
-      nullable: true
+    ExportItemAmount:
+      required:
+      - inSupplierCurrency
+      - inWalletCurrency
+      type: object
+      properties:
+        inSupplierCurrency:
+          $ref: '#/components/schemas/MoneyModel'
+        inWalletCurrency:
+          $ref: '#/components/schemas/MoneyModel'
+      description: Export item amount.
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
     LinksResponse:
       type: object
       properties:
@@ -1012,165 +1142,65 @@ components:
           exportItem: https://example.com
         api:
           exportItem: https://example.com
-    ExportItemFile:
+    ExportItemLineV2:
       required:
-      - size
-      - type
-      - url
-      type: object
-      properties:
-        size:
-          type: integer
-          description: Size of the file in bytes.
-          format: int32
-          example: 2084
-        type:
-          type: string
-          description: Type of file, usually represented similar to mime type.
-          example: application/pdf
-        url:
-          type: string
-          description: URL to retrieve the file attachment from. This URL is active for a limited time (24 Hours) from the time the export item is fetched.
-          example: https://file.url
-      description: Files that have been attached to this accounting entry.
-      nullable: true
-    InvoiceInformationV2:
-      required:
-      - invoiceDate
-      - invoiceNumber
-      - status
-      type: object
-      properties:
-        dueDate:
-          pattern: YYYY-MM-DD
-          type: string
-          description: Date the payment is due.
-          format: date-time
-          nullable: true
-        invoiceDate:
-          pattern: YYYY-MM-DD
-          type: string
-          description: Date the invoice was issued.
-          format: date-time
-        invoiceNumber:
-          type: string
-          description: The invoice number.
-        paymentDate:
-          pattern: YYYY-MM-DD
-          type: string
-          description: Date the invoice was paid if the status is paid.
-          format: date-time
-          nullable: true
-        status:
-          type: string
-          description: The invoice status.
-          enum:
-          - pending_approval
-          - parsed
-          - preparing
-          - prepared
-          - ready
-          - rejected_by_approver
-          - marked_as_paid
-          - scheduled
-          - payment_in_progress
-          - paid
-          - voided_by_user
-          - rejected_by_user
-          - failed_payment
-        supplierBankAccount:
-          $ref: '#/components/schemas/SupplierBankAccount'
-      description: For an invoice, additional information related to the invoice is specified in this attribute.
-      nullable: true
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    BookkeepingV2:
-      required:
-      - method
-      type: object
-      properties:
-        method:
-          $ref: '#/components/schemas/BookkeepingMethodV2'
-      description: Bookkeeping related configurations for an accounting entry.
-      nullable: true
-    BookkeepingMethodV2:
-      type: string
-      description: Specifies the type of bookkeeping system used for recording the accounting entry.
-      enum:
-      - none
-      - journal
-      - accounts_payable
-    ExportItemAmount:
-      required:
-      - inSupplierCurrency
-      - inWalletCurrency
-      type: object
-      properties:
-        inSupplierCurrency:
-          $ref: '#/components/schemas/MoneyModel'
-        inWalletCurrency:
-          $ref: '#/components/schemas/MoneyModel'
-      description: Export item amount.
-    ServicePeriodV2:
-      required:
-      - from
-      - to
-      type: object
-      properties:
-        from:
-          pattern: yyyy-MM-dd'T'HH:mm:ss'Z'
-          type: string
-          description: The start of the service period in ISO 8601 datetime format.
-          format: date-time
-          example: '2025-01-01T00:00:00Z'
-        to:
-          pattern: yyyy-MM-dd'T'HH:mm:ss'Z'
-          type: string
-          description: The end of the service period in ISO 8601 datetime format.
-          format: date-time
-          example: '2025-01-31T00:00:00Z'
-      description: The period during which a service was provided, goods were delivered, or an expense was incurred.
-      nullable: true
-    SupplierV2:
+      - accountingEntryLineId
+      - lineAmount
+      - netAmount
       type: object
       properties:
         account:
+          $ref: '#/components/schemas/AccountV2'
+        accountingEntryLineId:
           type: string
-          description: Supplier account code in the accounting system.
-          nullable: true
-        categoryCode:
+          description: This is the ID of the specific line.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        lineAmount:
+          $ref: '#/components/schemas/ExportItemAmount'
+        netAmount:
+          $ref: '#/components/schemas/ExportItemAmount'
+        tags:
+          type:
+          - array
+          - 'null'
+          description: Tags are cost centres allocated to an export item.
+          items:
+            $ref: '#/components/schemas/TagV2'
+        tax:
+          $ref: '#/components/schemas/TaxV2'
+      description: An accounting entry is represented with either a single line or multiple lines that explain the details. So, if the accounting entry is split into multiple lines, each line has a unique ID.
+    SupplierBankAccount:
+      required:
+      - bankName
+      - country
+      type:
+      - object
+      - 'null'
+      properties:
+        accountNumber:
+          type:
+          - string
+          - 'null'
+          description: Bank account number.
+        bankCode:
+          type:
+          - string
+          - 'null'
+          description: Bank code.
+        bankName:
           type: string
-          description: This is the category code that describes the merchant/supplier's activity.
-          nullable: true
-          example: '5999'
-        code:
-          type: string
-          description: Identifier of the supplier in the accounting system.
-          nullable: true
+          description: Name of the bank.
+        bic:
+          type:
+          - string
+          - 'null'
+          description: Branch information.
         country:
           maxLength: 2
           minLength: 2
           type: string
-          description: The 2-letter country code the merchant or supplier operates in.
-          nullable: true
+          description: Country the bank is located in. This is an ISO 3166-1 alpha-2 country code.
           example: DK
           enum:
           - UNDEFINED
@@ -1445,45 +1475,12 @@ components:
           - ZM
           - ZR
           - ZW
-        name:
-          type: string
-          description: Name of the supplier or merchant.
-          nullable: true
-          example: GOOGLE*ADS8693645259
-        taxIdentifier:
-          type: string
-          description: This is the tax identification of the supplier in their country of operation.
-          nullable: true
-      description: The supplier or merchant involved.
-      nullable: true
-    ExportItemAdditionalInformationV2:
-      required:
-      - reconciliationId
-      type: object
-      properties:
-        attendees:
-          type: array
-          description: Indicates attendance of participants at the time of the spend. For example, if an employee took clients to dinner, this attribute indicates who were present at the dinner.
-          nullable: true
-          items:
-            type: string
-            description: Indicates attendance of participants at the time of the spend. For example, if an employee took clients to dinner, this attribute indicates who were present at the dinner.
-            nullable: true
-        invoiceInformation:
-          $ref: '#/components/schemas/InvoiceInformationV2'
-        reconciledEntries:
-          uniqueItems: true
-          type: array
-          description: A list of reconciliation IDs for reimbursement expenses that are settled by this reimbursement. Only included for reimbursement transactions.
-          nullable: true
-          items:
-            type: string
-            description: A list of reconciliation IDs for reimbursement expenses that are settled by this reimbursement. Only included for reimbursement transactions.
-            nullable: true
-        reconciliationId:
-          type: string
-          description: This is an identifier used to reconcile between Pleo and the accounting system. Also known in Pleo as the book ID.
-      description: Additional information applicable to this accounting entry.
+        iban:
+          type:
+          - string
+          - 'null'
+          description: Unique international bank account number.
+      description: Bank account information of the supplier.
     MoneyModel:
       required:
       - currency
@@ -1690,47 +1687,98 @@ components:
           type: number
           description: Represents the amount in cents (amount/100). For example, 896.96 SEK is represented as 89696.
       description: The total amount paid or owed to the supplier/vendor, in the currency the supplier/vendor operates in.
-    TaxV2:
+    CursorPageInfo:
       required:
-      - amount
-      - id
-      - rate
-      - type
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
       type: object
       properties:
-        amount:
-          $ref: '#/components/schemas/ExportItemAmount'
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    TagV2:
+      required:
+      - code
+      - groupCode
+      - id
+      type:
+      - object
+      - 'null'
+      properties:
         code:
           type: string
-          description: Tax code.
-          nullable: true
+          description: This is the unique identifier of the tag allocated to the export item.
+        groupCode:
+          type: string
+          description: This is the unique identifier of the tag group (a tag group is a collection of tags).
         id:
           type: string
-          description: This is the Pleo internal identifier of the tax code.
+          description: This is the Pleo internal identifier of the tag.
           format: uuid
           example: 00000000-0000-0000-0000-000000000000
-        rate:
-          type: number
-          description: Tax rate. This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20.
-          example: 0.2
-        type:
+      description: Tags are cost centres allocated to an export item.
+    InvoiceInformationV2:
+      required:
+      - invoiceDate
+      - invoiceNumber
+      - status
+      type:
+      - object
+      - 'null'
+      properties:
+        dueDate:
+          pattern: YYYY-MM-DD
+          type:
+          - string
+          - 'null'
+          description: Date the payment is due.
+          format: date-time
+        invoiceDate:
+          pattern: YYYY-MM-DD
           type: string
-          description: Tax type.
+          description: Date the invoice was issued.
+          format: date-time
+        invoiceNumber:
+          type: string
+          description: The invoice number.
+        paymentDate:
+          pattern: YYYY-MM-DD
+          type:
+          - string
+          - 'null'
+          description: Date the invoice was paid if the status is paid.
+          format: date-time
+        status:
+          type: string
+          description: The invoice status.
           enum:
-          - inclusive
-          - exclusive
-          - reverse
-      description: Tax details applicable to this accounting entry line. The tax details would usually either have the code or the identifier or both.
-      nullable: true
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
+          - pending_approval
+          - parsed
+          - preparing
+          - prepared
+          - ready
+          - rejected_by_approver
+          - marked_as_paid
+          - scheduled
+          - payment_in_progress
+          - paid
+          - voided_by_user
+          - rejected_by_user
+          - failed_payment
+        supplierBankAccount:
+          $ref: '#/components/schemas/SupplierBankAccount'
+      description: For an invoice, additional information related to the invoice is specified in this attribute.
   securitySchemes:
     bearerAuth:
       type: http

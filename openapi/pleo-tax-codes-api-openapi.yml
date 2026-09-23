@@ -1,14 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries tax-codes API
-  description: API for Pleo App Marketplace
+  title: Gjoll Tax Codes API
+  description: Gjoll OpenAPI definitions
   termsOfService: https://pleo.io/terms/
   contact:
-    email: partner-ecosystem-team@pleo.io
+    email: team-accounting-core@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 82.3.2
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -18,13 +18,13 @@ security:
 - bearerAuth: []
 - basicAuth: []
 tags:
-- name: tax-codes
+- name: Tax Codes
   description: Tax Codes API
 paths:
   /v0/tax-codes:
     post:
       tags:
-      - tax-codes
+      - Tax Codes
       summary: Create a new tax code
       operationId: createTaxCode
       requestBody:
@@ -43,7 +43,7 @@ paths:
   /v0/tax-codes/{taxCodeId}:
     get:
       tags:
-      - tax-codes
+      - Tax Codes
       summary: Returns a given tax code
       operationId: getTaxCode
       parameters:
@@ -65,7 +65,7 @@ paths:
                 $ref: '#/components/schemas/DataResponseTaxCodeModel'
     put:
       tags:
-      - tax-codes
+      - Tax Codes
       summary: Update an tax code
       operationId: updateTaxCode
       parameters:
@@ -93,7 +93,7 @@ paths:
                 $ref: '#/components/schemas/DataResponseTaxCodeModel'
     delete:
       tags:
-      - tax-codes
+      - Tax Codes
       summary: Delete an tax code
       operationId: deleteTaxCode
       parameters:
@@ -114,8 +114,8 @@ paths:
   /v0/tax-codes:calculate-tax-amounts:
     post:
       tags:
-      - tax-codes
-      summary: Calculate gross, net, and tax amounts for a list of tax code ids and amounts.
+      - Tax Codes
+      summary: Calculate gross, net, and tax amounts for a list of tax code ids and amounts
       operationId: calculateTax
       requestBody:
         content:
@@ -133,7 +133,7 @@ paths:
   /v0/tax-codes:search:
     post:
       tags:
-      - tax-codes
+      - Tax Codes
       summary: Returns a list of tax codes
       operationId: getTaxCodes
       parameters:
@@ -214,158 +214,6 @@ paths:
                 $ref: '#/components/schemas/CursorPaginatedResponseTaxCodeModel'
 components:
   schemas:
-    Taxes:
-      required:
-      - amountTaxBreakdown
-      - id
-      type: object
-      properties:
-        amountTaxBreakdown:
-          $ref: '#/components/schemas/AmountTaxBreakdown'
-        id:
-          type: string
-    TaxCodeCreateUpdateModel:
-      required:
-      - archived
-      - companyId
-      - name
-      - rate
-      - type
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Boolean flag used to archive or unarchive a category (when set to true, account is not visible or usable on the platform)
-        code:
-          type: string
-          description: The accounting system's internal identifier of the tax code
-          nullable: true
-          example: '01'
-        companyId:
-          type: string
-          description: Company ID the tax code is being created/updated for
-          format: uuid
-        ingoingTaxAccount:
-          type: string
-          description: Ingoing tax account usually used to account for reverse VAT
-          nullable: true
-        name:
-          type: string
-          description: Name of the tax code
-          example: Standardmoms (25 %)
-        outgoingTaxAccount:
-          type: string
-          description: Outgoing tax account usually used to account for reverse VAT
-          nullable: true
-        rate:
-          type: number
-          description: Percentage rate applied for this tax code (This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20)
-        type:
-          $ref: '#/components/schemas/TaxCodeTypeModel'
-    DataResponseTaxCodeModel:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/TaxCodeModel'
-    TaxedAmount:
-      required:
-      - amount
-      - id
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/Money'
-        id:
-          type: string
-          description: An identifier to associate the amount to
-      description: The amounts to apply the tax code to
-    DataResponseCalculateTaxesResponse:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/CalculateTaxesResponse'
-    TaxCodeModel:
-      required:
-      - archived
-      - companyId
-      - createdAt
-      - id
-      - name
-      - rate
-      - type
-      - updatedAt
-      type: object
-      properties:
-        accountingIntegrationSystem:
-          type: string
-          description: Accounting integration system
-          nullable: true
-        archived:
-          type: boolean
-          description: Boolean flag used to archive or unarchive an account (when set to true, account is not visible or usable on the platform)
-        code:
-          type: string
-          description: The accounting system's internal identifier of the tax code
-          nullable: true
-          example: '01'
-        companyId:
-          type: string
-          description: The Pleo unique identifier of the company the tax code belongs to
-          format: uuid
-        createdAt:
-          pattern: YYYY-MM-DDTHH:mi:ssZ
-          type: string
-          description: Date and time the tax code was created
-          format: date-time
-        id:
-          type: string
-          description: The unique identifier generated by Pleo for the tax code
-          format: uuid
-        ingoingTaxAccount:
-          type: string
-          description: Ingoing tax account usually used to account for reverse VAT
-          nullable: true
-        name:
-          type: string
-          description: Name of the tax code
-          example: Standardmoms (25 %)
-        outgoingTaxAccount:
-          type: string
-          description: Outgoing tax account usually used to account for reverse VAT
-          nullable: true
-        rate:
-          type: number
-          description: Percentage rate applied for this tax code (This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20)
-        type:
-          $ref: '#/components/schemas/TaxCodeTypeModel'
-        updatedAt:
-          pattern: YYYY-MM-DDTHH:mi:ssZ
-          type: string
-          description: Date and time the tax code was last updated
-          format: date-time
-    TaxCodeSearchRequest:
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: If set to true will only return tax codes that have been archived, if set to false will only return tax codes that have not been archived. By default,both archived and non-archived tax codes will be returned.
-        code:
-          type: string
-          description: Filter by code.
-        taxCodeIds:
-          uniqueItems: true
-          type: array
-          description: Useful for fetching a list of tax codes given a specific list of IDs.
-          items:
-            type: string
-            description: Useful for fetching a list of tax codes given a specific list of IDs.
-            format: uuid
-        type:
-          $ref: '#/components/schemas/TaxCodeTypeModel'
     AmountTaxBreakdown:
       required:
       - gross
@@ -380,45 +228,29 @@ components:
         tax:
           $ref: '#/components/schemas/Money'
       description: Tax breakdown for the eMoneyAccountValue of the core accounting entry.
-    CursorPageInfo:
+    TaxedAmount:
       required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
+      - amount
+      - id
       type: object
       properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
+        amount:
+          $ref: '#/components/schemas/Money'
+        id:
           type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    TaxCodeTypeModel:
-      type: string
-      description: Classification of this tax code. Exclusive tax codes are not currently supported.
-      enum:
-      - inclusive
-      - exclusive
-      - reverse
-    CursorPaginatedResponseTaxCodeModel:
+          description: An identifier to associate the amount to
+      description: The amounts to apply the tax code to
+    CalculateTaxesResponse:
       required:
-      - data
-      - pagination
+      - taxes
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxCodeModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
+        taxes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Taxes'
     Money:
       required:
       - currency
@@ -448,17 +280,201 @@ components:
               $ref: '#/components/schemas/TaxedAmount'
           description: The amounts to apply the tax code to
       description: Tax code IDs and a list of id + amount pairs to calculate tax for
-    CalculateTaxesResponse:
+    CursorPageInfo:
       required:
-      - taxes
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
       type: object
       properties:
-        taxes:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/Taxes'
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    TaxCodeSearchRequest:
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: If set to true will only return tax codes that have been archived, if set to false will only return tax codes that have not been archived. By default,both archived and non-archived tax codes will be returned.
+        code:
+          type: string
+          description: Filter by code.
+        taxCodeIds:
+          uniqueItems: true
+          type: array
+          description: Useful for fetching a list of tax codes given a specific list of IDs.
+          items:
+            type: string
+            description: Useful for fetching a list of tax codes given a specific list of IDs.
+            format: uuid
+        type:
+          $ref: '#/components/schemas/TaxCodeTypeModel'
+    DataResponseTaxCodeModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TaxCodeModel'
+    Taxes:
+      required:
+      - amountTaxBreakdown
+      - id
+      type: object
+      properties:
+        amountTaxBreakdown:
+          $ref: '#/components/schemas/AmountTaxBreakdown'
+        id:
+          type: string
+    DataResponseCalculateTaxesResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CalculateTaxesResponse'
+    CursorPaginatedResponseTaxCodeModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxCodeModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+    TaxCodeTypeModel:
+      type: string
+      description: Classification of this tax code. Exclusive tax codes are not currently supported.
+      enum:
+      - inclusive
+      - exclusive
+      - reverse
+    TaxCodeModel:
+      required:
+      - archived
+      - companyId
+      - createdAt
+      - id
+      - name
+      - rate
+      - type
+      - updatedAt
+      type: object
+      properties:
+        accountingIntegrationSystem:
+          type:
+          - string
+          - 'null'
+          description: Accounting integration system
+        archived:
+          type: boolean
+          description: Boolean flag used to archive or unarchive an account (when set to true, account is not visible or usable on the platform)
+        code:
+          type:
+          - string
+          - 'null'
+          description: The accounting system's internal identifier of the tax code
+          example: '01'
+        companyId:
+          type: string
+          description: The Pleo unique identifier of the company the tax code belongs to
+          format: uuid
+        createdAt:
+          pattern: YYYY-MM-DDTHH:mi:ssZ
+          type: string
+          description: Date and time the tax code was created
+          format: date-time
+        id:
+          type: string
+          description: The unique identifier generated by Pleo for the tax code
+          format: uuid
+        ingoingTaxAccount:
+          type:
+          - string
+          - 'null'
+          description: Ingoing tax account usually used to account for reverse VAT
+        name:
+          type: string
+          description: Name of the tax code
+          example: Standardmoms (25 %)
+        outgoingTaxAccount:
+          type:
+          - string
+          - 'null'
+          description: Outgoing tax account usually used to account for reverse VAT
+        rate:
+          type: number
+          description: Percentage rate applied for this tax code (This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20)
+        type:
+          $ref: '#/components/schemas/TaxCodeTypeModel'
+        updatedAt:
+          pattern: YYYY-MM-DDTHH:mi:ssZ
+          type: string
+          description: Date and time the tax code was last updated
+          format: date-time
+    TaxCodeCreateUpdateModel:
+      required:
+      - archived
+      - companyId
+      - name
+      - rate
+      - type
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to archive or unarchive a category (when set to true, account is not visible or usable on the platform)
+        code:
+          type:
+          - string
+          - 'null'
+          description: The accounting system's internal identifier of the tax code
+          example: '01'
+        companyId:
+          type: string
+          description: Company ID the tax code is being created/updated for
+          format: uuid
+        ingoingTaxAccount:
+          type:
+          - string
+          - 'null'
+          description: Ingoing tax account usually used to account for reverse VAT
+        name:
+          type: string
+          description: Name of the tax code
+          example: Standardmoms (25 %)
+        outgoingTaxAccount:
+          type:
+          - string
+          - 'null'
+          description: Outgoing tax account usually used to account for reverse VAT
+        rate:
+          type: number
+          description: Percentage rate applied for this tax code (This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20)
+        type:
+          $ref: '#/components/schemas/TaxCodeTypeModel'
     CursorPageCurrentRequestInfo:
       required:
       - parameters
@@ -488,15 +504,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PageOrder'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
   securitySchemes:
     bearerAuth:
       type: http

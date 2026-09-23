@@ -1,14 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries Employees API
-  description: API for Pleo App Marketplace
+  title: Oberon Employees API
+  description: Oberon open api definitions
   termsOfService: https://pleo.io/terms/
   contact:
-    email: partner-ecosystem-team@pleo.io
+    email: apiteam@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 50.7.0
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -19,7 +19,15 @@ security:
 - basicAuth: []
 tags:
 - name: Employees
-  description: "The Employees API enables you to search for employee records that\nare managed in Pleo. You can perform the following: \n - Search for multiple\nemployees \n - Search for a specific employee record by employee ID"
+  description: 'The Employees API enables you to search for employee records that
+
+    are managed in Pleo. You can perform the following:
+
+    - Search for multiple
+
+    employees
+
+    - Search for a specific employee record by employee ID'
 paths:
   /v2/employees:
     get:
@@ -161,26 +169,13 @@ components:
             $ref: '#/components/schemas/ExternalEmployeeResponseModel'
         pagination:
           $ref: '#/components/schemas/CursorPageInfo'
-    CursorPageInfo:
+    DataResponseExternalEmployeeResponseModel:
       required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
+      - data
       type: object
       properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
+        data:
+          $ref: '#/components/schemas/ExternalEmployeeResponseModel'
     ExternalEmployeeResponseModel:
       required:
       - companyId
@@ -216,13 +211,35 @@ components:
         phone:
           type: string
           description: Phone number of the Employee
-    DataResponseExternalEmployeeResponseModel:
+    CursorPageInfo:
       required:
-      - data
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/ExternalEmployeeResponseModel'
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     CursorPageCurrentRequestInfo:
       required:
       - parameters
@@ -252,15 +269,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PageOrder'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
   securitySchemes:
     bearerAuth:
       type: http

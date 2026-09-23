@@ -1,14 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries accounting-entries-external API
-  description: API for Pleo App Marketplace
+  title: Gjoll Accounting Entries External API
+  description: Gjoll OpenAPI definitions
   termsOfService: https://pleo.io/terms/
   contact:
-    email: partner-ecosystem-team@pleo.io
+    email: team-accounting-core@pleo.io
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  version: 82.3.2
 servers:
 - url: https://external.pleo.io
   description: Production server
@@ -24,7 +24,7 @@ paths:
     post:
       tags:
       - accounting-entries-external
-      summary: 'Fetch core accounting entries based on filters. '
+      summary: Fetch core accounting entries based on filters
       operationId: externalSearchCoreAccountingEntriesV1
       parameters:
       - name: company_id
@@ -110,7 +110,7 @@ paths:
     post:
       tags:
       - accounting-entries-external
-      summary: 'Fetch accounting entries based on filters. '
+      summary: Fetch accounting entries based on filters
       operationId: externalSearchAccountingEntriesV1
       parameters:
       - name: company_id
@@ -199,7 +199,7 @@ paths:
     get:
       tags:
       - accounting-entries-external
-      summary: 'Fetch a single accounting entry by id. '
+      summary: Fetch a single accounting entry by id
       operationId: externalGetAccountingEntryV1
       parameters:
       - name: accountingEntryId
@@ -500,6 +500,78 @@ components:
           type: string
           description: Specifies the date and time when details of the specific accounting entry is modified.
           format: date-time
+    AccountingEntrySubFamily:
+      type: string
+      description: '`ATM`: A `CARD_PURCHASE` that was performed at an ATM.
+
+        `IN_STORE`: A `CARD_PURCHASE` that was performed at a physical store.
+
+        `ONLINE`: A `CARD_PURCHASE` that was performed online.
+
+        `PLEO_INVOICE`: A `PLEO_INVOICE` that was paid.
+
+        `PLEO_INVOICE_REFUND`: A `PLEO_INVOICE` that was refunded.
+
+        `REIMBURSEMENT_TO_COMPANY`: A `REIMBURSEMENT` was made to the company.
+
+        `REIMBURSEMENT_TO_EMPLOYEE`: A `REIMBURSEMENT` was made to the employee.
+
+        `REIMBURSEMENT_TO_EMPLOYEE_REFUND`: A `REIMBURSEMENT` to the employee was refunded.
+
+        `LOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` load.
+
+        `UNLOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` unload - Money leaves the Pleo wallet.
+
+        `WITHDRAWAL`: A `WALLET` withdrawal.
+
+        `FEE`: A monthly fee paid for using overdraft.
+
+        `INTEREST`: Interest paid for the amount over drafted.
+
+        `BILL_INVOICE_PAYMENT_RETURNED`: A `BILL_INVOICE_PAYMENT` that was returned.
+
+        `BILL_INVOICE_PAYMENT_RECEIVED`: A `BILL_INVOICE_PAYMENT` that was received.
+
+        '
+      enum:
+      - ATM
+      - IN_STORE
+      - ONLINE
+      - PLEO_INVOICE
+      - PLEO_INVOICE_REFUND
+      - REIMBURSEMENT_TO_COMPANY
+      - REIMBURSEMENT_TO_EMPLOYEE
+      - REIMBURSEMENT_TO_EMPLOYEE_REFUND
+      - LOAD
+      - UNLOAD
+      - WITHDRAWAL
+      - FEE
+      - INTEREST
+      - BILL_INVOICE_PAYMENT_RETURNED
+      - BILL_INVOICE_PAYMENT_RECEIVED
+    DataResponseAccountingEntryV1:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/AccountingEntryV1'
+    AccountingEntriesSortingKeys:
+      type: string
+      enum:
+      - settledAt
+      - performedAt
+      - id
+      - bookkeepingDate
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     CursorPaginatedResponseAccountingEntryV1:
       required:
       - data
@@ -512,6 +584,377 @@ components:
             $ref: '#/components/schemas/AccountingEntryV1'
         pagination:
           $ref: '#/components/schemas/CursorPageInfo'
+    SplitItemV1:
+      required:
+      - createdAt
+      - id
+      - tags
+      - updatedAt
+      type: object
+      properties:
+        accountCode:
+          type: string
+          description: 'The account code picked for the specific split item. If this is not null, it should be used instead of the account code from the `accountId` field. '
+        accountId:
+          type: string
+          description: 'The id of the account (Category) allocated to the transaction. If `I don''t know` is selected, then in the API endpoint response, `"00000000-0000-0000-0000-000000000000"` is returned. '
+          format: uuid
+        createdAt:
+          type: string
+          description: The time when the split item was created. This is in ISO 8601 format. For example, `2024-01-01T12:00:00Z`.
+          format: date-time
+        id:
+          type: string
+          description: Unique identifier of the split item
+          format: uuid
+        tags:
+          type: array
+          description: A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.
+          items:
+            description: A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.
+            allOf:
+            - $ref: '#/components/schemas/AccountingEntryTagV1'
+        taxCodeId:
+          type: string
+          description: A unique identifier that references the specific `TaxCode` applied to the specific split item.
+          format: uuid
+        totalBillValue:
+          description: The portion of the transaction amount assigned to this split item, represented as a `Money` object in the company's default currency.
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        transactionValue:
+          description: The transaction amount in the currency in which the payment was made, represented as a `Money` object. For example, if an expense is incurred in France, the value is returned in EUR.
+          allOf:
+          - $ref: '#/components/schemas/Money'
+        updatedAt:
+          type: string
+          description: The time when the split item was last updated. This is in ISO 8601 format. For example, `2024-01-01T12:00:00Z`.
+          format: date-time
+      description: A list of `SplitItemV1` objects associated with the accounting entry. The list is empty when the entry has not been split. When the entry is split, the list contains the resulting split items.
+    AttendeeV1:
+      required:
+      - attendableId
+      - attendableType
+      - id
+      type: object
+      properties:
+        attendableId:
+          type: string
+        attendableType:
+          type: string
+          description: This can be one of `AccountingEntryAttendeeType` values.
+          example: CONTACT
+        id:
+          type: string
+      description: A list of attendee objects associated with the accounting entry. For example, in the case of a business meal expense, attendees would be the people who attended the meal. Each attendee is represented as an `AttendeeV1` object containing identifying information for either an employee or a contact.
+    AccountingEntryBaseSearchRequest:
+      required:
+      - includeDeleted
+      type: object
+      properties:
+        accountIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries that match with the given account IDs.
+          items:
+            type: string
+            format: uuid
+        bookkeepingDateEnd:
+          type: string
+          description: Return accounting entries that have been recorded prior to the specific bookkeeping date. This value cannot be used with other date search criteria.
+          format: date-time
+        bookkeepingDateStart:
+          type: string
+          description: Return accounting entries that have been recorded after the specific bookkeeping date. This value cannot be used with any other date search criteria.
+          format: date-time
+        employeeIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries that match with the specific Employee ID.
+          items:
+            type: string
+            format: uuid
+        exportStatus:
+          type: array
+          description: 'Only return accounting entries that match with the specific export status. '
+          items:
+            $ref: '#/components/schemas/ExportStatus'
+        families:
+          type: array
+          description: Only return accounting entries that belong to the specific accounting entry families
+          items:
+            $ref: '#/components/schemas/AccountingEntryFamily'
+        foreignExtensionIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries with the given `foreignExtensionId`. This is an auto-generated ID that populates when the Accounting Entries API endpoints interact with other Pleo APIs.'
+          items:
+            type: string
+        hasAccount:
+          type: boolean
+          description: Only return accounting entries with an Account ID assigned
+        hasBookkeepingDate:
+          type: boolean
+          description: Only return Accounting Entries that have bookkeeping date set
+        hasNote:
+          type: boolean
+          description: Return accounting entries that have a note
+        includeDeleted:
+          type: boolean
+          description: Include deleted accounting entries
+          default: false
+        performedAtEnd:
+          type: string
+          description: Only return accounting entries performed before this date. Cannot be used with any other date filters
+          format: date-time
+        performedAtStart:
+          type: string
+          description: Only return accounting entries performed after this date. Cannot be used with any other date filters
+          format: date-time
+        reviewStatus:
+          type: array
+          description: 'Only return accounting entries that match with the specific review status. '
+          items:
+            $ref: '#/components/schemas/ReviewStatus'
+        settled:
+          type: boolean
+          description: Only return accounting entries that have a settled status.
+        settledAtEnd:
+          type: string
+          description: Only return accounting entries settled before this date. Cannot be used with any other date filters
+          format: date-time
+        settledAtStart:
+          type: string
+          description: Only return accounting entries settled after this date. Cannot be used with any other date filters
+          format: date-time
+        status:
+          type: array
+          description: Only return accounting entries that match with the specific accounting entry status.
+          items:
+            $ref: '#/components/schemas/AccountingEntryStatus'
+        subFamilies:
+          type: array
+          description: Only return accounting entries that belong to the specific sub family.
+          items:
+            $ref: '#/components/schemas/AccountingEntrySubFamily'
+        tagGroupIdsUnset:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries where the given Tag Group IDs do not have a tag value set.
+          items:
+            type: string
+            format: uuid
+        tagRowIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries with the given Tag ID.
+          items:
+            type: string
+            format: uuid
+        taxCodeIds:
+          maxItems: 100
+          minItems: 0
+          uniqueItems: true
+          type: array
+          description: Only return accounting entries that match with the specific tax code IDs
+          items:
+            type: string
+            format: uuid
+        teamIds:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries with the given Team ID. The Team ID is not the one allocated to an employee, It is allocated to a team of a company. For example, an accounting entry contains the team ID of Design team as the specific entry is associated with the Design team
+          items:
+            type: string
+            format: uuid
+        transactionValueCurrencies:
+          maxItems: 100
+          minItems: 0
+          type: array
+          description: Only return accounting entries with the given transaction currency codes (ISO 4217). Filters on the original transaction currency of the expense.
+          items:
+            type: string
+    AccountingEntrySupplier:
+      type: object
+      properties:
+        cif:
+          type: string
+        documentNumber:
+          type: string
+        documentType:
+          type: string
+          description: This can be one of `SupplierDocumentType` values.
+          example: FACTURA
+        externalAccountNumber:
+          type: string
+        externalSupplierId:
+          type: string
+    CursorPaginatedResponseAccountingEntryCoreV6:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountingEntryCoreV6'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    AccountingEntryFamily:
+      type: string
+      description: '`BALANCE_AMENDMENT`: Represents manual wallet balance adjustments, often through human intervention.
+
+        `BILL_INVOICE`: Represents an invoice issued to the company. If payment of the invoice is made via Pleo, the payment is recorded separately, using the `BILL_INVOICE_PAYMENT` family.
+
+        `CARD_PURCHASE`: Represents a purchase made using a physical or virtual Pleo card.
+
+        `CASHBACK`: An amount of money that is returned to the company through Pleo cashback.
+
+        `CREDIT_NOTE`: Represents a credit note issued to the company, stored only in the accounting entry metadata table.
+
+        `MILEAGE`: Represents a Mileage expense incurred by an employee. The amount is owed to the employee.
+
+        `OUT_OF_POCKET`: Represents an amount that is spent by an employee out of their own pocket. The amount is owed to the employee.
+
+        `OVERDRAFT`: Represents either the monthly subscription fee for using Pleo Overdraft, or a the interest incurred on an existing overdraft.
+
+        `PER_DIEM`: Represents a daily allowance given to an employee during travel - the amount is owed to the employee.
+
+        `PLEO_INVOICE`: Represents the SaaS invoice from Pleo to the company.
+
+        `REIMBURSEMENT`: Represents a reimbursement from the company to the employee or vice-versa.
+
+        `WALLET`: Represents a top up or withdrawal on the Pleo wallet
+
+        `BILL_INVOICE_PAYMENT`: Represents a payment of an invoice from the company wallet.
+
+        '
+      enum:
+      - BALANCE_AMENDMENT
+      - BILL_INVOICE
+      - CARD_PURCHASE
+      - CASHBACK
+      - CREDIT_NOTE
+      - MILEAGE
+      - OUT_OF_POCKET
+      - OVERDRAFT
+      - PER_DIEM
+      - PLEO_INVOICE
+      - REIMBURSEMENT
+      - WALLET
+      - BILL_INVOICE_PAYMENT
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    AccountingEntryTagV1:
+      required:
+      - tagGroupId
+      type: object
+      properties:
+        tagGroupId:
+          type: string
+          description: The unique identifier of the tag group to which the tag belongs.
+          format: uuid
+        tagId:
+          type: string
+          description: 'The unique identifier of the tag. If `I don''t know` is selected, then in the API endpoint response, `"00000000-0000-0000-0000-000000000000"` is returned. '
+          format: uuid
+      description: A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.
+    ReviewStatus:
+      type: string
+      description: '`NOT_OK`: The accounting entry has been reviewed as `Not OK`.
+
+        `NOT_REQUIRED`: The accounting entry does not require review.
+
+        `NOT_SET`: The accounting entry has not been reviewed yet.
+
+        `OK`: The accounting entry has been reviewed as `OK`.
+
+        `WAITING_FOR_EXPENSE_OWNER`: The accounting entry is waiting for more details from the Expense Owner.
+
+        `WAITING_FOR_REVIEWER`: The accounting entry is waiting for review by a reviewer.
+
+        `WAITING_FOR_COMPANY_REVIEWER`: The accounting entry is waiting for review by a company reviewer.
+
+        `WAITING_FOR_TEAM_REVIEWER`: The accounting entry is waiting for review by a team reviewer.
+
+        `WAITING_FOR_TAG_REVIEWER`: The accounting entry is waiting for review by a tag reviewer.
+
+        '
+      enum:
+      - NOT_OK
+      - NOT_REQUIRED
+      - NOT_SET
+      - OK
+      - WAITING_FOR_EXPENSE_OWNER
+      - WAITING_FOR_REVIEWER
+      - WAITING_FOR_COMPANY_REVIEWER
+      - WAITING_FOR_TEAM_REVIEWER
+      - WAITING_FOR_TAG_REVIEWER
+    AccountingEntryStatus:
+      type: string
+      description: "`DRAFT`: The accounting entry is still in a work-in-progress stage; the details might change.\n`PENDING`: Payment is in progress. The transaction amount in the specific currency is final, yet the funds have not\n  yet been settled.> ⚠️ **Note**: The customer can no longer cancel this expense.\n> amount/currency is fixed, funds have been reserved but not yet settled,\n> and expense can no longer be canceled by user\n`COMPLETED`: The transaction is complete, implying the funds have been settled for the final bill amount.\n`COMPLETED_EXTERNALLY`: Payment has completed *outside of Pleo*. Hence, it does not impact the Pleo wallet\n`CANCELLED`: Canceled by user, Pleo, or an external party\n`REJECTED`: Rejected by user, Pleo or an external party\n`ERROR`: An error prevented the accounting entry from being settled\n"
+      enum:
+      - DRAFT
+      - PENDING
+      - COMPLETED
+      - COMPLETED_EXTERNALLY
+      - CANCELLED
+      - REJECTED
+      - ERROR
     AccountingEntryV1:
       required:
       - attendees
@@ -740,22 +1183,6 @@ components:
           type: string
           description: Specifies the date and time when details of the specific accounting entry is modified.
           format: date-time
-    AttendeeV1:
-      required:
-      - attendableId
-      - attendableType
-      - id
-      type: object
-      properties:
-        attendableId:
-          type: string
-        attendableType:
-          type: string
-          description: This can be one of `AccountingEntryAttendeeType` values.
-          example: CONTACT
-        id:
-          type: string
-      description: A list of attendee objects associated with the accounting entry. For example, in the case of a business meal expense, attendees would be the people who attended the meal. Each attendee is represented as an `AttendeeV1` object containing identifying information for either an employee or a contact.
     Money:
       required:
       - currency
@@ -771,433 +1198,6 @@ components:
           description: "The transaction amount is represented in smallest denomination in a specific currency.\n For example:\n- A transaction amount is £65.80 in Great Britain Pounds (GBP); this represented as `6580`.\n- A transaction amount is 1500 ISK in Icelandic Króna (ISK); this is represented as `1500`."
           format: int64
           example: 10
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
-    AccountingEntrySubFamily:
-      type: string
-      description: '`ATM`: A `CARD_PURCHASE` that was performed at an ATM.
-
-        `IN_STORE`: A `CARD_PURCHASE` that was performed at a physical store.
-
-        `ONLINE`: A `CARD_PURCHASE` that was performed online.
-
-        `PLEO_INVOICE`: A `PLEO_INVOICE` that was paid.
-
-        `PLEO_INVOICE_REFUND`: A `PLEO_INVOICE` that was refunded.
-
-        `REIMBURSEMENT_TO_COMPANY`: A `REIMBURSEMENT` was made to the company.
-
-        `REIMBURSEMENT_TO_EMPLOYEE`: A `REIMBURSEMENT` was made to the employee.
-
-        `REIMBURSEMENT_TO_EMPLOYEE_REFUND`: A `REIMBURSEMENT` to the employee was refunded.
-
-        `LOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` load.
-
-        `UNLOAD`: Either a `WALLET` or a BALANCE_AMENDMENT` unload - Money leaves the Pleo wallet.
-
-        `WITHDRAWAL`: A `WALLET` withdrawal.
-
-        `FEE`: A monthly fee paid for using overdraft.
-
-        `INTEREST`: Interest paid for the amount over drafted.
-
-        `BILL_INVOICE_PAYMENT_RETURNED`: A `BILL_INVOICE_PAYMENT` that was returned.
-
-        `BILL_INVOICE_PAYMENT_RECEIVED`: A `BILL_INVOICE_PAYMENT` that was received.
-
-        '
-      enum:
-      - ATM
-      - IN_STORE
-      - ONLINE
-      - PLEO_INVOICE
-      - PLEO_INVOICE_REFUND
-      - REIMBURSEMENT_TO_COMPANY
-      - REIMBURSEMENT_TO_EMPLOYEE
-      - REIMBURSEMENT_TO_EMPLOYEE_REFUND
-      - LOAD
-      - UNLOAD
-      - WITHDRAWAL
-      - FEE
-      - INTEREST
-      - BILL_INVOICE_PAYMENT_RETURNED
-      - BILL_INVOICE_PAYMENT_RECEIVED
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    ReviewStatus:
-      type: string
-      description: '`NOT_OK`: The accounting entry has been reviewed as `Not OK`.
-
-        `NOT_REQUIRED`: The accounting entry does not require review.
-
-        `NOT_SET`: The accounting entry has not been reviewed yet.
-
-        `OK`: The accounting entry has been reviewed as `OK`.
-
-        `WAITING_FOR_EXPENSE_OWNER`: The accounting entry is waiting for more details from the Expense Owner.
-
-        `WAITING_FOR_REVIEWER`: The accounting entry is waiting for review by a reviewer.
-
-        `WAITING_FOR_COMPANY_REVIEWER`: The accounting entry is waiting for review by a company reviewer.
-
-        `WAITING_FOR_TEAM_REVIEWER`: The accounting entry is waiting for review by a team reviewer.
-
-        `WAITING_FOR_TAG_REVIEWER`: The accounting entry is waiting for review by a tag reviewer.
-
-        '
-      enum:
-      - NOT_OK
-      - NOT_REQUIRED
-      - NOT_SET
-      - OK
-      - WAITING_FOR_EXPENSE_OWNER
-      - WAITING_FOR_REVIEWER
-      - WAITING_FOR_COMPANY_REVIEWER
-      - WAITING_FOR_TEAM_REVIEWER
-      - WAITING_FOR_TAG_REVIEWER
-    AccountingEntryFamily:
-      type: string
-      description: '`BALANCE_AMENDMENT`: Represents manual wallet balance adjustments, often through human intervention.
-
-        `BILL_INVOICE`: Represents an invoice issued to the company. If payment of the invoice is made via Pleo, the payment is recorded separately, using the `BILL_INVOICE_PAYMENT` family.
-
-        `CARD_PURCHASE`: Represents a purchase made using a physical or virtual Pleo card.
-
-        `CASHBACK`: An amount of money that is returned to the company through Pleo cashback.
-
-        `CREDIT_NOTE`: Represents a credit note issued to the company, stored only in the accounting entry metadata table.
-
-        `MILEAGE`: Represents a Mileage expense incurred by an employee. The amount is owed to the employee.
-
-        `OUT_OF_POCKET`: Represents an amount that is spent by an employee out of their own pocket. The amount is owed to the employee.
-
-        `OVERDRAFT`: Represents either the monthly subscription fee for using Pleo Overdraft, or a the interest incurred on an existing overdraft.
-
-        `PER_DIEM`: Represents a daily allowance given to an employee during travel - the amount is owed to the employee.
-
-        `PLEO_INVOICE`: Represents the SaaS invoice from Pleo to the company.
-
-        `REIMBURSEMENT`: Represents a reimbursement from the company to the employee or vice-versa.
-
-        `WALLET`: Represents a top up or withdrawal on the Pleo wallet
-
-        `BILL_INVOICE_PAYMENT`: Represents a payment of an invoice from the company wallet.
-
-        '
-      enum:
-      - BALANCE_AMENDMENT
-      - BILL_INVOICE
-      - CARD_PURCHASE
-      - CASHBACK
-      - CREDIT_NOTE
-      - MILEAGE
-      - OUT_OF_POCKET
-      - OVERDRAFT
-      - PER_DIEM
-      - PLEO_INVOICE
-      - REIMBURSEMENT
-      - WALLET
-      - BILL_INVOICE_PAYMENT
-    AccountingEntryBaseSearchRequest:
-      required:
-      - includeDeleted
-      type: object
-      properties:
-        accountIds:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return accounting entries that match with the given account IDs.
-          items:
-            type: string
-            format: uuid
-        bookkeepingDateEnd:
-          type: string
-          description: Return accounting entries that have been recorded prior to the specific bookkeeping date. This value cannot be used with other date search criteria.
-          format: date-time
-        bookkeepingDateStart:
-          type: string
-          description: Return accounting entries that have been recorded after the specific bookkeeping date. This value cannot be used with any other date search criteria.
-          format: date-time
-        employeeIds:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return accounting entries that match with the specific Employee ID.
-          items:
-            type: string
-            format: uuid
-        exportStatus:
-          type: array
-          description: 'Only return accounting entries that match with the specific export status. '
-          items:
-            $ref: '#/components/schemas/ExportStatus'
-        families:
-          type: array
-          description: Only return accounting entries that belong to the specific accounting entry families
-          items:
-            $ref: '#/components/schemas/AccountingEntryFamily'
-        foreignExtensionIds:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return accounting entries with the given `foreignExtensionId`. This is an auto-generated ID that populates when the Accounting Entries API endpoints interact with other Pleo APIs.'
-          items:
-            type: string
-        hasAccount:
-          type: boolean
-          description: Only return accounting entries with an Account ID assigned
-        hasBookkeepingDate:
-          type: boolean
-          description: Only return Accounting Entries that have bookkeeping date set
-        hasNote:
-          type: boolean
-          description: Return accounting entries that have a note
-        includeDeleted:
-          type: boolean
-          description: Include deleted accounting entries
-          default: false
-        performedAtEnd:
-          type: string
-          description: Only return accounting entries performed before this date. Cannot be used with any other date filters
-          format: date-time
-        performedAtStart:
-          type: string
-          description: Only return accounting entries performed after this date. Cannot be used with any other date filters
-          format: date-time
-        reviewStatus:
-          type: array
-          description: 'Only return accounting entries that match with the specific review status. '
-          items:
-            $ref: '#/components/schemas/ReviewStatus'
-        settled:
-          type: boolean
-          description: Only return accounting entries that have a settled status.
-        settledAtEnd:
-          type: string
-          description: Only return accounting entries settled before this date. Cannot be used with any other date filters
-          format: date-time
-        settledAtStart:
-          type: string
-          description: Only return accounting entries settled after this date. Cannot be used with any other date filters
-          format: date-time
-        status:
-          type: array
-          description: Only return accounting entries that match with the specific accounting entry status.
-          items:
-            $ref: '#/components/schemas/AccountingEntryStatus'
-        subFamilies:
-          type: array
-          description: Only return accounting entries that belong to the specific sub family.
-          items:
-            $ref: '#/components/schemas/AccountingEntrySubFamily'
-        tagGroupIdsUnset:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return accounting entries where the given Tag Group IDs do not have a tag value set.
-          items:
-            type: string
-            format: uuid
-        tagRowIds:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return accounting entries with the given Tag ID.
-          items:
-            type: string
-            format: uuid
-        taxCodeIds:
-          maxItems: 100
-          minItems: 0
-          uniqueItems: true
-          type: array
-          description: Only return accounting entries that match with the specific tax code IDs
-          items:
-            type: string
-            format: uuid
-        teamIds:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return accounting entries with the given Team ID. The Team ID is not the one allocated to an employee, It is allocated to a team of a company. For example, an accounting entry contains the team ID of Design team as the specific entry is associated with the Design team
-          items:
-            type: string
-            format: uuid
-        transactionValueCurrencies:
-          maxItems: 100
-          minItems: 0
-          type: array
-          description: Only return accounting entries with the given transaction currency codes (ISO 4217). Filters on the original transaction currency of the expense.
-          items:
-            type: string
-    AccountingEntrySupplier:
-      type: object
-      properties:
-        cif:
-          type: string
-        documentNumber:
-          type: string
-        documentType:
-          type: string
-          description: This can be one of `SupplierDocumentType` values.
-          example: FACTURA
-        externalAccountNumber:
-          type: string
-        externalSupplierId:
-          type: string
-    AccountingEntryTagV1:
-      required:
-      - tagGroupId
-      type: object
-      properties:
-        tagGroupId:
-          type: string
-          description: The unique identifier of the tag group to which the tag belongs.
-          format: uuid
-        tagId:
-          type: string
-          description: 'The unique identifier of the tag. If `I don''t know` is selected, then in the API endpoint response, `"00000000-0000-0000-0000-000000000000"` is returned. '
-          format: uuid
-      description: A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.
-    AccountingEntryStatus:
-      type: string
-      description: "`DRAFT`: The accounting entry is still in a work-in-progress stage; the details might change.\n`PENDING`: Payment is in progress. The transaction amount in the specific currency is final, yet the funds have not\n  yet been settled.> ⚠️ **Note**: The customer can no longer cancel this expense.\n> amount/currency is fixed, funds have been reserved but not yet settled,\n> and expense can no longer be canceled by user\n`COMPLETED`: The transaction is complete, implying the funds have been settled for the final bill amount.\n`COMPLETED_EXTERNALLY`: Payment has completed *outside of Pleo*. Hence, it does not impact the Pleo wallet\n`CANCELLED`: Canceled by user, Pleo, or an external party\n`REJECTED`: Rejected by user, Pleo or an external party\n`ERROR`: An error prevented the accounting entry from being settled\n"
-      enum:
-      - DRAFT
-      - PENDING
-      - COMPLETED
-      - COMPLETED_EXTERNALLY
-      - CANCELLED
-      - REJECTED
-      - ERROR
-    SplitItemV1:
-      required:
-      - createdAt
-      - id
-      - tags
-      - updatedAt
-      type: object
-      properties:
-        accountCode:
-          type: string
-          description: 'The account code picked for the specific split item. If this is not null, it should be used instead of the account code from the `accountId` field. '
-        accountId:
-          type: string
-          description: 'The id of the account (Category) allocated to the transaction. If `I don''t know` is selected, then in the API endpoint response, `"00000000-0000-0000-0000-000000000000"` is returned. '
-          format: uuid
-        createdAt:
-          type: string
-          description: The time when the split item was created. This is in ISO 8601 format. For example, `2024-01-01T12:00:00Z`.
-          format: date-time
-        id:
-          type: string
-          description: Unique identifier of the split item
-          format: uuid
-        tags:
-          type: array
-          description: A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.
-          items:
-            description: A list of `AccountingEntryTagV1` objects representing the tags associated with the split item.
-            allOf:
-            - $ref: '#/components/schemas/AccountingEntryTagV1'
-        taxCodeId:
-          type: string
-          description: A unique identifier that references the specific `TaxCode` applied to the specific split item.
-          format: uuid
-        totalBillValue:
-          description: The portion of the transaction amount assigned to this split item, represented as a `Money` object in the company's default currency.
-          allOf:
-          - $ref: '#/components/schemas/Money'
-        transactionValue:
-          description: The transaction amount in the currency in which the payment was made, represented as a `Money` object. For example, if an expense is incurred in France, the value is returned in EUR.
-          allOf:
-          - $ref: '#/components/schemas/Money'
-        updatedAt:
-          type: string
-          description: The time when the split item was last updated. This is in ISO 8601 format. For example, `2024-01-01T12:00:00Z`.
-          format: date-time
-      description: A list of `SplitItemV1` objects associated with the accounting entry. The list is empty when the entry has not been split. When the entry is split, the list contains the resulting split items.
-    DataResponseAccountingEntryV1:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/AccountingEntryV1'
-    AccountingEntriesSortingKeys:
-      type: string
-      enum:
-      - settledAt
-      - performedAt
-      - id
-      - bookkeepingDate
-    CursorPaginatedResponseAccountingEntryCoreV6:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountingEntryCoreV6'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
   securitySchemes:
     bearerAuth:
       type: http

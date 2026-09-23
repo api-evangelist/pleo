@@ -1,22 +1,17 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: App Marketplace accounting-entries Accounts API
-  description: API for Pleo App Marketplace
-  termsOfService: https://pleo.io/terms/
-  contact:
-    email: partner-ecosystem-team@pleo.io
+  title: Pleo Accounts API
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 39.4.0
+  termsOfService: https://pleo.io/terms/
+  version: '1.0'
+  description: 'Operations tagged Accounts across 2 of this provider''s published API definitions: pleo-bookkeeping-core-openapi.yml, pleo-chart-of-accounts-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://external.pleo.io
   description: Production server
 - url: https://external.staging.pleo.io
   description: Staging server
-security:
-- bearerAuth: []
-- basicAuth: []
 tags:
 - name: Accounts
   description: 'This API enables you to create an account in Pleo, search for an account by its specific ID, update details of an account recorded in Pleo, delete an account from Pleo, or apply specific filters to retrieve a list of accounts managed in Pleo.
@@ -25,16 +20,18 @@ tags:
     💡**Note**
 
 
-    Please note that only response codes specific to the API behaviour are documented. Otherwise, we follow HTTP response codes.
-
-    '
+    Please note that only response codes specific to the API behaviour are documented. Otherwise, we follow HTTP response codes.'
 paths:
   /v1-beta/accounts:
     post:
       tags:
       - Accounts
-      summary: Create a new account.
-      description: "\n        The integration sends a request to this endpoint to create a corresponding account in Pleo for any \n        new record created in the external ERP/accounting system. The request fails if any similar accounts with \n        the same `externalId` and `companyId` already exists in Pleo.\n        "
+      summary: Create a new account
+      description: 'The integration sends a request to this endpoint to create a corresponding account in Pleo for any
+
+        new record created in the external ERP/accounting system. The request fails if any similar accounts with
+
+        the same `externalId` and `companyId` already exists in Pleo.'
       operationId: createAccountV4
       requestBody:
         content:
@@ -77,11 +74,18 @@ paths:
           description: Bad request (e.g. missing required fields).
         '409':
           description: "\n                    Conflict (account with the same `externalId` exists in Pleo)\n                "
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://external.pleo.io
+      description: Production server
+    - url: https://external.staging.pleo.io
+      description: Staging server
   /v1-beta/accounts/{accountId}:
     get:
       tags:
       - Accounts
-      summary: Retrieves an account in Pleo by its ID.
+      summary: Retrieves an account in Pleo by its ID
       description: Search for a specific account by its account ID.
       operationId: getAccountV4
       parameters:
@@ -113,11 +117,15 @@ paths:
                   taxCodeExternalId: IVA 20
         '404':
           description: Account not found.
+      security:
+      - bearerAuth: []
     put:
       tags:
       - Accounts
       summary: Update an account
-      description: "\n                Update details of an existing account in Pleo. The integration must send a request to this endpoint \n                when it is trying to archive an account linked to accounting entries.\n            "
+      description: 'Update details of an existing account in Pleo. The integration must send a request to this endpoint
+
+        when it is trying to archive an account linked to accounting entries.'
       operationId: updateAccountV4
       parameters:
       - name: accountId
@@ -156,6 +164,8 @@ paths:
           description: Bad request (e.g. missing required fields, tax code does not exist in Pleo).
         '404':
           description: Account not found.
+      security:
+      - bearerAuth: []
     delete:
       tags:
       - Accounts
@@ -183,6 +193,13 @@ paths:
           description: Account not found.
         '409':
           description: Account linked to accounting entries and cannot be deleted. Use UPDATE endpoint to archive the account.
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://external.pleo.io
+      description: Production server
+    - url: https://external.staging.pleo.io
+      description: Staging server
   /v1-beta/accounts:search:
     post:
       tags:
@@ -278,18 +295,21 @@ paths:
                   total: 1
         '400':
           description: Bad request (e.g. missing required fields, tax code does not exist in Pleo).
+      security:
+      - bearerAuth: []
+    servers:
+    - url: https://external.pleo.io
+      description: Production server
+    - url: https://external.staging.pleo.io
+      description: Staging server
   /v1/chart-of-accounts:
     post:
       tags:
       - Accounts
       summary: Create a new account
-      description: '
+      description: 'The integration sends a request to this endpoint to create a corresponding account in Pleo for any new record created in the external ERP/accounting system.
 
-        The integration sends a request to this endpoint to create a corresponding account in Pleo for any new record created in the external ERP/accounting system.
-
-        The request will fail if an account with the same `externalId` and `companyId` already exists in Pleo.
-
-        '
+        The request will fail if an account with the same `externalId` and `companyId` already exists in Pleo.'
       operationId: createAccountV1
       requestBody:
         content:
@@ -332,20 +352,24 @@ paths:
           description: 'Bad request: for example, missing required fields.'
         '409':
           description: 'Conflict: account with the same `externalId` exists in Pleo.'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    servers:
+    - url: https://external.pleo.io
+      description: Production server
+    - url: https://external.staging.pleo.io
+      description: Staging server
   /v1/chart-of-accounts/batch:
     post:
       tags:
       - Accounts
       summary: Create multiple accounts in a single request
-      description: '
-
-        Creates multiple bookkeeping accounts in a single batch operation.
+      description: 'Creates multiple bookkeeping accounts in a single batch operation.
 
         This endpoint validates each account in the batch and returns both successfully created accounts and failed items with their failure reasons.
 
-        Accounts that pass validation will be created, while invalid accounts will be returned in the failed list.
-
-        '
+        Accounts that pass validation will be created, while invalid accounts will be returned in the failed list.'
       operationId: createAccountsBatchV1
       requestBody:
         content:
@@ -389,6 +413,14 @@ paths:
                       taxCodeExternalId: IVA 20
         '400':
           description: 'Bad request: for example, batch size outside allowed range, missing required fields or contains invalid input.'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    servers:
+    - url: https://external.pleo.io
+      description: Production server
+    - url: https://external.staging.pleo.io
+      description: Staging server
   /v1/chart-of-accounts/{accountId}:
     get:
       tags:
@@ -425,17 +457,16 @@ paths:
                   taxCodeExternalId: IVA 20
         '404':
           description: Account not found.
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     put:
       tags:
       - Accounts
       summary: Update an account
-      description: '
+      description: 'Update details of an existing account in Pleo.
 
-        Update details of an existing account in Pleo.
-
-        The integration must send a request to this endpoint when it is trying to archive an account linked to accounting entries.
-
-        '
+        The integration must send a request to this endpoint when it is trying to archive an account linked to accounting entries.'
       operationId: updateAccountV1
       parameters:
       - name: accountId
@@ -474,18 +505,17 @@ paths:
           description: 'Bad request: for example, missing required fields, tax code does not exist in Pleo.'
         '404':
           description: Account not found.
+      security:
+      - bearerAuth: []
+      - basicAuth: []
     delete:
       tags:
       - Accounts
       summary: Delete an account
-      description: '
-
-        Deletes an existing account in Pleo.
+      description: 'Deletes an existing account in Pleo.
 
 
-        Only accounts not linked to any accounting entries can be deleted. Trying to delete an account linked to accounting entries will result in an error. If an account is linked, it can only be archived. Use UPDATE endpoint to archive an account.
-
-        '
+        Only accounts not linked to any accounting entries can be deleted. Trying to delete an account linked to accounting entries will result in an error. If an account is linked, it can only be archived. Use UPDATE endpoint to archive an account.'
       operationId: deleteAccountV1
       parameters:
       - name: accountId
@@ -505,6 +535,14 @@ paths:
           description: Account not found.
         '409':
           description: Account linked to accounting entries and cannot be deleted. Use UPDATE endpoint to archive the account.
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    servers:
+    - url: https://external.pleo.io
+      description: Production server
+    - url: https://external.staging.pleo.io
+      description: Staging server
   /v1/chart-of-accounts:search:
     post:
       tags:
@@ -602,6 +640,14 @@ paths:
                   total: 1
         '400':
           description: 'Bad request: for example, missing required fields, tax code does not exist in Pleo.'
+      security:
+      - bearerAuth: []
+      - basicAuth: []
+    servers:
+    - url: https://external.pleo.io
+      description: Production server
+    - url: https://external.staging.pleo.io
+      description: Staging server
 components:
   schemas:
     BookkeepingAccountRestModelV4:
@@ -617,9 +663,10 @@ components:
           type: boolean
           description: Boolean flag used to determine if the account is archived.
         code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Account code or number used in the accounting system's chart of accounts.
-          nullable: true
         companyId:
           type: string
           description: Pleo's internal identifier of the company the account is associated with.
@@ -632,29 +679,32 @@ components:
           description: Pleo's internal identifier of the account.
           format: uuid
         metadata:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
-            type: object
+            type:
+            - object
+            - 'null'
             description: Place for API users to store flexible data.
-            nullable: true
           description: Place for API users to store flexible data.
-          nullable: true
         name:
           type: string
           description: Name of the account.
         taxCodeExternalId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: 'The identifier in **the target system** for the tax code the account is associated with. '
-          nullable: true
       description: Represents an account in Pleo.
-    DataResponseBookkeepingAccountRestModelV1:
+    DataResponseBookkeepingAccountRestModelV4:
       required:
       - data
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/BookkeepingAccountRestModelV1'
-    BookkeepingAccountCreateRequestV1:
+          $ref: '#/components/schemas/BookkeepingAccountRestModelV4'
+    BookkeepingAccountCreateRequestV4:
       required:
       - archived
       - companyId
@@ -668,39 +718,164 @@ components:
         code:
           maxLength: 255
           minLength: 0
-          type: string
-          description: 'Account code or number used in the accounting system''s chart of accounts. Maximum length: 255 characters.'
-          nullable: true
+          type:
+          - string
+          - 'null'
+          description: Account code or number used in the accounting system's chart of accounts.
         companyId:
           type: string
           description: Pleo's internal identifier for the company the account is associated with.
           format: uuid
         externalId:
           maxLength: 255
-          minLength: 1
+          minLength: 0
           type: string
-          description: 'Non empty unique external identifier of the account, assigned in the external ERP/accounting system. Can be the same as code if no other identifier is available. Maximum length: 255 characters.'
+          description: "\n            Unique external identifier of account, assigned in the external ERP/accounting system. \n            Can be the same as code if no other identifier is available.\n        "
         metadata:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
-            type: object
+            type:
+            - object
+            - 'null'
             description: Place for API users to store flexible data.
-            nullable: true
           description: Place for API users to store flexible data.
-          nullable: true
         name:
           maxLength: 255
           minLength: 0
           type: string
-          description: 'Name of the account. Maximum length: 255 characters.'
+          description: Name of the account.
         taxCodeExternalId:
+          type:
+          - string
+          - 'null'
+          description: "\n            The identifier in **the target system** for the tax code the account is associated with.\n            - This is NOT the tax percentage (e.g. 20%)\n            - This is NOT the Pleo UUID of the tax code\n        "
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
           type: string
-          description: 'The identifier in **the target system** for the tax code the account is associated with.
-
-            - This is NOT the tax percentage (e.g. 20%)
-
-            - This is NOT the Pleo UUID of the tax code'
-          nullable: true
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    BookkeepingAccountUpdateRequestV4:
+      required:
+      - archived
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine if the account is archived.
+        code:
+          maxLength: 255
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: Account code or number used in the accounting system's chart of accounts.
+        metadata:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+            description: Place for API users to store flexible data.
+          description: Place for API users to store flexible data.
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: Name of the account.
+        taxCodeExternalId:
+          type:
+          - string
+          - 'null'
+          description: "\n            The identifier in **the target system** for the tax code the account is associated with.\n            - This is NOT the tax percentage (e.g. 20%)\n            - This is NOT the Pleo UUID of the tax code\n        "
+      description: Represents a request to update an account.
+    BookkeepingAccountSearchRequestV4:
+      required:
+      - companyId
+      type: object
+      properties:
+        archived:
+          type:
+          - boolean
+          - 'null'
+          description: Filter by archived status.
+          example: false
+        code:
+          type:
+          - string
+          - 'null'
+          description: Search by code.
+          example: '2001'
+        companyId:
+          type: string
+          description: Filter by company ID.
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174011
+        externalId:
+          type:
+          - string
+          - 'null'
+          description: Search by external id.
+          example: 123e4567-e89b-12d3-a456-426614174011
+        ids:
+          uniqueItems: true
+          type:
+          - array
+          - 'null'
+          description: Filter by a list of account IDs.
+          items:
+            type:
+            - string
+            - 'null'
+            description: Filter by a list of account IDs.
+            format: uuid
+        name:
+          type:
+          - string
+          - 'null'
+          description: Search by name.
+          example: Bank Charges
+      description: Represents a request to search for accounts.
+    CursorPaginatedResponseBookkeepingAccountRestModelV4:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookkeepingAccountRestModelV4'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     CursorPageCurrentRequestInfo:
       required:
       - parameters
@@ -730,6 +905,230 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PageOrder'
+    BookkeepingAccountCreateRequestV1:
+      required:
+      - archived
+      - companyId
+      - externalId
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine if the account is archived.
+        code:
+          maxLength: 255
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: 'Account code or number used in the accounting system''s chart of accounts. Maximum length: 255 characters.'
+        companyId:
+          type: string
+          description: Pleo's internal identifier for the company the account is associated with.
+          format: uuid
+        externalId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: 'Non empty unique external identifier of the account, assigned in the external ERP/accounting system. Can be the same as code if no other identifier is available. Maximum length: 255 characters.'
+        metadata:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+            description: Place for API users to store flexible data.
+          description: Place for API users to store flexible data.
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: 'Name of the account. Maximum length: 255 characters.'
+        taxCodeExternalId:
+          type:
+          - string
+          - 'null'
+          description: 'The identifier in **the target system** for the tax code the account is associated with.
+
+            - This is NOT the tax percentage (e.g. 20%)
+
+            - This is NOT the Pleo UUID of the tax code'
+    BookkeepingAccountUpdateRequestV1:
+      required:
+      - archived
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine if the account is archived.
+        code:
+          maxLength: 255
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: 'Account code or number used in the accounting system''s chart of accounts. Maximum length: 255 characters.'
+        metadata:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+            description: Place for API users to store flexible data.
+          description: Place for API users to store flexible data.
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: 'Name of the account. Maximum length: 255 characters.'
+        taxCodeExternalId:
+          type:
+          - string
+          - 'null'
+          description: 'The identifier in **the target system** for the tax code the account is associated with.
+
+            - This is NOT the tax percentage (e.g. 20%)
+
+            - This is NOT the Pleo UUID of the tax code'
+      description: Represents a request to update an account.
+    BookkeepingAccountBatchCreateResponseV1:
+      required:
+      - created
+      - failed
+      type: object
+      properties:
+        created:
+          type: array
+          description: List of successfully created accounts.
+          items:
+            $ref: '#/components/schemas/BookkeepingAccountRestModelV1'
+        failed:
+          type: array
+          description: List of accounts that failed to be created, including the reasons for failure.
+          items:
+            $ref: '#/components/schemas/BookkeepingAccountBatchFailedItemV1'
+      description: Response for batch account creation operation.
+    BookkeepingAccountBatchRequestItemV1:
+      required:
+      - archived
+      - externalId
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine if the account is archived.
+        code:
+          maxLength: 255
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: 'Account code or number used in the accounting system''s chart of accounts. Maximum length: 255 characters.'
+        externalId:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: 'Non empty unique external identifier of the account, assigned in the external ERP/accounting system. Can be the same as code if no other identifier is available. Maximum length: 255 characters.'
+        metadata:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+            description: Place for API users to store flexible data.
+          description: Place for API users to store flexible data.
+        name:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: 'Name of the account. Maximum length: 255 characters.'
+        taxCodeExternalId:
+          type:
+          - string
+          - 'null'
+          description: 'The identifier in **the target system** for the tax code the account is associated with.
+
+            - This is NOT the tax percentage (e.g. 20%)
+
+            - This is NOT the Pleo UUID of the tax code'
+      description: 'List of bookkeeping accounts to be created.
+
+        The number of accounts in the batch must be between 1 and 1000.'
+    CursorPaginatedResponseBookkeepingAccountRestModelV1:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookkeepingAccountRestModelV1'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    BookkeepingAccountRestModelV1:
+      required:
+      - archived
+      - companyId
+      - externalId
+      - id
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine if the account is archived.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Account code or number used in the accounting system's chart of accounts.
+        companyId:
+          type: string
+          description: Pleo's internal identifier of the company the account is associated with.
+          format: uuid
+        externalId:
+          type: string
+          description: Unique external identifier of the account, assigned in the external ERP/accounting system. Can be the same as code if no other identifier is available.
+        id:
+          type: string
+          description: Pleo's internal identifier of the account.
+          format: uuid
+        metadata:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - object
+            - 'null'
+            description: Place for API users to store flexible data.
+          description: Place for API users to store flexible data.
+        name:
+          type: string
+          description: Name of the account.
+        taxCodeExternalId:
+          type:
+          - string
+          - 'null'
+          description: 'The identifier in **the target system** for the tax code the account is associated with. '
+      description: Represents an account in Pleo.
+    DataResponseBookkeepingAccountRestModelV1:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/BookkeepingAccountRestModelV1'
     BookkeepingAccountSearchRequestV1:
       required:
       - companyId
@@ -738,25 +1137,29 @@ components:
       type: object
       properties:
         archived:
-          type: boolean
+          type:
+          - boolean
+          - 'null'
           description: Filter by archived status.
-          nullable: true
           example: false
         code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Search by code.
-          nullable: true
           example: '2001'
           deprecated: true
         codes:
           uniqueItems: true
-          type: array
+          type:
+          - array
+          - 'null'
           description: Search by a list of codes.
-          nullable: true
           items:
-            type: string
+            type:
+            - string
+            - 'null'
             description: Search by a list of codes.
-            nullable: true
         companyId:
           type: string
           description: Filter by company ID.
@@ -773,114 +1176,30 @@ components:
           example: false
           default: false
         externalId:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Search by external id.
-          nullable: true
           example: 123e4567-e89b-12d3-a456-426614174011
         ids:
           uniqueItems: true
-          type: array
+          type:
+          - array
+          - 'null'
           description: Filter by a list of account IDs.
-          nullable: true
           items:
-            type: string
+            type:
+            - string
+            - 'null'
             description: Filter by a list of account IDs.
             format: uuid
-            nullable: true
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Search by name.
-          nullable: true
           example: Bank Charges
       description: Represents a request to search for accounts.
-    BookkeepingAccountBatchRequestItemV1:
-      required:
-      - archived
-      - externalId
-      - name
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Boolean flag used to determine if the account is archived.
-        code:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: 'Account code or number used in the accounting system''s chart of accounts. Maximum length: 255 characters.'
-          nullable: true
-        externalId:
-          maxLength: 255
-          minLength: 1
-          type: string
-          description: 'Non empty unique external identifier of the account, assigned in the external ERP/accounting system. Can be the same as code if no other identifier is available. Maximum length: 255 characters.'
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: Place for API users to store flexible data.
-            nullable: true
-          description: Place for API users to store flexible data.
-          nullable: true
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: 'Name of the account. Maximum length: 255 characters.'
-        taxCodeExternalId:
-          type: string
-          description: 'The identifier in **the target system** for the tax code the account is associated with.
-
-            - This is NOT the tax percentage (e.g. 20%)
-
-            - This is NOT the Pleo UUID of the tax code'
-          nullable: true
-      description: 'List of bookkeeping accounts to be created.
-
-        The number of accounts in the batch must be between 1 and 1000.'
-    BookkeepingAccountRestModelV1:
-      required:
-      - archived
-      - companyId
-      - externalId
-      - id
-      - name
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Boolean flag used to determine if the account is archived.
-        code:
-          type: string
-          description: Account code or number used in the accounting system's chart of accounts.
-          nullable: true
-        companyId:
-          type: string
-          description: Pleo's internal identifier of the company the account is associated with.
-          format: uuid
-        externalId:
-          type: string
-          description: Unique external identifier of the account, assigned in the external ERP/accounting system. Can be the same as code if no other identifier is available.
-        id:
-          type: string
-          description: Pleo's internal identifier of the account.
-          format: uuid
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: Place for API users to store flexible data.
-            nullable: true
-          description: Place for API users to store flexible data.
-          nullable: true
-        name:
-          type: string
-          description: Name of the account.
-        taxCodeExternalId:
-          type: string
-          description: 'The identifier in **the target system** for the tax code the account is associated with. '
-          nullable: true
-      description: Represents an account in Pleo.
     BookkeepingAccountBatchFailedItemV1:
       required:
       - reasons
@@ -904,174 +1223,13 @@ components:
         request:
           $ref: '#/components/schemas/BookkeepingAccountBatchRequestItemV1'
       description: Represents a failed account creation in a batch operation.
-    BookkeepingAccountUpdateRequestV4:
-      required:
-      - archived
-      - name
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Boolean flag used to determine if the account is archived.
-        code:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: Account code or number used in the accounting system's chart of accounts.
-          nullable: true
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: Place for API users to store flexible data.
-            nullable: true
-          description: Place for API users to store flexible data.
-          nullable: true
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: Name of the account.
-        taxCodeExternalId:
-          type: string
-          description: "\n            The identifier in **the target system** for the tax code the account is associated with.\n            - This is NOT the tax percentage (e.g. 20%)\n            - This is NOT the Pleo UUID of the tax code\n        "
-          nullable: true
-      description: Represents a request to update an account.
-    CursorPaginatedResponseBookkeepingAccountRestModelV4:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BookkeepingAccountRestModelV4'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    BookkeepingAccountSearchRequestV4:
-      required:
-      - companyId
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Filter by archived status.
-          nullable: true
-          example: false
-        code:
-          type: string
-          description: Search by code.
-          nullable: true
-          example: '2001'
-        companyId:
-          type: string
-          description: Filter by company ID.
-          format: uuid
-          example: 123e4567-e89b-12d3-a456-426614174011
-        externalId:
-          type: string
-          description: Search by external id.
-          nullable: true
-          example: 123e4567-e89b-12d3-a456-426614174011
-        ids:
-          uniqueItems: true
-          type: array
-          description: Filter by a list of account IDs.
-          nullable: true
-          items:
-            type: string
-            description: Filter by a list of account IDs.
-            format: uuid
-            nullable: true
-        name:
-          type: string
-          description: Search by name.
-          nullable: true
-          example: Bank Charges
-      description: Represents a request to search for accounts.
-    CursorPaginatedResponseBookkeepingAccountRestModelV1:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BookkeepingAccountRestModelV1'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    BookkeepingAccountCreateRequestV4:
-      required:
-      - archived
-      - companyId
-      - externalId
-      - name
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Boolean flag used to determine if the account is archived.
-        code:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: Account code or number used in the accounting system's chart of accounts.
-          nullable: true
-        companyId:
-          type: string
-          description: Pleo's internal identifier for the company the account is associated with.
-          format: uuid
-        externalId:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: "\n            Unique external identifier of account, assigned in the external ERP/accounting system. \n            Can be the same as code if no other identifier is available.\n        "
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: Place for API users to store flexible data.
-            nullable: true
-          description: Place for API users to store flexible data.
-          nullable: true
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: Name of the account.
-        taxCodeExternalId:
-          type: string
-          description: "\n            The identifier in **the target system** for the tax code the account is associated with.\n            - This is NOT the tax percentage (e.g. 20%)\n            - This is NOT the Pleo UUID of the tax code\n        "
-          nullable: true
-    DataResponseBookkeepingAccountRestModelV4:
+    DataResponseBookkeepingAccountBatchCreateResponseV1:
       required:
       - data
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/BookkeepingAccountRestModelV4'
+          $ref: '#/components/schemas/BookkeepingAccountBatchCreateResponseV1'
     BookkeepingAccountBatchCreateRequestV1:
       required:
       - companyId
@@ -1091,83 +1249,15 @@ components:
             The number of accounts in the batch must be between 1 and 1000.'
           items:
             $ref: '#/components/schemas/BookkeepingAccountBatchRequestItemV1'
-    BookkeepingAccountBatchCreateResponseV1:
-      required:
-      - created
-      - failed
-      type: object
-      properties:
-        created:
-          type: array
-          description: List of successfully created accounts.
-          items:
-            $ref: '#/components/schemas/BookkeepingAccountRestModelV1'
-        failed:
-          type: array
-          description: List of accounts that failed to be created, including the reasons for failure.
-          items:
-            $ref: '#/components/schemas/BookkeepingAccountBatchFailedItemV1'
-      description: Response for batch account creation operation.
-    BookkeepingAccountUpdateRequestV1:
-      required:
-      - archived
-      - name
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Boolean flag used to determine if the account is archived.
-        code:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: 'Account code or number used in the accounting system''s chart of accounts. Maximum length: 255 characters.'
-          nullable: true
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: Place for API users to store flexible data.
-            nullable: true
-          description: Place for API users to store flexible data.
-          nullable: true
-        name:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: 'Name of the account. Maximum length: 255 characters.'
-        taxCodeExternalId:
-          type: string
-          description: 'The identifier in **the target system** for the tax code the account is associated with.
-
-            - This is NOT the tax percentage (e.g. 20%)
-
-            - This is NOT the Pleo UUID of the tax code'
-          nullable: true
-      description: Represents a request to update an account.
-    DataResponseBookkeepingAccountBatchCreateResponseV1:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/BookkeepingAccountBatchCreateResponseV1'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
   securitySchemes:
     bearerAuth:
       type: http
-      description: 'JWT Bearer token authentication. Include the token in the Authorization header as: `Bearer <token>`'
       scheme: bearer
       bearerFormat: JWT
     basicAuth:
       type: http
       description: Basic HTTP authentication using API key. Use your API key as the username and leave the password empty. The credentials will be Base64 encoded automatically.
       scheme: basic
+x-refined-from:
+- pleo-bookkeeping-core-openapi.yml
+- pleo-chart-of-accounts-openapi.yml

@@ -214,92 +214,51 @@ paths:
                 $ref: '#/components/schemas/CursorPaginatedResponseTaxCodeModel'
 components:
   schemas:
-    AmountTaxBreakdown:
+    TaxCodeTypeModel:
+      type: string
+      description: Classification of this tax code. Exclusive tax codes are not currently supported.
+      enum:
+      - inclusive
+      - exclusive
+      - reverse
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+    CursorPageCurrentRequestInfo:
       required:
-      - gross
-      - net
-      - tax
+      - parameters
       type: object
       properties:
-        gross:
-          $ref: '#/components/schemas/Money'
-        net:
-          $ref: '#/components/schemas/Money'
-        tax:
-          $ref: '#/components/schemas/Money'
-      description: Tax breakdown for the eMoneyAccountValue of the core accounting entry.
-    TaxedAmount:
-      required:
-      - amount
-      - id
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/Money'
-        id:
+        after:
           type: string
-          description: An identifier to associate the amount to
-      description: The amounts to apply the tax code to
-    CalculateTaxesResponse:
-      required:
-      - taxes
-      type: object
-      properties:
-        taxes:
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
           type: object
           additionalProperties:
             type: array
             items:
-              $ref: '#/components/schemas/Taxes'
-    Money:
-      required:
-      - currency
-      - minors
-      type: object
-      properties:
-        currency:
-          type: string
-          description: The currency codes followed in Pleo conforms with ISO 4217.
-          example: EUR
-        minors:
-          type: integer
-          description: "The transaction amount is represented in smallest denomination in a specific currency.\n For example:\n- A transaction amount is £65.80 in Great Britain Pounds (GBP); this represented as `6580`.\n- A transaction amount is 1500 ISK in Icelandic Króna (ISK); this is represented as `1500`."
-          format: int64
-          example: 10
-    CalculateTaxesRequest:
-      required:
-      - amountsByTaxCodeId
-      type: object
-      properties:
-        amountsByTaxCodeId:
-          type: object
-          additionalProperties:
-            type: array
-            description: The amounts to apply the tax code to
-            items:
-              $ref: '#/components/schemas/TaxedAmount'
-          description: The amounts to apply the tax code to
-      description: Tax code IDs and a list of id + amount pairs to calculate tax for
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
     TaxCodeSearchRequest:
       type: object
       properties:
@@ -319,58 +278,6 @@ components:
             format: uuid
         type:
           $ref: '#/components/schemas/TaxCodeTypeModel'
-    DataResponseTaxCodeModel:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/TaxCodeModel'
-    Taxes:
-      required:
-      - amountTaxBreakdown
-      - id
-      type: object
-      properties:
-        amountTaxBreakdown:
-          $ref: '#/components/schemas/AmountTaxBreakdown'
-        id:
-          type: string
-    DataResponseCalculateTaxesResponse:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/CalculateTaxesResponse'
-    CursorPaginatedResponseTaxCodeModel:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxCodeModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
-    TaxCodeTypeModel:
-      type: string
-      description: Classification of this tax code. Exclusive tax codes are not currently supported.
-      enum:
-      - inclusive
-      - exclusive
-      - reverse
     TaxCodeModel:
       required:
       - archived
@@ -434,6 +341,88 @@ components:
           type: string
           description: Date and time the tax code was last updated
           format: date-time
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    DataResponseCalculateTaxesResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CalculateTaxesResponse'
+    Money:
+      required:
+      - currency
+      - minors
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The currency codes followed in Pleo conforms with ISO 4217.
+          example: EUR
+        minors:
+          type: integer
+          description: "The transaction amount is represented in smallest denomination in a specific currency.\n For example:\n- A transaction amount is £65.80 in Great Britain Pounds (GBP); this represented as `6580`.\n- A transaction amount is 1500 ISK in Icelandic Króna (ISK); this is represented as `1500`."
+          format: int64
+          example: 10
+    CursorPaginatedResponseTaxCodeModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxCodeModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CalculateTaxesRequest:
+      required:
+      - amountsByTaxCodeId
+      type: object
+      properties:
+        amountsByTaxCodeId:
+          type: object
+          additionalProperties:
+            type: array
+            description: The amounts to apply the tax code to
+            items:
+              $ref: '#/components/schemas/TaxedAmount'
+          description: The amounts to apply the tax code to
+      description: Tax code IDs and a list of id + amount pairs to calculate tax for
+    AmountTaxBreakdown:
+      required:
+      - gross
+      - net
+      - tax
+      type: object
+      properties:
+        gross:
+          $ref: '#/components/schemas/Money'
+        net:
+          $ref: '#/components/schemas/Money'
+        tax:
+          $ref: '#/components/schemas/Money'
+      description: Tax breakdown for the eMoneyAccountValue of the core accounting entry.
     TaxCodeCreateUpdateModel:
       required:
       - archived
@@ -475,35 +464,46 @@ components:
           description: Percentage rate applied for this tax code (This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20)
         type:
           $ref: '#/components/schemas/TaxCodeTypeModel'
-    CursorPageCurrentRequestInfo:
+    CalculateTaxesResponse:
       required:
-      - parameters
+      - taxes
       type: object
       properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
+        taxes:
           type: object
           additionalProperties:
             type: array
             items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
+              $ref: '#/components/schemas/Taxes'
+    TaxedAmount:
+      required:
+      - amount
+      - id
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Money'
+        id:
+          type: string
+          description: An identifier to associate the amount to
+      description: The amounts to apply the tax code to
+    DataResponseTaxCodeModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TaxCodeModel'
+    Taxes:
+      required:
+      - amountTaxBreakdown
+      - id
+      type: object
+      properties:
+        amountTaxBreakdown:
+          $ref: '#/components/schemas/AmountTaxBreakdown'
+        id:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

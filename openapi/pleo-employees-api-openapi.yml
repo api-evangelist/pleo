@@ -35,7 +35,7 @@ paths:
       - Employees
       summary: Search for employees
       description: Use this endpoint to search for multiple employees.
-      operationId: Search Employees
+      operationId: SearchEmployees
       parameters:
       - name: companyId
         in: query
@@ -127,13 +127,15 @@ paths:
                 $ref: '#/components/schemas/CursorPaginatedResponseExternalEmployeeResponseModel'
         '403':
           description: 'Forbidden: User lacks the necessary permissions'
+      x-operation-id-source: normalized
+      x-operation-id-original: Search Employees
   /v2/employees/{employeeId}:
     get:
       tags:
       - Employees
       summary: Search for a specific employee
       description: Search for a specific employee by employee ID.
-      operationId: Get employee by ID
+      operationId: GetEmployeeByID
       parameters:
       - name: employeeId
         in: path
@@ -155,27 +157,19 @@ paths:
           description: 'Forbidden: User lacks the necessary permissions to access this Employee'
         '404':
           description: 'Not Found: Employee with given ID not found'
+      x-operation-id-source: normalized
+      x-operation-id-original: Get employee by ID
 components:
   schemas:
-    CursorPaginatedResponseExternalEmployeeResponseModel:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExternalEmployeeResponseModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    DataResponseExternalEmployeeResponseModel:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/ExternalEmployeeResponseModel'
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     ExternalEmployeeResponseModel:
       required:
       - companyId
@@ -211,35 +205,6 @@ components:
         phone:
           type: string
           description: Phone number of the Employee
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
     CursorPageCurrentRequestInfo:
       required:
       - parameters
@@ -269,6 +234,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PageOrder'
+    CursorPaginatedResponseExternalEmployeeResponseModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalEmployeeResponseModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    DataResponseExternalEmployeeResponseModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalEmployeeResponseModel'
   securitySchemes:
     bearerAuth:
       type: http

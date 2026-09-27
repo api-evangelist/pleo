@@ -31,7 +31,7 @@ paths:
       - Companies
       summary: Search for Companies
       description: Use this endpoint to search for companies associated with a specific organisation.
-      operationId: Search for Companies
+      operationId: SearchForCompanies
       parameters:
       - name: organization_id
         in: query
@@ -107,13 +107,15 @@ paths:
                 $ref: '#/components/schemas/CursorPaginatedResponseExternalCompanyResponseModel'
         '403':
           description: User lacks the necessary permissions
+      x-operation-id-source: normalized
+      x-operation-id-original: Search for Companies
   /v1/companies/{companyId}:
     get:
       tags:
       - Companies
       summary: Search for a Specific Company
       description: Search for a specific company by company ID.
-      operationId: Get company by ID
+      operationId: GetCompanyByID
       parameters:
       - name: companyId
         in: path
@@ -135,31 +137,19 @@ paths:
           description: User lacks the necessary permissions.
         '404':
           description: Company with given ID not found
+      x-operation-id-source: normalized
+      x-operation-id-original: Get company by ID
 components:
   schemas:
-    ExternalCompanyResponseModel:
-      required:
-      - address
-      - id
-      - name
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/ExternalAddressResponseModel'
-        id:
-          type: string
-          description: ID of the Company
-          format: uuid
-        name:
-          type: string
-          description: Name of the Company
-        organizationId:
-          type: string
-          description: Organization ID of the Company
-          format: uuid
-        registrationNumber:
-          type: string
-          description: Registration number of the company
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     DataResponseExternalCompanyResponseModel:
       required:
       - data
@@ -167,6 +157,35 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/ExternalCompanyResponseModel'
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
     CursorPageInfo:
       required:
       - currentRequestPagination
@@ -199,15 +218,29 @@ components:
             $ref: '#/components/schemas/ExternalCompanyResponseModel'
         pagination:
           $ref: '#/components/schemas/CursorPageInfo'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
+    ExternalCompanyResponseModel:
+      required:
+      - address
+      - id
+      - name
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ExternalAddressResponseModel'
+        id:
+          type: string
+          description: ID of the Company
+          format: uuid
+        name:
+          type: string
+          description: Name of the Company
+        organizationId:
+          type: string
+          description: Organization ID of the Company
+          format: uuid
+        registrationNumber:
+          type: string
+          description: Registration number of the company
     ExternalAddressResponseModel:
       type: object
       properties:
@@ -230,35 +263,6 @@ components:
           type: string
           description: Region of the company.
       description: Address of the company
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
   securitySchemes:
     bearerAuth:
       type: http

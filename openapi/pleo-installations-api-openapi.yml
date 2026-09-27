@@ -156,25 +156,29 @@ paths:
           description: Cannot activate the installation due to infrastructure issue
 components:
   schemas:
-    UpdateInstallationRequest:
-      required:
-      - status
-      type: object
-      properties:
-        errorCode:
-          $ref: '#/components/schemas/InstallationErrorCode'
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: A means to store any metadata about the installation. Could for example be settings for the application
-            example:
-              externalApplicationId: '123456789'
-          description: A means to store any metadata about the installation. Could for example be settings for the application
-          example:
-            externalApplicationId: '123456789'
-        status:
-          $ref: '#/components/schemas/InstallationStatus'
+    InstallationStatus:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | ACTIVATED | The installation is active and operational. |
+
+        | INACTIVE | The installation is inactive and not currently in use. |
+
+        | AUTHORIZED | The Pleo authorisation server has authorised the user, but the installation is not yet active or ready for use. |
+
+        | PENDING_INTEGRATION | The integration is synchronising or performing other background tasks. When an installation is in progress, the integration synchronises the user''s Pleo account with the target application, so that tax codes, tags, and vendors are all similar in both Pleo and the third-party application. |
+
+        | ERROR | The installation has encountered an error and is not operational. An error code will be provided to explain the reason for the error. |'
+      enum:
+      - ACTIVATED
+      - INACTIVE
+      - AUTHORIZED
+      - PENDING_INTEGRATION
+      - ERROR
     InstallationResponse:
       required:
       - applicationId
@@ -234,19 +238,23 @@ components:
           format: date-time
           readOnly: true
           example: '2021-01-01T00:00:00Z'
-    CreateClientInstallationRequest:
+    UpdateInstallationRequest:
+      required:
+      - status
       type: object
       properties:
+        errorCode:
+          $ref: '#/components/schemas/InstallationErrorCode'
         metadata:
           type: object
           additionalProperties:
             type: object
-            description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
+            description: A means to store any metadata about the installation. Could for example be settings for the application
             example:
-              externalConfigurationId: '123456789'
-          description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
+              externalApplicationId: '123456789'
+          description: A means to store any metadata about the installation. Could for example be settings for the application
           example:
-            externalConfigurationId: '123456789'
+            externalApplicationId: '123456789'
         status:
           $ref: '#/components/schemas/InstallationStatus'
     InstallationErrorCode:
@@ -263,29 +271,21 @@ components:
       enum:
       - NOT_ENTITLED
       - AUTH_ERROR
-    InstallationStatus:
-      type: string
-      description: '
-
-        | Value  | Description |
-
-        | ------ | ----------- |
-
-        | ACTIVATED | The installation is active and operational. |
-
-        | INACTIVE | The installation is inactive and not currently in use. |
-
-        | AUTHORIZED | The Pleo authorisation server has authorised the user, but the installation is not yet active or ready for use. |
-
-        | PENDING_INTEGRATION | The integration is synchronising or performing other background tasks. When an installation is in progress, the integration synchronises the user''s Pleo account with the target application, so that tax codes, tags, and vendors are all similar in both Pleo and the third-party application. |
-
-        | ERROR | The installation has encountered an error and is not operational. An error code will be provided to explain the reason for the error. |'
-      enum:
-      - ACTIVATED
-      - INACTIVE
-      - AUTHORIZED
-      - PENDING_INTEGRATION
-      - ERROR
+    CreateClientInstallationRequest:
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
+            example:
+              externalConfigurationId: '123456789'
+          description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
+          example:
+            externalConfigurationId: '123456789'
+        status:
+          $ref: '#/components/schemas/InstallationStatus'
   securitySchemes:
     bearerAuth:
       type: http

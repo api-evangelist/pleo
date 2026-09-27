@@ -60,7 +60,7 @@ tags_raw:
   - Finance
 apis:
 - aid: pleo:pleo-accounting-entries-api
-  name: Pleo accounting-entries API
+  name: Pleo Accounting Entries API
   description: >-
     The Accounting Entries API endpoints enable you to perform the following:
       - Apply filters and search for accounting entries and accounting receipts.
@@ -80,7 +80,7 @@ apis:
   - type: Documentation
     url: https://developers.pleo.io/docs/webhooks
 - aid: pleo:pleo-accounting-entries-external-api
-  name: Pleo accounting-entries-external API
+  name: Pleo Accounting Entries External API
   description: >-
     The accounting-entries-external API from Pleo — 3 operation(s) for accounting-entries-external.
   humanURL: https://developers.pleo.io/docs/pleo-introduction
@@ -294,7 +294,7 @@ apis:
   - type: Documentation
     url: https://developers.pleo.io/docs/webhooks
 - aid: pleo:pleo-external-vendors-api
-  name: Pleo external-vendors API
+  name: Pleo External Vendors API
   description: The external-vendors API from Pleo — 13 operation(s) for external-vendors.
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
@@ -343,7 +343,7 @@ apis:
   - type: Documentation
     url: https://developers.pleo.io/docs/webhooks
 - aid: pleo:pleo-tag-groups-api
-  name: Pleo tag-groups API
+  name: Pleo Tag Groups API
   description: The tag-groups API from Pleo — 6 operation(s) for tag-groups.
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
@@ -359,7 +359,7 @@ apis:
   - type: Documentation
     url: https://developers.pleo.io/docs/webhooks
 - aid: pleo:pleo-tags-api
-  name: Pleo tags API
+  name: Pleo Tags API
   description: The tags API from Pleo — 8 operation(s) for tags.
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
@@ -375,7 +375,7 @@ apis:
   - type: Documentation
     url: https://developers.pleo.io/docs/webhooks
 - aid: pleo:pleo-tax-codes-api
-  name: Pleo tax-codes API
+  name: Pleo Tax Codes API
   description: Tax Codes API
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io

@@ -505,29 +505,381 @@ paths:
                 message: Export job is finished.
 components:
   schemas:
-    PageOrder:
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    ExportJobItemFailureReasonType:
       type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | receipt_upload_failure | An error occurred while uploading the receipt file to the accounting system. |
+
+        | receipt_download_failure | An error occurred while downloading the receipt file from Pleo. |
+
+        | receipt_file_size_limit_exceeded | If the receipt file size has exceeded the limit specified by the accounting system. |
+
+        | receipt_conversion_failure | When an attempt to convert the receipt to a different file type and the conversion failed. |
+
+        | unexpected_failure | An unexpected error occurred. |
+
+        | invalid_configuration | This would define a failure reason pertaining to invalid configuration needed to complete the export of the item or interact with the accounting system. |
+
+        | missing_configuration | This would define a failure reason pertaining to incomplete configuration needed to complete the export of the item or interact with the accounting system. |
+
+        | accounting_system_authentication_failure | The integration service could not authenticate with the accounting system. |
+
+        | accounting_system_rate_limit | There was an irrecoverable rate limit issue that the integration service encountered at any stage of the export job process while communicating with the accounting system. |
+
+        | accounting_system_unreachable | This would be an error that occurs if the integration service is unable to reach the accounting system. |
+
+        | validation_failure | If there was an irrecoverable validation error that occurred while validating the export item. |
+
+        | accounting_system_validation_failure | If there was an irrecoverable validation error encountered by the accounting system as a result of exporting the item. |
+
+        | authorization_failure | This is an error that may have occurred because the authorization granted with the token that was generated during the installation of the integration, has been revoked or the user that authorized no longer has that access in the accounting system. |
+
+        | accounting_system_timeout | This would be an error that occurs if the integration service encounters an irrecoverable timeout while communicating with the accounting system. |
+
+        | vendor_unknown | Failure due to unknown or invalid vendor account number in the accounting system at time of exporting the item. |
+
+        | account_unknown | Failure due to unknown or invalid account number in the accounting system at time of exporting the item. |
+
+        | tax_code_unknown | Failure due to unknown or invalid tax code in the accounting system at time of exporting the item. |
+
+        | tag_unknown | Failure due to unknown or invalid tag in the accounting system at time of exporting the item. |'
       enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
-    SearchExportJobItemsRequest:
+      - receipt_upload_failure
+      - receipt_download_failure
+      - receipt_file_size_limit_exceeded
+      - receipt_conversion_failure
+      - unexpected_failure
+      - invalid_configuration
+      - missing_configuration
+      - accounting_system_authentication_failure
+      - accounting_system_rate_limit
+      - accounting_system_unreachable
+      - validation_failure
+      - accounting_system_validation_failure
+      - authorization_failure
+      - accounting_system_timeout
+      - vendor_unknown
+      - account_unknown
+      - tax_code_unknown
+      - tag_unknown
+    ExportJobItemUpdateV3:
+      required:
+      - data
+      - errors
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportJobItemV3'
+        errors:
+          type: array
+          description: If any errors occurred in updating the export job items, they will be listed here.
+          items:
+            $ref: '#/components/schemas/ExportJobItemUpdateErrorV3'
+    CreateExportJobEvent:
+      required:
+      - event
+      - jobId
+      type: object
+      properties:
+        event:
+          $ref: '#/components/schemas/ExportJobEventType'
+        failureReason:
+          type: string
+          description: Reason why the job failed in the case of a failure. Include this only when the export job event has a `failed` status.
+        failureReasonType:
+          $ref: '#/components/schemas/ExportJobFailureReasonType'
+        jobId:
+          type: string
+          description: Identifier of the job the event is to be processed for.
+          format: uuid
+    UpdateExportJobItemV3:
+      required:
+      - accountingEntryId
+      - status
+      type: object
+      properties:
+        accountingEntryId:
+          type: string
+          description: ID of the accounting entry being updated.
+          format: uuid
+        exportedAt:
+          pattern: YYYY-MM-DDTHH:mi:ssZ
+          type: string
+          description: Date and time when the export job was initiated.
+          format: date-time
+        externalId:
+          type: string
+          description: The accounting system identifier of the entry after export.
+        externalUrl:
+          type: string
+          description: URL to access the resource of the entry in the accounting system.
+        failureReason:
+          type: string
+          description: Detailed message explaining the failure.
+        failureReasonType:
+          $ref: '#/components/schemas/ExportJobItemFailureReasonType'
+        status:
+          $ref: '#/components/schemas/ExportJobItemStatus'
+    ExceptionInfo:
+      required:
+      - type
+      type: object
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+    ExportJobItemStatus:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | pending | The export job item is selected for export, yet it is waiting to be exported. |
+
+        | in_progress | The export job item is currently being exported to the ERP/accounting system. |
+
+        | failed | The export job item could not be exported to the ERP/accounting system. |
+
+        | successful | The export job item is successfully exported to the ERP/accounting system. |
+
+        | abandoned | The export job item could not be exported to the ERP/accounting system because the export job could not be completed. |'
+      enum:
+      - pending
+      - in_progress
+      - failed
+      - successful
+      - abandoned
+    ExportJobFailureReasonType:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | invalid_configuration | This would define a failure reason pertaining to invalid configuration needed to complete the export job or interact with the accounting system. |
+
+        | missing_configuration | This would define a failure reason pertaining to incomplete configuration needed to complete the export job or interact with the accounting system. |
+
+        | authentication_failure | Pleo API failed to authenticate with the integration service when sending off a WebHook API call. |
+
+        | accounting_system_authentication_failure | Integration service could not authenticate with the accounting system. |
+
+        | pleo_rate_limit | Irrecoverable rate limit issue with Pleo API. |
+
+        | accounting_system_rate_limit | Irrecoverable rate limit issue with the accounting system. |
+
+        | service_unreachable | Integration service unreachable. |
+
+        | accounting_system_unreachable | Integration service unable to reach accounting system. |
+
+        | validation_failure | Irrecoverable validation error making the job unprocessable. |
+
+        | authorization_failure | Authorisation revoked or user no longer has access in the accounting system. |
+
+        | integration_unusable | Integration service blocked or unusable for the customer. |
+
+        | job_expired | Job not updated within expiry time limit. |
+
+        | service_timeout | Irrecoverable timeout communicating with integration service. |
+
+        | accounting_system_timeout | Irrecoverable timeout communicating with accounting system. |
+
+        | canceled_by_user | Job was canceled by user. |'
+      enum:
+      - invalid_configuration
+      - missing_configuration
+      - authentication_failure
+      - accounting_system_authentication_failure
+      - pleo_rate_limit
+      - accounting_system_rate_limit
+      - service_unreachable
+      - accounting_system_unreachable
+      - validation_failure
+      - authorization_failure
+      - integration_unusable
+      - job_expired
+      - service_timeout
+      - accounting_system_timeout
+      - canceled_by_user
+    CursorPaginatedResponseExportJobV3:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportJobV3'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    ExportJobItemUpdateErrorV3:
+      required:
+      - accountingEntryId
+      - message
+      - type
+      type: object
+      properties:
+        accountingEntryId:
+          type: string
+          description: Accounting entry ID for which this error occurred.
+          format: uuid
+        message:
+          type: string
+          description: Descriptive error message.
+        type:
+          type: string
+          description: This can be one of ExportJobItemUpdateErrorType values
+          example: ACCOUNTING_ENTRY_DOES_NOT_EXIST
+      description: If any errors occurred in updating the export job items, they will be listed here.
+    ExportJobItemV3:
+      required:
+      - accountingEntryId
+      - exportJobId
+      - status
+      type: object
+      properties:
+        accountingEntryId:
+          type: string
+          description: The accounting entry identifier being exported.
+          format: uuid
+        exportJobId:
+          type: string
+          description: The export job identifier for which this item belongs to.
+          format: uuid
+        exportedAt:
+          pattern: YYYY-MM-DDTHH:mi:ssZ
+          type:
+          - string
+          - 'null'
+          description: Date and time the item was exported.
+          format: date-time
+        externalId:
+          type:
+          - string
+          - 'null'
+          description: This is an external identifier of the corresponding accounting entry in the accounting system after export.
+        externalUrl:
+          type:
+          - string
+          - 'null'
+          description: This is the external URL pointing to the accounting entry resource in the accounting system after the export.
+        failureReason:
+          type:
+          - string
+          - 'null'
+          description: Reason why the export of this item failed in the case of a failure.
+        failureReasonType:
+          type: string
+          description: This can be one of ExportJobItemFailureReasonType values
+          example: receipt_upload_failure
+        status:
+          type: string
+          description: This can be one of ExportJobItemStatus values
+          example: pending
+    CreateExportJob:
       required:
       - accountingEntryIds
+      - companyId
       type: object
       properties:
         accountingEntryIds:
           type: array
-          description: List of accounting entry IDs to search for export job items.
+          description: The IDs of accounting entries that you want to include in the export job for transmission.
           items:
             type: string
-            description: List of accounting entry IDs to search for export job items.
+            description: The IDs of accounting entries that you want to include in the export job for transmission.
             format: uuid
-        status:
-          $ref: '#/components/schemas/ExportJobItemStatus'
+        companyId:
+          type: string
+          description: The unique company ID for which you want to create the export job.
+          format: uuid
+        employeeId:
+          type:
+          - string
+          - 'null'
+          description: This is the Pleo unique identifier of the user that initiated the export job.
+          format: uuid
+        isInteractive:
+          type:
+          - boolean
+          - 'null'
+          description: Non-interactive jobs are jobs that are not initiated by a user. These jobs are usually triggered in the background and require no user interaction. Interactive jobs are the opposite. Set this flag to true if the export job is to be initiated by a user. By default, this is set to true.
+          default: true
+        options:
+          $ref: '#/components/schemas/Options'
+    CursorPaginatedResponseExportJobItemV3:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportJobItemV3'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
     ExportJobV3:
       required:
       - companyId
@@ -614,32 +966,21 @@ components:
         vendorBasedBookkeeping:
           type: boolean
           description: When enabled, the export items would include vendor and bookkeeping data
-    ExportJobItemUpdateErrorV3:
-      required:
-      - accountingEntryId
-      - message
-      - type
-      type: object
-      properties:
-        accountingEntryId:
-          type: string
-          description: Accounting entry ID for which this error occurred.
-          format: uuid
-        message:
-          type: string
-          description: Descriptive error message.
-        type:
-          type: string
-          description: This can be one of ExportJobItemUpdateErrorType values
-          example: ACCOUNTING_ENTRY_DOES_NOT_EXIST
-      description: If any errors occurred in updating the export job items, they will be listed here.
-    DataResponseExportJobItemV3:
+    DataResponseExportJobV3:
       required:
       - data
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/ExportJobItemV3'
+          $ref: '#/components/schemas/ExportJobV3'
+    ExportJobStatus:
+      type: string
+      enum:
+      - pending
+      - in_progress
+      - failed
+      - completed
+      - completed_with_errors
     Options:
       type:
       - object
@@ -652,6 +993,36 @@ components:
           description: When enabled, the export items will include vendor and bookkeeping data.
           default: false
       description: Provides additional configurations for the export job.
+    DataResponseExportJobItemV3:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ExportJobItemV3'
+    SearchExportJobItemsRequest:
+      required:
+      - accountingEntryIds
+      type: object
+      properties:
+        accountingEntryIds:
+          type: array
+          description: List of accounting entry IDs to search for export job items.
+          items:
+            type: string
+            description: List of accounting entry IDs to search for export job items.
+            format: uuid
+        status:
+          $ref: '#/components/schemas/ExportJobItemStatus'
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     ExportJobEventType:
       type: string
       description: '
@@ -672,377 +1043,6 @@ components:
       - failed
       - completed
       - completed_with_errors
-    UpdateExportJobItemV3:
-      required:
-      - accountingEntryId
-      - status
-      type: object
-      properties:
-        accountingEntryId:
-          type: string
-          description: ID of the accounting entry being updated.
-          format: uuid
-        exportedAt:
-          pattern: YYYY-MM-DDTHH:mi:ssZ
-          type: string
-          description: Date and time when the export job was initiated.
-          format: date-time
-        externalId:
-          type: string
-          description: The accounting system identifier of the entry after export.
-        externalUrl:
-          type: string
-          description: URL to access the resource of the entry in the accounting system.
-        failureReason:
-          type: string
-          description: Detailed message explaining the failure.
-        failureReasonType:
-          $ref: '#/components/schemas/ExportJobItemFailureReasonType'
-        status:
-          $ref: '#/components/schemas/ExportJobItemStatus'
-    ExportJobStatus:
-      type: string
-      enum:
-      - pending
-      - in_progress
-      - failed
-      - completed
-      - completed_with_errors
-    ExportJobItemV3:
-      required:
-      - accountingEntryId
-      - exportJobId
-      - status
-      type: object
-      properties:
-        accountingEntryId:
-          type: string
-          description: The accounting entry identifier being exported.
-          format: uuid
-        exportJobId:
-          type: string
-          description: The export job identifier for which this item belongs to.
-          format: uuid
-        exportedAt:
-          pattern: YYYY-MM-DDTHH:mi:ssZ
-          type:
-          - string
-          - 'null'
-          description: Date and time the item was exported.
-          format: date-time
-        externalId:
-          type:
-          - string
-          - 'null'
-          description: This is an external identifier of the corresponding accounting entry in the accounting system after export.
-        externalUrl:
-          type:
-          - string
-          - 'null'
-          description: This is the external URL pointing to the accounting entry resource in the accounting system after the export.
-        failureReason:
-          type:
-          - string
-          - 'null'
-          description: Reason why the export of this item failed in the case of a failure.
-        failureReasonType:
-          type: string
-          description: This can be one of ExportJobItemFailureReasonType values
-          example: receipt_upload_failure
-        status:
-          type: string
-          description: This can be one of ExportJobItemStatus values
-          example: pending
-    CursorPaginatedResponseExportJobItemV3:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportJobItemV3'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    ExportJobItemFailureReasonType:
-      type: string
-      description: '
-
-        | Value  | Description |
-
-        | ------ | ----------- |
-
-        | receipt_upload_failure | An error occurred while uploading the receipt file to the accounting system. |
-
-        | receipt_download_failure | An error occurred while downloading the receipt file from Pleo. |
-
-        | receipt_file_size_limit_exceeded | If the receipt file size has exceeded the limit specified by the accounting system. |
-
-        | receipt_conversion_failure | When an attempt to convert the receipt to a different file type and the conversion failed. |
-
-        | unexpected_failure | An unexpected error occurred. |
-
-        | invalid_configuration | This would define a failure reason pertaining to invalid configuration needed to complete the export of the item or interact with the accounting system. |
-
-        | missing_configuration | This would define a failure reason pertaining to incomplete configuration needed to complete the export of the item or interact with the accounting system. |
-
-        | accounting_system_authentication_failure | The integration service could not authenticate with the accounting system. |
-
-        | accounting_system_rate_limit | There was an irrecoverable rate limit issue that the integration service encountered at any stage of the export job process while communicating with the accounting system. |
-
-        | accounting_system_unreachable | This would be an error that occurs if the integration service is unable to reach the accounting system. |
-
-        | validation_failure | If there was an irrecoverable validation error that occurred while validating the export item. |
-
-        | accounting_system_validation_failure | If there was an irrecoverable validation error encountered by the accounting system as a result of exporting the item. |
-
-        | authorization_failure | This is an error that may have occurred because the authorization granted with the token that was generated during the installation of the integration, has been revoked or the user that authorized no longer has that access in the accounting system. |
-
-        | accounting_system_timeout | This would be an error that occurs if the integration service encounters an irrecoverable timeout while communicating with the accounting system. |
-
-        | vendor_unknown | Failure due to unknown or invalid vendor account number in the accounting system at time of exporting the item. |
-
-        | account_unknown | Failure due to unknown or invalid account number in the accounting system at time of exporting the item. |
-
-        | tax_code_unknown | Failure due to unknown or invalid tax code in the accounting system at time of exporting the item. |
-
-        | tag_unknown | Failure due to unknown or invalid tag in the accounting system at time of exporting the item. |'
-      enum:
-      - receipt_upload_failure
-      - receipt_download_failure
-      - receipt_file_size_limit_exceeded
-      - receipt_conversion_failure
-      - unexpected_failure
-      - invalid_configuration
-      - missing_configuration
-      - accounting_system_authentication_failure
-      - accounting_system_rate_limit
-      - accounting_system_unreachable
-      - validation_failure
-      - accounting_system_validation_failure
-      - authorization_failure
-      - accounting_system_timeout
-      - vendor_unknown
-      - account_unknown
-      - tax_code_unknown
-      - tag_unknown
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    DataResponseExportJobV3:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/ExportJobV3'
-    ExportJobItemUpdateV3:
-      required:
-      - data
-      - errors
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportJobItemV3'
-        errors:
-          type: array
-          description: If any errors occurred in updating the export job items, they will be listed here.
-          items:
-            $ref: '#/components/schemas/ExportJobItemUpdateErrorV3'
-    ExportJobFailureReasonType:
-      type: string
-      description: '
-
-        | Value  | Description |
-
-        | ------ | ----------- |
-
-        | invalid_configuration | This would define a failure reason pertaining to invalid configuration needed to complete the export job or interact with the accounting system. |
-
-        | missing_configuration | This would define a failure reason pertaining to incomplete configuration needed to complete the export job or interact with the accounting system. |
-
-        | authentication_failure | Pleo API failed to authenticate with the integration service when sending off a WebHook API call. |
-
-        | accounting_system_authentication_failure | Integration service could not authenticate with the accounting system. |
-
-        | pleo_rate_limit | Irrecoverable rate limit issue with Pleo API. |
-
-        | accounting_system_rate_limit | Irrecoverable rate limit issue with the accounting system. |
-
-        | service_unreachable | Integration service unreachable. |
-
-        | accounting_system_unreachable | Integration service unable to reach accounting system. |
-
-        | validation_failure | Irrecoverable validation error making the job unprocessable. |
-
-        | authorization_failure | Authorisation revoked or user no longer has access in the accounting system. |
-
-        | integration_unusable | Integration service blocked or unusable for the customer. |
-
-        | job_expired | Job not updated within expiry time limit. |
-
-        | service_timeout | Irrecoverable timeout communicating with integration service. |
-
-        | accounting_system_timeout | Irrecoverable timeout communicating with accounting system. |
-
-        | canceled_by_user | Job was canceled by user. |'
-      enum:
-      - invalid_configuration
-      - missing_configuration
-      - authentication_failure
-      - accounting_system_authentication_failure
-      - pleo_rate_limit
-      - accounting_system_rate_limit
-      - service_unreachable
-      - accounting_system_unreachable
-      - validation_failure
-      - authorization_failure
-      - integration_unusable
-      - job_expired
-      - service_timeout
-      - accounting_system_timeout
-      - canceled_by_user
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
-    ExportJobItemStatus:
-      type: string
-      description: '
-
-        | Value  | Description |
-
-        | ------ | ----------- |
-
-        | pending | The export job item is selected for export, yet it is waiting to be exported. |
-
-        | in_progress | The export job item is currently being exported to the ERP/accounting system. |
-
-        | failed | The export job item could not be exported to the ERP/accounting system. |
-
-        | successful | The export job item is successfully exported to the ERP/accounting system. |
-
-        | abandoned | The export job item could not be exported to the ERP/accounting system because the export job could not be completed. |'
-      enum:
-      - pending
-      - in_progress
-      - failed
-      - successful
-      - abandoned
-    CreateExportJobEvent:
-      required:
-      - event
-      - jobId
-      type: object
-      properties:
-        event:
-          $ref: '#/components/schemas/ExportJobEventType'
-        failureReason:
-          type: string
-          description: Reason why the job failed in the case of a failure. Include this only when the export job event has a `failed` status.
-        failureReasonType:
-          $ref: '#/components/schemas/ExportJobFailureReasonType'
-        jobId:
-          type: string
-          description: Identifier of the job the event is to be processed for.
-          format: uuid
-    CreateExportJob:
-      required:
-      - accountingEntryIds
-      - companyId
-      type: object
-      properties:
-        accountingEntryIds:
-          type: array
-          description: The IDs of accounting entries that you want to include in the export job for transmission.
-          items:
-            type: string
-            description: The IDs of accounting entries that you want to include in the export job for transmission.
-            format: uuid
-        companyId:
-          type: string
-          description: The unique company ID for which you want to create the export job.
-          format: uuid
-        employeeId:
-          type:
-          - string
-          - 'null'
-          description: This is the Pleo unique identifier of the user that initiated the export job.
-          format: uuid
-        isInteractive:
-          type:
-          - boolean
-          - 'null'
-          description: Non-interactive jobs are jobs that are not initiated by a user. These jobs are usually triggered in the background and require no user interaction. Interactive jobs are the opposite. Set this flag to true if the export job is to be initiated by a user. By default, this is set to true.
-          default: true
-        options:
-          $ref: '#/components/schemas/Options'
-    CursorPaginatedResponseExportJobV3:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportJobV3'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    ExceptionInfo:
-      required:
-      - type
-      type: object
-      properties:
-        message:
-          type: string
-        type:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

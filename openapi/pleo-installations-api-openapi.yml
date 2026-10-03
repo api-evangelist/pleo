@@ -156,6 +156,20 @@ paths:
           description: Cannot activate the installation due to infrastructure issue
 components:
   schemas:
+    InstallationErrorCode:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | NOT_ENTITLED | The installation is not entitled to use the application. |
+
+        | AUTH_ERROR | There was an authentication error during installation. |'
+      enum:
+      - NOT_ENTITLED
+      - AUTH_ERROR
     InstallationStatus:
       type: string
       description: '
@@ -179,6 +193,40 @@ components:
       - AUTHORIZED
       - PENDING_INTEGRATION
       - ERROR
+    CreateClientInstallationRequest:
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
+            example:
+              externalConfigurationId: '123456789'
+          description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
+          example:
+            externalConfigurationId: '123456789'
+        status:
+          $ref: '#/components/schemas/InstallationStatus'
+    UpdateInstallationRequest:
+      required:
+      - status
+      type: object
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/InstallationErrorCode'
+        metadata:
+          type: object
+          additionalProperties:
+            type: object
+            description: A means to store any metadata about the installation. Could for example be settings for the application
+            example:
+              externalApplicationId: '123456789'
+          description: A means to store any metadata about the installation. Could for example be settings for the application
+          example:
+            externalApplicationId: '123456789'
+        status:
+          $ref: '#/components/schemas/InstallationStatus'
     InstallationResponse:
       required:
       - applicationId
@@ -238,54 +286,6 @@ components:
           format: date-time
           readOnly: true
           example: '2021-01-01T00:00:00Z'
-    UpdateInstallationRequest:
-      required:
-      - status
-      type: object
-      properties:
-        errorCode:
-          $ref: '#/components/schemas/InstallationErrorCode'
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: A means to store any metadata about the installation. Could for example be settings for the application
-            example:
-              externalApplicationId: '123456789'
-          description: A means to store any metadata about the installation. Could for example be settings for the application
-          example:
-            externalApplicationId: '123456789'
-        status:
-          $ref: '#/components/schemas/InstallationStatus'
-    InstallationErrorCode:
-      type: string
-      description: '
-
-        | Value  | Description |
-
-        | ------ | ----------- |
-
-        | NOT_ENTITLED | The installation is not entitled to use the application. |
-
-        | AUTH_ERROR | There was an authentication error during installation. |'
-      enum:
-      - NOT_ENTITLED
-      - AUTH_ERROR
-    CreateClientInstallationRequest:
-      type: object
-      properties:
-        metadata:
-          type: object
-          additionalProperties:
-            type: object
-            description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
-            example:
-              externalConfigurationId: '123456789'
-          description: Metadata associated with the installation. This can be used to store additional information about the installation, for example  external references, but it is not used by any Pleo system.
-          example:
-            externalConfigurationId: '123456789'
-        status:
-          $ref: '#/components/schemas/InstallationStatus'
   securitySchemes:
     bearerAuth:
       type: http

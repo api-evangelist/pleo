@@ -141,6 +141,48 @@ paths:
       x-operation-id-original: Get company by ID
 components:
   schemas:
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    ExternalAddressResponseModel:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: Line 1 of the company address.
+        addressLine2:
+          type: string
+          description: Line 2 of the company address.
+        country:
+          type: string
+          description: Country of the company.
+        locality:
+          type: string
+          description: Locality of the company address.
+        postalCode:
+          type: string
+          description: Postal code of the company address.
+        region:
+          type: string
+          description: Region of the company.
+      description: Address of the company
     PageOrder:
       type: string
       enum:
@@ -157,6 +199,29 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/ExternalCompanyResponseModel'
+    ExternalCompanyResponseModel:
+      required:
+      - address
+      - id
+      - name
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ExternalAddressResponseModel'
+        id:
+          type: string
+          description: ID of the Company
+          format: uuid
+        name:
+          type: string
+          description: Name of the Company
+        organizationId:
+          type: string
+          description: Organization ID of the Company
+          format: uuid
+        registrationNumber:
+          type: string
+          description: Registration number of the company
     CursorPageCurrentRequestInfo:
       required:
       - parameters
@@ -186,26 +251,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PageOrder'
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
     CursorPaginatedResponseExternalCompanyResponseModel:
       required:
       - data
@@ -218,51 +263,6 @@ components:
             $ref: '#/components/schemas/ExternalCompanyResponseModel'
         pagination:
           $ref: '#/components/schemas/CursorPageInfo'
-    ExternalCompanyResponseModel:
-      required:
-      - address
-      - id
-      - name
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/ExternalAddressResponseModel'
-        id:
-          type: string
-          description: ID of the Company
-          format: uuid
-        name:
-          type: string
-          description: Name of the Company
-        organizationId:
-          type: string
-          description: Organization ID of the Company
-          format: uuid
-        registrationNumber:
-          type: string
-          description: Registration number of the company
-    ExternalAddressResponseModel:
-      type: object
-      properties:
-        addressLine1:
-          type: string
-          description: Line 1 of the company address.
-        addressLine2:
-          type: string
-          description: Line 2 of the company address.
-        country:
-          type: string
-          description: Country of the company.
-        locality:
-          type: string
-          description: Locality of the company address.
-        postalCode:
-          type: string
-          description: Postal code of the company address.
-        region:
-          type: string
-          description: Region of the company.
-      description: Address of the company
   securitySchemes:
     bearerAuth:
       type: http

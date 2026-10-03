@@ -160,6 +160,27 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/AccountingEntryEnrichmentResponse'
+    AccountingEntryEnrichmentResponse:
+      type: object
+      properties:
+        accountingEntryId:
+          type: string
+          description: The unique identifier of the accounting entry that was matched and enriched. Only present when receiptStatus is UPLOADED.
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        receiptStatus:
+          type: string
+          description: This can be one of ReceiptStatus values
+          example: ADDED_TO_RECEIPT_INBOX
+        tags:
+          type: array
+          description: List of tag UUIDs that were applied to the accounting entry.
+          example:
+          - 00000000-0000-0000-0000-000000000000
+          items:
+            type: string
+            format: uuid
+      description: The result of an enrichment request.
     AccountingEntryEnrichmentV2BodyRequest:
       required:
       - receipts
@@ -184,27 +205,6 @@ components:
             type: string
             format: uuid
             example: '["ef6f10a1-e608-418b-99f1-08150a9ae129","c111b173-d9da-4117-ab70-8f4b8acf496d"]'
-    AccountingEntryEnrichmentResponse:
-      type: object
-      properties:
-        accountingEntryId:
-          type: string
-          description: The unique identifier of the accounting entry that was matched and enriched. Only present when receiptStatus is UPLOADED.
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-        receiptStatus:
-          type: string
-          description: This can be one of ReceiptStatus values
-          example: ADDED_TO_RECEIPT_INBOX
-        tags:
-          type: array
-          description: List of tag UUIDs that were applied to the accounting entry.
-          example:
-          - 00000000-0000-0000-0000-000000000000
-          items:
-            type: string
-            format: uuid
-      description: The result of an enrichment request.
   securitySchemes:
     bearerAuth:
       type: http

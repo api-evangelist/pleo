@@ -357,44 +357,6 @@ paths:
           description: The subscription secret record could not be found.
 components:
   schemas:
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
     EndpointAuth:
       type: object
       properties:
@@ -408,50 +370,6 @@ components:
           - NONE
           - BASIC
       description: Authentication details for the endpoint
-    AuthCredential:
-      type: object
-      properties:
-        password:
-          type: string
-          description: Password for basic authentication
-          example: password
-        token:
-          type: string
-          description: Token for bearer authentication
-          example: token
-        username:
-          type: string
-          description: Username for basic authentication
-          example: username
-      description: Authentication credentials
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
-    SubscriptionSecretModel:
-      type: object
-      properties:
-        secretKey:
-          type: string
-          description: The subscription's verification secret. It is required to verify the subscription events
-          readOnly: true
-          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
     SubscriptionActivityModel:
       required:
       - actorUrn
@@ -495,13 +413,33 @@ components:
           format: uuid
           readOnly: true
           example: 123e4567-e89b-12d3-a456-426614174000
-    SubscriptionSecretResponse:
+    SubscriptionResponse:
       required:
       - data
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/SubscriptionSecretModel'
+          $ref: '#/components/schemas/SubscriptionModel'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
     CursorPaginatedResponseSubscriptionActivityModel:
       required:
       - data
@@ -514,6 +452,59 @@ components:
             $ref: '#/components/schemas/SubscriptionActivityModel'
         pagination:
           $ref: '#/components/schemas/CursorPageInfo'
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+    SubscriptionSecretModel:
+      type: object
+      properties:
+        secretKey:
+          type: string
+          description: The subscription's verification secret. It is required to verify the subscription events
+          readOnly: true
+          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
+    SubscriptionSecretResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubscriptionSecretModel'
+    CursorPageCurrentRequestInfo:
+      required:
+      - parameters
+      type: object
+      properties:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
     SubscriptionRequest:
       required:
       - endpointUrl
@@ -553,18 +544,6 @@ components:
           - INACTIVE
           - ACTIVE
           default: ACTIVE
-    CursorPaginatedResponseSubscriptionModel:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
     SubscriptionModel:
       required:
       - createdAt
@@ -638,13 +617,34 @@ components:
           format: date-time
           readOnly: true
           example: '2022-01-10T00:00:00Z'
-    SubscriptionResponse:
+    CursorPaginatedResponseSubscriptionModel:
       required:
       - data
+      - pagination
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/SubscriptionModel'
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    AuthCredential:
+      type: object
+      properties:
+        password:
+          type: string
+          description: Password for basic authentication
+          example: password
+        token:
+          type: string
+          description: Token for bearer authentication
+          example: token
+        username:
+          type: string
+          description: Username for basic authentication
+          example: username
+      description: Authentication credentials
   securitySchemes:
     bearerAuth:
       type: http

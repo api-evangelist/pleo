@@ -156,43 +156,6 @@ paths:
           description: Cannot activate the installation due to infrastructure issue
 components:
   schemas:
-    InstallationErrorCode:
-      type: string
-      description: '
-
-        | Value  | Description |
-
-        | ------ | ----------- |
-
-        | NOT_ENTITLED | The installation is not entitled to use the application. |
-
-        | AUTH_ERROR | There was an authentication error during installation. |'
-      enum:
-      - NOT_ENTITLED
-      - AUTH_ERROR
-    InstallationStatus:
-      type: string
-      description: '
-
-        | Value  | Description |
-
-        | ------ | ----------- |
-
-        | ACTIVATED | The installation is active and operational. |
-
-        | INACTIVE | The installation is inactive and not currently in use. |
-
-        | AUTHORIZED | The Pleo authorisation server has authorised the user, but the installation is not yet active or ready for use. |
-
-        | PENDING_INTEGRATION | The integration is synchronising or performing other background tasks. When an installation is in progress, the integration synchronises the user''s Pleo account with the target application, so that tax codes, tags, and vendors are all similar in both Pleo and the third-party application. |
-
-        | ERROR | The installation has encountered an error and is not operational. An error code will be provided to explain the reason for the error. |'
-      enum:
-      - ACTIVATED
-      - INACTIVE
-      - AUTHORIZED
-      - PENDING_INTEGRATION
-      - ERROR
     CreateClientInstallationRequest:
       type: object
       properties:
@@ -227,6 +190,43 @@ components:
             externalApplicationId: '123456789'
         status:
           $ref: '#/components/schemas/InstallationStatus'
+    InstallationStatus:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | ACTIVATED | The installation is active and operational. |
+
+        | INACTIVE | The installation is inactive and not currently in use. |
+
+        | AUTHORIZED | The Pleo authorisation server has authorised the user, but the installation is not yet active or ready for use. |
+
+        | PENDING_INTEGRATION | The integration is synchronising or performing other background tasks. When an installation is in progress, the integration synchronises the user''s Pleo account with the target application, so that tax codes, tags, and vendors are all similar in both Pleo and the third-party application. |
+
+        | ERROR | The installation has encountered an error and is not operational. An error code will be provided to explain the reason for the error. |'
+      enum:
+      - ACTIVATED
+      - INACTIVE
+      - AUTHORIZED
+      - PENDING_INTEGRATION
+      - ERROR
+    InstallationErrorCode:
+      type: string
+      description: '
+
+        | Value  | Description |
+
+        | ------ | ----------- |
+
+        | NOT_ENTITLED | The installation is not entitled to use the application. |
+
+        | AUTH_ERROR | There was an authentication error during installation. |'
+      enum:
+      - NOT_ENTITLED
+      - AUTH_ERROR
     InstallationResponse:
       required:
       - applicationId

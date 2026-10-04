@@ -214,26 +214,27 @@ paths:
                 $ref: '#/components/schemas/CursorPaginatedResponseTaxCodeModel'
 components:
   schemas:
-    CursorPageInfo:
+    CalculateTaxesResponse:
       required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
+      - taxes
       type: object
       properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
+        taxes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/Taxes'
+    Taxes:
+      required:
+      - amountTaxBreakdown
+      - id
+      type: object
+      properties:
+        amountTaxBreakdown:
+          $ref: '#/components/schemas/AmountTaxBreakdown'
+        id:
           type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
     Money:
       required:
       - currency
@@ -249,6 +250,44 @@ components:
           description: "The transaction amount is represented in smallest denomination in a specific currency.\n For example:\n- A transaction amount is £65.80 in Great Britain Pounds (GBP); this represented as `6580`.\n- A transaction amount is 1500 ISK in Icelandic Króna (ISK); this is represented as `1500`."
           format: int64
           example: 10
+    CursorPaginatedResponseTaxCodeModel:
+      required:
+      - data
+      - pagination
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxCodeModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
+    DataResponseCalculateTaxesResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CalculateTaxesResponse'
+    TaxCodeSearchRequest:
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: If set to true will only return tax codes that have been archived, if set to false will only return tax codes that have not been archived. By default,both archived and non-archived tax codes will be returned.
+        code:
+          type: string
+          description: Filter by code.
+        taxCodeIds:
+          uniqueItems: true
+          type: array
+          description: Useful for fetching a list of tax codes given a specific list of IDs.
+          items:
+            type: string
+            description: Useful for fetching a list of tax codes given a specific list of IDs.
+            format: uuid
+        type:
+          $ref: '#/components/schemas/TaxCodeTypeModel'
     TaxCodeModel:
       required:
       - archived
@@ -312,20 +351,71 @@ components:
           type: string
           description: Date and time the tax code was last updated
           format: date-time
-    CalculateTaxesRequest:
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
+    CursorPageCurrentRequestInfo:
       required:
-      - amountsByTaxCodeId
+      - parameters
       type: object
       properties:
-        amountsByTaxCodeId:
+        after:
+          type: string
+        before:
+          type: string
+        limit:
+          type: integer
+          format: int32
+        offset:
+          type: integer
+          format: int64
+        parameters:
           type: object
           additionalProperties:
             type: array
-            description: The amounts to apply the tax code to
             items:
-              $ref: '#/components/schemas/TaxedAmount'
-          description: The amounts to apply the tax code to
-      description: Tax code IDs and a list of id + amount pairs to calculate tax for
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
+    TaxCodeTypeModel:
+      type: string
+      description: Classification of this tax code. Exclusive tax codes are not currently supported.
+      enum:
+      - inclusive
+      - exclusive
+      - reverse
     DataResponseTaxCodeModel:
       required:
       - data
@@ -333,35 +423,32 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TaxCodeModel'
-    TaxCodeSearchRequest:
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: If set to true will only return tax codes that have been archived, if set to false will only return tax codes that have not been archived. By default,both archived and non-archived tax codes will be returned.
-        code:
-          type: string
-          description: Filter by code.
-        taxCodeIds:
-          uniqueItems: true
-          type: array
-          description: Useful for fetching a list of tax codes given a specific list of IDs.
-          items:
-            type: string
-            description: Useful for fetching a list of tax codes given a specific list of IDs.
-            format: uuid
-        type:
-          $ref: '#/components/schemas/TaxCodeTypeModel'
-    Taxes:
+    TaxedAmount:
       required:
-      - amountTaxBreakdown
+      - amount
       - id
       type: object
       properties:
-        amountTaxBreakdown:
-          $ref: '#/components/schemas/AmountTaxBreakdown'
+        amount:
+          $ref: '#/components/schemas/Money'
         id:
           type: string
+          description: An identifier to associate the amount to
+      description: The amounts to apply the tax code to
+    AmountTaxBreakdown:
+      required:
+      - gross
+      - net
+      - tax
+      type: object
+      properties:
+        gross:
+          $ref: '#/components/schemas/Money'
+        net:
+          $ref: '#/components/schemas/Money'
+        tax:
+          $ref: '#/components/schemas/Money'
+      description: Tax breakdown for the eMoneyAccountValue of the core accounting entry.
     TaxCodeCreateUpdateModel:
       required:
       - archived
@@ -403,107 +490,20 @@ components:
           description: Percentage rate applied for this tax code (This is represented in decimals and not the percentage. e.g. 20% tax rate would be 0.20)
         type:
           $ref: '#/components/schemas/TaxCodeTypeModel'
-    TaxCodeTypeModel:
-      type: string
-      description: Classification of this tax code. Exclusive tax codes are not currently supported.
-      enum:
-      - inclusive
-      - exclusive
-      - reverse
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
-    TaxedAmount:
+    CalculateTaxesRequest:
       required:
-      - amount
-      - id
+      - amountsByTaxCodeId
       type: object
       properties:
-        amount:
-          $ref: '#/components/schemas/Money'
-        id:
-          type: string
-          description: An identifier to associate the amount to
-      description: The amounts to apply the tax code to
-    CursorPageCurrentRequestInfo:
-      required:
-      - parameters
-      type: object
-      properties:
-        after:
-          type: string
-        before:
-          type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
-        parameters:
+        amountsByTaxCodeId:
           type: object
           additionalProperties:
             type: array
+            description: The amounts to apply the tax code to
             items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
-    AmountTaxBreakdown:
-      required:
-      - gross
-      - net
-      - tax
-      type: object
-      properties:
-        gross:
-          $ref: '#/components/schemas/Money'
-        net:
-          $ref: '#/components/schemas/Money'
-        tax:
-          $ref: '#/components/schemas/Money'
-      description: Tax breakdown for the eMoneyAccountValue of the core accounting entry.
-    DataResponseCalculateTaxesResponse:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/CalculateTaxesResponse'
-    CursorPaginatedResponseTaxCodeModel:
-      required:
-      - data
-      - pagination
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxCodeModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
-    CalculateTaxesResponse:
-      required:
-      - taxes
-      type: object
-      properties:
-        taxes:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/Taxes'
+              $ref: '#/components/schemas/TaxedAmount'
+          description: The amounts to apply the tax code to
+      description: Tax code IDs and a list of id + amount pairs to calculate tax for
   securitySchemes:
     bearerAuth:
       type: http

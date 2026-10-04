@@ -141,48 +141,35 @@ paths:
       x-operation-id-original: Get company by ID
 components:
   schemas:
-    CursorPageInfo:
+    CursorPageCurrentRequestInfo:
       required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
+      - parameters
       type: object
       properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
+        after:
           type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
+        before:
           type: string
-        total:
+        limit:
+          type: integer
+          format: int32
+        offset:
           type: integer
           format: int64
-    ExternalAddressResponseModel:
-      type: object
-      properties:
-        addressLine1:
-          type: string
-          description: Line 1 of the company address.
-        addressLine2:
-          type: string
-          description: Line 2 of the company address.
-        country:
-          type: string
-          description: Country of the company.
-        locality:
-          type: string
-          description: Locality of the company address.
-        postalCode:
-          type: string
-          description: Postal code of the company address.
-        region:
-          type: string
-          description: Region of the company.
-      description: Address of the company
+        parameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        sortingKeys:
+          type: array
+          items:
+            type: string
+        sortingOrder:
+          type: array
+          items:
+            $ref: '#/components/schemas/PageOrder'
     PageOrder:
       type: string
       enum:
@@ -222,35 +209,26 @@ components:
         registrationNumber:
           type: string
           description: Registration number of the company
-    CursorPageCurrentRequestInfo:
+    CursorPageInfo:
       required:
-      - parameters
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
       type: object
       properties:
-        after:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
           type: string
-        before:
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
           type: string
-        limit:
-          type: integer
-          format: int32
-        offset:
+        total:
           type: integer
           format: int64
-        parameters:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        sortingKeys:
-          type: array
-          items:
-            type: string
-        sortingOrder:
-          type: array
-          items:
-            $ref: '#/components/schemas/PageOrder'
     CursorPaginatedResponseExternalCompanyResponseModel:
       required:
       - data
@@ -263,6 +241,28 @@ components:
             $ref: '#/components/schemas/ExternalCompanyResponseModel'
         pagination:
           $ref: '#/components/schemas/CursorPageInfo'
+    ExternalAddressResponseModel:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: Line 1 of the company address.
+        addressLine2:
+          type: string
+          description: Line 2 of the company address.
+        country:
+          type: string
+          description: Country of the company.
+        locality:
+          type: string
+          description: Locality of the company address.
+        postalCode:
+          type: string
+          description: Postal code of the company address.
+        region:
+          type: string
+          description: Region of the company.
+      description: Address of the company
   securitySchemes:
     bearerAuth:
       type: http

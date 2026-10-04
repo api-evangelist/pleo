@@ -414,10 +414,16 @@ paths:
           description: 'Not found: Tag group with given id was not found or deleted.'
 components:
   schemas:
-    TagGroupDimensionUpdateModel:
+    DataResponseTagGroupUsageModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagGroupUsageModel'
+    TagGroupDimensionCreateModel:
       required:
       - code
-      - displayOrder
       - name
       - visible
       type: object
@@ -427,112 +433,17 @@ components:
           description: Code used in the external ERP/accounting system to identify the tag group dimension.
           example: 5524f270-6c21-11ee-b962-0242ac120002
         displayOrder:
-          type: integer
-          description: Numerical value assigned to the tag group dimension to determine the display position.
+          type:
+          - integer
+          - 'null'
+          description: This field is no longer in use. The display order of a new tag group dimension is now managed by the highest column order value.
           format: int32
           example: 1
+          deprecated: true
         name:
           type: string
           description: User readable name of the tag group dimension.
           example: Project
-        visible:
-          type: boolean
-          description: Determines if this tag group dimension is displayed in the UI.
-          example: false
-    AggregatedTagGroupModel:
-      required:
-      - archived
-      - code
-      - companyId
-      - createdAt
-      - dimensions
-      - id
-      - name
-      - updatedAt
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Boolean flag used to determine whether the tag group is archived.
-          example: false
-        code:
-          type: string
-          description: Code used in the external ERP/accounting system to identify the tag group.
-          example: 5524f270-6c21-11ee-b962-0242ac120002
-        companyId:
-          type: string
-          description: Unique identifier of the company the tag group belongs to.
-          format: uuid
-          example: c04c7e9e-6c15-11ee-b962-0242ac120003
-        createdAt:
-          type: string
-          description: Creation date and time.
-          format: date-time
-          example: '2023-08-23T03:11:48Z'
-        dimensions:
-          type: array
-          description: List of all the dimensions associated with this tag group.
-          items:
-            $ref: '#/components/schemas/AggregatedTagGroupDimensionModel'
-        id:
-          type: string
-          description: Unique identifier of the tag group.
-          format: uuid
-          example: c04c7e9e-6c15-11ee-b962-0242ac120002
-        name:
-          type: string
-          description: User readable name of the tag group.
-          example: Projects
-        updatedAt:
-          type: string
-          description: Date and time of the last update.
-          format: date-time
-          example: '2023-08-23T03:11:48Z'
-    TagGroupDimensionModel:
-      required:
-      - code
-      - createdAt
-      - displayOrder
-      - groupId
-      - id
-      - name
-      - updatedAt
-      - visible
-      type: object
-      properties:
-        code:
-          type: string
-          description: Code used in the external ERP/accounting system to identify the tag group dimension.
-          example: 5524f270-6c21-11ee-b962-0242ac120002
-        createdAt:
-          type: string
-          description: Creation date and time.
-          format: date-time
-          example: '2023-08-23T03:11:48Z'
-        displayOrder:
-          type: integer
-          description: Numerical value assigned to the tag group dimension to determine the display position.
-          format: int32
-          example: 1
-        groupId:
-          type: string
-          description: Unique identifier of the tag group this dimension belongs to.
-          format: uuid
-          example: c04c7e9e-6c15-11ee-b962-0242ac120003
-        id:
-          type: string
-          description: Unique identifier of the tag group dimension.
-          format: uuid
-          example: c04c7e9e-6c15-11ee-b962-0242ac120002
-        name:
-          type: string
-          description: User readable name of the tag group dimension.
-          example: Project
-        updatedAt:
-          type: string
-          description: Date and time of the last update.
-          format: date-time
-          example: '2023-08-23T03:11:48Z'
         visible:
           type: boolean
           description: Determines if this tag group dimension is displayed in the UI.
@@ -544,99 +455,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TagGroupDimensionModel'
-    DataResponseListTagGroupModel:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagGroupModel'
-    AggregatedTagGroupDimensionModel:
-      required:
-      - code
-      - createdAt
-      - displayOrder
-      - id
-      - name
-      - updatedAt
-      - visible
-      type: object
-      properties:
-        code:
-          type: string
-          description: Code used in the external ERP/accounting system to identify the tag group dimension.
-          example: 5524f270-6c21-11ee-b962-0242ac120002
-        createdAt:
-          type: string
-          description: Creation date and time.
-          format: date-time
-          example: '2023-08-23T03:11:48Z'
-        displayOrder:
-          type: integer
-          description: Numerical value assigned to the tag group dimension to determine the display position.
-          format: int32
-        id:
-          type: string
-          description: Unique identifier of the tag group dimension.
-          format: uuid
-          example: c04c7e9e-6c15-11ee-b962-0242ac120002
-        name:
-          type: string
-          description: User readable name of the tag group dimension.
-          example: Project
-        updatedAt:
-          type: string
-          description: Date and time of the last update.
-          format: date-time
-          example: '2023-08-23T03:11:48Z'
-        visible:
-          type: boolean
-          description: Determines if this dimension is displayed in the UI.
-          example: false
-      description: List of all the dimensions associated with this tag group.
-    TagGroupUsageModel:
-      required:
-      - usages
-      type: object
-      properties:
-        usages:
-          type: array
-          description: List of tag usage models.
-          items:
-            $ref: '#/components/schemas/TagUsageModel'
-    DataResponseListTagGroupDimensionModel:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagGroupDimensionModel'
-    TagGroupCreateModel:
-      required:
-      - archived
-      - code
-      - name
-      type: object
-      properties:
-        archived:
-          type: boolean
-          description: Boolean flag used to determine whether the tag group is archived.
-        code:
-          type: string
-          description: Code used in the external ERP/accounting system to identify the tag group.
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-            description: Place to store additional information about the tag group.
-          description: Place to store additional information about the tag group.
-        name:
-          type: string
-          description: User readable name of the tag group.
     TagGroupModel:
       required:
       - archived
@@ -695,13 +513,154 @@ components:
           description: Date and time of the last update.
           format: date-time
           example: '2023-08-23T03:11:48Z'
-    DataResponseTagGroupUsageModel:
+    DataResponseListAggregatedTagGroupModel:
       required:
       - data
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/TagGroupUsageModel'
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregatedTagGroupModel'
+    AggregatedTagGroupModel:
+      required:
+      - archived
+      - code
+      - companyId
+      - createdAt
+      - dimensions
+      - id
+      - name
+      - updatedAt
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+          example: false
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        companyId:
+          type: string
+          description: Unique identifier of the company the tag group belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        dimensions:
+          type: array
+          description: List of all the dimensions associated with this tag group.
+          items:
+            $ref: '#/components/schemas/AggregatedTagGroupDimensionModel'
+        id:
+          type: string
+          description: Unique identifier of the tag group.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group.
+          example: Projects
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+    DataResponseTagGroupModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/TagGroupModel'
+    DataResponseListTagGroupDimensionModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagGroupDimensionModel'
+    TagGroupDimensionModel:
+      required:
+      - code
+      - createdAt
+      - displayOrder
+      - groupId
+      - id
+      - name
+      - updatedAt
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine the display position.
+          format: int32
+          example: 1
+        groupId:
+          type: string
+          description: Unique identifier of the tag group this dimension belongs to.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120003
+        id:
+          type: string
+          description: Unique identifier of the tag group dimension.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
+        visible:
+          type: boolean
+          description: Determines if this tag group dimension is displayed in the UI.
+          example: false
+    TagGroupDimensionUpdateModel:
+      required:
+      - code
+      - displayOrder
+      - name
+      - visible
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group dimension.
+          example: 5524f270-6c21-11ee-b962-0242ac120002
+        displayOrder:
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine the display position.
+          format: int32
+          example: 1
+        name:
+          type: string
+          description: User readable name of the tag group dimension.
+          example: Project
+        visible:
+          type: boolean
+          description: Determines if this tag group dimension is displayed in the UI.
+          example: false
     TagUsageModel:
       required:
       - count
@@ -717,10 +676,14 @@ components:
           description: Unique identifier of the tag.
           format: uuid
       description: List of tag usage models.
-    TagGroupDimensionCreateModel:
+    AggregatedTagGroupDimensionModel:
       required:
       - code
+      - createdAt
+      - displayOrder
+      - id
       - name
+      - updatedAt
       - visible
       type: object
       properties:
@@ -728,22 +691,75 @@ components:
           type: string
           description: Code used in the external ERP/accounting system to identify the tag group dimension.
           example: 5524f270-6c21-11ee-b962-0242ac120002
+        createdAt:
+          type: string
+          description: Creation date and time.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
         displayOrder:
-          type:
-          - integer
-          - 'null'
-          description: This field is no longer in use. The display order of a new tag group dimension is now managed by the highest column order value.
+          type: integer
+          description: Numerical value assigned to the tag group dimension to determine the display position.
           format: int32
-          example: 1
-          deprecated: true
+        id:
+          type: string
+          description: Unique identifier of the tag group dimension.
+          format: uuid
+          example: c04c7e9e-6c15-11ee-b962-0242ac120002
         name:
           type: string
           description: User readable name of the tag group dimension.
           example: Project
+        updatedAt:
+          type: string
+          description: Date and time of the last update.
+          format: date-time
+          example: '2023-08-23T03:11:48Z'
         visible:
           type: boolean
-          description: Determines if this tag group dimension is displayed in the UI.
+          description: Determines if this dimension is displayed in the UI.
           example: false
+      description: List of all the dimensions associated with this tag group.
+    TagGroupCreateModel:
+      required:
+      - archived
+      - code
+      - name
+      type: object
+      properties:
+        archived:
+          type: boolean
+          description: Boolean flag used to determine whether the tag group is archived.
+        code:
+          type: string
+          description: Code used in the external ERP/accounting system to identify the tag group.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+            description: Place to store additional information about the tag group.
+          description: Place to store additional information about the tag group.
+        name:
+          type: string
+          description: User readable name of the tag group.
+    TagGroupUsageModel:
+      required:
+      - usages
+      type: object
+      properties:
+        usages:
+          type: array
+          description: List of tag usage models.
+          items:
+            $ref: '#/components/schemas/TagUsageModel'
+    DataResponseListTagGroupModel:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagGroupModel'
     TagGroupUpdateModel:
       required:
       - archived
@@ -767,22 +783,6 @@ components:
         name:
           type: string
           description: User readable name of the tag group.
-    DataResponseListAggregatedTagGroupModel:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AggregatedTagGroupModel'
-    DataResponseTagGroupModel:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/TagGroupModel'
   securitySchemes:
     bearerAuth:
       type: http

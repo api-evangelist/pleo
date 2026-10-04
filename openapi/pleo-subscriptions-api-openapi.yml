@@ -357,89 +357,18 @@ paths:
           description: The subscription secret record could not be found.
 components:
   schemas:
-    EndpointAuth:
-      type: object
-      properties:
-        credentials:
-          $ref: '#/components/schemas/AuthCredential'
-        type:
-          type: string
-          description: Authentication type for the endpoint. Default is NONE
-          example: NONE
-          enum:
-          - NONE
-          - BASIC
-      description: Authentication details for the endpoint
-    SubscriptionActivityModel:
-      required:
-      - actorUrn
-      - createdAt
-      - description
-      - id
-      - operationType
-      - subscriptionId
-      type: object
-      properties:
-        actorUrn:
-          type: string
-          description: The identifier of the user who performed the activity
-          readOnly: true
-          example: urn:pleo:organisation:12345678-1234-1234-1234-123456789012
-        createdAt:
-          type: string
-          description: The time when the subscription activity was created
-          format: date-time
-          readOnly: true
-          example: '2022-01-01T00:00:00Z'
-        description:
-          type: string
-          description: The description of the activity
-          readOnly: true
-          example: Subscription deleted
-        id:
-          type: string
-          description: The unique identifier of the subscription activity
-          format: uuid
-          readOnly: true
-          example: 123e4567-e89b-12d3-a456-426614174000
-        operationType:
-          type: string
-          description: The type of the activity performed
-          readOnly: true
-          example: CREATE
-        subscriptionId:
-          type: string
-          description: The unique identifier of the subscription
-          format: uuid
-          readOnly: true
-          example: 123e4567-e89b-12d3-a456-426614174000
-    SubscriptionResponse:
+    CursorPaginatedResponseSubscriptionModel:
       required:
       - data
+      - pagination
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/SubscriptionModel'
-    CursorPageInfo:
-      required:
-      - currentRequestPagination
-      - hasNextPage
-      - hasPreviousPage
-      type: object
-      properties:
-        currentRequestPagination:
-          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
-        endCursor:
-          type: string
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          type: string
-        total:
-          type: integer
-          format: int64
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionModel'
+        pagination:
+          $ref: '#/components/schemas/CursorPageInfo'
     CursorPaginatedResponseSubscriptionActivityModel:
       required:
       - data
@@ -452,30 +381,6 @@ components:
             $ref: '#/components/schemas/SubscriptionActivityModel'
         pagination:
           $ref: '#/components/schemas/CursorPageInfo'
-    PageOrder:
-      type: string
-      enum:
-      - ASC
-      - ASC_NULLS_FIRST
-      - ASC_NULLS_LAST
-      - DESC
-      - DESC_NULLS_FIRST
-      - DESC_NULLS_LAST
-    SubscriptionSecretModel:
-      type: object
-      properties:
-        secretKey:
-          type: string
-          description: The subscription's verification secret. It is required to verify the subscription events
-          readOnly: true
-          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
-    SubscriptionSecretResponse:
-      required:
-      - data
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/SubscriptionSecretModel'
     CursorPageCurrentRequestInfo:
       required:
       - parameters
@@ -505,45 +410,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PageOrder'
-    SubscriptionRequest:
-      required:
-      - endpointUrl
-      - eventTypes
-      type: object
-      properties:
-        customHeaders:
-          type: object
-          additionalProperties:
-            type: string
-            description: Key values as headers to be sent to the webhooks vendor
-            example: '{"user":"pass"}'
-          description: Key values as headers to be sent to the webhooks vendor
-          example:
-            user: pass
-        endpointAuth:
-          $ref: '#/components/schemas/EndpointAuth'
-        endpointUrl:
-          type: string
-          description: The URL where the events should be sent
-          example: https://example.com/webhook
-        eventTypes:
-          uniqueItems: true
-          type: array
-          description: Name of the event types you wish to subscribe to. Possible values can be found in the EventType enum.
-          example:
-          - v1.export-job.created
-          items:
-            type: string
-            description: Name of the event types you wish to subscribe to. Possible values can be found in the EventType enum.
-            example: '["v1.export-job.created"]'
-        status:
-          type: string
-          description: Status of subscription
-          example: ACTIVE
-          enum:
-          - INACTIVE
-          - ACTIVE
-          default: ACTIVE
+    PageOrder:
+      type: string
+      enum:
+      - ASC
+      - ASC_NULLS_FIRST
+      - ASC_NULLS_LAST
+      - DESC
+      - DESC_NULLS_FIRST
+      - DESC_NULLS_LAST
     SubscriptionModel:
       required:
       - createdAt
@@ -617,18 +492,80 @@ components:
           format: date-time
           readOnly: true
           example: '2022-01-10T00:00:00Z'
-    CursorPaginatedResponseSubscriptionModel:
+    SubscriptionSecretResponse:
       required:
       - data
-      - pagination
       type: object
       properties:
         data:
+          $ref: '#/components/schemas/SubscriptionSecretModel'
+    SubscriptionRequest:
+      required:
+      - endpointUrl
+      - eventTypes
+      type: object
+      properties:
+        customHeaders:
+          type: object
+          additionalProperties:
+            type: string
+            description: Key values as headers to be sent to the webhooks vendor
+            example: '{"user":"pass"}'
+          description: Key values as headers to be sent to the webhooks vendor
+          example:
+            user: pass
+        endpointAuth:
+          $ref: '#/components/schemas/EndpointAuth'
+        endpointUrl:
+          type: string
+          description: The URL where the events should be sent
+          example: https://example.com/webhook
+        eventTypes:
+          uniqueItems: true
           type: array
+          description: Name of the event types you wish to subscribe to. Possible values can be found in the EventType enum.
+          example:
+          - v1.export-job.created
           items:
-            $ref: '#/components/schemas/SubscriptionModel'
-        pagination:
-          $ref: '#/components/schemas/CursorPageInfo'
+            type: string
+            description: Name of the event types you wish to subscribe to. Possible values can be found in the EventType enum.
+            example: '["v1.export-job.created"]'
+        status:
+          type: string
+          description: Status of subscription
+          example: ACTIVE
+          enum:
+          - INACTIVE
+          - ACTIVE
+          default: ACTIVE
+    SubscriptionResponse:
+      required:
+      - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubscriptionModel'
+    EndpointAuth:
+      type: object
+      properties:
+        credentials:
+          $ref: '#/components/schemas/AuthCredential'
+        type:
+          type: string
+          description: Authentication type for the endpoint. Default is NONE
+          example: NONE
+          enum:
+          - NONE
+          - BASIC
+      description: Authentication details for the endpoint
+    SubscriptionSecretModel:
+      type: object
+      properties:
+        secretKey:
+          type: string
+          description: The subscription's verification secret. It is required to verify the subscription events
+          readOnly: true
+          example: whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD
     AuthCredential:
       type: object
       properties:
@@ -645,6 +582,69 @@ components:
           description: Username for basic authentication
           example: username
       description: Authentication credentials
+    SubscriptionActivityModel:
+      required:
+      - actorUrn
+      - createdAt
+      - description
+      - id
+      - operationType
+      - subscriptionId
+      type: object
+      properties:
+        actorUrn:
+          type: string
+          description: The identifier of the user who performed the activity
+          readOnly: true
+          example: urn:pleo:organisation:12345678-1234-1234-1234-123456789012
+        createdAt:
+          type: string
+          description: The time when the subscription activity was created
+          format: date-time
+          readOnly: true
+          example: '2022-01-01T00:00:00Z'
+        description:
+          type: string
+          description: The description of the activity
+          readOnly: true
+          example: Subscription deleted
+        id:
+          type: string
+          description: The unique identifier of the subscription activity
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+        operationType:
+          type: string
+          description: The type of the activity performed
+          readOnly: true
+          example: CREATE
+        subscriptionId:
+          type: string
+          description: The unique identifier of the subscription
+          format: uuid
+          readOnly: true
+          example: 123e4567-e89b-12d3-a456-426614174000
+    CursorPageInfo:
+      required:
+      - currentRequestPagination
+      - hasNextPage
+      - hasPreviousPage
+      type: object
+      properties:
+        currentRequestPagination:
+          $ref: '#/components/schemas/CursorPageCurrentRequestInfo'
+        endCursor:
+          type: string
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          type: string
+        total:
+          type: integer
+          format: int64
   securitySchemes:
     bearerAuth:
       type: http

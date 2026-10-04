@@ -69,7 +69,7 @@ apis:
   humanURL: https://developers.pleo.io/docs/pleo-introduction
   baseURL: https://external.pleo.io
   tags:
-  - AccountingEntries
+  - Accounting Entries
   tags_raw:
   - accounting-entries
   properties:
@@ -391,6 +391,9 @@ apis:
   - type: Documentation
     url: https://developers.pleo.io/docs/webhooks
 common:
+  - type: CapabilityMap
+    url: capabilities/pleo-capability-edges.yml
+    name: Pleo Business Capability Map
   - type: AgenticAccess
     url: agentic-access/pleo-agentic-access.yml
   - type: DomainSecurity

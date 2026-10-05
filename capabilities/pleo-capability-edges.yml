@@ -1,0 +1,74 @@
+slug: pleo
+provider: Pleo
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Subscriptions
+  spec_file: pleo-subscriptions-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.92
+  evidence: openapi title "Webhook Subscriptions API"; "Webhook Subscriptions definitions"; GET /v1/subscriptions/{id}/activities,
+    GET /v1/subscriptions/{id}/secret
+  reason: Despite the business-sounding tag 'Subscriptions', the document is explicitly webhook subscription
+    management — endpoint registration, signing secret retrieval and delivery activity history. This is
+    outbound webhook/event subscription lifecycle, not commercial SaaS subscriptions.
+- tag: Accounts
+  spec_file: pleo-accounts-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.9
+  evidence: POST /v1/chart-of-accounts "Create a new account"; schema "BookkeepingAccountRestModelV1"
+  reason: CRUD over the chart of accounts — explicitly general ledger chart-of-accounts management.
+- tag: Accounting Entries
+  spec_file: pleo-accounting-entries-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.8
+  evidence: '"Fetch core accounting entries based on filters"; schemas "AccountingEntryFamily", "Get all
+    receipts of an accounting entry"'
+  reason: Operations expose bookkeeping journal/accounting entries with supporting receipts — general
+    ledger/accounting records management.
+- tag: AccountingEntryEnrichmentV2
+  spec_file: pleo-accountingentryenrichmentv2-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.7
+  evidence: POST /v2/accounting-entries:enrich "Enrich Accounting Entry V2"
+  reason: Enriches accounting entries (e.g. account/tax coding) for bookkeeping; falls under general ledger/accounting
+    entry management, though the single operation is thin.
+- tag: Export API (v0)
+  spec_file: pleo-export-api-v0-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.7
+  evidence: '"Retrieve a list of accounting entries that have been exported to the external ERP/accounting
+    system"; "Create a new export job"'
+  reason: Export jobs exist to post accounting entries into the ERP/general ledger; it is accounting data
+    synchronisation rather than generic file export, but the job machinery is partly technical.
+- tag: accounting-entries-external
+  spec_file: pleo-accounting-entries-external-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.7
+  evidence: POST /v1/accounting-entries/core:search  externalSearchCoreAccountingEntriesV1  Fetch core
+    accounting entries based on filters
+  reason: The surface exposes accounting entries (journal-style postings with ExportStatus/ReviewStatus)
+    for sync to accounting systems, which is ledger/journal data management. L2 General Ledger chosen
+    as entries are the journal artefacts, though the export orientation leaves some ambiguity.

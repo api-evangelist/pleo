@@ -391,6 +391,8 @@ apis:
   - type: Documentation
     url: https://developers.pleo.io/docs/webhooks
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/pleo/overview
   - type: CapabilityMap
     url: capabilities/pleo-capability-edges.yml
     name: Pleo Business Capability Map

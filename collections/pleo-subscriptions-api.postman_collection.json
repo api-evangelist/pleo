@@ -1,1628 +1,1542 @@
 {
+  "info": {
+    "_postman_id": "2346d9d0-5578-4a61-bfeb-e77f381933ef",
+    "name": "Webhook Subscriptions API",
+    "description": "Webhook Subscriptions definitions\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:55:03.000Z",
+    "updatedAt": "2026-10-22T02:55:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2346d9d0-5578-4a61-bfeb-e77f381933ef"
+  },
   "item": [
     {
-      "id": "6468e0e1-618e-4f68-b388-6457cdbd6364",
-      "name": "Subscriptions",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "01a5ad7f-d5b6-486c-8ccd-60b1b7659de1",
-          "name": "Get subscriptions",
-          "request": {
-            "name": "Get subscriptions",
-            "description": {
-              "content": "Retrieves a list of subscriptions for the specific event types (registered for the specific company or organisation by the third party application).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "subscriptions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "subscriptions",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
                 {
-                  "disabled": false,
-                  "key": "status",
-                  "value": "<string>",
-                  "description": "Filters subscriptions by status. If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned."
+                  "name": "activities",
+                  "item": [
+                    {
+                      "name": "Get subscription activities",
+                      "id": "7da129d8-4342-4e2f-8906-5c6482927cbb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id/activities?operation_types=DELETE&operation_types=UPDATE&before=Q5BVB~QTTOS&after=Q5BVB~QTTOS&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_keys=<string>&sorting_order=ASC_NULLS_FIRST&sorting_order=ASC",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id",
+                            "activities"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filters subscriptions by operationTypes. If the value is null, all subscription activities for the specified subscriptionId are returned.",
+                              "key": "operation_types",
+                              "value": "DELETE"
+                            },
+                            {
+                              "description": "Filters subscriptions by operationTypes. If the value is null, all subscription activities for the specified subscriptionId are returned.",
+                              "key": "operation_types",
+                              "value": "UPDATE"
+                            },
+                            {
+                              "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                              "key": "before",
+                              "value": "Q5BVB~QTTOS"
+                            },
+                            {
+                              "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                              "key": "after",
+                              "value": "Q5BVB~QTTOS"
+                            },
+                            {
+                              "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                              "key": "offset",
+                              "value": "<long>"
+                            },
+                            {
+                              "description": "The maximum amount of items to return.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The keys to sort the results by.",
+                              "key": "sorting_keys",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The keys to sort the results by.",
+                              "key": "sorting_keys",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                              "key": "sorting_order",
+                              "value": "ASC_NULLS_FIRST"
+                            },
+                            {
+                              "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                              "key": "sorting_order",
+                              "value": "ASC"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "5e3bdbae-c846-4f41-926f-6116a06e5b08",
+                              "key": "id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the subscription"
+                            }
+                          ]
+                        },
+                        "description": "Fetches subscription activities of a given subscription."
+                      },
+                      "response": [
+                        {
+                          "id": "99a10c99-e294-473e-872e-566d4cda3fb0",
+                          "name": "The subscription activities are returned.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json;charset=UTF-8"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/subscriptions/:id/activities?operation_types=UPDATE&before=Q5BVB~QTTOS&after=Q5BVB~QTTOS&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "subscriptions",
+                                ":id",
+                                "activities"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filters subscriptions by operationTypes. If the value is null, all subscription activities for the specified subscriptionId are returned.",
+                                  "key": "operation_types",
+                                  "value": "UPDATE"
+                                },
+                                {
+                                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                                  "key": "before",
+                                  "value": "Q5BVB~QTTOS"
+                                },
+                                {
+                                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                                  "key": "after",
+                                  "value": "Q5BVB~QTTOS"
+                                },
+                                {
+                                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                                  "key": "offset",
+                                  "value": "<long>"
+                                },
+                                {
+                                  "description": "The maximum amount of items to return.",
+                                  "key": "limit",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "The keys to sort the results by.",
+                                  "key": "sorting_keys",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                                  "key": "sorting_order",
+                                  "value": "ASC"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json;charset=UTF-8"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"actorUrn\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<uuid>\",\n      \"operationType\": \"<string>\",\n      \"subscriptionId\": \"<uuid>\"\n    },\n    {\n      \"actorUrn\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<uuid>\",\n      \"operationType\": \"<string>\",\n      \"subscriptionId\": \"<uuid>\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"reprehenderit_e\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"dolor_8\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"nulla7c\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"reprehenderit_b\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"after\": \"<string>\",\n      \"before\": \"<string>\",\n      \"limit\": \"<integer>\",\n      \"offset\": \"<long>\",\n      \"sortingKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sortingOrder\": [\n        \"ASC_NULLS_LAST\",\n        \"ASC\"\n      ]\n    },\n    \"hasNextPage\": \"<boolean>\",\n    \"hasPreviousPage\": \"<boolean>\",\n    \"endCursor\": \"<string>\",\n    \"startCursor\": \"<string>\",\n    \"total\": \"<long>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:55:03.000Z",
+                          "updatedAt": "2026-10-22T02:55:03.000Z",
+                          "uid": "35240-99a10c99-e294-473e-872e-566d4cda3fb0"
+                        },
+                        {
+                          "id": "e28b8456-0ab5-4b51-8fea-6076f6e51d8b",
+                          "name": "The subscription record could not be found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/subscriptions/:id/activities?operation_types=UPDATE&before=Q5BVB~QTTOS&after=Q5BVB~QTTOS&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "subscriptions",
+                                ":id",
+                                "activities"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filters subscriptions by operationTypes. If the value is null, all subscription activities for the specified subscriptionId are returned.",
+                                  "key": "operation_types",
+                                  "value": "UPDATE"
+                                },
+                                {
+                                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                                  "key": "before",
+                                  "value": "Q5BVB~QTTOS"
+                                },
+                                {
+                                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                                  "key": "after",
+                                  "value": "Q5BVB~QTTOS"
+                                },
+                                {
+                                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                                  "key": "offset",
+                                  "value": "<long>"
+                                },
+                                {
+                                  "description": "The maximum amount of items to return.",
+                                  "key": "limit",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "The keys to sort the results by.",
+                                  "key": "sorting_keys",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                                  "key": "sorting_order",
+                                  "value": "ASC"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:55:03.000Z",
+                          "updatedAt": "2026-10-22T02:55:03.000Z",
+                          "uid": "35240-e28b8456-0ab5-4b51-8fea-6076f6e51d8b"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-7da129d8-4342-4e2f-8906-5c6482927cbb"
+                    }
+                  ],
+                  "id": "11c3b5c3-7372-464e-ba06-0f56d52bdea2",
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-11c3b5c3-7372-464e-ba06-0f56d52bdea2"
                 },
                 {
-                  "disabled": false,
-                  "key": "event_types",
-                  "value": "<string>",
-                  "description": "Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned."
+                  "name": "secret",
+                  "item": [
+                    {
+                      "name": "Get subscription secret by id",
+                      "id": "d7a61079-b415-4b4a-853c-53db22053513",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id/secret",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id",
+                            "secret"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d595a3c9-997f-44d0-8156-d605025f059e",
+                              "key": "id",
+                              "value": "<uuid>",
+                              "description": "(Required) The unique identifier of the subscription"
+                            }
+                          ]
+                        },
+                        "description": "Fetches webhook subscription secret ID by the specific subscription identification code; this is done to verify the webhook event that the customer has subscribed for."
+                      },
+                      "response": [
+                        {
+                          "id": "d9078083-6c22-4301-af64-d8c9d7801d9e",
+                          "name": "The subscription secret details are returned.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json;charset=UTF-8"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/subscriptions/:id/secret",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "subscriptions",
+                                ":id",
+                                "secret"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json;charset=UTF-8"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"secretKey\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:55:03.000Z",
+                          "updatedAt": "2026-10-22T02:55:03.000Z",
+                          "uid": "35240-d9078083-6c22-4301-af64-d8c9d7801d9e"
+                        },
+                        {
+                          "id": "3aefb1ac-aec1-4530-97f3-c60e5a092d7a",
+                          "name": "The subscription secret record could not be found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/subscriptions/:id/secret",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "subscriptions",
+                                ":id",
+                                "secret"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:55:03.000Z",
+                          "updatedAt": "2026-10-22T02:55:03.000Z",
+                          "uid": "35240-3aefb1ac-aec1-4530-97f3-c60e5a092d7a"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-d7a61079-b415-4b4a-853c-53db22053513"
+                    }
+                  ],
+                  "id": "6d016538-64f9-4908-b30f-06024d53f13f",
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-6d016538-64f9-4908-b30f-06024d53f13f"
                 },
                 {
-                  "disabled": false,
-                  "key": "event_types",
-                  "value": "<string>",
-                  "description": "Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned."
+                  "name": "Get subscription by id",
+                  "id": "6ade8a99-0db4-4829-b048-6b10c58f1a82",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f7000359-fc1d-497a-a739-8a6ead80ba8d",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the subscription"
+                        }
+                      ]
+                    },
+                    "description": "Fetches subscription details by the specific subscription ID."
+                  },
+                  "response": [
+                    {
+                      "id": "40465b34-f9ec-4963-be55-993b3b8b840f",
+                      "name": "The subscription details are returned.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"createdAt\": \"<dateTime>\",\n    \"endpointUrl\": \"<string>\",\n    \"eventTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"id\": \"<uuid>\",\n    \"status\": \"ACTIVE\",\n    \"updatedAt\": \"<dateTime>\",\n    \"customHeaders\": {\n      \"et__\": \"<string>\",\n      \"enim_1f\": \"<string>\",\n      \"et_\": \"<string>\"\n    },\n    \"deletedAt\": \"<dateTime>\",\n    \"deletedBy\": \"<string>\",\n    \"endpointAuth\": {\n      \"credentials\": {\n        \"password\": \"<string>\",\n        \"token\": \"<string>\",\n        \"username\": \"<string>\"\n      },\n      \"type\": \"BASIC\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-40465b34-f9ec-4963-be55-993b3b8b840f"
+                    },
+                    {
+                      "id": "493d199e-f319-46bf-bccb-04128cd9201a",
+                      "name": "The subscription record could not be found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-493d199e-f319-46bf-bccb-04128cd9201a"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-6ade8a99-0db4-4829-b048-6b10c58f1a82"
                 },
                 {
-                  "disabled": false,
-                  "key": "before",
-                  "value": "<string>",
-                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
+                  "name": "Update a subscription",
+                  "id": "ba8f829c-e569-486c-a931-d33348aeb9ce",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "415528ff-0bac-428a-a643-6f8855fb41b2",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the subscription"
+                        }
+                      ]
+                    },
+                    "description": "Modifies the subscription details."
+                  },
+                  "response": [
+                    {
+                      "id": "9b66d7d1-3c00-4a01-bc2e-237577b82a3a",
+                      "name": "Subscription updated.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"createdAt\": \"<dateTime>\",\n    \"endpointUrl\": \"<string>\",\n    \"eventTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"id\": \"<uuid>\",\n    \"status\": \"ACTIVE\",\n    \"updatedAt\": \"<dateTime>\",\n    \"customHeaders\": {\n      \"et__\": \"<string>\",\n      \"enim_1f\": \"<string>\",\n      \"et_\": \"<string>\"\n    },\n    \"deletedAt\": \"<dateTime>\",\n    \"deletedBy\": \"<string>\",\n    \"endpointAuth\": {\n      \"credentials\": {\n        \"password\": \"<string>\",\n        \"token\": \"<string>\",\n        \"username\": \"<string>\"\n      },\n      \"type\": \"BASIC\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-9b66d7d1-3c00-4a01-bc2e-237577b82a3a"
+                    },
+                    {
+                      "id": "4aa8b7d3-7d44-498e-9ba2-b6598aaad2a7",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-4aa8b7d3-7d44-498e-9ba2-b6598aaad2a7"
+                    },
+                    {
+                      "id": "4517ea49-9fe2-42dd-abd1-e35e16998703",
+                      "name": "The subscription record could not be found.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-4517ea49-9fe2-42dd-abd1-e35e16998703"
+                    },
+                    {
+                      "id": "57576442-1ecc-435f-80fa-0f0eca65009d",
+                      "name": "Could not update the subscription record owing to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-57576442-1ecc-435f-80fa-0f0eca65009d"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-ba8f829c-e569-486c-a931-d33348aeb9ce"
                 },
                 {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>",
-                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<long>",
-                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "The maximum amount of items to return."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
+                  "name": "Delete subscription by id",
+                  "id": "4628ac69-efec-47a0-b9dd-28ebb736cfa7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "605b5f5c-6247-415d-845d-379f7477218a",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The unique identifier of the subscription"
+                        }
+                      ]
+                    },
+                    "description": "Removes the specified subscription record."
+                  },
+                  "response": [
+                    {
+                      "id": "ce35bab2-75cf-4011-a7e2-902303d40177",
+                      "name": "Subscription deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-ce35bab2-75cf-4011-a7e2-902303d40177"
+                    },
+                    {
+                      "id": "c79c0419-bdea-4a3e-9e28-dd8caa517d62",
+                      "name": "The subscription record could not be found.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-c79c0419-bdea-4a3e-9e28-dd8caa517d62"
+                    },
+                    {
+                      "id": "b126a755-aebd-4924-b5e3-226495bc0050",
+                      "name": "Cannot delete subscription due to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/subscriptions/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "subscriptions",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:55:03.000Z",
+                      "updatedAt": "2026-10-22T02:55:03.000Z",
+                      "uid": "35240-b126a755-aebd-4924-b5e3-226495bc0050"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-4628ac69-efec-47a0-b9dd-28ebb736cfa7"
                 }
               ],
-              "variable": []
+              "id": "3ade34bb-b6e3-47ec-a0b5-e31973241564",
+              "createdAt": "2026-10-22T02:55:03.000Z",
+              "updatedAt": "2026-10-22T02:55:03.000Z",
+              "uid": "35240-3ade34bb-b6e3-47ec-a0b5-e31973241564"
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
             {
-              "id": "4c233758-94a9-420d-a531-ad72063a9162",
-              "name": "Returns list of subscriptions.",
-              "originalRequest": {
+              "name": "Get subscriptions",
+              "id": "0bcf1f9d-e449-43d3-9e16-73c178fa163d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/v1/subscriptions?status=<string>&event_types=<string>&event_types=<string>&before=Q5BVB~QTTOS&after=Q5BVB~QTTOS&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_keys=<string>&sorting_order=ASC_NULLS_FIRST&sorting_order=ASC",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "subscriptions"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Filters subscriptions by status. If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
                       "key": "status",
-                      "value": "ACTIVE"
+                      "value": "<string>"
                     },
                     {
+                      "description": "Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
                       "key": "event_types",
                       "value": "<string>"
                     },
                     {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "<long>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"createdAt\": \"2022-01-01T00:00:00Z\",\n      \"endpointUrl\": \"https://example.com/webhook\",\n      \"eventTypes\": [\n        \"v1.export-job.created\"\n      ],\n      \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"status\": \"ACTIVE\",\n      \"updatedAt\": \"2022-01-10T00:00:00Z\",\n      \"customHeaders\": {\n        \"user\": \"pass\"\n      },\n      \"deletedAt\": \"2022-01-01T00:00:00Z\",\n      \"deletedBy\": \"urn:pleo:organisation:12345678-1234-1234-1234-123456789012\",\n      \"endpointAuth\": {\n        \"credentials\": {\n          \"password\": \"password\",\n          \"token\": \"token\",\n          \"username\": \"username\"\n        },\n        \"type\": \"NONE\"\n      }\n    },\n    {\n      \"createdAt\": \"2022-01-01T00:00:00Z\",\n      \"endpointUrl\": \"https://example.com/webhook\",\n      \"eventTypes\": [\n        \"v1.export-job.created\"\n      ],\n      \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"status\": \"ACTIVE\",\n      \"updatedAt\": \"2022-01-10T00:00:00Z\",\n      \"customHeaders\": {\n        \"user\": \"pass\"\n      },\n      \"deletedAt\": \"2022-01-01T00:00:00Z\",\n      \"deletedBy\": \"urn:pleo:organisation:12345678-1234-1234-1234-123456789012\",\n      \"endpointAuth\": {\n        \"credentials\": {\n          \"password\": \"password\",\n          \"token\": \"token\",\n          \"username\": \"username\"\n        },\n        \"type\": \"NONE\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_2\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 3502,\n      \"offset\": 9549,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": false,\n    \"hasPreviousPage\": true,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 6088\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d5829f06-1c32-477c-bcd7-88e8b03e0c20",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "status",
-                      "value": "ACTIVE"
-                    },
-                    {
+                      "description": "Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
                       "key": "event_types",
                       "value": "<string>"
                     },
                     {
+                      "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
                       "key": "before",
-                      "value": "<string>"
+                      "value": "Q5BVB~QTTOS"
                     },
                     {
+                      "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
                       "key": "after",
-                      "value": "<string>"
+                      "value": "Q5BVB~QTTOS"
                     },
                     {
+                      "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
                       "key": "offset",
                       "value": "<long>"
                     },
                     {
+                      "description": "The maximum amount of items to return.",
                       "key": "limit",
                       "value": "<integer>"
                     },
                     {
+                      "description": "The keys to sort the results by.",
                       "key": "sorting_keys",
                       "value": "<string>"
                     },
                     {
+                      "description": "The keys to sort the results by.",
                       "key": "sorting_keys",
                       "value": "<string>"
                     },
                     {
+                      "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
                       "key": "sorting_order",
-                      "value": "<string>"
+                      "value": "ASC_NULLS_FIRST"
                     },
                     {
+                      "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
                       "key": "sorting_order",
-                      "value": "<string>"
+                      "value": "ASC"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves a list of subscriptions for the specific event types (registered for the specific company or organisation by the third party application)."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "4fb5011d-ca3b-420a-b899-691a90a17b1b",
-              "name": "Cannot retrieve list of subscriptions due to infrastructure issue Please try after some time. If the problem persists, reach out to Pleo customer support.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "status",
-                      "value": "ACTIVE"
-                    },
-                    {
-                      "key": "event_types",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "<long>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
+                  "id": "d552077f-ea2a-45dc-aa75-aa5f987e1363",
+                  "name": "Returns list of subscriptions.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions?status=<string>&event_types=<string>&before=Q5BVB~QTTOS&after=Q5BVB~QTTOS&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filters subscriptions by status. If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
+                          "key": "status",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
+                          "key": "event_types",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "Q5BVB~QTTOS"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "Q5BVB~QTTOS"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "ASC"
+                        }
+                      ]
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8d2486b7-73a0-46f8-b895-35d71cf9ccf3",
-          "name": "Create a subscription",
-          "request": {
-            "name": "Create a subscription",
-            "description": {
-              "content": "Creates a subscription for given event type(s).",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "subscriptions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"<string>\"\n  },\n  \"status\": \"ACTIVE\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "4fee62ac-5462-4da5-8b27-d7ce46004a4f",
-              "name": "A subscription for webhook notification is successfully created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"createdAt\": \"<dateTime>\",\n      \"endpointUrl\": \"<string>\",\n      \"eventTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"id\": \"<uuid>\",\n      \"status\": \"INACTIVE\",\n      \"updatedAt\": \"<dateTime>\",\n      \"customHeaders\": {\n        \"ea_cc\": \"<string>\",\n        \"fugiat_9\": \"<string>\",\n        \"proident_04\": \"<string>\",\n        \"ipsum75\": \"<string>\"\n      },\n      \"deletedAt\": \"<dateTime>\",\n      \"deletedBy\": \"<string>\",\n      \"endpointAuth\": {\n        \"credentials\": {\n          \"password\": \"<string>\",\n          \"token\": \"<string>\",\n          \"username\": \"<string>\"\n        },\n        \"type\": \"NONE\"\n      }\n    },\n    {\n      \"createdAt\": \"<dateTime>\",\n      \"endpointUrl\": \"<string>\",\n      \"eventTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"id\": \"<uuid>\",\n      \"status\": \"ACTIVE\",\n      \"updatedAt\": \"<dateTime>\",\n      \"customHeaders\": {\n        \"aliqua_0f\": \"<string>\",\n        \"magnaef\": \"<string>\"\n      },\n      \"deletedAt\": \"<dateTime>\",\n      \"deletedBy\": \"<string>\",\n      \"endpointAuth\": {\n        \"credentials\": {\n          \"password\": \"<string>\",\n          \"token\": \"<string>\",\n          \"username\": \"<string>\"\n        },\n        \"type\": \"BASIC\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"pariatur_92\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"after\": \"<string>\",\n      \"before\": \"<string>\",\n      \"limit\": \"<integer>\",\n      \"offset\": \"<long>\",\n      \"sortingKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sortingOrder\": [\n        \"ASC_NULLS_FIRST\",\n        \"DESC\"\n      ]\n    },\n    \"hasNextPage\": \"<boolean>\",\n    \"hasPreviousPage\": \"<boolean>\",\n    \"endCursor\": \"<string>\",\n    \"startCursor\": \"<string>\",\n    \"total\": \"<long>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-d552077f-ea2a-45dc-aa75-aa5f987e1363"
+                },
+                {
+                  "id": "5b68456a-0c4e-4b65-8ffb-306c06e13f87",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions?status=<string>&event_types=<string>&before=Q5BVB~QTTOS&after=Q5BVB~QTTOS&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filters subscriptions by status. If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
+                          "key": "status",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
+                          "key": "event_types",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "Q5BVB~QTTOS"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "Q5BVB~QTTOS"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "ASC"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-5b68456a-0c4e-4b65-8ffb-306c06e13f87"
+                },
+                {
+                  "id": "27c4c759-d972-4d53-bd3e-7ba2263a9cb9",
+                  "name": "Cannot retrieve list of subscriptions due to infrastructure issue Please try after some time. If the problem persists, reach out to Pleo customer support.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions?status=<string>&event_types=<string>&before=Q5BVB~QTTOS&after=Q5BVB~QTTOS&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filters subscriptions by status. If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
+                          "key": "status",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filters subscriptions by versioned event types.  If the value is null, all subscriptions for the specific event types (registered for the specific company or organisation by the third party application) are returned.",
+                          "key": "event_types",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "Q5BVB~QTTOS"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "Q5BVB~QTTOS"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "ASC"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-27c4c759-d972-4d53-bd3e-7ba2263a9cb9"
+                }
+              ],
+              "createdAt": "2026-10-22T02:55:03.000Z",
+              "updatedAt": "2026-10-22T02:55:03.000Z",
+              "uid": "35240-0bcf1f9d-e449-43d3-9e16-73c178fa163d"
+            },
+            {
+              "name": "Create a subscription",
+              "id": "d7df670b-92c1-47a1-afde-4de3530e3e33",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"endpointUrl\": \"https://example.com/webhook\",\n  \"eventTypes\": [\n    \"v1.export-job.created\"\n  ],\n  \"customHeaders\": {\n    \"user\": \"pass\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"password\",\n      \"token\": \"token\",\n      \"username\": \"username\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                  "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"createdAt\": \"2022-01-01T00:00:00Z\",\n    \"endpointUrl\": \"https://example.com/webhook\",\n    \"eventTypes\": [\n      \"v1.export-job.created\"\n    ],\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"status\": \"ACTIVE\",\n    \"updatedAt\": \"2022-01-10T00:00:00Z\",\n    \"customHeaders\": {\n      \"user\": \"pass\"\n    },\n    \"deletedAt\": \"2022-01-01T00:00:00Z\",\n    \"deletedBy\": \"urn:pleo:organisation:12345678-1234-1234-1234-123456789012\",\n    \"endpointAuth\": {\n      \"credentials\": {\n        \"password\": \"password\",\n        \"token\": \"token\",\n        \"username\": \"username\"\n      },\n      \"type\": \"NONE\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "db8a3f0b-63e6-4410-bd85-9b21a41e4bea",
-              "name": "Bad request",
-              "originalRequest": {
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/v1/subscriptions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"endpointUrl\": \"https://example.com/webhook\",\n  \"eventTypes\": [\n    \"v1.export-job.created\"\n  ],\n  \"customHeaders\": {\n    \"user\": \"pass\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"password\",\n      \"token\": \"token\",\n      \"username\": \"username\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "93b2d1fd-5583-4c62-9b57-9834f3807331",
-              "name": "Cannot create subscription due to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"endpointUrl\": \"https://example.com/webhook\",\n  \"eventTypes\": [\n    \"v1.export-job.created\"\n  ],\n  \"customHeaders\": {\n    \"user\": \"pass\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"password\",\n      \"token\": \"token\",\n      \"username\": \"username\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "32239e01-4248-419f-b6e4-f4b2052dc7b9",
-          "name": "Get subscription by id",
-          "request": {
-            "name": "Get subscription by id",
-            "description": {
-              "content": "Fetches subscription details by the specific subscription ID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "subscriptions",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "id",
-                  "description": "(Required) The unique identifier of the subscription"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "69ccff8a-9a0f-4376-a9b6-1cee802ecbe8",
-              "name": "The subscription details are returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                "description": "Creates a subscription for given event type(s)."
+              },
+              "response": [
+                {
+                  "id": "da297803-d0a4-492c-94ae-ceef8fc4d432",
+                  "name": "A subscription for webhook notification is successfully created.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"createdAt\": \"2022-01-01T00:00:00Z\",\n    \"endpointUrl\": \"https://example.com/webhook\",\n    \"eventTypes\": [\n      \"v1.export-job.created\"\n    ],\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"status\": \"ACTIVE\",\n    \"updatedAt\": \"2022-01-10T00:00:00Z\",\n    \"customHeaders\": {\n      \"user\": \"pass\"\n    },\n    \"deletedAt\": \"2022-01-01T00:00:00Z\",\n    \"deletedBy\": \"urn:pleo:organisation:12345678-1234-1234-1234-123456789012\",\n    \"endpointAuth\": {\n      \"credentials\": {\n        \"password\": \"password\",\n        \"token\": \"token\",\n        \"username\": \"username\"\n      },\n      \"type\": \"NONE\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "108e6817-b195-4005-b5e3-20899beb4b63",
-              "name": "The subscription record could not be found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"createdAt\": \"<dateTime>\",\n    \"endpointUrl\": \"<string>\",\n    \"eventTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"id\": \"<uuid>\",\n    \"status\": \"ACTIVE\",\n    \"updatedAt\": \"<dateTime>\",\n    \"customHeaders\": {\n      \"et__\": \"<string>\",\n      \"enim_1f\": \"<string>\",\n      \"et_\": \"<string>\"\n    },\n    \"deletedAt\": \"<dateTime>\",\n    \"deletedBy\": \"<string>\",\n    \"endpointAuth\": {\n      \"credentials\": {\n        \"password\": \"<string>\",\n        \"token\": \"<string>\",\n        \"username\": \"<string>\"\n      },\n      \"type\": \"BASIC\"\n    }\n  }\n}",
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-da297803-d0a4-492c-94ae-ceef8fc4d432"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                {
+                  "id": "2fbd27d1-b94f-466c-bb03-df75dddf0f9b",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "185c3a9b-3c03-435b-a184-90745243aa3e",
-          "name": "Update a subscription",
-          "request": {
-            "name": "Update a subscription",
-            "description": {
-              "content": "Modifies the subscription details.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "subscriptions",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "id",
-                  "description": "(Required) The unique identifier of the subscription"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"key_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"<string>\"\n  },\n  \"status\": \"ACTIVE\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "162d60ec-f508-4742-bfb2-f19048337497",
-              "name": "Subscription updated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions"
+                      ]
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"endpointUrl\": \"https://example.com/webhook\",\n  \"eventTypes\": [\n    \"v1.export-job.created\"\n  ],\n  \"customHeaders\": {\n    \"user\": \"pass\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"password\",\n      \"token\": \"token\",\n      \"username\": \"username\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-2fbd27d1-b94f-466c-bb03-df75dddf0f9b"
+                },
+                {
+                  "id": "e14f696e-2959-45ed-9fcf-3e6693ddf5b3",
+                  "name": "Cannot create subscription due to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"endpointUrl\": \"<string>\",\n  \"eventTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customHeaders\": {\n    \"esse_0\": \"<string>\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"<string>\",\n      \"token\": \"<string>\",\n      \"username\": \"<string>\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/subscriptions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "subscriptions"
+                      ]
                     }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"createdAt\": \"2022-01-01T00:00:00Z\",\n    \"endpointUrl\": \"https://example.com/webhook\",\n    \"eventTypes\": [\n      \"v1.export-job.created\"\n    ],\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"status\": \"ACTIVE\",\n    \"updatedAt\": \"2022-01-10T00:00:00Z\",\n    \"customHeaders\": {\n      \"user\": \"pass\"\n    },\n    \"deletedAt\": \"2022-01-01T00:00:00Z\",\n    \"deletedBy\": \"urn:pleo:organisation:12345678-1234-1234-1234-123456789012\",\n    \"endpointAuth\": {\n      \"credentials\": {\n        \"password\": \"password\",\n        \"token\": \"token\",\n        \"username\": \"username\"\n      },\n      \"type\": \"NONE\"\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5dafebf3-30be-4c53-9736-1431832b4288",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"endpointUrl\": \"https://example.com/webhook\",\n  \"eventTypes\": [\n    \"v1.export-job.created\"\n  ],\n  \"customHeaders\": {\n    \"user\": \"pass\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"password\",\n      \"token\": \"token\",\n      \"username\": \"username\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c8852558-ca5d-4bd4-8574-ac7eb470e026",
-              "name": "The subscription record could not be found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"endpointUrl\": \"https://example.com/webhook\",\n  \"eventTypes\": [\n    \"v1.export-job.created\"\n  ],\n  \"customHeaders\": {\n    \"user\": \"pass\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"password\",\n      \"token\": \"token\",\n      \"username\": \"username\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "1ace2542-30b6-4738-9631-62ea458c63f6",
-              "name": "Could not update the subscription record owing to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"endpointUrl\": \"https://example.com/webhook\",\n  \"eventTypes\": [\n    \"v1.export-job.created\"\n  ],\n  \"customHeaders\": {\n    \"user\": \"pass\"\n  },\n  \"endpointAuth\": {\n    \"credentials\": {\n      \"password\": \"password\",\n      \"token\": \"token\",\n      \"username\": \"username\"\n    },\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cdeb09ed-2096-463a-b9bf-a25936d8bd05",
-          "name": "Delete subscription by id",
-          "request": {
-            "name": "Delete subscription by id",
-            "description": {
-              "content": "Removes the specified subscription record.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "subscriptions",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "id",
-                  "description": "(Required) The unique identifier of the subscription"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "05ebbfe4-8c76-4afd-9680-5f14d7596188",
-              "name": "Subscription deleted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d1ced156-3b0b-4955-b12c-4a4b343bf6c0",
-              "name": "The subscription record could not be found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "77fd46c1-7a26-47d8-a59e-b20f32ad7bf8",
-              "name": "Cannot delete subscription due to infrastructure issue. Please try after some time. If the problem persists, reach out to Pleo customer support.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "31a28efd-9058-483c-9cb6-a921afd31441",
-          "name": "Get subscription activities",
-          "request": {
-            "name": "Get subscription activities",
-            "description": {
-              "content": "Fetches subscription activities of a given subscription.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "subscriptions",
-                ":id",
-                "activities"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "operation_types",
-                  "value": "<string>",
-                  "description": "Filters subscriptions by operationTypes. If the value is null, all subscription activities for the specified subscriptionId are returned."
-                },
-                {
-                  "disabled": false,
-                  "key": "operation_types",
-                  "value": "<string>",
-                  "description": "Filters subscriptions by operationTypes. If the value is null, all subscription activities for the specified subscriptionId are returned."
-                },
-                {
-                  "disabled": false,
-                  "key": "before",
-                  "value": "<string>",
-                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>",
-                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<long>",
-                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "The maximum amount of items to return."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "id",
-                  "description": "(Required) The unique identifier of the subscription"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "b7552bf2-f94b-4930-a93c-d222eeba940d",
-              "name": "The subscription activities are returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id",
-                    "activities"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "operation_types",
-                      "value": "CREATE"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "<long>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:55:03.000Z",
+                  "updatedAt": "2026-10-22T02:55:03.000Z",
+                  "uid": "35240-e14f696e-2959-45ed-9fcf-3e6693ddf5b3"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"actorUrn\": \"urn:pleo:organisation:12345678-1234-1234-1234-123456789012\",\n      \"createdAt\": \"2022-01-01T00:00:00Z\",\n      \"description\": \"Subscription deleted\",\n      \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"operationType\": \"CREATE\",\n      \"subscriptionId\": \"123e4567-e89b-12d3-a456-426614174000\"\n    },\n    {\n      \"actorUrn\": \"urn:pleo:organisation:12345678-1234-1234-1234-123456789012\",\n      \"createdAt\": \"2022-01-01T00:00:00Z\",\n      \"description\": \"Subscription deleted\",\n      \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n      \"operationType\": \"CREATE\",\n      \"subscriptionId\": \"123e4567-e89b-12d3-a456-426614174000\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_2\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 1842,\n      \"offset\": 7701,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 5421\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ad406ca0-d587-4bc1-9437-73a3dcd49909",
-              "name": "The subscription record could not be found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id",
-                    "activities"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "operation_types",
-                      "value": "CREATE"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "<long>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T02:55:03.000Z",
+              "updatedAt": "2026-10-22T02:55:03.000Z",
+              "uid": "35240-d7df670b-92c1-47a1-afde-4de3530e3e33"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "dd94e82c-1126-46d0-8532-d801f11d108f",
-          "name": "Get subscription secret by id",
-          "request": {
-            "name": "Get subscription secret by id",
-            "description": {
-              "content": "Fetches webhook subscription secret ID by the specific subscription identification code; this is done to verify the webhook event that the customer has subscribed for.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "subscriptions",
-                ":id",
-                "secret"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "id",
-                  "description": "(Required) The unique identifier of the subscription"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "84f59154-d7a1-418a-a8a7-c1f557547620",
-              "name": "The subscription secret details are returned.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id",
-                    "secret"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"secretKey\": \"whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4959f0ef-4e5b-4707-b61b-e649a9f9a934",
-              "name": "The subscription secret record could not be found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "subscriptions",
-                    ":id",
-                    "secret"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "id",
-                      "description": "(Required) The unique identifier of the subscription"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "13001d9e-d751-4286-bb6b-2c29bad2a948",
+          "createdAt": "2026-10-22T02:55:03.000Z",
+          "updatedAt": "2026-10-22T02:55:03.000Z",
+          "uid": "35240-13001d9e-d751-4286-bb6b-2c29bad2a948"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://external.pleo.io",
-      "key": "baseUrl"
+      "id": "ca63224b-9b04-4681-b113-a4ca3e44eb7c",
+      "createdAt": "2026-10-22T02:55:03.000Z",
+      "updatedAt": "2026-10-22T02:55:03.000Z",
+      "uid": "35240-ca63224b-9b04-4681-b113-a4ca3e44eb7c"
     }
   ],
   "auth": {
@@ -1630,17 +1544,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "cf992a6f-984c-4a7d-a114-273a032825b9",
-    "name": "App Marketplace accounting-entries Subscriptions API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://external.pleo.io"
     }
-  }
+  ]
 }

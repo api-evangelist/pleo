@@ -1,1093 +1,1067 @@
 {
+  "info": {
+    "_postman_id": "d26908d1-134a-4a95-9abd-503e7dcffb89",
+    "name": "App Marketplace Installations API",
+    "description": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:54:56.000Z",
+    "updatedAt": "2026-10-22T02:54:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d26908d1-134a-4a95-9abd-503e7dcffb89"
+  },
   "item": [
     {
-      "id": "e1848470-503c-471b-b3d8-675dd4104887",
-      "name": "Installations",
-      "description": {
-        "content": "Installations of applications. An installation is a representation of an application being installed for a resource. Currently we support companies and organizations, future support might include users or teams. <br> Installations are created automatically after a successful OAuth flow. <br> The main use case for these APIs is to enable third party apps to manage their own installations and to get information about the installations that exist for a specific resource.",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "5c2f2a7c-4b7f-4be7-a3cd-a14ac92cb324",
-          "name": "Complete the installation of a client",
-          "request": {
-            "name": "Complete the installation of a client",
-            "description": {
-              "content": "**Deprecated**: Please use /installations/me:activate instead. Marks the installation as complete",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "installations",
-                "completions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "PUT",
-            "auth": null
-          },
-          "response": [
+          "name": "installations",
+          "item": [
             {
-              "id": "14f3cf65-020e-438a-b498-9fc10c699c33",
-              "name": "Installation completed.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+              "name": "completions",
+              "item": [
+                {
+                  "name": "Complete the installation of a client",
+                  "id": "e5fd616d-b1a2-44d2-9a14-09372018f748",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "PUT",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"applicationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"createdAt\": \"2021-01-01T00:00:00Z\",\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"metadata\": {\n    \"key_0\": {\n      \"key\": \"value\"\n    }\n  },\n  \"resource\": \"urn:pleo:company:123e4567-e89b-12d3-a456-426614174000\",\n  \"status\": \"ACTIVATED\",\n  \"updatedAt\": \"2021-01-01T00:00:00Z\",\n  \"errorCode\": \"NOT_ENTITLED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "263b32b7-50d1-4bb1-a077-faa819ccec72",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/installations/completions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "installations",
+                        "completions"
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e7a8471b-4e7a-448f-8c0a-c52c21250f5c",
-              "name": "Cannot complete installation due to infrastructure issue",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "completions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "fcb1024d-64c1-4b98-a3a5-485d5a9d3265",
-          "name": "Get client installation",
-          "request": {
-            "name": "Get client installation",
-            "description": {
-              "content": "Retrieve the list of installations that you have done",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "installations",
-                "me"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "company_id",
-                  "value": "<uuid>",
-                  "description": "Optional company ID to filter installations within the authenticated organisation."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "563b6e6f-cc90-4e02-bdcf-14b78ed2fd25",
-              "name": "Installation exists.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                    "description": "**Deprecated**: Please use /installations/me:activate instead. Marks the installation as complete"
+                  },
+                  "response": [
                     {
-                      "key": "company_id",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                      "id": "8663460d-923a-4f60-acf4-a28c70626480",
+                      "name": "Installation completed.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"applicationId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"metadata\": {\n    \"consectetur_94\": {},\n    \"quid\": {},\n    \"non_7\": {},\n    \"nisi_6\": {},\n    \"nostrud_8d\": {}\n  },\n  \"resource\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-8663460d-923a-4f60-acf4-a28c70626480"
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"applicationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"createdAt\": \"2021-01-01T00:00:00Z\",\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"metadata\": {\n    \"key_0\": {\n      \"key\": \"value\"\n    }\n  },\n  \"resource\": \"urn:pleo:company:123e4567-e89b-12d3-a456-426614174000\",\n  \"status\": \"ACTIVATED\",\n  \"updatedAt\": \"2021-01-01T00:00:00Z\",\n  \"errorCode\": \"NOT_ENTITLED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1cf2f32f-0dad-4ba1-8507-75c421657f2d",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
                     {
-                      "key": "company_id",
-                      "value": "<uuid>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                      "id": "94a15926-b364-4fbf-ad71-7581e15eb4e2",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-94a15926-b364-4fbf-ad71-7581e15eb4e2"
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9d808cda-e6ec-4327-a36c-633c1f42638c",
-              "name": "Cannot retrieve installation due to infrastructure issue",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
                     {
-                      "key": "company_id",
-                      "value": "<uuid>"
+                      "id": "201f03a5-e06b-4289-b80c-78e2118704d6",
+                      "name": "Cannot complete installation due to infrastructure issue",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/completions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "completions"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-201f03a5-e06b-4289-b80c-78e2118704d6"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "createdAt": "2026-10-22T02:54:57.000Z",
+                  "updatedAt": "2026-10-22T02:54:57.000Z",
+                  "uid": "35240-e5fd616d-b1a2-44d2-9a14-09372018f748"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5daf06b4-4f61-4014-9132-fc00c428c39e",
-          "name": "Update a client installation",
-          "request": {
-            "name": "Update a client installation",
-            "description": {
-              "content": "Send a request to this endpoint if you want to modify the installation status or the metadata.",
-              "type": "text/plain"
+              "id": "8dba10ae-17ea-46c1-9b0a-09c69ba3b522",
+              "createdAt": "2026-10-22T02:54:56.000Z",
+              "updatedAt": "2026-10-22T02:54:56.000Z",
+              "uid": "35240-8dba10ae-17ea-46c1-9b0a-09c69ba3b522"
             },
-            "url": {
-              "path": [
-                "v1",
-                "installations",
-                "me"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<object>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
             {
-              "id": "64281335-93db-476d-a508-a27f92622b88",
-              "name": "Installation updated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+              "name": "me",
+              "item": [
+                {
+                  "name": "Get client installation",
+                  "id": "1dee9c25-4039-4053-9833-b60342d3b317",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": {\n      \"externalApplicationId\": \"123456789\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"applicationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"createdAt\": \"2021-01-01T00:00:00Z\",\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"metadata\": {\n    \"key_0\": {\n      \"key\": \"value\"\n    }\n  },\n  \"resource\": \"urn:pleo:company:123e4567-e89b-12d3-a456-426614174000\",\n  \"status\": \"ACTIVATED\",\n  \"updatedAt\": \"2021-01-01T00:00:00Z\",\n  \"errorCode\": \"NOT_ENTITLED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "512b8761-ca27-4f11-8105-c903fe293313",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/installations/me?company_id=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "installations",
+                        "me"
+                      ],
+                      "query": [
+                        {
+                          "description": "Optional company ID to filter installations within the authenticated organisation.",
+                          "key": "company_id",
+                          "value": "<uuid>"
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": {\n      \"externalApplicationId\": \"123456789\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "0e8b4bd1-0ec5-4166-9418-b01443f529fd",
-              "name": "Cannot update installation due to infrastructure issue",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"status\": \"<string>\",\n  \"errorCode\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": {\n      \"externalApplicationId\": \"123456789\"\n    }\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "49330aa4-3634-424a-8dba-e39e8941043a",
-          "name": "Create a client installation",
-          "request": {
-            "name": "Create a client installation",
-            "description": {
-              "content": "The integration sends a request to this endpoint to create an installation. This is required, especially when API keys are used for authorisation.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "installations",
-                "me"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<object>\",\n    \"key_1\": \"<object>\",\n    \"key_2\": \"<object>\"\n  },\n  \"status\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "8fa53e67-702e-418a-bfbb-54851f9ef076",
-              "name": "Installation created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "description": "Retrieve the list of installations that you have done"
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"metadata\": {\n    \"key_0\": {\n      \"externalConfigurationId\": \"123456789\"\n    },\n    \"key_1\": {\n      \"externalConfigurationId\": \"123456789\"\n    }\n  },\n  \"status\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "response": [
+                    {
+                      "id": "9f42273e-f7cd-41f1-9183-2bcca06692b2",
+                      "name": "Installation exists.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me?company_id=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ],
+                          "query": [
+                            {
+                              "description": "Optional company ID to filter installations within the authenticated organisation.",
+                              "key": "company_id",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"applicationId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"metadata\": {\n    \"consectetur_94\": {},\n    \"quid\": {},\n    \"non_7\": {},\n    \"nisi_6\": {},\n    \"nostrud_8d\": {}\n  },\n  \"resource\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-9f42273e-f7cd-41f1-9183-2bcca06692b2"
+                    },
+                    {
+                      "id": "616110a3-3c55-4763-b54b-1e6238fbdff0",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me?company_id=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ],
+                          "query": [
+                            {
+                              "description": "Optional company ID to filter installations within the authenticated organisation.",
+                              "key": "company_id",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-616110a3-3c55-4763-b54b-1e6238fbdff0"
+                    },
+                    {
+                      "id": "a41efe86-a139-4a61-ad4e-b3e6e1f51195",
+                      "name": "Cannot retrieve installation due to infrastructure issue",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me?company_id=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ],
+                          "query": [
+                            {
+                              "description": "Optional company ID to filter installations within the authenticated organisation.",
+                              "key": "company_id",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-a41efe86-a139-4a61-ad4e-b3e6e1f51195"
                     }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"applicationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"createdAt\": \"2021-01-01T00:00:00Z\",\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"metadata\": {\n    \"key_0\": {\n      \"key\": \"value\"\n    }\n  },\n  \"resource\": \"urn:pleo:company:123e4567-e89b-12d3-a456-426614174000\",\n  \"status\": \"ACTIVATED\",\n  \"updatedAt\": \"2021-01-01T00:00:00Z\",\n  \"errorCode\": \"NOT_ENTITLED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8b818bff-ff4d-4431-a9ea-4bee2763e7ae",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  "createdAt": "2026-10-22T02:54:57.000Z",
+                  "updatedAt": "2026-10-22T02:54:57.000Z",
+                  "uid": "35240-1dee9c25-4039-4053-9833-b60342d3b317"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"metadata\": {\n    \"key_0\": {\n      \"externalConfigurationId\": \"123456789\"\n    },\n    \"key_1\": {\n      \"externalConfigurationId\": \"123456789\"\n    }\n  },\n  \"status\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "423356b9-7563-4b24-8746-e94b01e74f74",
-              "name": "Cannot create installation due to infrastructure issue",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"metadata\": {\n    \"key_0\": {\n      \"externalConfigurationId\": \"123456789\"\n    },\n    \"key_1\": {\n      \"externalConfigurationId\": \"123456789\"\n    }\n  },\n  \"status\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "bb7f8a8a-4f5a-41bc-af1b-89ae12385c48",
-          "name": "Delete client's installation",
-          "request": {
-            "name": "Delete client's installation",
-            "description": {
-              "content": "Deletes the installation for the client and will revoke all access and refresh tokens for the client.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "installations",
-                "me"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8d20f3f2-8aa7-4e6d-a6c8-a28971ad512e",
-              "name": "Installation deleted successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b2f88e61-924f-4ab2-b1f2-519be973209b",
-              "name": "Installation does not exist",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "257908e3-b661-4ebe-b792-62d1731a5e93",
-              "name": "Installation could not be deleted due to infrastructure issue",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Gateway",
-              "code": 502,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b49f1d0a-f3bd-4056-aebd-3e5f86b23509",
-          "name": "Activate the installation for a client",
-          "request": {
-            "name": "Activate the installation for a client",
-            "description": {
-              "content": "The integration sends a request to this endpoint to activate the installation, post authorisation. The request is sent after the integration has synchronised tags, tax codes, and vendors between the Pleo account and the client. Note that this is applicable when OAuth is used for authorisation.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "installations",
-                "me:activate"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "7908650b-6153-41ca-90f9-696e6f947936",
-              "name": "Installation is successfully activated.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me:activate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                  "name": "Update a client installation",
+                  "id": "97a1841c-870a-47e1-9623-86460063488c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"status\": \"ACTIVATED\",\n  \"errorCode\": \"AUTH_ERROR\",\n  \"metadata\": {\n    \"nisicd7\": {},\n    \"id_4\": {}\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/installations/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "installations",
+                        "me"
+                      ]
+                    },
+                    "description": "Send a request to this endpoint if you want to modify the installation status or the metadata."
+                  },
+                  "response": [
+                    {
+                      "id": "cfcaa6db-43e6-43d0-917a-84403ef75885",
+                      "name": "Installation updated.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"status\": \"ACTIVATED\",\n  \"errorCode\": \"AUTH_ERROR\",\n  \"metadata\": {\n    \"nisicd7\": {},\n    \"id_4\": {}\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"applicationId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"metadata\": {\n    \"consectetur_94\": {},\n    \"quid\": {},\n    \"non_7\": {},\n    \"nisi_6\": {},\n    \"nostrud_8d\": {}\n  },\n  \"resource\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-cfcaa6db-43e6-43d0-917a-84403ef75885"
+                    },
+                    {
+                      "id": "60f35533-463a-4e5d-9ca1-fb653a8d770e",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"status\": \"ACTIVATED\",\n  \"errorCode\": \"AUTH_ERROR\",\n  \"metadata\": {\n    \"nisicd7\": {},\n    \"id_4\": {}\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-60f35533-463a-4e5d-9ca1-fb653a8d770e"
+                    },
+                    {
+                      "id": "b777735d-7117-4be6-83d3-d4d9171b4962",
+                      "name": "Cannot update installation due to infrastructure issue",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"status\": \"ACTIVATED\",\n  \"errorCode\": \"AUTH_ERROR\",\n  \"metadata\": {\n    \"nisicd7\": {},\n    \"id_4\": {}\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-b777735d-7117-4be6-83d3-d4d9171b4962"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:54:57.000Z",
+                  "updatedAt": "2026-10-22T02:54:57.000Z",
+                  "uid": "35240-97a1841c-870a-47e1-9623-86460063488c"
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  "name": "Create a client installation",
+                  "id": "1ac7e075-a1b9-4bd5-9f64-fb202c57d33f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"metadata\": {\n    \"sit__\": {},\n    \"eu_b3\": {},\n    \"ind78\": {}\n  },\n  \"status\": \"PENDING_INTEGRATION\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/installations/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "installations",
+                        "me"
+                      ]
+                    },
+                    "description": "The integration sends a request to this endpoint to create an installation. This is required, especially when API keys are used for authorisation."
+                  },
+                  "response": [
+                    {
+                      "id": "bf538324-2aca-42a6-97ce-e51b889d9cd4",
+                      "name": "Installation created.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"metadata\": {\n    \"sit__\": {},\n    \"eu_b3\": {},\n    \"ind78\": {}\n  },\n  \"status\": \"PENDING_INTEGRATION\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"applicationId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"metadata\": {\n    \"consectetur_94\": {},\n    \"quid\": {},\n    \"non_7\": {},\n    \"nisi_6\": {},\n    \"nostrud_8d\": {}\n  },\n  \"resource\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-bf538324-2aca-42a6-97ce-e51b889d9cd4"
+                    },
+                    {
+                      "id": "c092e517-c553-4950-98e7-898c1c8b1368",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"metadata\": {\n    \"sit__\": {},\n    \"eu_b3\": {},\n    \"ind78\": {}\n  },\n  \"status\": \"PENDING_INTEGRATION\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-c092e517-c553-4950-98e7-898c1c8b1368"
+                    },
+                    {
+                      "id": "82182e0f-0ec4-479b-b8aa-f06ff62a0160",
+                      "name": "Cannot create installation due to infrastructure issue",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"metadata\": {\n    \"sit__\": {},\n    \"eu_b3\": {},\n    \"ind78\": {}\n  },\n  \"status\": \"PENDING_INTEGRATION\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-82182e0f-0ec4-479b-b8aa-f06ff62a0160"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:54:57.000Z",
+                  "updatedAt": "2026-10-22T02:54:57.000Z",
+                  "uid": "35240-1ac7e075-a1b9-4bd5-9f64-fb202c57d33f"
+                },
+                {
+                  "name": "Delete client's installation",
+                  "id": "db97ec2b-c3ba-4861-8138-2f820a2ddaa6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/installations/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "installations",
+                        "me"
+                      ]
+                    },
+                    "description": "Deletes the installation for the client and will revoke all access and refresh tokens for the client."
+                  },
+                  "response": [
+                    {
+                      "id": "08c79924-50f6-4760-9e54-ba300b6f952c",
+                      "name": "Installation deleted successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-08c79924-50f6-4760-9e54-ba300b6f952c"
+                    },
+                    {
+                      "id": "9b62357b-f386-4f6c-8cd8-7621e3352056",
+                      "name": "Installation does not exist",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-9b62357b-f386-4f6c-8cd8-7621e3352056"
+                    },
+                    {
+                      "id": "1bf7aa13-c875-4c6e-a9b7-704e82664b13",
+                      "name": "Installation could not be deleted due to infrastructure issue",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me"
+                          ]
+                        }
+                      },
+                      "status": "Bad Gateway",
+                      "code": 502,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-1bf7aa13-c875-4c6e-a9b7-704e82664b13"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:54:57.000Z",
+                  "updatedAt": "2026-10-22T02:54:57.000Z",
+                  "uid": "35240-db97ec2b-c3ba-4861-8138-2f820a2ddaa6"
                 }
               ],
-              "body": "{\n  \"applicationId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"createdAt\": \"2021-01-01T00:00:00Z\",\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"metadata\": {\n    \"key_0\": {\n      \"key\": \"value\"\n    }\n  },\n  \"resource\": \"urn:pleo:company:123e4567-e89b-12d3-a456-426614174000\",\n  \"status\": \"ACTIVATED\",\n  \"updatedAt\": \"2021-01-01T00:00:00Z\",\n  \"errorCode\": \"NOT_ENTITLED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "04e95c85-ac0d-4055-8500-5641ee99060e",
+              "createdAt": "2026-10-22T02:54:56.000Z",
+              "updatedAt": "2026-10-22T02:54:56.000Z",
+              "uid": "35240-04e95c85-ac0d-4055-8500-5641ee99060e"
             },
             {
-              "id": "44761d02-6c82-40b2-9e98-310d58ba3a65",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me:activate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "name": "me:activate",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "name": "Activate the installation for a client",
+                  "id": "bfb8a87d-035b-4c71-a1a6-efb23de1807c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/installations/me:activate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "installations",
+                        "me:activate"
+                      ]
+                    },
+                    "description": "The integration sends a request to this endpoint to activate the installation, post authorisation. The request is sent after the integration has synchronised tags, tax codes, and vendors between the Pleo account and the client. Note that this is applicable when OAuth is used for authorisation."
+                  },
+                  "response": [
+                    {
+                      "id": "b71846ae-10ef-4062-b923-01ae02cd31f6",
+                      "name": "Installation is successfully activated.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me:activate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me:activate"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"applicationId\": \"<uuid>\",\n  \"createdAt\": \"<dateTime>\",\n  \"id\": \"<uuid>\",\n  \"metadata\": {\n    \"consectetur_94\": {},\n    \"quid\": {},\n    \"non_7\": {},\n    \"nisi_6\": {},\n    \"nostrud_8d\": {}\n  },\n  \"resource\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updatedAt\": \"<dateTime>\",\n  \"errorCode\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-b71846ae-10ef-4062-b923-01ae02cd31f6"
+                    },
+                    {
+                      "id": "94a391ca-068d-4f10-980a-e3fd9bd36ba5",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me:activate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me:activate"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-94a391ca-068d-4f10-980a-e3fd9bd36ba5"
+                    },
+                    {
+                      "id": "b1dbfc24-f995-4c62-bc4b-f932a81eb98b",
+                      "name": "Cannot activate the installation due to infrastructure issue",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/installations/me:activate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "installations",
+                            "me:activate"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:54:57.000Z",
+                      "updatedAt": "2026-10-22T02:54:57.000Z",
+                      "uid": "35240-b1dbfc24-f995-4c62-bc4b-f932a81eb98b"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:54:57.000Z",
+                  "updatedAt": "2026-10-22T02:54:57.000Z",
+                  "uid": "35240-bfb8a87d-035b-4c71-a1a6-efb23de1807c"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e1fd6408-7dae-4abe-a0ce-238b338bfa0e",
-              "name": "Cannot activate the installation due to infrastructure issue",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "installations",
-                    "me:activate"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "0bbd30dd-b524-4403-a155-f6b327edc5be",
+              "createdAt": "2026-10-22T02:54:56.000Z",
+              "updatedAt": "2026-10-22T02:54:56.000Z",
+              "uid": "35240-0bbd30dd-b524-4403-a155-f6b327edc5be"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "974f395e-4551-49e2-ba68-6e95f65a7163",
+          "createdAt": "2026-10-22T02:54:56.000Z",
+          "updatedAt": "2026-10-22T02:54:56.000Z",
+          "uid": "35240-974f395e-4551-49e2-ba68-6e95f65a7163"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://external.pleo.io",
-      "key": "baseUrl"
+      "id": "c281f9e3-0953-4912-b08d-34c1598866d1",
+      "createdAt": "2026-10-22T02:54:56.000Z",
+      "updatedAt": "2026-10-22T02:54:56.000Z",
+      "uid": "35240-c281f9e3-0953-4912-b08d-34c1598866d1"
     }
   ],
   "auth": {
@@ -1095,17 +1069,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "200f1dca-236e-42ad-b6df-f81911396955",
-    "name": "App Marketplace accounting-entries Installations API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://external.pleo.io"
     }
-  }
+  ]
 }

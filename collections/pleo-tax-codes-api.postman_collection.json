@@ -1,620 +1,583 @@
 {
+  "info": {
+    "_postman_id": "9a4eba2c-5074-4eec-9468-5dd5e955eff8",
+    "name": "Gjoll Tax Codes API",
+    "description": "Gjoll OpenAPI definitions\n\nContact Support:\n Email: team-accounting-core@pleo.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:55:22.000Z",
+    "updatedAt": "2026-10-22T02:55:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9a4eba2c-5074-4eec-9468-5dd5e955eff8"
+  },
   "item": [
     {
-      "id": "b7464a00-cd3b-4fd1-9e53-9e8f1b5ac83a",
-      "name": "tax-codes",
-      "description": {
-        "content": "Tax Codes API",
-        "type": "text/plain"
-      },
+      "name": "v0",
       "item": [
         {
-          "id": "4f978dce-840c-467d-8fda-0d18aac95782",
-          "name": "Create a new tax code",
-          "request": {
-            "name": "Create a new tax code",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tax-codes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"type\": \"<string>\",\n  \"code\": \"<string>\",\n  \"ingoingTaxAccount\": \"<string>\",\n  \"outgoingTaxAccount\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "tax-codes",
+          "item": [
             {
-              "id": "66443b01-59f8-4d1b-9d9a-2b81c437e229",
-              "name": "default response",
-              "originalRequest": {
+              "name": "{taxCodeId}",
+              "item": [
+                {
+                  "name": "Returns a given tax code",
+                  "id": "822976d7-c756-4090-a1fd-35ce33a3617a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tax-codes/:taxCodeId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tax-codes",
+                        ":taxCodeId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e63e577f-f482-4101-aacb-aeae1f495ead",
+                          "key": "taxCodeId",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "a0e78306-ac03-404f-9854-a7bc5b6d87a2",
+                      "name": "default response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tax-codes/:taxCodeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tax-codes",
+                            ":taxCodeId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "taxCodeId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"archived\": \"<boolean>\",\n    \"companyId\": \"<uuid>\",\n    \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"rate\": \"<number>\",\n    \"type\": \"exclusive\",\n    \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"accountingIntegrationSystem\": \"<string,null>\",\n    \"code\": \"<string,null>\",\n    \"ingoingTaxAccount\": \"<string,null>\",\n    \"outgoingTaxAccount\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:55:23.000Z",
+                      "updatedAt": "2026-10-22T02:55:23.000Z",
+                      "uid": "35240-a0e78306-ac03-404f-9854-a7bc5b6d87a2"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:23.000Z",
+                  "updatedAt": "2026-10-22T02:55:23.000Z",
+                  "uid": "35240-822976d7-c756-4090-a1fd-35ce33a3617a"
+                },
+                {
+                  "name": "Update an tax code",
+                  "id": "733d155e-fc39-42af-aff4-94dc2cc4eb09",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"type\": \"inclusive\",\n  \"code\": \"<string,null>\",\n  \"ingoingTaxAccount\": \"<string,null>\",\n  \"outgoingTaxAccount\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tax-codes/:taxCodeId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tax-codes",
+                        ":taxCodeId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "89a746d0-edb6-4d3e-8801-666aafe74e3c",
+                          "key": "taxCodeId",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "232891e7-67c2-47d8-932e-38bf5b700938",
+                      "name": "default response",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"type\": \"inclusive\",\n  \"code\": \"<string,null>\",\n  \"ingoingTaxAccount\": \"<string,null>\",\n  \"outgoingTaxAccount\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tax-codes/:taxCodeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tax-codes",
+                            ":taxCodeId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "taxCodeId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"archived\": \"<boolean>\",\n    \"companyId\": \"<uuid>\",\n    \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"rate\": \"<number>\",\n    \"type\": \"exclusive\",\n    \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"accountingIntegrationSystem\": \"<string,null>\",\n    \"code\": \"<string,null>\",\n    \"ingoingTaxAccount\": \"<string,null>\",\n    \"outgoingTaxAccount\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:55:23.000Z",
+                      "updatedAt": "2026-10-22T02:55:23.000Z",
+                      "uid": "35240-232891e7-67c2-47d8-932e-38bf5b700938"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:23.000Z",
+                  "updatedAt": "2026-10-22T02:55:23.000Z",
+                  "uid": "35240-733d155e-fc39-42af-aff4-94dc2cc4eb09"
+                },
+                {
+                  "name": "Delete an tax code",
+                  "id": "282885e8-1302-42f7-80f9-589634f28ccd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tax-codes/:taxCodeId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tax-codes",
+                        ":taxCodeId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "de0aadf2-c47e-4ece-bb8f-2cf32fcb1a92",
+                          "key": "taxCodeId",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "484813d0-af9c-4b1a-ada7-802d45b5571e",
+                      "name": "default response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tax-codes/:taxCodeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tax-codes",
+                            ":taxCodeId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "taxCodeId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "",
+                      "createdAt": "2026-10-22T02:55:23.000Z",
+                      "updatedAt": "2026-10-22T02:55:23.000Z",
+                      "uid": "35240-484813d0-af9c-4b1a-ada7-802d45b5571e"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:23.000Z",
+                  "updatedAt": "2026-10-22T02:55:23.000Z",
+                  "uid": "35240-282885e8-1302-42f7-80f9-589634f28ccd"
+                }
+              ],
+              "id": "cb024c2f-ee01-47ea-853a-c5edb874c94d",
+              "createdAt": "2026-10-22T02:55:23.000Z",
+              "updatedAt": "2026-10-22T02:55:23.000Z",
+              "uid": "35240-cb024c2f-ee01-47ea-853a-c5edb874c94d"
+            },
+            {
+              "name": "Create a new tax code",
+              "id": "7257a9cd-f48a-4881-9fb2-2e9081cbede9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"type\": \"inclusive\",\n  \"code\": \"<string,null>\",\n  \"ingoingTaxAccount\": \"<string,null>\",\n  \"outgoingTaxAccount\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/v0/tax-codes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v0",
                     "tax-codes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "534b9579-9716-4bc1-ad77-47b0750dc2cc",
+                  "name": "default response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"type\": \"inclusive\",\n  \"code\": \"<string,null>\",\n  \"ingoingTaxAccount\": \"<string,null>\",\n  \"outgoingTaxAccount\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tax-codes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tax-codes"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"archived\": \"<boolean>\",\n    \"companyId\": \"<uuid>\",\n    \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"rate\": \"<number>\",\n    \"type\": \"exclusive\",\n    \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"accountingIntegrationSystem\": \"<string,null>\",\n    \"code\": \"<string,null>\",\n    \"ingoingTaxAccount\": \"<string,null>\",\n    \"outgoingTaxAccount\": \"<string,null>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:55:23.000Z",
+                  "updatedAt": "2026-10-22T02:55:23.000Z",
+                  "uid": "35240-534b9579-9716-4bc1-ad77-47b0750dc2cc"
+                }
+              ],
+              "createdAt": "2026-10-22T02:55:23.000Z",
+              "updatedAt": "2026-10-22T02:55:23.000Z",
+              "uid": "35240-7257a9cd-f48a-4881-9fb2-2e9081cbede9"
+            }
+          ],
+          "id": "673cb36a-145c-4b6e-94a0-a9525fc6bf8e",
+          "createdAt": "2026-10-22T02:55:23.000Z",
+          "updatedAt": "2026-10-22T02:55:23.000Z",
+          "uid": "35240-673cb36a-145c-4b6e-94a0-a9525fc6bf8e"
+        },
+        {
+          "name": "tax-codes:calculate-tax-amounts",
+          "item": [
+            {
+              "name": "Calculate gross, net, and tax amounts for a list of tax code ids and amounts",
+              "id": "109e83b5-307b-4cb1-8aef-139fa2f26647",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"name\": \"Standardmoms (25 %)\",\n  \"rate\": \"<number>\",\n  \"type\": \"<string>\",\n  \"code\": \"01\",\n  \"ingoingTaxAccount\": \"<string>\",\n  \"outgoingTaxAccount\": \"<string>\"\n}",
+                  "raw": "{\n  \"amountsByTaxCodeId\": {\n    \"magna4\": [\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      }\n    ],\n    \"sit_99\": [\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      }\n    ],\n    \"ad_92\": [\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      }\n    ]\n  }\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"companyId\": \"8d64821e-cef0-2d94-9c9a-fbbaaaab4775\",\n    \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"id\": \"e7025828-09fe-022f-32e0-1fe3eecb9428\",\n    \"name\": \"Standardmoms (25 %)\",\n    \"rate\": 916.5910239682928,\n    \"type\": \"<string>\",\n    \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"accountingIntegrationSystem\": \"string\",\n    \"code\": \"01\",\n    \"ingoingTaxAccount\": \"string\",\n    \"outgoingTaxAccount\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f1e74a53-1acb-4ad3-84c4-f53064f91edb",
-          "name": "Returns a given tax code",
-          "request": {
-            "name": "Returns a given tax code",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tax-codes",
-                ":taxCodeId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "taxCodeId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "59833340-490f-4232-9131-0f82f32365f9",
-              "name": "default response",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "v0",
-                    "tax-codes",
-                    ":taxCodeId"
-                  ],
+                  "raw": "{{baseUrl}}/v0/tax-codes:calculate-tax-amounts",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "taxCodeId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"companyId\": \"8d64821e-cef0-2d94-9c9a-fbbaaaab4775\",\n    \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"id\": \"e7025828-09fe-022f-32e0-1fe3eecb9428\",\n    \"name\": \"Standardmoms (25 %)\",\n    \"rate\": 916.5910239682928,\n    \"type\": \"<string>\",\n    \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"accountingIntegrationSystem\": \"string\",\n    \"code\": \"01\",\n    \"ingoingTaxAccount\": \"string\",\n    \"outgoingTaxAccount\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "bf671c1b-d9cc-4351-9960-68643abe106e",
-          "name": "Update an tax code",
-          "request": {
-            "name": "Update an tax code",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tax-codes",
-                ":taxCodeId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "taxCodeId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"rate\": \"<number>\",\n  \"type\": \"<string>\",\n  \"code\": \"<string>\",\n  \"ingoingTaxAccount\": \"<string>\",\n  \"outgoingTaxAccount\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "5f7060b0-f796-4018-b9c2-5a699741eae9",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tax-codes",
-                    ":taxCodeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "taxCodeId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"companyId\": \"<uuid>\",\n  \"name\": \"Standardmoms (25 %)\",\n  \"rate\": \"<number>\",\n  \"type\": \"<string>\",\n  \"code\": \"01\",\n  \"ingoingTaxAccount\": \"<string>\",\n  \"outgoingTaxAccount\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"companyId\": \"8d64821e-cef0-2d94-9c9a-fbbaaaab4775\",\n    \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"id\": \"e7025828-09fe-022f-32e0-1fe3eecb9428\",\n    \"name\": \"Standardmoms (25 %)\",\n    \"rate\": 916.5910239682928,\n    \"type\": \"<string>\",\n    \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n    \"accountingIntegrationSystem\": \"string\",\n    \"code\": \"01\",\n    \"ingoingTaxAccount\": \"string\",\n    \"outgoingTaxAccount\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "32947edf-3b2c-451a-9d63-9fb4da190505",
-          "name": "Delete an tax code",
-          "request": {
-            "name": "Delete an tax code",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tax-codes",
-                ":taxCodeId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "taxCodeId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3e869fb9-e089-4a00-a774-255f7abd337a",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tax-codes",
-                    ":taxCodeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "taxCodeId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8a5852e0-022b-471a-bffc-1d78a54df15d",
-          "name": "Calculate gross, net, and tax amounts for a list of tax code ids and amounts.",
-          "request": {
-            "name": "Calculate gross, net, and tax amounts for a list of tax code ids and amounts.",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tax-codes:calculate-tax-amounts"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"amountsByTaxCodeId\": {\n    \"key_0\": [\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      }\n    ]\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "b4548770-306c-46e4-9507-2b7d7aa66ae6",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "v0",
                     "tax-codes:calculate-tax-amounts"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "c20e9c67-4378-4dc6-b811-ae886767064e",
+                  "name": "default response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"amountsByTaxCodeId\": {\n    \"magna4\": [\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      }\n    ],\n    \"sit_99\": [\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      }\n    ],\n    \"ad_92\": [\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"<string>\",\n          \"minors\": \"<long>\"\n        },\n        \"id\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tax-codes:calculate-tax-amounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tax-codes:calculate-tax-amounts"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"taxes\": {\n      \"ad8a9\": [\n        {\n          \"amountTaxBreakdown\": {\n            \"gross\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            },\n            \"net\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            },\n            \"tax\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            }\n          },\n          \"id\": \"<string>\"\n        },\n        {\n          \"amountTaxBreakdown\": {\n            \"gross\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            },\n            \"net\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            },\n            \"tax\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            }\n          },\n          \"id\": \"<string>\"\n        }\n      ],\n      \"laborum_2a\": [\n        {\n          \"amountTaxBreakdown\": {\n            \"gross\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            },\n            \"net\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            },\n            \"tax\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            }\n          },\n          \"id\": \"<string>\"\n        },\n        {\n          \"amountTaxBreakdown\": {\n            \"gross\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            },\n            \"net\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            },\n            \"tax\": {\n              \"currency\": \"<string>\",\n              \"minors\": \"<long>\"\n            }\n          },\n          \"id\": \"<string>\"\n        }\n      ]\n    }\n  }\n}",
+                  "createdAt": "2026-10-22T02:55:23.000Z",
+                  "updatedAt": "2026-10-22T02:55:23.000Z",
+                  "uid": "35240-c20e9c67-4378-4dc6-b811-ae886767064e"
+                }
+              ],
+              "createdAt": "2026-10-22T02:55:23.000Z",
+              "updatedAt": "2026-10-22T02:55:23.000Z",
+              "uid": "35240-109e83b5-307b-4cb1-8aef-139fa2f26647"
+            }
+          ],
+          "id": "74a1c7e4-bf2e-4845-b2db-42da6de8b83d",
+          "createdAt": "2026-10-22T02:55:23.000Z",
+          "updatedAt": "2026-10-22T02:55:23.000Z",
+          "uid": "35240-74a1c7e4-bf2e-4845-b2db-42da6de8b83d"
+        },
+        {
+          "name": "tax-codes:search",
+          "item": [
+            {
+              "name": "Returns a list of tax codes",
+              "id": "b978e8f8-5843-42a1-89e3-f5db7a54fca9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amountsByTaxCodeId\": {\n    \"key_0\": [\n      {\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"id\": \"<string>\"\n      }\n    ],\n    \"key_1\": [\n      {\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"id\": \"<string>\"\n      }\n    ],\n    \"key_2\": [\n      {\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"id\": \"<string>\"\n      },\n      {\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"minors\": 10\n        },\n        \"id\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"taxCodeIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"type\": \"exclusive\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"taxes\": {\n      \"key_0\": [\n        {\n          \"amountTaxBreakdown\": {\n            \"gross\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"net\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tax\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"id\": \"string\"\n        },\n        {\n          \"amountTaxBreakdown\": {\n            \"gross\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"net\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tax\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"id\": \"string\"\n        }\n      ]\n    }\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "07138bcc-b8c8-4385-ac59-b2e6b0b42a1f",
-          "name": "Returns a list of tax codes",
-          "request": {
-            "name": "Returns a list of tax codes",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tax-codes:search"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "company_id",
-                  "value": "<uuid>"
                 },
-                {
-                  "disabled": false,
-                  "key": "before",
-                  "value": "<string>",
-                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>",
-                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<long>",
-                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "The maximum amount of items to return."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"taxCodeIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"type\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "a0b22381-55e3-4023-8da8-6b117e64df4c",
-              "name": "default response",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v0/tax-codes:search?company_id=<uuid>&before=<string>&after=<string>&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_keys=<string>&sorting_order=DESC_NULLS_LAST&sorting_order=ASC_NULLS_FIRST",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v0",
                     "tax-codes:search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
@@ -622,93 +585,158 @@
                       "value": "<uuid>"
                     },
                     {
+                      "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
                       "key": "before",
                       "value": "<string>"
                     },
                     {
+                      "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
                       "key": "after",
                       "value": "<string>"
                     },
                     {
+                      "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
                       "key": "offset",
                       "value": "<long>"
                     },
                     {
+                      "description": "The maximum amount of items to return.",
                       "key": "limit",
                       "value": "<integer>"
                     },
                     {
+                      "description": "The keys to sort the results by.",
                       "key": "sorting_keys",
                       "value": "<string>"
                     },
                     {
+                      "description": "The keys to sort the results by.",
                       "key": "sorting_keys",
                       "value": "<string>"
                     },
                     {
+                      "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
                       "key": "sorting_order",
-                      "value": "<string>"
+                      "value": "DESC_NULLS_LAST"
                     },
                     {
+                      "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
                       "key": "sorting_order",
-                      "value": "<string>"
+                      "value": "ASC_NULLS_FIRST"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"taxCodeIds\": [\n    \"<uuid>\"\n  ],\n  \"type\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  ]
                 }
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  "id": "82fb236b-0a31-4b5f-84a4-ff68b2b42981",
+                  "name": "default response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"taxCodeIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"type\": \"exclusive\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tax-codes:search?company_id=<uuid>&before=<string>&after=<string>&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC_NULLS_FIRST",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tax-codes:search"
+                      ],
+                      "query": [
+                        {
+                          "key": "company_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "ASC_NULLS_FIRST"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"archived\": \"<boolean>\",\n      \"companyId\": \"<uuid>\",\n      \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"rate\": \"<number>\",\n      \"type\": \"reverse\",\n      \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"accountingIntegrationSystem\": \"<string,null>\",\n      \"code\": \"<string,null>\",\n      \"ingoingTaxAccount\": \"<string,null>\",\n      \"outgoingTaxAccount\": \"<string,null>\"\n    },\n    {\n      \"archived\": \"<boolean>\",\n      \"companyId\": \"<uuid>\",\n      \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"rate\": \"<number>\",\n      \"type\": \"exclusive\",\n      \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"accountingIntegrationSystem\": \"<string,null>\",\n      \"code\": \"<string,null>\",\n      \"ingoingTaxAccount\": \"<string,null>\",\n      \"outgoingTaxAccount\": \"<string,null>\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"aliquipc0\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"after\": \"<string>\",\n      \"before\": \"<string>\",\n      \"limit\": \"<integer>\",\n      \"offset\": \"<long>\",\n      \"sortingKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sortingOrder\": [\n        \"ASC_NULLS_LAST\",\n        \"DESC_NULLS_FIRST\"\n      ]\n    },\n    \"hasNextPage\": \"<boolean>\",\n    \"hasPreviousPage\": \"<boolean>\",\n    \"endCursor\": \"<string>\",\n    \"startCursor\": \"<string>\",\n    \"total\": \"<long>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:55:23.000Z",
+                  "updatedAt": "2026-10-22T02:55:23.000Z",
+                  "uid": "35240-82fb236b-0a31-4b5f-84a4-ff68b2b42981"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"archived\": false,\n      \"companyId\": \"d231c8f5-ecb9-2298-ff94-6d39467492ee\",\n      \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"id\": \"0e2bc3c1-1fb4-a09f-8708-73ca054a5ad1\",\n      \"name\": \"Standardmoms (25 %)\",\n      \"rate\": 9845.290438888309,\n      \"type\": \"<string>\",\n      \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"accountingIntegrationSystem\": \"string\",\n      \"code\": \"01\",\n      \"ingoingTaxAccount\": \"string\",\n      \"outgoingTaxAccount\": \"string\"\n    },\n    {\n      \"archived\": true,\n      \"companyId\": \"e85a47bd-df29-2935-7cf1-5509299dcc2b\",\n      \"createdAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"id\": \"2f0d0a53-2a4d-7c06-b369-0a09bf43e585\",\n      \"name\": \"Standardmoms (25 %)\",\n      \"rate\": 90.40151181999522,\n      \"type\": \"<string>\",\n      \"updatedAt\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"accountingIntegrationSystem\": \"string\",\n      \"code\": \"01\",\n      \"ingoingTaxAccount\": \"string\",\n      \"outgoingTaxAccount\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 8986,\n      \"offset\": 8218,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": true,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 5074\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:55:23.000Z",
+              "updatedAt": "2026-10-22T02:55:23.000Z",
+              "uid": "35240-b978e8f8-5843-42a1-89e3-f5db7a54fca9"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "eb7ad3ea-37ae-44c1-a436-4ed4bc976e1c",
+          "createdAt": "2026-10-22T02:55:23.000Z",
+          "updatedAt": "2026-10-22T02:55:23.000Z",
+          "uid": "35240-eb7ad3ea-37ae-44c1-a436-4ed4bc976e1c"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://external.pleo.io",
-      "key": "baseUrl"
+      "id": "1fda89b9-c276-4102-9f5a-b3b1bee46f90",
+      "createdAt": "2026-10-22T02:55:23.000Z",
+      "updatedAt": "2026-10-22T02:55:23.000Z",
+      "uid": "35240-1fda89b9-c276-4102-9f5a-b3b1bee46f90"
     }
   ],
   "auth": {
@@ -716,17 +744,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "e7cf64bd-10a5-411b-932a-cf540e3f276d",
-    "name": "App Marketplace accounting-entries tax-codes API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://external.pleo.io"
     }
-  }
+  ]
 }

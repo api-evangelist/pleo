@@ -1,195 +1,1210 @@
 {
+  "info": {
+    "_postman_id": "8ad62855-0f9c-4cd6-89b6-bcb4ec4605f4",
+    "name": "Gjoll Tag Groups API",
+    "description": "Gjoll OpenAPI definitions\n\nContact Support:\n Email: team-accounting-core@pleo.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:55:09.000Z",
+    "updatedAt": "2026-10-22T02:55:10.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8ad62855-0f9c-4cd6-89b6-bcb4ec4605f4"
+  },
   "item": [
     {
-      "id": "35b91607-bc6f-4c12-964c-ba597b199bbd",
-      "name": "tag-groups",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v0",
       "item": [
         {
-          "id": "52c2c5e8-34d4-4166-891b-b2481d1b331e",
-          "name": "Retrieve the tag groups for a company or an organisation in aggregated format",
-          "request": {
-            "name": "Retrieve the tag groups for a company or an organisation in aggregated format",
-            "description": {
-              "content": "\n            ⚠️ Attention: either the `company_id` or the `organization_id` query parameter MUST be provided. \n            If you supply both, the `company_id` will be used. If you supply neither, the request will fail. \n            If you supply the `company_id`, the response will contain only the tag groups for that company.\n            If you supply the `organization_id`, the response will contain the tag groups for all companies in the organization.\n            If you supply the `company_id` and the `organization_id`, the response will contain only the tag groups for the company. \n            If you supply the `tag_group_ids` query parameter, the response will contain only the tag groups with the given ids, including archived ones.\n            ",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "aggregations",
-                "tag-groups"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "company_id",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "organization_id",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "tag_group_ids",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "tag_group_ids",
-                  "value": "<uuid>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "aggregations",
+          "item": [
             {
-              "id": "92d2492c-f0b7-4e45-aa26-3369b6b20885",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "aggregations",
-                    "tag-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "company_id",
-                      "value": "<uuid>"
+              "name": "tag-groups",
+              "item": [
+                {
+                  "name": "Retrieve the tag groups for a company or an organisation in aggregated format",
+                  "id": "355e540b-39de-4c81-b2ab-e2409ba4be95",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/aggregations/tag-groups?company_id=<uuid>&organization_id=<uuid>&tag_group_ids=<uuid>&tag_group_ids=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "aggregations",
+                        "tag-groups"
+                      ],
+                      "query": [
+                        {
+                          "key": "company_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "organization_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "tag_group_ids",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "tag_group_ids",
+                          "value": "<uuid>"
+                        }
+                      ]
                     },
+                    "description": "\u26a0\ufe0f Attention: either the `company_id` or the `organization_id` query parameter MUST be provided.\nIf you supply both, the `company_id` will be used. If you supply neither, the request will fail.\nIf you supply the `company_id`, the response will contain only the tag groups for that company.\nIf you supply the `organization_id`, the response will contain the tag groups for all companies in the organization.\nIf you supply the `company_id` and the `organization_id`, the response will contain only the tag groups for the company.\nIf you supply the `tag_group_ids` query parameter, the response will contain only the tag groups with the given ids, including archived ones."
+                  },
+                  "response": [
                     {
-                      "key": "organization_id",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "tag_group_ids",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "tag_group_ids",
-                      "value": "<uuid>"
+                      "id": "4164f4a6-f24b-4512-a27c-b313495fcd30",
+                      "name": "default response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/aggregations/tag-groups?company_id=<uuid>&organization_id=<uuid>&tag_group_ids=<uuid>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "aggregations",
+                            "tag-groups"
+                          ],
+                          "query": [
+                            {
+                              "key": "company_id",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "organization_id",
+                              "value": "<uuid>"
+                            },
+                            {
+                              "key": "tag_group_ids",
+                              "value": "<uuid>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"archived\": \"<boolean>\",\n      \"code\": \"<string>\",\n      \"companyId\": \"<uuid>\",\n      \"createdAt\": \"<dateTime>\",\n      \"dimensions\": [\n        {\n          \"code\": \"<string>\",\n          \"createdAt\": \"<dateTime>\",\n          \"displayOrder\": \"<integer>\",\n          \"id\": \"<uuid>\",\n          \"name\": \"<string>\",\n          \"updatedAt\": \"<dateTime>\",\n          \"visible\": \"<boolean>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"createdAt\": \"<dateTime>\",\n          \"displayOrder\": \"<integer>\",\n          \"id\": \"<uuid>\",\n          \"name\": \"<string>\",\n          \"updatedAt\": \"<dateTime>\",\n          \"visible\": \"<boolean>\"\n        }\n      ],\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"updatedAt\": \"<dateTime>\"\n    },\n    {\n      \"archived\": \"<boolean>\",\n      \"code\": \"<string>\",\n      \"companyId\": \"<uuid>\",\n      \"createdAt\": \"<dateTime>\",\n      \"dimensions\": [\n        {\n          \"code\": \"<string>\",\n          \"createdAt\": \"<dateTime>\",\n          \"displayOrder\": \"<integer>\",\n          \"id\": \"<uuid>\",\n          \"name\": \"<string>\",\n          \"updatedAt\": \"<dateTime>\",\n          \"visible\": \"<boolean>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"createdAt\": \"<dateTime>\",\n          \"displayOrder\": \"<integer>\",\n          \"id\": \"<uuid>\",\n          \"name\": \"<string>\",\n          \"updatedAt\": \"<dateTime>\",\n          \"visible\": \"<boolean>\"\n        }\n      ],\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"updatedAt\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:55:10.000Z",
+                      "updatedAt": "2026-10-22T02:55:10.000Z",
+                      "uid": "35240-4164f4a6-f24b-4512-a27c-b313495fcd30"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  "createdAt": "2026-10-22T02:55:10.000Z",
+                  "updatedAt": "2026-10-22T02:55:10.000Z",
+                  "uid": "35240-355e540b-39de-4c81-b2ab-e2409ba4be95"
+                }
+              ],
+              "id": "0ed76a46-b357-469e-a0ab-9ea5c862bc27",
+              "createdAt": "2026-10-22T02:55:10.000Z",
+              "updatedAt": "2026-10-22T02:55:10.000Z",
+              "uid": "35240-0ed76a46-b357-469e-a0ab-9ea5c862bc27"
+            }
+          ],
+          "id": "3576b899-9a39-4c4d-a8cf-95639186af67",
+          "createdAt": "2026-10-22T02:55:10.000Z",
+          "updatedAt": "2026-10-22T02:55:10.000Z",
+          "uid": "35240-3576b899-9a39-4c4d-a8cf-95639186af67"
+        },
+        {
+          "name": "tag-groups",
+          "item": [
+            {
+              "name": "{groupId}",
+              "item": [
+                {
+                  "name": "dimensions",
+                  "item": [
+                    {
+                      "name": "{dimensionId}",
+                      "item": [
+                        {
+                          "name": "Retrieve a tag group dimension",
+                          "id": "1c68d562-6470-4ae3-88c4-9a2f7fb1bdb1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json;charset=UTF-8"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions/:dimensionId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "tag-groups",
+                                ":groupId",
+                                "dimensions",
+                                ":dimensionId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "85a9c66d-0250-41a8-b557-dcef6a46e234",
+                                  "key": "groupId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "2cde1328-0169-4ad0-9c1f-8a4456eea458",
+                                  "key": "dimensionId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "52c38844-fbc4-4227-8827-5c64a59ea5ed",
+                              "name": "default response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json;charset=UTF-8"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions/:dimensionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v0",
+                                    "tag-groups",
+                                    ":groupId",
+                                    "dimensions",
+                                    ":dimensionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "groupId"
+                                    },
+                                    {
+                                      "key": "dimensionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json;charset=UTF-8"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"code\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"displayOrder\": \"<integer>\",\n    \"groupId\": \"<uuid>\",\n    \"id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"visible\": \"<boolean>\"\n  }\n}",
+                              "createdAt": "2026-10-22T02:55:10.000Z",
+                              "updatedAt": "2026-10-22T02:55:10.000Z",
+                              "uid": "35240-52c38844-fbc4-4227-8827-5c64a59ea5ed"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:55:10.000Z",
+                          "updatedAt": "2026-10-22T02:55:10.000Z",
+                          "uid": "35240-1c68d562-6470-4ae3-88c4-9a2f7fb1bdb1"
+                        },
+                        {
+                          "name": "Update a tag group dimension",
+                          "id": "ea3b6de5-02b9-4e6d-ba73-2119a3d817a2",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json;charset=UTF-8"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json;charset=UTF-8"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"code\": \"<string>\",\n  \"displayOrder\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"visible\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions/:dimensionId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "tag-groups",
+                                ":groupId",
+                                "dimensions",
+                                ":dimensionId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "fe078897-8f0a-4cb0-b558-d3c0d454f8b7",
+                                  "key": "groupId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "526c8dc2-19c9-4c3a-afaf-3f552375159e",
+                                  "key": "dimensionId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            },
+                            "description": "Update a tag group dimension by its id."
+                          },
+                          "response": [
+                            {
+                              "id": "15b7a52f-badb-4f90-85e5-6356ca00e259",
+                              "name": "default response",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json;charset=UTF-8"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json;charset=UTF-8"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"code\": \"<string>\",\n  \"displayOrder\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"visible\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions/:dimensionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v0",
+                                    "tag-groups",
+                                    ":groupId",
+                                    "dimensions",
+                                    ":dimensionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "groupId"
+                                    },
+                                    {
+                                      "key": "dimensionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json;charset=UTF-8"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"code\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"displayOrder\": \"<integer>\",\n    \"groupId\": \"<uuid>\",\n    \"id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"visible\": \"<boolean>\"\n  }\n}",
+                              "createdAt": "2026-10-22T02:55:10.000Z",
+                              "updatedAt": "2026-10-22T02:55:10.000Z",
+                              "uid": "35240-15b7a52f-badb-4f90-85e5-6356ca00e259"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:55:10.000Z",
+                          "updatedAt": "2026-10-22T02:55:10.000Z",
+                          "uid": "35240-ea3b6de5-02b9-4e6d-ba73-2119a3d817a2"
+                        },
+                        {
+                          "name": "Delete a tag group dimension",
+                          "id": "a17fef5e-b6a3-4de2-a930-373464abda97",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json;charset=UTF-8"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions/:dimensionId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "tag-groups",
+                                ":groupId",
+                                "dimensions",
+                                ":dimensionId"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "bd738110-9403-458f-99cc-ba65aacee456",
+                                  "key": "groupId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "76e4f558-0f52-4d60-806c-4cc7cda17da4",
+                                  "key": "dimensionId",
+                                  "value": "<uuid>",
+                                  "description": "(Required) "
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "id": "7474cb0f-4da5-4f24-9209-55b7162677bc",
+                              "name": "default response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json;charset=UTF-8"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions/:dimensionId",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v0",
+                                    "tag-groups",
+                                    ":groupId",
+                                    "dimensions",
+                                    ":dimensionId"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "groupId"
+                                    },
+                                    {
+                                      "key": "dimensionId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Internal Server Error",
+                              "code": 500,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json;charset=UTF-8"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "",
+                              "createdAt": "2026-10-22T02:55:10.000Z",
+                              "updatedAt": "2026-10-22T02:55:10.000Z",
+                              "uid": "35240-7474cb0f-4da5-4f24-9209-55b7162677bc"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T02:55:10.000Z",
+                          "updatedAt": "2026-10-22T02:55:10.000Z",
+                          "uid": "35240-a17fef5e-b6a3-4de2-a930-373464abda97"
+                        }
+                      ],
+                      "id": "5e039651-e186-4df9-91a1-0e5dd119fe41",
+                      "createdAt": "2026-10-22T02:55:10.000Z",
+                      "updatedAt": "2026-10-22T02:55:10.000Z",
+                      "uid": "35240-5e039651-e186-4df9-91a1-0e5dd119fe41"
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    {
+                      "name": "Retrieve a list of tag group dimensions",
+                      "id": "bc3608e6-ff13-4765-8ab0-40af9c8260b6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tag-groups",
+                            ":groupId",
+                            "dimensions"
+                          ],
+                          "variable": [
+                            {
+                              "id": "bf80b635-475a-44bc-94f9-76b5c56ac64e",
+                              "key": "groupId",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Retrieve a list of tag group dimensions excluding the name and code dimensions which are always present in a tag group.\nThe name and code dimensions are returned only when they do not follow the standard name and code naming convention."
+                      },
+                      "response": [
+                        {
+                          "id": "ac5a02a5-f544-43ec-80e5-67245b6553f9",
+                          "name": "default response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json;charset=UTF-8"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "tag-groups",
+                                ":groupId",
+                                "dimensions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "groupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json;charset=UTF-8"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"code\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"displayOrder\": \"<integer>\",\n      \"groupId\": \"<uuid>\",\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"visible\": \"<boolean>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"displayOrder\": \"<integer>\",\n      \"groupId\": \"<uuid>\",\n      \"id\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"visible\": \"<boolean>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:55:10.000Z",
+                          "updatedAt": "2026-10-22T02:55:10.000Z",
+                          "uid": "35240-ac5a02a5-f544-43ec-80e5-67245b6553f9"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:55:10.000Z",
+                      "updatedAt": "2026-10-22T02:55:10.000Z",
+                      "uid": "35240-bc3608e6-ff13-4765-8ab0-40af9c8260b6"
+                    },
+                    {
+                      "name": "Create a new tag group dimension",
+                      "id": "54290d57-43d0-487f-8808-f33d48c0430c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"visible\": \"<boolean>\",\n  \"displayOrder\": \"<integer,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tag-groups",
+                            ":groupId",
+                            "dimensions"
+                          ],
+                          "variable": [
+                            {
+                              "id": "294d4867-4422-4574-b01e-46ff1e10d026",
+                              "key": "groupId",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "7511b577-3856-4438-b38a-de7351e924ae",
+                          "name": "default response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json;charset=UTF-8"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json;charset=UTF-8"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"visible\": \"<boolean>\",\n  \"displayOrder\": \"<integer,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/tag-groups/:groupId/dimensions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "tag-groups",
+                                ":groupId",
+                                "dimensions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "groupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json;charset=UTF-8"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"code\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"displayOrder\": \"<integer>\",\n    \"groupId\": \"<uuid>\",\n    \"id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"visible\": \"<boolean>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:55:10.000Z",
+                          "updatedAt": "2026-10-22T02:55:10.000Z",
+                          "uid": "35240-7511b577-3856-4438-b38a-de7351e924ae"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:55:10.000Z",
+                      "updatedAt": "2026-10-22T02:55:10.000Z",
+                      "uid": "35240-54290d57-43d0-487f-8808-f33d48c0430c"
+                    }
+                  ],
+                  "id": "f959bc37-a1eb-4169-98e2-6720a7873f30",
+                  "createdAt": "2026-10-22T02:55:10.000Z",
+                  "updatedAt": "2026-10-22T02:55:10.000Z",
+                  "uid": "35240-f959bc37-a1eb-4169-98e2-6720a7873f30"
+                },
+                {
+                  "name": "usage",
+                  "item": [
+                    {
+                      "name": "Get usage for a tag group",
+                      "id": "236ab444-67e1-4c7d-a6dc-8064b19f160e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tag-groups/:groupId/usage",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tag-groups",
+                            ":groupId",
+                            "usage"
+                          ],
+                          "variable": [
+                            {
+                              "id": "29d001c4-7fae-40fe-a787-e3fdd72e7fcd",
+                              "key": "groupId",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Returns the number of expenses that are linked to each tag within a tag group."
+                      },
+                      "response": [
+                        {
+                          "id": "3fdb1bb9-e06d-42ea-a031-7a9a8a911df9",
+                          "name": "Tag group usage successfully retrieved.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json;charset=UTF-8"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/tag-groups/:groupId/usage",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "tag-groups",
+                                ":groupId",
+                                "usage"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "groupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json;charset=UTF-8"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"usages\": [\n      {\n        \"count\": \"<integer>\",\n        \"id\": \"<uuid>\"\n      },\n      {\n        \"count\": \"<integer>\",\n        \"id\": \"<uuid>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-10-22T02:55:10.000Z",
+                          "updatedAt": "2026-10-22T02:55:10.000Z",
+                          "uid": "35240-3fdb1bb9-e06d-42ea-a031-7a9a8a911df9"
+                        },
+                        {
+                          "id": "b4faa5a8-0ca2-4749-bb1a-a08b3158759e",
+                          "name": "Forbidden: User lacks the necessary permissions.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/tag-groups/:groupId/usage",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "tag-groups",
+                                ":groupId",
+                                "usage"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "groupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:55:10.000Z",
+                          "updatedAt": "2026-10-22T02:55:10.000Z",
+                          "uid": "35240-b4faa5a8-0ca2-4749-bb1a-a08b3158759e"
+                        },
+                        {
+                          "id": "9a8542a0-3dc4-4d9e-9f23-04ff291086bc",
+                          "name": "Not found: Tag group with given id was not found or deleted.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v0/tag-groups/:groupId/usage",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v0",
+                                "tag-groups",
+                                ":groupId",
+                                "usage"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "groupId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:55:10.000Z",
+                          "updatedAt": "2026-10-22T02:55:10.000Z",
+                          "uid": "35240-9a8542a0-3dc4-4d9e-9f23-04ff291086bc"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:55:10.000Z",
+                      "updatedAt": "2026-10-22T02:55:10.000Z",
+                      "uid": "35240-236ab444-67e1-4c7d-a6dc-8064b19f160e"
+                    }
+                  ],
+                  "id": "a127d85e-94a7-4d51-98ec-1c69177e4a7a",
+                  "createdAt": "2026-10-22T02:55:10.000Z",
+                  "updatedAt": "2026-10-22T02:55:10.000Z",
+                  "uid": "35240-a127d85e-94a7-4d51-98ec-1c69177e4a7a"
+                },
+                {
+                  "name": "Retrieve a tag group by its id",
+                  "id": "96eb36ae-768e-4013-900d-28a3e8ab3b78",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tag-groups/:groupId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tag-groups",
+                        ":groupId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5570512a-26e4-463f-a064-2960ebd260b8",
+                          "key": "groupId",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieve details of a tag group by its id."
+                  },
+                  "response": [
+                    {
+                      "id": "4dce22f5-00c6-4744-8264-3d76bdd8e7c7",
+                      "name": "default response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tag-groups/:groupId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tag-groups",
+                            ":groupId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "groupId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"archived\": \"<boolean>\",\n    \"code\": \"<string>\",\n    \"companyId\": \"<uuid>\",\n    \"createdAt\": \"<dateTime>\",\n    \"id\": \"<uuid>\",\n    \"metadata\": {\n      \"culpa4b\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"totalTagsCount\": \"<long>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:55:10.000Z",
+                      "updatedAt": "2026-10-22T02:55:10.000Z",
+                      "uid": "35240-4dce22f5-00c6-4744-8264-3d76bdd8e7c7"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:10.000Z",
+                  "updatedAt": "2026-10-22T02:55:10.000Z",
+                  "uid": "35240-96eb36ae-768e-4013-900d-28a3e8ab3b78"
+                },
+                {
+                  "name": "Update a tag group",
+                  "id": "55350454-e43c-4358-ad27-08313fa7aa90",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"labore_cd\": \"<string>\"\n  },\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tag-groups/:groupId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tag-groups",
+                        ":groupId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4fbc869f-6246-4e34-8a1c-a620174ed4e6",
+                          "key": "groupId",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Modify details of a tag group by its id."
+                  },
+                  "response": [
+                    {
+                      "id": "ee648336-e577-4bb5-ab7b-c7321988c31d",
+                      "name": "default response",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"labore_cd\": \"<string>\"\n  },\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tag-groups/:groupId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tag-groups",
+                            ":groupId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "groupId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"archived\": \"<boolean>\",\n    \"code\": \"<string>\",\n    \"companyId\": \"<uuid>\",\n    \"createdAt\": \"<dateTime>\",\n    \"id\": \"<uuid>\",\n    \"metadata\": {\n      \"culpa4b\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"totalTagsCount\": \"<long>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:55:10.000Z",
+                      "updatedAt": "2026-10-22T02:55:10.000Z",
+                      "uid": "35240-ee648336-e577-4bb5-ab7b-c7321988c31d"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:10.000Z",
+                  "updatedAt": "2026-10-22T02:55:10.000Z",
+                  "uid": "35240-55350454-e43c-4358-ad27-08313fa7aa90"
+                },
+                {
+                  "name": "Delete a tag group",
+                  "id": "7bfa44cb-f301-4cb7-bddf-9b22f7c217f3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tag-groups/:groupId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tag-groups",
+                        ":groupId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e339a891-c72c-4b85-a157-157a3a2a0497",
+                          "key": "groupId",
+                          "value": "<uuid>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Delete a tag group by its id."
+                  },
+                  "response": [
+                    {
+                      "id": "e7c193fc-a1a4-4ed2-8727-3b680aa741c7",
+                      "name": "Tag group successfully removed.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v0/tag-groups/:groupId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v0",
+                            "tag-groups",
+                            ":groupId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "groupId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:55:10.000Z",
+                      "updatedAt": "2026-10-22T02:55:10.000Z",
+                      "uid": "35240-e7c193fc-a1a4-4ed2-8727-3b680aa741c7"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:55:10.000Z",
+                  "updatedAt": "2026-10-22T02:55:10.000Z",
+                  "uid": "35240-7bfa44cb-f301-4cb7-bddf-9b22f7c217f3"
+                }
+              ],
+              "id": "281fbfc0-56d2-45ec-a8c8-9bed3ad6633a",
+              "createdAt": "2026-10-22T02:55:10.000Z",
+              "updatedAt": "2026-10-22T02:55:10.000Z",
+              "uid": "35240-281fbfc0-56d2-45ec-a8c8-9bed3ad6633a"
+            },
+            {
+              "name": "Retrieve tag groups for a company or an organisation",
+              "id": "effb2c9d-bfbe-464a-9f41-80f30546fc41",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"archived\": false,\n      \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n      \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"dimensions\": [\n        {\n          \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n          \"createdAt\": \"2023-08-23T03:11:48Z\",\n          \"displayOrder\": 4144,\n          \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n          \"name\": \"Project\",\n          \"updatedAt\": \"2023-08-23T03:11:48Z\",\n          \"visible\": false\n        },\n        {\n          \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n          \"createdAt\": \"2023-08-23T03:11:48Z\",\n          \"displayOrder\": 2648,\n          \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n          \"name\": \"Project\",\n          \"updatedAt\": \"2023-08-23T03:11:48Z\",\n          \"visible\": false\n        }\n      ],\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"name\": \"Projects\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\"\n    },\n    {\n      \"archived\": false,\n      \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n      \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"dimensions\": [\n        {\n          \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n          \"createdAt\": \"2023-08-23T03:11:48Z\",\n          \"displayOrder\": 8204,\n          \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n          \"name\": \"Project\",\n          \"updatedAt\": \"2023-08-23T03:11:48Z\",\n          \"visible\": false\n        },\n        {\n          \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n          \"createdAt\": \"2023-08-23T03:11:48Z\",\n          \"displayOrder\": 9025,\n          \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n          \"name\": \"Project\",\n          \"updatedAt\": \"2023-08-23T03:11:48Z\",\n          \"visible\": false\n        }\n      ],\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"name\": \"Projects\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "27de834d-5d33-44b2-ab0e-d54eccc93a39",
-          "name": "Retrieve tag groups for a company or an organisation",
-          "request": {
-            "name": "Retrieve tag groups for a company or an organisation",
-            "description": {
-              "content": "\n            ⚠️ Attention: either the `company_id` or the `organization_id` query parameter MUST be provided.\n            If you supply both, the `company_id` will be used. If you supply neither, the request will fail.\n            If you supply the `company_id`, the response will contain only the tag groups for that company. \n            If you supply the `organization_id`, the response will contain the tag groups for all companies in the organization.\n            If you supply the `company_id` and the `organization_id`, the response will contain only the tag groups for the company.\n            ",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "company_id",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "organization_id",
-                  "value": "<uuid>"
-                },
-                {
-                  "disabled": false,
-                  "key": "include_archived",
-                  "value": "<boolean>"
-                },
-                {
-                  "disabled": false,
-                  "key": "include_tags_count",
-                  "value": "<boolean>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8f860738-42f0-4cf9-8c42-314e8d64fcd8",
-              "name": "default response",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v0/tag-groups?company_id=<uuid>&organization_id=<uuid>&include_archived=<boolean>&include_tags_count=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v0",
                     "tag-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
@@ -208,1252 +1223,203 @@
                       "key": "include_tags_count",
                       "value": "<boolean>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
+                "description": "\u26a0\ufe0f Attention: either the `company_id` or the `organization_id` query parameter MUST be provided.\nIf you supply both, the `company_id` will be used. If you supply neither, the request will fail.\nIf you supply the `company_id`, the response will contain only the tag groups for that company.\nIf you supply the `organization_id`, the response will contain the tag groups for all companies in the organization.\nIf you supply the `company_id` and the `organization_id`, the response will contain only the tag groups for the company."
+              },
+              "response": [
+                {
+                  "id": "5ed69bdb-1aaa-4a12-8fb8-6034884d28c3",
+                  "name": "default response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tag-groups?company_id=<uuid>&organization_id=<uuid>&include_archived=<boolean>&include_tags_count=<boolean>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tag-groups"
+                      ],
+                      "query": [
+                        {
+                          "key": "company_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "organization_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "key": "include_archived",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "key": "include_tags_count",
+                          "value": "<boolean>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"archived\": \"<boolean>\",\n      \"code\": \"<string>\",\n      \"companyId\": \"<uuid>\",\n      \"createdAt\": \"<dateTime>\",\n      \"id\": \"<uuid>\",\n      \"metadata\": {\n        \"dolore4\": \"<string>\",\n        \"minima71\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"totalTagsCount\": \"<long>\"\n    },\n    {\n      \"archived\": \"<boolean>\",\n      \"code\": \"<string>\",\n      \"companyId\": \"<uuid>\",\n      \"createdAt\": \"<dateTime>\",\n      \"id\": \"<uuid>\",\n      \"metadata\": {\n        \"incididunt_e\": \"<string>\",\n        \"ullamco1\": \"<string>\",\n        \"non_80\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"updatedAt\": \"<dateTime>\",\n      \"totalTagsCount\": \"<long>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T02:55:10.000Z",
+                  "updatedAt": "2026-10-22T02:55:10.000Z",
+                  "uid": "35240-5ed69bdb-1aaa-4a12-8fb8-6034884d28c3"
+                }
+              ],
+              "createdAt": "2026-10-22T02:55:10.000Z",
+              "updatedAt": "2026-10-22T02:55:10.000Z",
+              "uid": "35240-effb2c9d-bfbe-464a-9f41-80f30546fc41"
+            },
+            {
+              "name": "Create a new tag group",
+              "id": "961b409c-32a4-495c-9c41-3b1071415d6a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json;charset=UTF-8"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"archived\": false,\n      \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n      \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"metadata\": {\n        \"externalExtraId\": \"f302f9ec-6c17-11ee-b962-0242ac120002\"\n      },\n      \"name\": \"Projects\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"totalTagsCount\": 4\n    },\n    {\n      \"archived\": false,\n      \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n      \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"metadata\": {\n        \"externalExtraId\": \"f302f9ec-6c17-11ee-b962-0242ac120002\"\n      },\n      \"name\": \"Projects\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"totalTagsCount\": 4\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "99f3722f-b547-4953-afa2-9c6661e10650",
-          "name": "Create a new tag group",
-          "request": {
-            "name": "Create a new tag group",
-            "description": {
-              "content": "Create a new tag group in Pleo.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "company_id",
-                  "value": "<uuid>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "c1ad7366-1f94-4fc6-979f-2227ad3c7d5e",
-              "name": "default response",
-              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"metadata\": {\n    \"quib7\": \"<string>\",\n    \"Loremf\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/v0/tag-groups?company_id=<uuid>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v0",
                     "tag-groups"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
                       "key": "company_id",
                       "value": "<uuid>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                "description": "Create a new tag group in Pleo."
+              },
+              "response": [
+                {
+                  "id": "77af29de-3438-4071-a7b4-5156af0864b3",
+                  "name": "default response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"metadata\": {\n    \"quib7\": \"<string>\",\n    \"Loremf\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/v0/tag-groups?company_id=<uuid>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v0",
+                        "tag-groups"
+                      ],
+                      "query": [
+                        {
+                          "key": "company_id",
+                          "value": "<uuid>"
+                        }
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
                     }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"archived\": \"<boolean>\",\n    \"code\": \"<string>\",\n    \"companyId\": \"<uuid>\",\n    \"createdAt\": \"<dateTime>\",\n    \"id\": \"<uuid>\",\n    \"metadata\": {\n      \"culpa4b\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"updatedAt\": \"<dateTime>\",\n    \"totalTagsCount\": \"<long>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:55:10.000Z",
+                  "updatedAt": "2026-10-22T02:55:10.000Z",
+                  "uid": "35240-77af29de-3438-4071-a7b4-5156af0864b3"
                 }
               ],
-              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n    \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"metadata\": {\n      \"externalExtraId\": \"f302f9ec-6c17-11ee-b962-0242ac120002\"\n    },\n    \"name\": \"Projects\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"totalTagsCount\": 4\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:55:10.000Z",
+              "updatedAt": "2026-10-22T02:55:10.000Z",
+              "uid": "35240-961b409c-32a4-495c-9c41-3b1071415d6a"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "622d1035-b25a-4b46-a731-bc3f1fb049e5",
-          "name": "Retrieve a tag group by its id",
-          "request": {
-            "name": "Retrieve a tag group by its id",
-            "description": {
-              "content": "Retrieve details of a tag group by its id.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "50963749-e5c9-4608-8647-ca9870e7a943",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n    \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"metadata\": {\n      \"externalExtraId\": \"f302f9ec-6c17-11ee-b962-0242ac120002\"\n    },\n    \"name\": \"Projects\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"totalTagsCount\": 4\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f2b933b6-f133-42fe-a646-b6155a66540e",
-          "name": "Update a tag group",
-          "request": {
-            "name": "Update a tag group",
-            "description": {
-              "content": "Modify details of a tag group by its id.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"name\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "83d0e3cb-5695-4f21-837d-f9cbbc839018",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"archived\": \"<boolean>\",\n  \"code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"name\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"archived\": false,\n    \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n    \"companyId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"metadata\": {\n      \"externalExtraId\": \"f302f9ec-6c17-11ee-b962-0242ac120002\"\n    },\n    \"name\": \"Projects\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"totalTagsCount\": 4\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a362209d-a65c-4e62-aa59-651facfcca28",
-          "name": "Delete a tag group",
-          "request": {
-            "name": "Delete a tag group",
-            "description": {
-              "content": "Delete a tag group by its id.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "99927adb-79a7-4718-a8ac-b2c529c2cf1e",
-              "name": "Tag group successfully removed.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6700a90c-381f-445d-a081-89f801cae6d2",
-          "name": "Retrieve a list of tag group dimensions",
-          "request": {
-            "name": "Retrieve a list of tag group dimensions",
-            "description": {
-              "content": "\n            Retrieve a list of tag group dimensions excluding the name and code dimensions which are always present in a tag group. \n            The name and code dimensions are returned only when they do not follow the standard name and code naming convention.\n            ",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId",
-                "dimensions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "48e80b63-9654-4755-a498-133eabcbb281",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId",
-                    "dimensions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"displayOrder\": 1,\n      \"groupId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"name\": \"Project\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"visible\": false\n    },\n    {\n      \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n      \"createdAt\": \"2023-08-23T03:11:48Z\",\n      \"displayOrder\": 1,\n      \"groupId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n      \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n      \"name\": \"Project\",\n      \"updatedAt\": \"2023-08-23T03:11:48Z\",\n      \"visible\": false\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2c3601de-0df2-48d1-b16f-6b16f48a126c",
-          "name": "Create a new tag group dimension",
-          "request": {
-            "name": "Create a new tag group dimension",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId",
-                "dimensions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"code\": \"<string>\",\n  \"name\": \"<string>\",\n  \"visible\": \"<boolean>\",\n  \"displayOrder\": \"<integer>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "441cf160-98d3-4b34-a447-955629415da1",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId",
-                    "dimensions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n  \"name\": \"Project\",\n  \"visible\": false,\n  \"displayOrder\": 1\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"displayOrder\": 1,\n    \"groupId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"name\": \"Project\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"visible\": false\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9a23d428-6510-4e3f-afcd-7c2b9adf9cb8",
-          "name": "Retrieve a tag group dimension",
-          "request": {
-            "name": "Retrieve a tag group dimension",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId",
-                "dimensions",
-                ":dimensionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "dimensionId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3975b158-7d0c-4b6e-a1cb-2426b44cc73b",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId",
-                    "dimensions",
-                    ":dimensionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "dimensionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"displayOrder\": 1,\n    \"groupId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"name\": \"Project\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"visible\": false\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f2aa9699-0b84-43de-a159-91f12537b54d",
-          "name": "Update a tag group dimension",
-          "request": {
-            "name": "Update a tag group dimension",
-            "description": {
-              "content": "Update a tag group dimension by its id.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId",
-                "dimensions",
-                ":dimensionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "dimensionId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json;charset=UTF-8"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"code\": \"<string>\",\n  \"displayOrder\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"visible\": \"<boolean>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "fd2ceaf1-be5b-4c89-8b98-3b04e093c948",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId",
-                    "dimensions",
-                    ":dimensionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "dimensionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n  \"displayOrder\": 1,\n  \"name\": \"Project\",\n  \"visible\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"code\": \"5524f270-6c21-11ee-b962-0242ac120002\",\n    \"createdAt\": \"2023-08-23T03:11:48Z\",\n    \"displayOrder\": 1,\n    \"groupId\": \"c04c7e9e-6c15-11ee-b962-0242ac120003\",\n    \"id\": \"c04c7e9e-6c15-11ee-b962-0242ac120002\",\n    \"name\": \"Project\",\n    \"updatedAt\": \"2023-08-23T03:11:48Z\",\n    \"visible\": false\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5eca91ba-a6f5-4bb4-a6f3-54403e850250",
-          "name": "Delete a tag group dimension",
-          "request": {
-            "name": "Delete a tag group dimension",
-            "description": {},
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId",
-                "dimensions",
-                ":dimensionId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "dimensionId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3afe3a91-dcf3-4bae-bb9c-b009334a030e",
-              "name": "default response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId",
-                    "dimensions",
-                    ":dimensionId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "dimensionId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "\"\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "74502a44-54fb-4783-919f-0317b6c72b68",
-          "name": "Get usage for a tag group",
-          "request": {
-            "name": "Get usage for a tag group",
-            "description": {
-              "content": "Returns the number of expenses that are linked to each tag within a tag group.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v0",
-                "tag-groups",
-                ":groupId",
-                "usage"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "groupId",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c57591f6-2429-42a0-a5ce-ec95b3a3619a",
-              "name": "Tag group usage successfully retrieved.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId",
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"usages\": [\n      {\n        \"count\": 3024,\n        \"id\": \"f3bb73a3-a98c-cf77-4e91-ebd8ede551f0\"\n      },\n      {\n        \"count\": 2809,\n        \"id\": \"5cad3d1d-7d00-2644-1aac-75a7045a83f2\"\n      }\n    ]\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4849860e-5e09-4d65-8b9a-f3cc7fba754b",
-              "name": "Forbidden: User lacks the necessary permissions.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId",
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "0691e7ef-9bf5-469c-b425-62c1963c34f8",
-              "name": "Not found: Tag group with given id was not found or deleted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v0",
-                    "tag-groups",
-                    ":groupId",
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "groupId",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "059918e9-7a72-4d61-9a4e-898dec86511c",
+          "createdAt": "2026-10-22T02:55:10.000Z",
+          "updatedAt": "2026-10-22T02:55:10.000Z",
+          "uid": "35240-059918e9-7a72-4d61-9a4e-898dec86511c"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://external.pleo.io",
-      "key": "baseUrl"
+      "id": "9b23f303-3d7b-4176-9a74-29391d8ff716",
+      "createdAt": "2026-10-22T02:55:10.000Z",
+      "updatedAt": "2026-10-22T02:55:10.000Z",
+      "uid": "35240-9b23f303-3d7b-4176-9a74-29391d8ff716"
     }
   ],
   "auth": {
@@ -1461,17 +1427,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "c20bad89-ed5e-4469-8d87-31d29e76a278",
-    "name": "App Marketplace accounting-entries tag-groups API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://external.pleo.io"
     }
-  }
+  ]
 }

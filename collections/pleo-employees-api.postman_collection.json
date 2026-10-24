@@ -1,496 +1,471 @@
 {
+  "info": {
+    "_postman_id": "e0110c0f-1cd9-4fe1-b8fc-b625561be242",
+    "name": "Oberon Employees API",
+    "description": "Oberon open api definitions\n\nContact Support:\n Email: apiteam@pleo.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:53:56.000Z",
+    "updatedAt": "2026-10-22T02:53:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e0110c0f-1cd9-4fe1-b8fc-b625561be242"
+  },
   "item": [
     {
-      "id": "445e8557-fed4-492f-a0b5-668356a2e0af",
-      "name": "Employees",
-      "description": {
-        "content": "The Employees API enables you to search for employee records that\nare managed in Pleo. You can perform the following: \n - Search for multiple\nemployees \n - Search for a specific employee record by employee ID",
-        "type": "text/plain"
-      },
+      "name": "v2",
       "item": [
         {
-          "id": "7216efe5-9e1f-4235-8737-6c6aa25638f2",
-          "name": "Search for employees",
-          "request": {
-            "name": "Search for employees",
-            "description": {
-              "content": "Use this endpoint to search for multiple employees.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "employees"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "companyId",
-                  "value": "<uuid>",
-                  "description": "Enter the company ID of the employees you are searching for. This is not a mandatory parameter; hence, if you do not know the company ID, the response message contains details of all employees to which you have access. If you are searching for employees at the organisation level, ensure that the access token used for authentication has the correct permissions."
-                },
-                {
-                  "disabled": false,
-                  "key": "email",
-                  "value": "<string>",
-                  "description": "The email of the Employee you are searching for."
-                },
-                {
-                  "disabled": false,
-                  "key": "code",
-                  "value": "<string>",
-                  "description": "The external ID of the Employee you are searching for."
-                },
-                {
-                  "disabled": false,
-                  "key": "before",
-                  "value": "<string>",
-                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>",
-                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<long>",
-                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "The maximum amount of items to return."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "employees",
+          "item": [
             {
-              "id": "8aaee6a7-91bc-44b9-a683-755bd31a3519",
-              "name": "Employee search successful",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "employees"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "{employeeId}",
+              "item": [
+                {
+                  "name": "Search for a specific employee",
+                  "id": "bb409215-9292-4132-bd33-5b7d08d1d3ee",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/employees/:employeeId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "employees",
+                        ":employeeId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ad6669a3-2f93-4545-978c-13f5c41e5072",
+                          "key": "employeeId",
+                          "value": "<uuid>",
+                          "description": "(Required) Enter the employee ID."
+                        }
+                      ]
+                    },
+                    "description": "Search for a specific employee by employee ID."
+                  },
+                  "response": [
                     {
-                      "key": "companyId",
-                      "value": "<uuid>"
+                      "id": "395f1322-f6c4-4c5e-aa67-4a4d4c32f7ec",
+                      "name": "Employee resource found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json;charset=UTF-8"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/employees/:employeeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "employees",
+                            ":employeeId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "employeeId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json;charset=UTF-8"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"companyId\": \"<uuid>\",\n    \"email\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<uuid>\",\n    \"lastName\": \"<string>\",\n    \"code\": \"<string>\",\n    \"jobTitle\": \"<string>\",\n    \"phone\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:53:56.000Z",
+                      "updatedAt": "2026-10-22T02:53:56.000Z",
+                      "uid": "35240-395f1322-f6c4-4c5e-aa67-4a4d4c32f7ec"
                     },
                     {
-                      "key": "email",
-                      "value": "<string>"
+                      "id": "244b1e5f-138a-499c-bda2-da9f50bdd683",
+                      "name": "Forbidden: User lacks the necessary permissions to access this Employee",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/employees/:employeeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "employees",
+                            ":employeeId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "employeeId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:53:56.000Z",
+                      "updatedAt": "2026-10-22T02:53:56.000Z",
+                      "uid": "35240-244b1e5f-138a-499c-bda2-da9f50bdd683"
                     },
                     {
-                      "key": "code",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "<long>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
+                      "id": "c17dfb2c-0b70-4aa0-9e16-67c173c4fd53",
+                      "name": "Not Found: Employee with given ID not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v2/employees/:employeeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v2",
+                            "employees",
+                            ":employeeId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "employeeId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:53:56.000Z",
+                      "updatedAt": "2026-10-22T02:53:56.000Z",
+                      "uid": "35240-c17dfb2c-0b70-4aa0-9e16-67c173c4fd53"
                     }
                   ],
-                  "variable": []
-                },
+                  "createdAt": "2026-10-22T02:53:56.000Z",
+                  "updatedAt": "2026-10-22T02:53:56.000Z",
+                  "uid": "35240-bb409215-9292-4132-bd33-5b7d08d1d3ee"
+                }
+              ],
+              "id": "a9a041c6-ffa2-4c71-bc3a-5e87cf323d95",
+              "createdAt": "2026-10-22T02:53:56.000Z",
+              "updatedAt": "2026-10-22T02:53:56.000Z",
+              "uid": "35240-a9a041c6-ffa2-4c71-bc3a-5e87cf323d95"
+            },
+            {
+              "name": "Search for employees",
+              "id": "0b2c150d-db1c-4e54-ade4-4edaaef2568a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"companyId\": \"6d9234bc-0cff-d01c-a0f1-5c26306e862d\",\n      \"email\": \"string\",\n      \"firstName\": \"string\",\n      \"id\": \"a8a90267-6c0e-2fbc-a66c-8577d7965fc4\",\n      \"lastName\": \"string\",\n      \"code\": \"string\",\n      \"jobTitle\": \"string\",\n      \"phone\": \"string\"\n    },\n    {\n      \"companyId\": \"b171eb1b-c27a-2a0b-1d0b-b0dc7c320218\",\n      \"email\": \"string\",\n      \"firstName\": \"string\",\n      \"id\": \"cc5ae975-8795-36b3-11b4-f32f5b4d6c66\",\n      \"lastName\": \"string\",\n      \"code\": \"string\",\n      \"jobTitle\": \"string\",\n      \"phone\": \"string\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 6723,\n      \"offset\": 7870,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": true,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 7235\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d91e2366-296a-463c-8aed-327ce833128f",
-              "name": "Forbidden: User lacks the necessary permissions",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v2/employees?companyId=<uuid>&email=<string>&code=<string>&before=S3YM5&after=S3YM5&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_keys=<string>&sorting_order=ASC_NULLS_LAST&sorting_order=DESC_NULLS_LAST",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v2",
                     "employees"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Enter the company ID of the employees you are searching for. This is not a mandatory parameter; hence, if you do not know the company ID, the response message contains details of all employees to which you have access. If you are searching for employees at the organisation level, ensure that the access token used for authentication has the correct permissions.",
                       "key": "companyId",
                       "value": "<uuid>"
                     },
                     {
+                      "description": "The email of the Employee you are searching for.",
                       "key": "email",
                       "value": "<string>"
                     },
                     {
+                      "description": "The external ID of the Employee you are searching for.",
                       "key": "code",
                       "value": "<string>"
                     },
                     {
+                      "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
                       "key": "before",
-                      "value": "<string>"
+                      "value": "S3YM5"
                     },
                     {
+                      "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
                       "key": "after",
-                      "value": "<string>"
+                      "value": "S3YM5"
                     },
                     {
+                      "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
                       "key": "offset",
                       "value": "<long>"
                     },
                     {
+                      "description": "The maximum amount of items to return.",
                       "key": "limit",
                       "value": "<integer>"
                     },
                     {
+                      "description": "The keys to sort the results by.",
                       "key": "sorting_keys",
                       "value": "<string>"
                     },
                     {
+                      "description": "The keys to sort the results by.",
                       "key": "sorting_keys",
                       "value": "<string>"
                     },
                     {
+                      "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
                       "key": "sorting_order",
-                      "value": "<string>"
+                      "value": "ASC_NULLS_LAST"
                     },
                     {
+                      "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
                       "key": "sorting_order",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c9876caa-ae47-4d4a-9425-56abf46a456d",
-          "name": "Search for a specific employee",
-          "request": {
-            "name": "Search for a specific employee",
-            "description": {
-              "content": "Search for a specific employee by employee ID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v2",
-                "employees",
-                ":employeeId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "employeeId",
-                  "description": "(Required) Enter the employee ID."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9b9cc6e0-9193-47f6-9dff-6caa3f41ed31",
-              "name": "Employee resource found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "employees",
-                    ":employeeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "employeeId",
-                      "description": "(Required) Enter the employee ID."
+                      "value": "DESC_NULLS_LAST"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                "description": "Use this endpoint to search for multiple employees."
+              },
+              "response": [
+                {
+                  "id": "658b7939-f728-4a02-a098-a8e96912fdd1",
+                  "name": "Employee search successful",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/employees?companyId=<uuid>&email=<string>&code=<string>&before=S3YM5&after=S3YM5&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=DESC_NULLS_LAST",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "employees"
+                      ],
+                      "query": [
+                        {
+                          "description": "Enter the company ID of the employees you are searching for. This is not a mandatory parameter; hence, if you do not know the company ID, the response message contains details of all employees to which you have access. If you are searching for employees at the organisation level, ensure that the access token used for authentication has the correct permissions.",
+                          "key": "companyId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "The email of the Employee you are searching for.",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The external ID of the Employee you are searching for.",
+                          "key": "code",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "S3YM5"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "S3YM5"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "DESC_NULLS_LAST"
+                        }
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": {\n    \"companyId\": \"daf50716-c866-08ce-5049-816b074d28be\",\n    \"email\": \"string\",\n    \"firstName\": \"string\",\n    \"id\": \"6d5d0f8b-0a1d-c01c-617f-f7d3c363996e\",\n    \"lastName\": \"string\",\n    \"code\": \"string\",\n    \"jobTitle\": \"string\",\n    \"phone\": \"string\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ba2c11ca-c22c-4cab-a0b3-d8e92f72e4b7",
-              "name": "Forbidden: User lacks the necessary permissions to access this Employee",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "employees",
-                    ":employeeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "employeeId",
-                      "description": "(Required) Enter the employee ID."
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"companyId\": \"<uuid>\",\n      \"email\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"id\": \"<uuid>\",\n      \"lastName\": \"<string>\",\n      \"code\": \"<string>\",\n      \"jobTitle\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    {\n      \"companyId\": \"<uuid>\",\n      \"email\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"id\": \"<uuid>\",\n      \"lastName\": \"<string>\",\n      \"code\": \"<string>\",\n      \"jobTitle\": \"<string>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"ullamco5\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"quis_4\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"quis6d\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"after\": \"<string>\",\n      \"before\": \"<string>\",\n      \"limit\": \"<integer>\",\n      \"offset\": \"<long>\",\n      \"sortingKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sortingOrder\": [\n        \"DESC_NULLS_LAST\",\n        \"DESC\"\n      ]\n    },\n    \"hasNextPage\": \"<boolean>\",\n    \"hasPreviousPage\": \"<boolean>\",\n    \"endCursor\": \"<string>\",\n    \"startCursor\": \"<string>\",\n    \"total\": \"<long>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:53:56.000Z",
+                  "updatedAt": "2026-10-22T02:53:56.000Z",
+                  "uid": "35240-658b7939-f728-4a02-a098-a8e96912fdd1"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "2293b96d-722b-432a-bc8b-63501a804fb3",
+                  "name": "Forbidden: User lacks the necessary permissions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v2/employees?companyId=<uuid>&email=<string>&code=<string>&before=S3YM5&after=S3YM5&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=DESC_NULLS_LAST",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v2",
+                        "employees"
+                      ],
+                      "query": [
+                        {
+                          "description": "Enter the company ID of the employees you are searching for. This is not a mandatory parameter; hence, if you do not know the company ID, the response message contains details of all employees to which you have access. If you are searching for employees at the organisation level, ensure that the access token used for authentication has the correct permissions.",
+                          "key": "companyId",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "The email of the Employee you are searching for.",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The external ID of the Employee you are searching for.",
+                          "key": "code",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "S3YM5"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "S3YM5"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "DESC_NULLS_LAST"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T02:53:56.000Z",
+                  "updatedAt": "2026-10-22T02:53:56.000Z",
+                  "uid": "35240-2293b96d-722b-432a-bc8b-63501a804fb3"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "4d60fcce-a1a8-4c1f-b282-a74b7f95e339",
-              "name": "Not Found: Employee with given ID not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v2",
-                    "employees",
-                    ":employeeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "employeeId",
-                      "description": "(Required) Enter the employee ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-22T02:53:56.000Z",
+              "updatedAt": "2026-10-22T02:53:56.000Z",
+              "uid": "35240-0b2c150d-db1c-4e54-ade4-4edaaef2568a"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "b296c592-28c1-48d0-8819-786021345cf9",
+          "createdAt": "2026-10-22T02:53:56.000Z",
+          "updatedAt": "2026-10-22T02:53:56.000Z",
+          "uid": "35240-b296c592-28c1-48d0-8819-786021345cf9"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://external.pleo.io",
-      "key": "baseUrl"
+      "id": "26c274a0-7c1d-4ee9-beaa-d94ab7689c0c",
+      "createdAt": "2026-10-22T02:53:56.000Z",
+      "updatedAt": "2026-10-22T02:53:56.000Z",
+      "uid": "35240-26c274a0-7c1d-4ee9-beaa-d94ab7689c0c"
     }
   ],
   "auth": {
@@ -498,17 +473,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "5872ff51-f14b-4ca1-8eb6-b15b58000198",
-    "name": "App Marketplace accounting-entries Employees API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://external.pleo.io"
     }
-  }
+  ]
 }

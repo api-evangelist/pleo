@@ -1,357 +1,351 @@
 {
+  "info": {
+    "_postman_id": "bba7b26d-31f9-4513-afba-fca758ee9a00",
+    "name": "Export Items (v3) API",
+    "description": "This API enables you to perform the following:\n- Retrieve a list of accounting entries that have been exported to the external ERP/accounting system.\n- Create a new export job event.\n- Retrieve a list of existing export jobs and create a new one.\n- Retrieve details of an export job.\n- Retrieve a list of export job items and update their information.\n\nContact Support:\n Email: apiteam@pleo.io",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:54:38.000Z",
+    "updatedAt": "2026-10-22T02:54:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bba7b26d-31f9-4513-afba-fca758ee9a00"
+  },
   "item": [
     {
-      "id": "f9bd08ff-59c1-4631-873e-022355a64f99",
-      "name": "Export Items (v3)",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v3",
       "item": [
         {
-          "id": "b797de0d-6841-4c22-ab83-7e7f9dd25d5e",
-          "name": "Get Export Items",
-          "request": {
-            "name": "Get Export Items",
-            "description": {
-              "content": "An export item = an accounting entry transformed into an exportable entry. The accounting and bookkeeping information is collected from an accounting entry to form an export item.\n\n•  A request to this endpoint retrieves a list of export items selected for export.\n\n•  Please note that you can retrieve a list of export items only from `pending` and `in_progress` export jobs.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v3",
-                "export-items"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "job_id",
-                  "value": "<uuid>",
-                  "description": "The Export Job ID in which the accounting entries have been included for export."
-                },
-                {
-                  "disabled": false,
-                  "key": "before",
-                  "value": "<string>",
-                  "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "after",
-                  "value": "<string>",
-                  "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset])."
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<long>",
-                  "description": "Offset of the page of data to return (cannot be used together with [before] or [after])."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "The maximum amount of items to return."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_keys",
-                  "value": "<string>",
-                  "description": "The keys to sort the results by."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorting_order",
-                  "value": "<string>",
-                  "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json;charset=UTF-8"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "export-items",
+          "item": [
             {
-              "id": "458d370a-1172-4e30-9b71-dafc820771c6",
-              "name": "Export Items retrieved successfully.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v3",
-                    "export-items"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "job_id",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "<long>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+              "name": "Get Export Items",
+              "id": "fda19fbc-7856-4500-ad93-3863d43ca799",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json;charset=UTF-8"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"_links\": {\n        \"web\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"mobile\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"api\": {\n          \"exportItem\": \"https://example.com\"\n        }\n      },\n      \"accountingEntryId\": \"00000000-0000-0000-0000-000000000000\",\n      \"accountingEntryLines\": [\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"name\": \"Meals and Entertainment\",\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\",\n            \"ingoingTaxAccount\": \"123456\",\n            \"outgoingTaxAccount\": \"123456\"\n          }\n        },\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"name\": \"Meals and Entertainment\",\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\",\n            \"ingoingTaxAccount\": \"123456\",\n            \"outgoingTaxAccount\": \"123456\"\n          }\n        }\n      ],\n      \"additionalInformation\": {\n        \"reconciliationId\": \"string\",\n        \"attendees\": [\n          \"string\",\n          \"string\"\n        ],\n        \"invoiceInformation\": {\n          \"invoiceDate\": \"YYYY-MM-DD\",\n          \"invoiceNumber\": \"string\",\n          \"status\": \"pending_approval\",\n          \"dueDate\": \"YYYY-MM-DD\",\n          \"paymentDate\": \"YYYY-MM-DD\",\n          \"supplierBankAccount\": {\n            \"bankName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bankCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bic\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"iban\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reconciledEntries\": [\n          \"string\"\n        ]\n      },\n      \"amount\": {\n        \"inSupplierCurrency\": {\n          \"currency\": \"RUR\",\n          \"value\": 3902.73446348544\n        },\n        \"inWalletCurrency\": {\n          \"currency\": \"IDR\",\n          \"value\": 8365.261894850362\n        }\n      },\n      \"companyId\": \"00000000-0000-0000-0000-000000000000\",\n      \"date\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"type\": \"card_purchase\",\n      \"bookkeeping\": {\n        \"method\": \"none\"\n      },\n      \"contraAccount\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Pleo GBP Account\",\n        \"code\": \"string\",\n        \"identifier\": \"string\"\n      },\n      \"files\": [\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        },\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        }\n      ],\n      \"note\": \"string\",\n      \"servicePeriod\": {\n        \"from\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\",\n        \"to\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\"\n      },\n      \"subType\": \"reimbursement_to_employee_refund\",\n      \"supplier\": {\n        \"account\": \"string\",\n        \"categoryCode\": \"5999\",\n        \"code\": \"string\",\n        \"country\": \"DK\",\n        \"name\": \"GOOGLE*ADS8693645259\",\n        \"taxIdentifier\": \"string\"\n      },\n      \"team\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Marketing\",\n        \"code\": \"string\"\n      },\n      \"user\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"John Doe\",\n        \"code\": \"string\"\n      },\n      \"vendor\": {\n        \"defaultCurrency\": \"DKK\",\n        \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"name\": \"Pleo\",\n        \"code\": \"string\",\n        \"country\": \"DK\",\n        \"externalId\": \"string\",\n        \"registrationNumber\": \"string\",\n        \"taxRegistrationNumber\": \"string\"\n      }\n    },\n    {\n      \"_links\": {\n        \"web\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"mobile\": {\n          \"exportItem\": \"https://example.com\"\n        },\n        \"api\": {\n          \"exportItem\": \"https://example.com\"\n        }\n      },\n      \"accountingEntryId\": \"00000000-0000-0000-0000-000000000000\",\n      \"accountingEntryLines\": [\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"name\": \"Meals and Entertainment\",\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\",\n            \"ingoingTaxAccount\": \"123456\",\n            \"outgoingTaxAccount\": \"123456\"\n          }\n        },\n        {\n          \"accountingEntryLineId\": \"00000000-0000-0000-0000-000000000000\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"inWalletCurrency\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"name\": \"Meals and Entertainment\",\n            \"code\": \"string\",\n            \"identifier\": \"string\"\n          },\n          \"tags\": [\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"groupCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"tax\": {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": \"00000000-0000-0000-0000-000000000000\",\n            \"rate\": 0.2,\n            \"type\": \"inclusive\",\n            \"code\": \"string\",\n            \"ingoingTaxAccount\": \"123456\",\n            \"outgoingTaxAccount\": \"123456\"\n          }\n        }\n      ],\n      \"additionalInformation\": {\n        \"reconciliationId\": \"string\",\n        \"attendees\": [\n          \"string\",\n          \"string\"\n        ],\n        \"invoiceInformation\": {\n          \"invoiceDate\": \"YYYY-MM-DD\",\n          \"invoiceNumber\": \"string\",\n          \"status\": \"pending_approval\",\n          \"dueDate\": \"YYYY-MM-DD\",\n          \"paymentDate\": \"YYYY-MM-DD\",\n          \"supplierBankAccount\": {\n            \"bankName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"accountNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bankCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"bic\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"iban\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"reconciledEntries\": [\n          \"string\"\n        ]\n      },\n      \"amount\": {\n        \"inSupplierCurrency\": {\n          \"currency\": \"NIO\",\n          \"value\": 7965.123998559657\n        },\n        \"inWalletCurrency\": {\n          \"currency\": \"BYR\",\n          \"value\": 4361.968824896783\n        }\n      },\n      \"companyId\": \"00000000-0000-0000-0000-000000000000\",\n      \"date\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"type\": \"card_purchase\",\n      \"bookkeeping\": {\n        \"method\": \"none\"\n      },\n      \"contraAccount\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Pleo GBP Account\",\n        \"code\": \"string\",\n        \"identifier\": \"string\"\n      },\n      \"files\": [\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        },\n        {\n          \"size\": 2084,\n          \"type\": \"application/pdf\",\n          \"url\": \"https://file.url\"\n        }\n      ],\n      \"note\": \"string\",\n      \"servicePeriod\": {\n        \"from\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\",\n        \"to\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\"\n      },\n      \"subType\": \"reimbursement_to_employee_refund\",\n      \"supplier\": {\n        \"account\": \"string\",\n        \"categoryCode\": \"5999\",\n        \"code\": \"string\",\n        \"country\": \"DK\",\n        \"name\": \"GOOGLE*ADS8693645259\",\n        \"taxIdentifier\": \"string\"\n      },\n      \"team\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"Marketing\",\n        \"code\": \"string\"\n      },\n      \"user\": {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"name\": \"John Doe\",\n        \"code\": \"string\"\n      },\n      \"vendor\": {\n        \"defaultCurrency\": \"DKK\",\n        \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n        \"name\": \"Pleo\",\n        \"code\": \"string\",\n        \"country\": \"DK\",\n        \"externalId\": \"string\",\n        \"registrationNumber\": \"string\",\n        \"taxRegistrationNumber\": \"string\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"key_0\": [\n          \"string\",\n          \"string\"\n        ],\n        \"key_1\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"after\": \"string\",\n      \"before\": \"string\",\n      \"limit\": 9120,\n      \"offset\": 8878,\n      \"sortingKeys\": [\n        \"string\",\n        \"string\"\n      ],\n      \"sortingOrder\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"hasNextPage\": false,\n    \"hasPreviousPage\": false,\n    \"endCursor\": \"string\",\n    \"startCursor\": \"string\",\n    \"total\": 7928\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "53308e69-18bf-48e3-a2a1-7e1a18336b79",
-              "name": "Contra accounts are not fully configured. Please map contra accounts in the Accounting settings. Export items cannot be retrieved until all Pleo accounts have corresponding contra accounts configured in the ERP/accounting system.",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/v3/export-items?job_id=<uuid>&before=N&after=N&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_keys=<string>&sorting_order=DESC_NULLS_LAST&sorting_order=ASC_NULLS_LAST",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v3",
                     "export-items"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "The Export Job ID in which the accounting entries have been included for export.",
                       "key": "job_id",
                       "value": "<uuid>"
                     },
                     {
+                      "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
                       "key": "before",
-                      "value": "<string>"
+                      "value": "N"
                     },
                     {
+                      "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
                       "key": "after",
-                      "value": "<string>"
+                      "value": "N"
                     },
                     {
+                      "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
                       "key": "offset",
                       "value": "<long>"
                     },
                     {
+                      "description": "The maximum amount of items to return.",
                       "key": "limit",
                       "value": "<integer>"
                     },
                     {
+                      "description": "The keys to sort the results by.",
                       "key": "sorting_keys",
                       "value": "<string>"
                     },
                     {
+                      "description": "The keys to sort the results by.",
                       "key": "sorting_keys",
                       "value": "<string>"
                     },
                     {
+                      "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
                       "key": "sorting_order",
-                      "value": "<string>"
+                      "value": "DESC_NULLS_LAST"
                     },
                     {
+                      "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
                       "key": "sorting_order",
-                      "value": "<string>"
+                      "value": "ASC_NULLS_LAST"
+                    }
+                  ]
+                },
+                "description": "An export item = an accounting entry transformed into an exportable entry. The accounting and bookkeeping information is collected from an accounting entry to form an export item.\n\n\u2022 A request to this endpoint retrieves a list of export items selected for export.\n\n\u2022 Please note that you can retrieve a list of export items only from `pending` and `in_progress` export jobs."
+              },
+              "response": [
+                {
+                  "id": "7e88a9ce-38f4-4f7a-bf42-e37fd15f66e6",
+                  "name": "Export Items retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/export-items?job_id=<uuid>&before=N&after=N&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC_NULLS_LAST",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "export-items"
+                      ],
+                      "query": [
+                        {
+                          "description": "The Export Job ID in which the accounting entries have been included for export.",
+                          "key": "job_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "N"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "N"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "ASC_NULLS_LAST"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"_links\": {\n        \"api\": {\n          \"esse_c8\": \"<string>\"\n        },\n        \"mobile\": {\n          \"Ut_7\": \"<string>\"\n        },\n        \"web\": {\n          \"deserunt_795\": \"<string>\"\n        }\n      },\n      \"accountingEntryId\": \"<uuid>\",\n      \"accountingEntryLines\": [\n        {\n          \"accountingEntryLineId\": \"<uuid>\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"currency\": \"MUR\",\n              \"value\": \"<number>\"\n            },\n            \"inWalletCurrency\": {\n              \"currency\": \"UGX\",\n              \"value\": \"<number>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"currency\": \"BSD\",\n              \"value\": \"<number>\"\n            },\n            \"inWalletCurrency\": {\n              \"currency\": \"XPT\",\n              \"value\": \"<number>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"<uuid>\",\n            \"name\": \"<string>\",\n            \"code\": \"<string,null>\",\n            \"identifier\": \"<string,null>\"\n          },\n          \"tags\": \"<array,null>\",\n          \"tax\": null\n        },\n        {\n          \"accountingEntryLineId\": \"<uuid>\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"currency\": \"ZWL\",\n              \"value\": \"<number>\"\n            },\n            \"inWalletCurrency\": {\n              \"currency\": \"SBD\",\n              \"value\": \"<number>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"currency\": \"NIO\",\n              \"value\": \"<number>\"\n            },\n            \"inWalletCurrency\": {\n              \"currency\": \"TMT\",\n              \"value\": \"<number>\"\n            }\n          },\n          \"account\": {\n            \"id\": \"<uuid>\",\n            \"name\": \"<string>\",\n            \"code\": \"<string,null>\",\n            \"identifier\": \"<string,null>\"\n          },\n          \"tags\": \"<array,null>\",\n          \"tax\": {\n            \"amount\": {\n              \"inSupplierCurrency\": {\n                \"currency\": \"UGX\",\n                \"value\": \"<number>\"\n              },\n              \"inWalletCurrency\": {\n                \"currency\": \"AWG\",\n                \"value\": \"<number>\"\n              }\n            },\n            \"id\": \"<uuid>\",\n            \"rate\": \"<number>\",\n            \"type\": \"<string>\",\n            \"code\": \"<string,null>\",\n            \"ingoingTaxAccount\": \"<string>\",\n            \"outgoingTaxAccount\": \"<string>\"\n          }\n        }\n      ],\n      \"additionalInformation\": {\n        \"reconciliationId\": \"<string>\",\n        \"attendees\": \"<array,null>\",\n        \"invoiceInformation\": null,\n        \"reconciledEntries\": \"<array,null>\"\n      },\n      \"amount\": {\n        \"inSupplierCurrency\": {\n          \"currency\": \"EGP\",\n          \"value\": \"<number>\"\n        },\n        \"inWalletCurrency\": {\n          \"currency\": \"BYN\",\n          \"value\": \"<number>\"\n        }\n      },\n      \"companyId\": \"<uuid>\",\n      \"date\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"type\": \"<string>\",\n      \"bookkeeping\": {\n        \"method\": \"<string>\"\n      },\n      \"contraAccount\": null,\n      \"files\": \"<array,null>\",\n      \"note\": \"<string,null>\",\n      \"servicePeriod\": {\n        \"from\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\",\n        \"to\": \"yyyy-MM-dd'T'HH:mm:ss'Z'\"\n      },\n      \"subType\": \"<string>\",\n      \"supplier\": null,\n      \"team\": {\n        \"id\": \"<uuid>\",\n        \"name\": \"<string>\",\n        \"code\": \"<string,null>\"\n      },\n      \"user\": {\n        \"id\": \"<uuid>\",\n        \"name\": \"<string>\",\n        \"code\": \"<string,null>\"\n      },\n      \"vendor\": {\n        \"defaultCurrency\": \"<string>\",\n        \"id\": \"<uuid>\",\n        \"name\": \"<string>\",\n        \"code\": \"<string>\",\n        \"country\": \"FX\",\n        \"externalId\": \"<string>\",\n        \"registrationNumber\": \"<string>\",\n        \"taxRegistrationNumber\": \"<string>\"\n      }\n    },\n    {\n      \"_links\": {\n        \"api\": {\n          \"tempor8d\": \"<string>\",\n          \"nisi_c84\": \"<string>\",\n          \"labore5b9\": \"<string>\"\n        },\n        \"mobile\": {\n          \"exercitation_51\": \"<string>\",\n          \"voluptate_77d\": \"<string>\"\n        },\n        \"web\": {\n          \"ullamcoae9\": \"<string>\",\n          \"labore_87f\": \"<string>\",\n          \"aute_3cb\": \"<string>\"\n        }\n      },\n      \"accountingEntryId\": \"<uuid>\",\n      \"accountingEntryLines\": [\n        {\n          \"accountingEntryLineId\": \"<uuid>\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"currency\": \"EUR\",\n              \"value\": \"<number>\"\n            },\n            \"inWalletCurrency\": {\n              \"currency\": \"NZD\",\n              \"value\": \"<number>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"currency\": \"PEN\",\n              \"value\": \"<number>\"\n            },\n            \"inWalletCurrency\": {\n              \"currency\": \"AOA\",\n              \"value\": \"<number>\"\n            }\n          },\n          \"account\": null,\n          \"tags\": \"<array,null>\",\n          \"tax\": null\n        },\n        {\n          \"accountingEntryLineId\": \"<uuid>\",\n          \"lineAmount\": {\n            \"inSupplierCurrency\": {\n              \"currency\": \"ZMW\",\n              \"value\": \"<number>\"\n            },\n            \"inWalletCurrency\": {\n              \"currency\": \"UGX\",\n              \"value\": \"<number>\"\n            }\n          },\n          \"netAmount\": {\n            \"inSupplierCurrency\": {\n              \"currency\": \"KRW\",\n              \"value\": \"<number>\"\n            },\n            \"inWalletCurrency\": {\n              \"currency\": \"HUF\",\n              \"value\": \"<number>\"\n            }\n          },\n          \"account\": null,\n          \"tags\": \"<array,null>\",\n          \"tax\": {\n            \"amount\": {\n              \"inSupplierCurrency\": {\n                \"currency\": \"PHP\",\n                \"value\": \"<number>\"\n              },\n              \"inWalletCurrency\": {\n                \"currency\": \"XAG\",\n                \"value\": \"<number>\"\n              }\n            },\n            \"id\": \"<uuid>\",\n            \"rate\": \"<number>\",\n            \"type\": \"<string>\",\n            \"code\": \"<string,null>\",\n            \"ingoingTaxAccount\": \"<string>\",\n            \"outgoingTaxAccount\": \"<string>\"\n          }\n        }\n      ],\n      \"additionalInformation\": {\n        \"reconciliationId\": \"<string>\",\n        \"attendees\": \"<array,null>\",\n        \"invoiceInformation\": {\n          \"invoiceDate\": \"YYYY-MM-DD\",\n          \"invoiceNumber\": \"<string>\",\n          \"status\": \"<string>\",\n          \"dueDate\": \"YYYY-MM-DD\",\n          \"paymentDate\": \"YYYY-MM-DD\",\n          \"supplierBankAccount\": {\n            \"bankName\": \"<string>\",\n            \"country\": \"CX\",\n            \"accountNumber\": \"<string,null>\",\n            \"bankCode\": \"<string,null>\",\n            \"bic\": \"<string,null>\",\n            \"iban\": \"<string,null>\"\n          }\n        },\n        \"reconciledEntries\": \"<array,null>\"\n      },\n      \"amount\": {\n        \"inSupplierCurrency\": {\n          \"currency\": \"VEF\",\n          \"value\": \"<number>\"\n        },\n        \"inWalletCurrency\": {\n          \"currency\": \"AZN\",\n          \"value\": \"<number>\"\n        }\n      },\n      \"companyId\": \"<uuid>\",\n      \"date\": \"YYYY-MM-DDTHH:mi:ssZ\",\n      \"type\": \"<string>\",\n      \"bookkeeping\": {\n        \"method\": \"<string>\"\n      },\n      \"contraAccount\": null,\n      \"files\": \"<array,null>\",\n      \"note\": \"<string,null>\",\n      \"servicePeriod\": null,\n      \"subType\": \"<string>\",\n      \"supplier\": null,\n      \"team\": null,\n      \"user\": {\n        \"id\": \"<uuid>\",\n        \"name\": \"<string>\",\n        \"code\": \"<string,null>\"\n      },\n      \"vendor\": null\n    }\n  ],\n  \"pagination\": {\n    \"currentRequestPagination\": {\n      \"parameters\": {\n        \"deserunt_8\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"esseb\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"after\": \"<string>\",\n      \"before\": \"<string>\",\n      \"limit\": \"<integer>\",\n      \"offset\": \"<long>\",\n      \"sortingKeys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"sortingOrder\": [\n        \"ASC_NULLS_FIRST\",\n        \"DESC_NULLS_FIRST\"\n      ]\n    },\n    \"hasNextPage\": \"<boolean>\",\n    \"hasPreviousPage\": \"<boolean>\",\n    \"endCursor\": \"<string>\",\n    \"startCursor\": \"<string>\",\n    \"total\": \"<long>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:54:39.000Z",
+                  "updatedAt": "2026-10-22T02:54:39.000Z",
+                  "uid": "35240-7e88a9ce-38f4-4f7a-bf42-e37fd15f66e6"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
-                }
-              ],
-              "body": "{\n  \"type\": \"MISSING_CONTRA_ACCOUNTS\",\n  \"message\": \"Contra accounts are not fully configured. Please map contra accounts in the Accounting settings.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "139a624a-d5cd-4b4a-a2ec-dfddff013fb8",
-              "name": "Export Job has finished. Only Export Items from running jobs can be retrieved.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v3",
-                    "export-items"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "86486046-7341-4380-b0bc-efc052ae8cb9",
+                  "name": "Contra accounts are not fully configured. Please map contra accounts in the Accounting settings. Export items cannot be retrieved until all Pleo accounts have corresponding contra accounts configured in the ERP/accounting system.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/export-items?job_id=<uuid>&before=N&after=N&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC_NULLS_LAST",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "export-items"
+                      ],
+                      "query": [
+                        {
+                          "description": "The Export Job ID in which the accounting entries have been included for export.",
+                          "key": "job_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "N"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "N"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "ASC_NULLS_LAST"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "job_id",
-                      "value": "<uuid>"
-                    },
-                    {
-                      "key": "before",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "after",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "<long>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_keys",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorting_order",
-                      "value": "<string>"
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T02:54:39.000Z",
+                  "updatedAt": "2026-10-22T02:54:39.000Z",
+                  "uid": "35240-86486046-7341-4380-b0bc-efc052ae8cb9"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json;charset=UTF-8"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json;charset=UTF-8"
+                  "id": "12685854-509a-4fcb-9038-bcb3422b94a2",
+                  "name": "Export Job has finished. Only Export Items from running jobs can be retrieved.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json;charset=UTF-8"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v3/export-items?job_id=<uuid>&before=N&after=N&offset=<long>&limit=<integer>&sorting_keys=<string>&sorting_order=ASC_NULLS_LAST",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v3",
+                        "export-items"
+                      ],
+                      "query": [
+                        {
+                          "description": "The Export Job ID in which the accounting entries have been included for export.",
+                          "key": "job_id",
+                          "value": "<uuid>"
+                        },
+                        {
+                          "description": "Lower bound of the page of data to return (cannot be used together with [after] or [offset]).",
+                          "key": "before",
+                          "value": "N"
+                        },
+                        {
+                          "description": "Upper bound of the page of data to return (cannot be used together with [before] or [offset]).",
+                          "key": "after",
+                          "value": "N"
+                        },
+                        {
+                          "description": "Offset of the page of data to return (cannot be used together with [before] or [after]).",
+                          "key": "offset",
+                          "value": "<long>"
+                        },
+                        {
+                          "description": "The maximum amount of items to return.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The keys to sort the results by.",
+                          "key": "sorting_keys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The order to sort the results by. Must be the same length as [sortingKeys]; one order per key.",
+                          "key": "sorting_order",
+                          "value": "ASC_NULLS_LAST"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json;charset=UTF-8"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T02:54:39.000Z",
+                  "updatedAt": "2026-10-22T02:54:39.000Z",
+                  "uid": "35240-12685854-509a-4fcb-9038-bcb3422b94a2"
                 }
               ],
-              "body": "{\n  \"type\": \"EXPORT_JOB_STATUS_UNPROCESSABLE\",\n  \"message\": \"Export Job is finished and can no longer be processed.\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:54:39.000Z",
+              "updatedAt": "2026-10-22T02:54:39.000Z",
+              "uid": "35240-fda19fbc-7856-4500-ad93-3863d43ca799"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "38cb47eb-1241-47fc-a4e1-0725109be9da",
+          "createdAt": "2026-10-22T02:54:39.000Z",
+          "updatedAt": "2026-10-22T02:54:39.000Z",
+          "uid": "35240-38cb47eb-1241-47fc-a4e1-0725109be9da"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://external.pleo.io",
-      "key": "baseUrl"
+      "id": "24bf3e9c-92a1-4c7b-9cc2-494c486e3998",
+      "createdAt": "2026-10-22T02:54:39.000Z",
+      "updatedAt": "2026-10-22T02:54:39.000Z",
+      "uid": "35240-24bf3e9c-92a1-4c7b-9cc2-494c486e3998"
     }
   ],
   "auth": {
@@ -359,17 +353,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b914ae5b-0f1f-4798-aaed-0b6d60209bb0",
-    "name": "App Marketplace accounting-entries Export Items (v3) API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "API for Pleo App Marketplace\n\nContact Support:\n Email: partner-ecosystem-team@pleo.io",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://external.pleo.io"
     }
-  }
+  ]
 }
